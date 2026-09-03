@@ -1,0 +1,2 @@
+Apps live here. They are consumers of @fitpath/engine, never duplicates of it.
+This run builds the engine only; the demo and widget apps come later.

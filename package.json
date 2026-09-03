@@ -1,0 +1,21 @@
+{
+  "name": "fitpath",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Can this piece of furniture get through that doorway — and if so, how?",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "test": "npm --workspace @fitpath/engine run test",
+    "typecheck": "npm --workspace @fitpath/engine run typecheck",
+    "bench": "npm --workspace @fitpath/engine run bench"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.4"
+  }
+}
