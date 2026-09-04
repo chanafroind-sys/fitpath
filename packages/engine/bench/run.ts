@@ -11,7 +11,8 @@ import { plan } from '../src/planner/plan.ts';
 interface Row {
   scenario: string;
   result: string;
-  millis: number;
+  planMillis: number;
+  totalMillis: number;
   nodes: number;
   collisions: number;
   steps: string;
@@ -21,6 +22,15 @@ const rows: Row[] = [];
 
 for (const scenario of SCENARIOS) {
   const environment = buildEnvironment(scenario.params);
+
+  // Timed separately, because they answer different questions and cost wildly
+  // different amounts. The planner answers "is there a path"; the diagnostics
+  // answer "what would have to change", which means re-planning counterfactuals
+  // and, for the ones that come back negative, proving absence all over again.
+  const planStarted = performance.now();
+  plan(scenario.item, environment, { diagnostics: false });
+  const planMillis = performance.now() - planStarted;
+
   const started = performance.now();
   const result = plan(scenario.item, environment);
   const elapsed = performance.now() - started;
@@ -28,7 +38,8 @@ for (const scenario of SCENARIOS) {
   rows.push({
     scenario: scenario.id,
     result: result.feasible ? 'feasible' : `infeasible (${result.reason})`,
-    millis: elapsed,
+    planMillis,
+    totalMillis: elapsed,
     nodes: result.stats.nodesGenerated,
     collisions: result.stats.collisionChecks,
     steps: result.feasible ? String(result.steps.length) : '-',
@@ -55,11 +66,12 @@ for (const scenario of SCENARIOS) {
 
 console.log('\n\n=== runtime summary ===');
 const width = (values: string[]): number => Math.max(...values.map((v) => v.length));
-const headers = ['scenario', 'result', 'ms', 'nodes', 'collisions', 'steps'];
+const headers = ['scenario', 'result', 'planner ms', 'with diagnostics ms', 'nodes', 'collisions', 'steps'];
 const table = rows.map((r) => [
   r.scenario,
   r.result,
-  r.millis.toFixed(0),
+  r.planMillis.toFixed(0),
+  r.totalMillis.toFixed(0),
   r.nodes.toLocaleString('en-US'),
   r.collisions.toLocaleString('en-US'),
   r.steps,
