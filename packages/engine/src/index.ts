@@ -72,6 +72,7 @@ export {
 export { createEdgeValidator, interpolate, type EdgeValidator } from './planner/edge.ts';
 export { defaultStart, searchLattice, type SearchOutcome } from './planner/astar.ts';
 export { findPath, pathExists, type SearchReport, type SearchRequest } from './planner/search.ts';
+export { firstContactAlongPath, type PathContact } from './planner/replay.ts';
 export { shortcutSmooth } from './planner/smooth.ts';
 export { dominantAxis, segmentPath, stepKind, type Segment } from './planner/segment.ts';
 export { describePath, describeSegment } from './planner/describe.ts';
