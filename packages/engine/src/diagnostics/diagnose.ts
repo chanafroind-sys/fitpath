@@ -16,6 +16,7 @@ export interface DiagnoseContext {
   /** Lattice levels, coarsest first, exactly as the main plan used them. */
   levels: readonly LatticeRequest[];
   maxNodes: number;
+  pivotMoves: boolean;
   start?: Placement;
   /** Run the literal linear scan at full resolution instead of bracketing. */
   exhaustive: boolean;
@@ -118,6 +119,7 @@ export function diagnose(context: DiagnoseContext): Suggestion[] {
       levels: context.levels,
       ...(depth === 'sketch' ? { sketchOnly: true } : {}),
       maxNodes,
+      pivotMoves: context.pivotMoves,
       ...(start !== undefined ? { start } : {}),
     });
   };

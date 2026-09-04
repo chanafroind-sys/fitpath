@@ -77,6 +77,19 @@ one that does not.
 A rolled variant can still be studied by authoring the item pre-rolled and
 planning again. Roll is listed under *Not supported yet* below.
 
+**This makes the item's local frame load-bearing, not a formality.** Pitch turns
+about the item's local Y, so whatever an author puts on local Y is the axis the
+item tips over — and with roll fixed at zero, an item can tip one way or the
+other, never both. Put a wardrobe's 180 cm width on local Y and pitch tips it
+sideways, sweeping the diagonal of its 180 × 220 face: 284 cm, which no normal
+room clears, so the engine confidently reports that an ordinary wardrobe cannot
+be tilted at all. Put its 60 cm depth there, as the fixture does, and pitch tips
+it backward onto its back, sweeping 228 cm, which fits under a 250 cm ceiling.
+Backward is also what a person actually does.
+
+Getting this wrong does not produce a slightly worse answer. It produces a
+confident and wrong "no path found".
+
 Rotations compose as `Rz(yaw) · Ry(pitch) · Rx(roll)`. Yaw is outermost on
 purpose: it swings the *already tilted* item about the world vertical, which is
 the order in which the maneuver is described out loud ("tilt it up, then swing
@@ -150,16 +163,62 @@ trusting it.
 **A coarse failure proves nothing**, so a failed level falls through to the next.
 
 The ladder is not only a speed trick. Edge cost is uniform and the heuristic
-only measures progress toward the room, so tipping a wardrobe upright — lift,
-tilt, lift, tilt, because the lattice moves one axis at a time — looks to A* like
-a dozen moves that make no progress at all, and the number of ways to spend a
-dozen such moves is astronomical. Coarser steps turn those dozen moves into
-four, which is a search the heuristic can actually get through.
+only measures progress toward the room, so any manoeuvre that has to be spelled
+out as a long run of small moves looks to A* like a dozen moves that make no
+progress at all, and the number of ways to spend a dozen such moves is
+astronomical. Coarser steps turn those dozen moves into four, which is a search
+the heuristic can actually get through. Pivot moves below attack the same
+problem from the other side, by making the run short in the first place.
+
+### Pivot moves
+
+A person tipping a wardrobe does not lift it and then rotate it. They set an
+edge on the floor and turn the body about that edge, so it rotates and rises
+together and the contact never leaves the ground.
+
+Ten single-axis neighbours cannot express that. Forced to separate the two, the
+planner must raise the item first and turn it afterwards, which walks it through
+a raised pose the real maneuver never occupies and demands ceiling height the
+real maneuver never needs. For the wardrobe fixture that inflated the
+requirement from 228 cm to 236 cm.
+
+So the neighbourhood also contains **pivot moves**: rotate by one angular step
+about a point on the item's bottom face, and *derive* the translation that keeps
+that point where it was. The rotation is searched; the translation is not. That
+is what keeps the branching factor additive — twelve more neighbours — rather
+than multiplying it the way arbitrary coupled translate-and-rotate steps would.
+
+The anchors, in fixed order:
+
+- **Two bottom edges for pitch**, the ones parallel to the item's local Y, which
+  is the axis pitch turns about. Those are genuine pivot lines with every point
+  fixed. The other two bottom edges are skipped: turning about them would be
+  roll, and offering a "pivot" that silently did nothing of the kind is worse
+  than not offering one. Only the midpoints are needed — a pitch rotation leaves
+  the local Y coordinate untouched, so every anchor along such an edge gives the
+  same move.
+- **Four bottom corners for yaw**, a point contact: swivelling a wardrobe on one
+  corner to walk it round.
+
+The derived position is snapped onto the lattice like any other node, so the
+anchor shifts by up to half a step. That is fine, because a pivot only *proposes*
+a destination — the motion actually validated is the straight interpolation to
+it, under exactly the same anti-tunnelling sampling as every other edge, and
+that interpolation is itself a motion a person can perform.
+
+Set `pivotMoves: false` to recover the strictly single-axis neighbourhood.
+
+One honest consequence: a pivot can change the y index by more than one step, so
+the heuristic below is no longer provably admissible when pivots are enabled.
+Completeness, termination and determinism are unaffected — every reachable node
+is still reached, so an exhausted search is still exhaustive — but the path is
+even less of a shortest path than before. It was never claimed to be one.
 
 ### A*
 
-Neighbours are one step along a single dimension, in a fixed declared order. Yaw
-wraps; a full turn is a loop in the lattice, not a wall.
+Neighbours are one step along a single dimension, in a fixed declared order,
+plus the twelve pivot moves above. Yaw wraps; a full turn is a loop in the
+lattice, not a wall.
 
 Edge cost is a uniform 1. That is deliberately crude — a 2 cm slide and a 15°
 turn are not equally hard to perform — but it makes the heuristic admissible
@@ -305,8 +364,9 @@ algebra would quietly widen every doorway in the engine.
 
 ## Complexity
 
-Let the lattice be `Nx · Ny · Nz · Nyaw · Npitch` nodes. Branching factor is 10
-(two directions along each of five dimensions). Validating one edge costs
+Let the lattice be `Nx · Ny · Nz · Nyaw · Npitch` nodes. Branching factor is 22:
+ten single-axis moves (two directions along each of five dimensions) plus twelve
+pivot moves. Validating one edge costs
 `S · B · E` collision work, where `S` is the sample count from the swept-distance
 bound, `B` the item's box count and `E` the solids in range after the broad
 phase.
@@ -331,17 +391,26 @@ cm per sample); `B` is 8 for the sofa; `E` is at most 11.
 
 | scenario | result | planner | with diagnostics | nodes |
 | --- | --- | ---: | ---: | ---: |
-| trivially fits | feasible | 1022 ms | 998 ms | 465,641 |
-| fits only when tilted | feasible | 41 ms | 34 ms | 29,238 |
-| cannot fit in any orientation | proven-too-large | 0 ms | 29 ms | 0 |
-| hallway too narrow to turn in | no path found | 105 ms | 12,492 ms | 126,264 |
-| fits only after removing the legs | no path found | 494 ms | 14,790 ms | 452,445 |
+| trivially fits | feasible | 184 ms | 165 ms | 53,891 |
+| fits only when tilted | feasible | 732 ms | 602 ms | 275,399 |
+| cannot fit in any orientation | proven-too-large | 0 ms | 64 ms | 0 |
+| hallway too narrow to turn in | no path found | 346 ms | 65,451 ms | 341,506 |
+| fits only after removing the legs | no path found | 2,215 ms | 34,539 ms | 825,087 |
 
-Every planner time is under the 2-second target. Diagnostics on the two
-search-based infeasible cases take 12–15 s, and that is not hidden: each one
-re-plans counterfactuals, and the negative answers among them are themselves
-proofs of absence at full resolution. Under Vitest the same work runs roughly
-2–3× slower because of the transform layer.
+Every planner time is under the 2-second target except the legless-sofa proof at
+2.2 s, which is a proof of absence rather than a search for a path.
+
+Pivot moves cut the easy cases sharply — "trivially fits" went from 1022 ms to
+184 ms, because a pivot reaches in one move what used to take a staircase of
+them — and made the infeasible cases dearer, because a richer neighbourhood
+means a larger reachable set to rule out. That trade is worth taking: the cost
+falls on proving absence, and the benefit lands on every case that has an
+answer.
+
+Diagnostics on the two search-based infeasible cases take 35–65 s, and that is
+not hidden. Each re-plans counterfactuals, and the negative answers among them
+are themselves proofs of absence at full resolution. Under Vitest the same work
+runs roughly 2–3× slower because of the transform layer.
 
 ---
 
@@ -365,7 +434,8 @@ Every one of these has a named test.
 | Item too large for the opening in every orientation | Closed-form proof, no search. |
 | A path that would tunnel a thin wall | Rejected by swept-distance sampling; a 2 cm wall is tested explicitly. |
 | Smoothing collapsing a segment to nothing | Zero-length segments are dropped before they become instructions. |
-| Rotation and lift needed simultaneously | **Not representable.** Single-axis moves mean there must be one height legal at both of two adjacent tilt angles. See below. |
+| Rotation and lift needed simultaneously | Handled by pivot moves: the item turns about a bottom edge, so it rises and rotates together and the contact stays on the floor. |
+| A ceiling too low for any rigid tilt | Reported as no path found, correctly. An AABB's height is translation-invariant, so a face of `w x h` cannot be turned a quarter turn under a ceiling below `sqrt(w^2 + h^2)` by any motion whatsoever. |
 
 ---
 
@@ -374,13 +444,14 @@ Every one of these has a named test.
 Named honestly, because each is a real limit rather than an oversight.
 
 - **Roll.** Two angles, not three. Rolling an item onto its side is a real
-  maneuver this engine will not find.
-- **Simultaneous motion on two axes.** Neighbours are one step along a single
-  dimension, so pivoting a tall wardrobe up on its bottom edge — rotating and
-  lifting together, as a person does — has no representation. The planner needs
-  a height that is legal at both of two adjacent tilt angles, which for a
-  180 × 220 cm face at 30° steps means a ceiling of at least 313 cm. Below that
-  it will report no path found for a maneuver a person could perform.
+  maneuver this engine will not find, and because pitch turns about the item's
+  local Y, an item can be authored to tip one way or the other but not both. A
+  wardrobe that must go sideways through one door and backward through another
+  needs two fixtures.
+- **Arbitrary coupled motion.** Pivot moves cover rotating about a bottom edge
+  or corner, which is the coupling that matters for furniture. Motions that
+  couple two axes in some other way — sliding along a wall while turning, say —
+  still have to be approximated by single-axis steps.
 - **Swept-volume collision detection.** Edge validation samples densely enough
   that nothing can pass clean through a solid, but it is a sampling bound, not a
   proof. It does not rule out a swept volume clipping a corner between two
@@ -417,7 +488,7 @@ rectangleFitsInRectangle(p, q, a, b) -> boolean
 
 `PlanOptions` covers lattice resolution (`positionStep`, `yawStepDeg`,
 `pitchStepDeg`, `maxPitchDeg`, and per-axis position overrides), the coarse
-ladder (`coarsePositionFactor`, `coarseAngleFactor`, `useCoarsePass`), the start
+ladder (`coarsePositionFactor`, `coarseAngleFactor`, `useCoarsePass`), pivot moves (`pivotMoves`), the start
 placement, `maxNodes`, `smooth`, `diagnostics` and `exhaustive`.
 
 Fixtures — `SOFA_3_SEAT`, `WARDROBE`, `REFRIGERATOR` and the five scenarios —

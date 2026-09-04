@@ -1,4 +1,4 @@
-import type { Box, Environment, Item, Placement, Vec3, WorldBox } from '../types.ts';
+import type { AxisBox, Box, Environment, Item, Placement, Vec3, WorldBox } from '../types.ts';
 import { multiply, rotationFrom, rotationMatrix, transform } from '../math/rotation.ts';
 import { boxReach } from './worldBox.ts';
 import { EPSILON, satOverlap } from './sat.ts';
@@ -36,6 +36,17 @@ export interface PreparedItem {
    */
   reach: number;
   boxReaches: readonly number[];
+
+  /**
+   * The item's bounding box in its OWN frame, before any placement.
+   *
+   * Pivot moves are anchored on its bottom face: the edges and corners an item
+   * actually rests and tips on. Taking them from the local box rather than the
+   * world AABB keeps the pitch pivot exact — pitch turns about the item's local
+   * Y, and the local bottom edges parallel to that axis are genuine pivot lines
+   * whose every point stays fixed, not merely a point that happens to stay put.
+   */
+  localBounds: AxisBox;
 
   /** Number of boxes currently in play. */
   count: number;
@@ -78,7 +89,45 @@ export function prepareItem(item: Item, excludeBoxIndices?: readonly number[]): 
     boxRadius[i] = Math.hypot(box.halfExtents.x, box.halfExtents.y, box.halfExtents.z);
   }
 
-  return { item, boxes, reach, boxReaches, count, localCenter, half, localAxes, boxRadius };
+  const localBounds = localBoundsOf(boxes);
+
+  return {
+    item,
+    boxes,
+    reach,
+    boxReaches,
+    localBounds,
+    count,
+    localCenter,
+    half,
+    localAxes,
+    boxRadius,
+  };
+}
+
+/** Union of the boxes' own axis-aligned extents, in the item's local frame. */
+function localBoundsOf(boxes: readonly Box[]): AxisBox {
+  let minX = Infinity;
+  let minY = Infinity;
+  let minZ = Infinity;
+  let maxX = -Infinity;
+  let maxY = -Infinity;
+  let maxZ = -Infinity;
+  for (const box of boxes) {
+    const m = rotationFrom(box.rotation);
+    const h = box.halfExtents;
+    const ex = Math.abs(m[0].x) * h.x + Math.abs(m[1].x) * h.y + Math.abs(m[2].x) * h.z;
+    const ey = Math.abs(m[0].y) * h.x + Math.abs(m[1].y) * h.y + Math.abs(m[2].y) * h.z;
+    const ez = Math.abs(m[0].z) * h.x + Math.abs(m[1].z) * h.y + Math.abs(m[2].z) * h.z;
+    if (box.center.x - ex < minX) minX = box.center.x - ex;
+    if (box.center.y - ey < minY) minY = box.center.y - ey;
+    if (box.center.z - ez < minZ) minZ = box.center.z - ez;
+    if (box.center.x + ex > maxX) maxX = box.center.x + ex;
+    if (box.center.y + ey > maxY) maxY = box.center.y + ey;
+    if (box.center.z + ez > maxZ) maxZ = box.center.z + ez;
+  }
+  if (boxes.length === 0) return { minX: 0, maxX: 0, minY: 0, maxY: 0, minZ: 0, maxZ: 0 };
+  return { minX, maxX, minY, maxY, minZ, maxZ };
 }
 
 function asPrepared(item: Item | PreparedItem): PreparedItem {

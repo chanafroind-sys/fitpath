@@ -29,6 +29,7 @@ const DEFAULTS = {
   maxNodes: 6_000_000,
   diagnostics: true,
   exhaustive: false,
+  pivotMoves: true,
   smooth: true,
 } as const;
 
@@ -112,6 +113,7 @@ export function plan(
           environment,
           levels,
           maxNodes,
+          pivotMoves: options.pivotMoves ?? DEFAULTS.pivotMoves,
           exhaustive: options.exhaustive ?? DEFAULTS.exhaustive,
           ...(options.start !== undefined ? { start: options.start } : {}),
         })
@@ -159,6 +161,7 @@ export function plan(
   const report = findPath(prepared, environment, {
     levels,
     maxNodes,
+    pivotMoves: options.pivotMoves ?? DEFAULTS.pivotMoves,
     ...(options.start !== undefined ? { start: options.start } : {}),
   });
 

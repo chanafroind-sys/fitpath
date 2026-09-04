@@ -22,11 +22,8 @@ import {
  * and "the same input always produces the same path" is a promise the project
  * makes.
  *
- * One axis at a time is also a real modelling limit, not just a search
- * convenience: a maneuver that genuinely needs two axes at once — pivoting a
- * tall wardrobe up on its bottom edge, rotating and lifting together — has no
- * representation on this lattice, and the planner will report that it found no
- * path. The README says so under "Not supported yet".
+ * These ten are not the whole neighbourhood: pivot moves below add the coupled
+ * rotate-and-rise motion that one-axis-at-a-time cannot express.
  */
 const NEIGHBOURS: readonly (readonly [number, number, number, number, number])[] = [
   [1, 0, 0, 0, 0],
@@ -40,6 +37,87 @@ const NEIGHBOURS: readonly (readonly [number, number, number, number, number])[]
   [0, 0, 0, 0, 1],
   [0, 0, 0, 0, -1],
 ];
+
+/**
+ * A pivot anchor: a point in the item's own frame that a pivot move holds still.
+ *
+ * A person tipping a wardrobe does not lift it and then rotate it. They set an
+ * edge on the floor and turn the body about that edge, so it rotates and rises
+ * together and the contact never leaves the ground. Expressing that as separate
+ * lattice moves is not merely inelegant, it is wrong: it forces the item through
+ * a raised pose it never actually occupies, and demands ceiling height that the
+ * real maneuver does not.
+ *
+ * A pivot move therefore picks the rotation and *derives* the translation, so
+ * the branching factor grows by a small constant rather than multiplying.
+ */
+interface PivotAnchor {
+  /** Which lattice angle this pivot turns. */
+  axis: 'pitch' | 'yaw';
+  x: number;
+  y: number;
+  z: number;
+}
+
+/**
+ * The bottom edges and bottom corners the item can turn on.
+ *
+ * Pitch pivots take the two bottom edges parallel to the item's local Y, which
+ * is the axis pitch turns about — those are genuine pivot lines, every point on
+ * them fixed. The other two bottom edges are skipped because turning about them
+ * would be roll, which this model fixes at zero, and offering a "pivot" that
+ * silently did nothing of the kind would be worse than not offering it. Only
+ * the edge midpoints are needed: a pitch rotation leaves the local Y coordinate
+ * untouched, so every anchor along one of those edges yields the same move.
+ *
+ * Yaw pivots take the four bottom corners, which is a point contact — swivelling
+ * a wardrobe on one corner to walk it round. Their z is irrelevant to a rotation
+ * about the world vertical, but is kept at floor level so the anchor is a place
+ * a person could actually put their weight.
+ */
+function pivotAnchors(item: PreparedItem): readonly PivotAnchor[] {
+  const b = item.localBounds;
+  const midY = (b.minY + b.maxY) / 2;
+  // Fixed order. Tie-breaking in the search is part of the engine's output.
+  return [
+    { axis: 'pitch', x: b.minX, y: midY, z: b.minZ },
+    { axis: 'pitch', x: b.maxX, y: midY, z: b.minZ },
+    { axis: 'yaw', x: b.minX, y: b.minY, z: b.minZ },
+    { axis: 'yaw', x: b.maxX, y: b.minY, z: b.minZ },
+    { axis: 'yaw', x: b.minX, y: b.maxY, z: b.minZ },
+    { axis: 'yaw', x: b.maxX, y: b.maxY, z: b.minZ },
+  ];
+}
+
+/**
+ * Rotate a local offset into world coordinates, with roll structurally zero.
+ *
+ * Written out as scalars rather than going through the matrix helpers because
+ * this runs a dozen times per expanded node and the matrix form allocates three
+ * vectors each call.
+ */
+function rotateLocal(
+  yaw: number,
+  pitch: number,
+  lx: number,
+  ly: number,
+  lz: number,
+  out: Vec3Scratch,
+): void {
+  const ca = Math.cos(yaw);
+  const sa = Math.sin(yaw);
+  const cb = Math.cos(pitch);
+  const sb = Math.sin(pitch);
+  out.x = ca * cb * lx - sa * ly + ca * sb * lz;
+  out.y = sa * cb * lx + ca * ly + sa * sb * lz;
+  out.z = -sb * lx + cb * lz;
+}
+
+interface Vec3Scratch {
+  x: number;
+  y: number;
+  z: number;
+}
 
 /** Node state bits, packed one byte per node. */
 const KNOWN_CLEAR = 1;
@@ -216,9 +294,12 @@ export function searchLattice(
   start: NodeIndices,
   maxNodes: number,
   counter: CollisionCounter,
+  usePivots = true,
 ): SearchOutcome {
   const open = new Heap();
   const table = new NodeTable();
+  const anchors = usePivots ? pivotAnchors(item) : [];
+  const offset: Vec3Scratch = { x: 0, y: 0, z: 0 };
 
   let nodesGenerated = 0;
   let nodesExpanded = 0;
@@ -284,6 +365,38 @@ export function searchLattice(
 
     const g = table.g[slot]!;
 
+    /** Offer `there` as a successor. Returns false only when the budget ran out. */
+    const consider = (): boolean => {
+      if (!inBounds(lattice, there)) return true;
+      const nextKey = packKey(lattice, there);
+      if (nextKey === key) return true;
+
+      let nextSlot = table.find(nextKey);
+      if (nextSlot < 0) {
+        if (nodesGenerated >= maxNodes) return false;
+        nextSlot = table.create(nextKey);
+        nodesGenerated++;
+      } else {
+        if (table.state[nextSlot]! & CLOSED) return true;
+        if (g + 1 >= table.g[nextSlot]!) return true;
+      }
+
+      placementInto(lattice, there, therePlacement);
+      if (!isClear(nextSlot, therePlacement)) return true;
+      // Both endpoints are known clear at this point, so only the motion
+      // between them is left to check. A pivot move is validated exactly like
+      // any other: the straight interpolation between the two placements. That
+      // is a slightly different path from the true pivot arc, but it is itself
+      // a motion a person can perform, so clearing it is sufficient.
+      if (!validator.isInteriorValid(herePlacement, therePlacement)) return true;
+
+      table.g[nextSlot] = g + 1;
+      table.parent[nextSlot] = key;
+      const h = heuristic(there.iy);
+      open.push(g + 1 + h, h, nextKey);
+      return true;
+    };
+
     for (let d = 0; d < NEIGHBOURS.length; d++) {
       const delta = NEIGHBOURS[d]!;
       there.ix = here.ix + delta[0];
@@ -292,32 +405,54 @@ export function searchLattice(
       // Yaw is periodic: a full turn is a loop in the lattice, not a wall.
       there.iyaw = (here.iyaw + delta[3] + lattice.nyaw) % lattice.nyaw;
       there.ipitch = here.ipitch + delta[4];
-      if (!inBounds(lattice, there)) continue;
+      if (!consider()) {
+        return { exhausted: false, budgetExhausted: true, nodesGenerated, nodesExpanded };
+      }
+    }
 
-      const nextKey = packKey(lattice, there);
-      let nextSlot = table.find(nextKey);
-      const fresh = nextSlot < 0;
-      if (fresh) {
-        if (nodesGenerated >= maxNodes) {
+    // Pivot moves: turn one angular step about a bottom edge or corner, and
+    // derive where the item must sit for that anchor to stay put.
+    for (let a = 0; a < anchors.length; a++) {
+      const anchor = anchors[a]!;
+      // Where the anchor currently is in the world.
+      rotateLocal(herePlacement.yaw, herePlacement.pitch, anchor.x, anchor.y, anchor.z, offset);
+      const worldX = herePlacement.x + offset.x;
+      const worldY = herePlacement.y + offset.y;
+      const worldZ = herePlacement.z + offset.z;
+
+      for (let sign = -1; sign <= 1; sign += 2) {
+        const nextYaw =
+          anchor.axis === 'yaw'
+            ? (here.iyaw + sign + lattice.nyaw) % lattice.nyaw
+            : here.iyaw;
+        const nextPitch = anchor.axis === 'pitch' ? here.ipitch + sign : here.ipitch;
+        if (nextPitch < lattice.ipitchMin || nextPitch >= lattice.ipitchMin + lattice.npitch) {
+          continue;
+        }
+
+        // Where the item's origin has to go so the anchor lands back on itself.
+        rotateLocal(
+          nextYaw * lattice.yawStep,
+          nextPitch * lattice.pitchStep,
+          anchor.x,
+          anchor.y,
+          anchor.z,
+          offset,
+        );
+        // Snapped to the lattice, so a pivot lands on a real node like every
+        // other move. The anchor therefore shifts by up to half a step; the
+        // edge validation below judges the motion that actually results, not
+        // the idealised one.
+        there.ix = Math.round((worldX - offset.x) / lattice.stepX);
+        there.iy = Math.round((worldY - offset.y) / lattice.stepY);
+        there.iz = Math.round((worldZ - offset.z) / lattice.stepZ);
+        there.iyaw = nextYaw;
+        there.ipitch = nextPitch;
+
+        if (!consider()) {
           return { exhausted: false, budgetExhausted: true, nodesGenerated, nodesExpanded };
         }
-        nextSlot = table.create(nextKey);
-        nodesGenerated++;
-      } else {
-        if (table.state[nextSlot]! & CLOSED) continue;
-        if (g + 1 >= table.g[nextSlot]!) continue;
       }
-
-      placementInto(lattice, there, therePlacement);
-      if (!isClear(nextSlot, therePlacement)) continue;
-      // Both endpoints are known clear at this point, so only the motion
-      // between them is left to check.
-      if (!validator.isInteriorValid(herePlacement, therePlacement)) continue;
-
-      table.g[nextSlot] = g + 1;
-      table.parent[nextSlot] = key;
-      const h = heuristic(there.iy);
-      open.push(g + 1 + h, h, nextKey);
     }
   }
 

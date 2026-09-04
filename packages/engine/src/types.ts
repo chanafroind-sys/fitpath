@@ -242,6 +242,14 @@ export interface PlanOptions {
   coarseAngleFactor?: number;
   /** Run the coarse pass first. Default true. */
   useCoarsePass?: boolean;
+  /**
+   * Allow pivot moves: rotating one angular step about a bottom edge or corner,
+   * with the translation derived so that anchor stays put. Default true.
+   *
+   * Turning them off recovers the old strictly-single-axis neighbourhood, which
+   * is what the tests use to show what pivoting actually buys.
+   */
+  pivotMoves?: boolean;
   /** Where the item starts. Defaults to resting on the hallway floor, aligned with the corridor. */
   start?: Placement;
   /** Hard cap on generated nodes, so a bad scene cannot run forever. Default 6_000_000. */

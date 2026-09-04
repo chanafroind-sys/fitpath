@@ -69,12 +69,34 @@ export const SOFA_3_SEAT: Item = {
   removableParts: [{ name: 'legs', nameHe: 'הרגליים', boxIndices: [4, 5, 6, 7] }],
 };
 
-/** A wardrobe, 180 x 60 x 220. Taller than a standard door, which is the point. */
+/**
+ * A wardrobe, 180 wide x 60 deep x 220 tall. Taller than a standard door, which
+ * is the point.
+ *
+ * Local frame: +X is its 60 cm DEPTH, +Y its 180 cm width, +Z its height. That
+ * assignment is the whole fixture, so it is worth saying why.
+ *
+ * Pitch turns about the item's local Y. Whatever an author puts on local Y is
+ * therefore the edge the item tips over. Put the 180 cm width there and pitch
+ * tips the wardrobe sideways, sweeping the diagonal of its 180 x 220 face —
+ * 284 cm, which no normal room can clear, so the engine would report that a
+ * perfectly ordinary wardrobe cannot be tilted at all. Put the 60 cm depth
+ * there, as here, and pitch tips it backward onto its back, sweeping the
+ * diagonal of its 60 x 220 face: 228 cm, which fits under a 250 cm ceiling.
+ *
+ * Backward is also what a person actually does. The lesson generalises: an
+ * item's local Y should be the axis it pivots about when tilted, and getting
+ * that wrong does not produce a slightly worse answer, it produces a confident
+ * and wrong "no path found".
+ *
+ * With roll fixed at zero this choice is exclusive — an item can tip one way or
+ * the other, not both. See the README's "Not supported yet".
+ */
 export const WARDROBE: Item = {
   id: 'wardrobe',
   name: 'wardrobe',
   nameHe: 'ארון בגדים',
-  boxes: [box({ x: 0, y: 0, z: 110 }, { x: 90, y: 30, z: 110 })],
+  boxes: [box({ x: 0, y: 0, z: 110 }, { x: 30, y: 90, z: 110 })],
 };
 
 /** A refrigerator, 70 x 75 x 185. One solid block, no removable parts. */

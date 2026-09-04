@@ -41,9 +41,12 @@ describe('item fixtures', () => {
   // These caught a real bug: the tilted backrest was positioned from its
   // nominal half-extents rather than its rotated ones, which quietly made the
   // sofa 100.5 cm deep and 100.6 cm tall instead of 95 x 85.
+  // Local-frame extents along X, Y, Z. The wardrobe's 60 cm depth is on local X
+  // and its 180 cm width on local Y, because pitch turns about local Y and that
+  // is the axis a person tips a wardrobe over.
   const expected: [string, [number, number, number]][] = [
     [SOFA_3_SEAT.id, [220, 95, 85]],
-    [WARDROBE.id, [180, 60, 220]],
+    [WARDROBE.id, [60, 180, 220]],
     [REFRIGERATOR.id, [70, 75, 185]],
   ];
 

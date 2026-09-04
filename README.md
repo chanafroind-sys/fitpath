@@ -17,7 +17,7 @@ A taste of what it is for. A 220 cm sofa passes a 110 cm doorway comfortably;
 its cross-section is only 95 × 85 cm. But if it arrives down a corridor with
 100 cm of clearance in front of that door, it can never be turned to face the
 opening, and no amount of widening the door helps. The engine reports that the
-**hallway** is the binding constraint and that it needs 184 cm — a number it
+**hallway** is the binding constraint and that it needs 177 cm — a number it
 gets by re-planning, not by guessing.
 
 Instructions come out in English and Hebrew:

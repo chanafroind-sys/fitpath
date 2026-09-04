@@ -23,6 +23,8 @@ export interface SearchRequest {
   sketchOnly?: boolean;
   maxNodes: number;
   start?: Placement;
+  /** Allow pivot moves. Default true; the tests turn it off to isolate their effect. */
+  pivotMoves?: boolean;
 }
 
 export interface SearchReport {
@@ -49,12 +51,12 @@ export interface SearchReport {
  * falls through to the next instead of being reported.
  *
  * The ladder matters more than it looks. Cost is uniform and the heuristic only
- * measures progress toward the room, so a maneuver like tipping a wardbrobe up
- * — lift, tilt, lift, tilt, because the lattice moves one axis at a time —
- * looks to A* like a dozen moves that make no progress at all, and the number
- * of ways to spend a dozen such moves is astronomical. Coarsening the steps
- * turns those dozen moves into four, which is a search the heuristic can
- * actually get through.
+ * measures progress toward the room, so any maneuver that has to be spelled out
+ * as a long run of small moves looks to A* like a dozen moves that make no
+ * progress at all, and the number of ways to spend a dozen such moves is
+ * astronomical. Coarsening the steps turns those dozen moves into four, which
+ * is a search the heuristic can actually get through. Pivot moves attack the
+ * same problem from the other end, by making the run short to begin with.
  */
 export function findPath(
   item: PreparedItem,
@@ -112,6 +114,7 @@ export function findPath(
       start,
       request.maxNodes,
       counter,
+      request.pivotMoves !== false,
     );
     edgeChecks += validator.edgeChecks;
     lastOutcome = outcome;

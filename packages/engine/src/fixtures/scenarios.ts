@@ -41,33 +41,38 @@ export const TRIVIAL_FIT: Scenario = {
  * 2. The wardrobe is 220 cm tall and the opening is 200 cm high, so it cannot
  * go through standing up. Tilting is the whole answer.
  *
- * The ceiling is 320 cm — an old apartment — and that is not decoration.
+ * A wide opening — a double doorway — with a low header at 205 cm. The wardrobe
+ * is 220 cm tall, so it cannot go through standing up; tipped onto its back it
+ * is 60 cm tall and 180 cm wide, and goes through comfortably.
  *
- * Tipping a 180 x 220 cm face from upright to flat sweeps its diagonal,
- * sqrt(180^2 + 220^2) = 284 cm, so under a normal 250 cm ceiling this wardrobe
- * cannot be tilted at all, anywhere in the scene. Worse, the lattice only moves
- * one axis at a time, so the item cannot rise and rotate together the way a
- * person pivots a wardrobe on its bottom edge: there has to be a single height
- * that is legal at BOTH of two adjacent tilt angles. Working that through for
- * 30 degree steps gives 313 cm as the minimum workable ceiling, and 320 leaves
- * a little air. This is a real limitation of the model, recorded in the
- * README's degenerate cases rather than tuned away quietly.
+ * The ceiling is an ordinary 250 cm. That works because tipping this wardrobe
+ * backward sweeps the diagonal of its 60 x 220 face, 228 cm, and because pivot
+ * moves let it turn about its bottom edge instead of rising first and rotating
+ * afterwards.
+ *
+ * A note on what this scenario cannot be. An AABB's height does not change when
+ * you translate it, so during any rotation from upright to on-its-side the
+ * ceiling must clear the peak of that face's bounding height — no planner, and
+ * no cleverness about coupling rotation to translation, can avoid it. Sending
+ * this wardrobe through a 100 cm wide opening would force its 180 cm and 220 cm
+ * axes to swap between vertical and horizontal, whose peak is 284 cm. That is
+ * impossible below a 284 cm ceiling as a matter of geometry, not of search.
  */
 export const TILT_REQUIRED: Scenario = {
   id: 'tilt-required',
   name: 'Fits only when tilted',
   item: WARDROBE,
   params: {
-    openingWidth: 100,
-    openingHeight: 200,
+    openingWidth: 200,
+    openingHeight: 205,
     wallThickness: 15,
     hallwayWidth: 260,
     hallwayDepth: 420,
     roomDepth: 380,
     roomWidth: 380,
-    ceilingHeight: 320,
+    ceilingHeight: 250,
   },
-  expectation: 'feasible, and the path must contain a non-zero pitch',
+  expectation: 'feasible under a normal ceiling, by pivoting onto its back',
 };
 
 /**
