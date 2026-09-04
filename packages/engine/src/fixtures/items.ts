@@ -7,6 +7,22 @@ function box(center: Vec3, halfExtents: Vec3, rotation: Rotation = UPRIGHT): Box
   return { center, halfExtents, rotation };
 }
 
+// The backrest leans back 12 degrees about the sofa's long axis, which changes
+// how much depth and height it occupies. Its centre is derived from the rotated
+// half-extents rather than written down as a rounded number, so the sofa's
+// overall size comes out at exactly 220 x 95 x 85 instead of a few hundredths
+// over — a fixture that is almost the right size is a fixture that makes every
+// clearance test slightly wrong.
+const BACKREST_ROLL = radians(-12);
+const BACKREST_HALF_DEPTH = 9;
+const BACKREST_HALF_HEIGHT = 30;
+const BACKREST_ROTATED_HALF_DEPTH =
+  Math.abs(Math.cos(BACKREST_ROLL)) * BACKREST_HALF_DEPTH +
+  Math.abs(Math.sin(BACKREST_ROLL)) * BACKREST_HALF_HEIGHT;
+const BACKREST_ROTATED_HALF_HEIGHT =
+  Math.abs(Math.sin(BACKREST_ROLL)) * BACKREST_HALF_DEPTH +
+  Math.abs(Math.cos(BACKREST_ROLL)) * BACKREST_HALF_HEIGHT;
+
 /**
  * A three-seat sofa, 220 x 95 x 85, as eight boxes.
  *
@@ -29,18 +45,18 @@ export const SOFA_3_SEAT: Item = {
     // seat block: the full length, from the front edge back under the backrest
     box({ x: 0, y: -7.5, z: 20 }, { x: 110, y: 40, z: 20 }),
     // Backrest, leaning back 12 degrees about the sofa's long axis. Negative
-    // roll tips the top toward +Y, which is the back.
-    //
-    // Its centre is placed from the rotated half-extents, not the nominal ones:
-    // tilting a 9 x 30 half-box by 12 degrees gives a half-depth of
-    // 9*cos12 + 30*sin12 = 15.04 and a half-height of 9*sin12 + 30*cos12 =
-    // 31.22, so the centre sits at 47.5 - 15.04 back and 70 - 31.22 up to land
-    // the backrest exactly on the sofa's 95 cm depth and 70 cm body height.
-    box({ x: 0, y: 32.459, z: 38.785 }, { x: 110, y: 9, z: 30 }, {
-      yaw: 0,
-      pitch: 0,
-      roll: radians(-12),
-    }),
+    // roll tips the top toward +Y, which is the back. Its centre is placed so
+    // that the rotated box lands exactly on the sofa's 95 cm depth and 70 cm
+    // body height.
+    box(
+      {
+        x: 0,
+        y: 47.5 - BACKREST_ROTATED_HALF_DEPTH,
+        z: 70 - BACKREST_ROTATED_HALF_HEIGHT,
+      },
+      { x: 110, y: BACKREST_HALF_DEPTH, z: BACKREST_HALF_HEIGHT },
+      { yaw: 0, pitch: 0, roll: BACKREST_ROLL },
+    ),
     // armrests: full depth, and they define the sofa's 95 cm depth
     box({ x: -105, y: 0, z: 27.5 }, { x: 5, y: 47.5, z: 27.5 }),
     box({ x: 105, y: 0, z: 27.5 }, { x: 5, y: 47.5, z: 27.5 }),
