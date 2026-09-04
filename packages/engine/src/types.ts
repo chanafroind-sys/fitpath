@@ -154,11 +154,25 @@ export interface Step {
 
 export type SuggestionKind = 'widen-opening' | 'remove-part' | 'widen-hallway';
 
+/**
+ * How firmly a suggestion's claim was established.
+ *
+ * 'coarse-lattice' is one-sided, and the direction matters: a positive found
+ * there is genuinely a path, while a negative only means none was found. A
+ * threshold reported on this basis can therefore be too generous, never too
+ * small — told to widen a doorway by 6 cm, you will not find that 6 cm was
+ * short.
+ */
+export type SuggestionBasis = 'full-resolution' | 'coarse-lattice' | 'not-evaluated';
+
 /** A concrete, computed change to the problem that would make a path appear. */
 export interface Suggestion {
   kind: SuggestionKind;
   /** True only when re-planning with this change actually produced a path. */
   helps: boolean;
+  /** False when this counterfactual was never run: the budget ran out, or an answer was already in hand. */
+  evaluated: boolean;
+  basis: SuggestionBasis;
   en: string;
   he: string;
   /** Present when `helps` and kind is 'widen-opening'. */
@@ -217,6 +231,12 @@ export type PlanResult =
       message: string;
       messageHe: string;
       suggestions: Suggestion[];
+      /**
+       * True when some counterfactual was left unevaluated, because the
+       * diagnostics node budget ran out or because an actionable answer was
+       * already found. The individual suggestions say which.
+       */
+      truncated: boolean;
       stats: PlanStats;
     };
 
@@ -256,6 +276,20 @@ export interface PlanOptions {
   maxNodes?: number;
   /** Compute diagnostics when no path is found. Default true. */
   diagnostics?: boolean;
+  /**
+   * Keep searching for exact thresholds after the first actionable suggestion.
+   * Default false: one usable answer is usually what a caller wants, and the
+   * remaining thresholds are the expensive part.
+   */
+  allSuggestions?: boolean;
+  /**
+   * Total nodes the diagnostics phase may generate.
+   *
+   * Deliberately a node count rather than a time limit, so that the same input
+   * yields the same suggestions — and the same `truncated` flag — regardless of
+   * how fast or how busy the machine is.
+   */
+  diagnosticsNodeBudget?: number;
   /**
    * Run the literal linear 1 cm scan at full resolution instead of the
    * bracket-then-confirm search. Exact either way; this is far slower.

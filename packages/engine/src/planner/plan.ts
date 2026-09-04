@@ -6,9 +6,9 @@ import type {
   PlanResult,
   PlanStats,
   Placement,
-  Suggestion,
 } from '../types.ts';
 import type { LatticeRequest } from './lattice.ts';
+import type { DiagnosisReport } from '../diagnostics/diagnose.ts';
 import { prepareItem } from '../geometry/collide.ts';
 import { provableNoFitInEnvironment } from '../geometry/crossSection.ts';
 import { createEdgeValidator } from './edge.ts';
@@ -16,7 +16,7 @@ import { findPath } from './search.ts';
 import { shortcutSmooth } from './smooth.ts';
 import { segmentPath } from './segment.ts';
 import { describePath } from './describe.ts';
-import { diagnose } from '../diagnostics/diagnose.ts';
+import { DEFAULT_DIAGNOSTICS_NODE_BUDGET, diagnose } from '../diagnostics/diagnose.ts';
 
 const DEFAULTS = {
   positionStep: 2,
@@ -30,6 +30,7 @@ const DEFAULTS = {
   diagnostics: true,
   exhaustive: false,
   pivotMoves: true,
+  allSuggestions: false,
   smooth: true,
 } as const;
 
@@ -106,7 +107,7 @@ export function plan(
 
   const prepared = prepareItem(item);
 
-  const runDiagnostics = (): Suggestion[] =>
+  const runDiagnostics = (): DiagnosisReport =>
     wantDiagnostics
       ? diagnose({
           item,
@@ -115,9 +116,11 @@ export function plan(
           maxNodes,
           pivotMoves: options.pivotMoves ?? DEFAULTS.pivotMoves,
           exhaustive: options.exhaustive ?? DEFAULTS.exhaustive,
+          allSuggestions: options.allSuggestions ?? DEFAULTS.allSuggestions,
+          nodeBudget: options.diagnosticsNodeBudget ?? DEFAULT_DIAGNOSTICS_NODE_BUDGET,
           ...(options.start !== undefined ? { start: options.start } : {}),
         })
-      : [];
+      : { suggestions: [], truncated: false };
 
   /** Stats for an answer that needed no search at all. */
   const statsWithoutSearch = (): PlanStats => ({
@@ -139,7 +142,7 @@ export function plan(
   const proof = provableNoFitInEnvironment(item.boxes, environment);
   if (proof.proven) {
     const [d1, d2] = proof.crossSection!;
-    const suggestions = runDiagnostics();
+    const diagnosis = runDiagnostics();
     return {
       feasible: false,
       reason: 'proven-too-large',
@@ -152,7 +155,8 @@ export function plan(
         `לא נמצא מסלול, וגם לא קיים כזה. חלק מה${item.nameHe} מודד ${d1} על ${d2} ס״מ בחתך הרוחב ` +
         `הקטן ביותר שלו, ולא ניתן להעביר אותו בפתח ${environment.params.openingWidth} על ` +
         `${environment.params.openingHeight} ס״מ בשום זווית ובשום כיוון.`,
-      suggestions,
+      suggestions: diagnosis.suggestions,
+      truncated: diagnosis.truncated,
       stats: statsWithoutSearch(),
     };
   }
@@ -198,7 +202,7 @@ export function plan(
     : 'no-path-found';
 
   const message = buildFailureMessage(item, environment, report.noStart, reason, fine, maxNodes);
-  const suggestions = runDiagnostics();
+  const diagnosis = runDiagnostics();
   stats.millis = performance.now() - startedAt;
 
   return {
@@ -207,7 +211,8 @@ export function plan(
     proven: false,
     message: message.en,
     messageHe: message.he,
-    suggestions,
+    suggestions: diagnosis.suggestions,
+    truncated: diagnosis.truncated,
     stats,
   };
 }

@@ -123,20 +123,48 @@ describe('4. fits through the opening but the hallway is too narrow to turn in',
     expect(Number.isInteger(hallway.extraHallwayWidth)).toBe(true);
   });
 
-  it('confirms the reported hallway width actually works, and one centimetre less does not', () => {
-    const width = suggestion(result, 'widen-hallway').hallwayWidth!;
+  it('confirms the reported hallway width actually works', () => {
+    // The number has to be usable advice: widen to this and the item goes in.
+    const hallway = suggestion(result, 'widen-hallway');
+    const width = hallway.hallwayWidth!;
     const works = plan(
       NARROW_HALLWAY.item,
       buildEnvironment({ ...NARROW_HALLWAY.params, hallwayWidth: width }),
       { diagnostics: false },
     );
-    const justUnder = plan(
-      NARROW_HALLWAY.item,
-      buildEnvironment({ ...NARROW_HALLWAY.params, hallwayWidth: width - 1 }),
-      { diagnostics: false },
-    );
     expect(works.feasible).toBe(true);
-    expect(justUnder.feasible).toBe(false);
+
+    // Under the default budget the threshold is bracketed on the coarse rungs,
+    // which is one-sided: the number can be too generous, never too small. It
+    // must say so rather than implying an exactness it does not have.
+    if (hallway.basis === 'coarse-lattice') {
+      expect(hallway.en).toContain('coarse lattice');
+      expect(width).toBeGreaterThanOrEqual(177);
+    } else {
+      // Refined at full resolution: then one centimetre less must genuinely fail.
+      const justUnder = plan(
+        NARROW_HALLWAY.item,
+        buildEnvironment({ ...NARROW_HALLWAY.params, hallwayWidth: width - 1 }),
+        { diagnostics: false },
+      );
+      expect(justUnder.feasible).toBe(false);
+    }
+  });
+
+  it('keeps diagnostics inside the wall-clock budget', () => {
+    const environment = buildEnvironment(NARROW_HALLWAY.params);
+    const started = performance.now();
+    plan(NARROW_HALLWAY.item, environment);
+    const withDiagnostics = performance.now() - started;
+
+    const bare = performance.now();
+    plan(NARROW_HALLWAY.item, environment, { diagnostics: false });
+    const withoutDiagnostics = performance.now() - bare;
+
+    const diagnosticsOnly = withDiagnostics - withoutDiagnostics;
+    console.log(`[narrow-hallway/diagnostics] ${diagnosticsOnly.toFixed(0)} ms`);
+    // Generous against a loaded CI box; the measured figure is about 2.3 s.
+    expect(diagnosticsOnly).toBeLessThan(8000);
   });
 });
 
@@ -162,6 +190,18 @@ describe('5. fits only after removing the legs', () => {
     // wider door as a fix.
     expect(suggestion(result, 'widen-opening').helps).toBe(false);
     expect(suggestion(result, 'widen-hallway').helps).toBe(false);
+  });
+
+  it('stops once it has an actionable answer, and says that it did', () => {
+    // Taking the legs off is the first family tried and it works, so the two
+    // more expensive remedies are not proved impossible at full resolution —
+    // which would cost minutes to establish and change nobody's decision.
+    expect(result.feasible).toBe(false);
+    if (result.feasible) return;
+    expect(result.truncated).toBe(true);
+    const legs = suggestion(result, 'remove-part');
+    expect(legs.helps).toBe(true);
+    expect(legs.basis).toBe('full-resolution');
   });
 
   it('confirms the legless sofa really does get through', () => {

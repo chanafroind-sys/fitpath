@@ -22,6 +22,7 @@ export type {
   Step,
   StepKind,
   Suggestion,
+  SuggestionBasis,
   SuggestionKind,
   Vec3,
   WorldBox,
@@ -78,9 +79,11 @@ export { describePath, describeSegment } from './planner/describe.ts';
 // Diagnostics
 export {
   diagnose,
+  DEFAULT_DIAGNOSTICS_NODE_BUDGET,
   MAX_EXTRA_HALLWAY,
   MAX_EXTRA_OPENING,
   type DiagnoseContext,
+  type DiagnosisReport,
 } from './diagnostics/diagnose.ts';
 
 // Math

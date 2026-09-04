@@ -278,9 +278,10 @@ reader that it has no way of knowing.
 ## Diagnostics
 
 When no path is found, the engine computes — never guesses — what would change
-the answer. Every number reported was produced by a search that succeeded.
+the answer. Every positive number reported was produced by a search that
+succeeded.
 
-- **A wider opening**: the smallest extra width, to the centimetre, up to +20 cm.
+- **A wider opening**: the smallest extra width, up to +20 cm.
 - **Removing a part**: which removable part, on its own, is enough.
 - **A wider hallway**: the smallest extra clearance in front of the door, and
   whether the hallway rather than the opening is the binding constraint.
@@ -295,24 +296,86 @@ added that could block it.
 So the predicate "a path exists at `v`" is monotone in `v`, and a binary search
 over the candidates is **exact**, not a heuristic.
 
-### Bracket coarse, settle fine
+### The cost is all in one place
 
-The coarse lattice is the only approximation in the engine and it is one-sided:
-it can miss a path, never invent one. So a coarse success is a real success and
-needs no confirmation, while a coarse failure has to be re-asked at full
-resolution before it can be believed.
+One measurement shapes everything else here. Proving that no path exists is
+cheap on the scene as given and ruinous on an enlarged one, because enlarging
+the scene is precisely what gives the search more space to rule out:
 
-That asymmetry is what makes the diagnostics affordable. The coarse binary
-search finds a value that certainly works; the only open question is whether
-something smaller also works, so full resolution is asked exactly that — does
-one centimetre less also work? — and usually stops there. Twenty full-resolution
-runs become two. `exhaustive: true` runs the literal linear 1 cm scan at full
-resolution instead; it is exact either way, and far slower.
+| full-resolution question | nodes | time |
+| --- | ---: | ---: |
+| no path in the scene as given (100 cm hallway) | 341 K | 0.3 s |
+| no path with a 176 cm hallway | 3.9 M | 14.8 s |
+| **a path with a 177 cm hallway** | 3.3 M | 10.0 s |
+| a path with a 195 cm hallway | 26 K | 0.06 s |
 
-The closed-form proof below also short-circuits counterfactuals for free: asking
-"would a wider hallway help?" about an item that cannot fit the opening at all
-is answered by a single rectangle comparison rather than by exhausting an
-enormous corridor.
+Note the third row. Near the threshold even *finding* a path is slow, because
+the weak heuristic makes A* explore nearly the whole reachable set before it
+threads the gap. **Pinning a threshold to the centimetre at full resolution
+therefore costs tens of seconds however it is arranged**; no ordering trick
+avoids it, because the single cheapest probe that separates 177 from 176 costs
+about ten seconds on its own.
+
+So the default trades exactness for speed, explicitly:
+
+1. **Probe each family once**, at its most generous value, in a fixed order —
+   part removal, then the opening, then the hallway. That order is by how much
+   the counterfactual enlarges the search space, which governs its cost, and it
+   happens to coincide with least-effort-first for whoever is doing the moving.
+   Families that do not blow the space up are probed at full resolution, because
+   a positive there is the answer and finding one is cheap. The hallway, which
+   does, is probed on the coarse rungs.
+2. **Stop at the first actionable answer.** Once a fix is on the table, spending
+   minutes proving that two other fixes would also have failed serves nobody.
+   Pass `allSuggestions: true` to carry on.
+3. **Bracket the threshold on the coarse rungs**, then confirm the winning value
+   at full resolution — the cheap direction. Refining downward is attempted only
+   when `diagnosticsNodeBudget` is generous enough to finish.
+
+Every suggestion says which of these it got:
+
+| `basis` | meaning |
+| --- | --- |
+| `full-resolution` | settled on the reference lattice, or by the closed-form proof |
+| `coarse-lattice` | settled only on the coarse rungs |
+| `not-evaluated` | never run: the budget ran out, or an answer was already in hand |
+
+and the result carries `truncated: true` whenever anything is less than
+`full-resolution`.
+
+**A `coarse-lattice` threshold is one-sided, and the direction is the safe one.**
+The coarse rungs can miss a path, never invent one, so the number can be too
+generous but never too small. Told to widen a hallway to 195 cm, you will not
+then discover that 195 cm was short. What you lose is sharpness: the exact
+answer for that scenario is 177 cm, and asking for it costs 79 seconds instead
+of 2.3.
+
+```ts
+plan(item, environment);                                   // 195 cm, 2.3 s
+plan(item, environment, { diagnosticsNodeBudget: 6e7 });   // 177 cm, 79 s
+```
+
+### How the budget stays deterministic
+
+`diagnosticsNodeBudget` is a **node count, not a time limit**, and that is the
+entire point. Node counts are a deterministic function of the input, so the same
+scene yields the same suggestions and the same `truncated` flag on a fast laptop
+and on a loaded CI box alike. A wall-clock budget would make the engine's output
+depend on how busy the machine happened to be, which is exactly the
+irreproducibility this project promises not to have. There is a test that runs
+the same starved diagnosis twice and compares the results byte for byte.
+
+Budget starvation is also biased in the safe direction: inside the bracketing
+search, anything short of a definite success moves the answer upward, so a
+starved probe can only make a suggestion more generous, never less.
+
+`exhaustive: true` runs the literal linear 1 cm scan at full resolution instead.
+It is exact, and far slower.
+
+The closed-form proof short-circuits counterfactuals for free: asking "would a
+wider hallway help?" about an item that cannot fit the opening at all is
+answered by a single rectangle comparison rather than by exhausting an enormous
+corridor, and that negative is exact rather than merely not-found.
 
 ---
 
@@ -391,26 +454,25 @@ cm per sample); `B` is 8 for the sofa; `E` is at most 11.
 
 | scenario | result | planner | with diagnostics | nodes |
 | --- | --- | ---: | ---: | ---: |
-| trivially fits | feasible | 184 ms | 165 ms | 53,891 |
-| fits only when tilted | feasible | 732 ms | 602 ms | 275,399 |
-| cannot fit in any orientation | proven-too-large | 0 ms | 64 ms | 0 |
-| hallway too narrow to turn in | no path found | 346 ms | 65,451 ms | 341,506 |
-| fits only after removing the legs | no path found | 2,215 ms | 34,539 ms | 825,087 |
+| trivially fits | feasible | 202 ms | 180 ms | 53,891 |
+| fits only when tilted | feasible | 710 ms | 705 ms | 275,399 |
+| cannot fit in any orientation | proven-too-large | 0 ms | 215 ms | 0 |
+| hallway too narrow to turn in | no path found | 376 ms | 1,622 ms | 341,506 |
+| fits only after removing the legs | no path found | 1,927 ms | 2,760 ms | 825,087 |
 
-Every planner time is under the 2-second target except the legless-sofa proof at
-2.2 s, which is a proof of absence rather than a search for a path.
+Every planner time is under the 2-second target, and every diagnostics phase is
+comfortably under three seconds — 1.2 s for the narrow hallway and 0.8 s for the
+cellar, down from 65 s and 35 s before the budgeting and best-first ordering
+described above.
 
 Pivot moves cut the easy cases sharply — "trivially fits" went from 1022 ms to
-184 ms, because a pivot reaches in one move what used to take a staircase of
-them — and made the infeasible cases dearer, because a richer neighbourhood
+about 200 ms, because a pivot reaches in one move what used to take a staircase
+of them — while making the infeasible cases dearer, since a richer neighbourhood
 means a larger reachable set to rule out. That trade is worth taking: the cost
-falls on proving absence, and the benefit lands on every case that has an
-answer.
+falls on proving absence, and the benefit lands on every case that has an answer.
 
-Diagnostics on the two search-based infeasible cases take 35–65 s, and that is
-not hidden. Each re-plans counterfactuals, and the negative answers among them
-are themselves proofs of absence at full resolution. Under Vitest the same work
-runs roughly 2–3× slower because of the transform layer.
+Under Vitest the same work runs roughly 2–3× slower because of the transform
+layer.
 
 ---
 
@@ -444,10 +506,35 @@ Every one of these has a named test.
 Named honestly, because each is a real limit rather than an oversight.
 
 - **Roll.** Two angles, not three. Rolling an item onto its side is a real
-  maneuver this engine will not find, and because pitch turns about the item's
-  local Y, an item can be authored to tip one way or the other but not both. A
-  wardrobe that must go sideways through one door and backward through another
-  needs two fixtures.
+  maneuver this engine will not find.
+
+- **A single tilt family, chosen by the fixture author.** This one deserves more
+  than a line, because it is the limitation most likely to produce a wrong
+  answer rather than a missing one.
+
+  Roll is fixed at zero and pitch turns about the item's local Y. Together those
+  mean an item can only ever tip over **one** pair of its faces, and *which*
+  pair is decided by nothing more principled than how whoever authored the
+  fixture assigned its local axes. Yaw does not compensate: yaw changes the
+  world direction the item tips in, not which of the body's faces are involved.
+
+  The wardrobe fixture is the worked example. Its 60 × 220 face sweeps 228 cm
+  when tipped and its 180 × 220 face sweeps 284 cm. Author it one way and it
+  goes backward onto its back under an ordinary 250 cm ceiling; author it the
+  other way and the engine reports, with complete confidence and no warning,
+  that an ordinary wardrobe cannot be tilted at all.
+
+  For a one-off that is a bug you would catch. For a real catalogue, where
+  hundreds of items are imported from suppliers who each have their own axis
+  convention, it is a silent generator of false "no path found" results —
+  precisely the failure mode this engine is otherwise careful to avoid.
+
+  **The fix, not implemented here:** allow pitch about either local X *or* local
+  Y, as two alternative tilt families, and search both. The state space grows by
+  a factor of two — a tilt-family flag alongside the existing angles — rather
+  than the roughly twelvefold cost of admitting full roll as a third continuous
+  angle. That is affordable, and it would make the answer independent of the
+  author's axis convention, which is what actually matters.
 - **Arbitrary coupled motion.** Pivot moves cover rotating about a bottom edge
   or corner, which is the coupling that matters for furniture. Motions that
   couple two axes in some other way — sliding along a wall while turning, say —
