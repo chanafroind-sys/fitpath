@@ -28,9 +28,15 @@ export const SOFA_3_SEAT: Item = {
   boxes: [
     // seat block: the full length, from the front edge back under the backrest
     box({ x: 0, y: -7.5, z: 20 }, { x: 110, y: 40, z: 20 }),
-    // backrest, leaning back 12 degrees about the sofa's long axis.
-    // Negative roll tips the top toward +Y, which is the back.
-    box({ x: 0, y: 38, z: 54.39 }, { x: 110, y: 9, z: 30 }, {
+    // Backrest, leaning back 12 degrees about the sofa's long axis. Negative
+    // roll tips the top toward +Y, which is the back.
+    //
+    // Its centre is placed from the rotated half-extents, not the nominal ones:
+    // tilting a 9 x 30 half-box by 12 degrees gives a half-depth of
+    // 9*cos12 + 30*sin12 = 15.04 and a half-height of 9*sin12 + 30*cos12 =
+    // 31.22, so the centre sits at 47.5 - 15.04 back and 70 - 31.22 up to land
+    // the backrest exactly on the sofa's 95 cm depth and 70 cm body height.
+    box({ x: 0, y: 32.459, z: 38.785 }, { x: 110, y: 9, z: 30 }, {
       yaw: 0,
       pitch: 0,
       roll: radians(-12),
