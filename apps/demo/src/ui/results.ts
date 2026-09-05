@@ -55,13 +55,6 @@ export function suggestionList(
   suggestions: readonly Suggestion[],
   params: EnvironmentParams,
 ): HTMLElement {
-  if (suggestions.length === 0) {
-    return el('p', {
-      class: 'muted',
-      text: 'No counterfactuals were run for this scene.',
-    });
-  }
-
   const list = el('ul', { class: 'suggestions' });
   for (const suggestion of suggestions) {
     const copy = suggestionCopy(suggestion, params);
@@ -103,4 +96,53 @@ export function spinner(message: string): HTMLElement {
     el('span', { class: 'progress-spinner', 'aria-hidden': 'true' }),
     el('span', { class: 'progress-text', text: message }),
   ]);
+}
+
+/**
+ * The "what would change the answer" panel, with exactly one closing sentence.
+ *
+ * There are three states and they used to overlap: an empty list printed "no
+ * counterfactuals were run" while the truncation note underneath printed "some
+ * counterfactuals were left unevaluated", which reads as a contradiction and is
+ * one sentence too many either way. Each state now gets its own sentence and
+ * only its own.
+ */
+export function suggestionsPanel(
+  suggestions: readonly Suggestion[],
+  truncated: boolean,
+  params: EnvironmentParams,
+): HTMLElement {
+  const panel = el('div', { class: 'panel' }, [
+    el('h3', { text: 'What would change the answer' }),
+  ]);
+
+  if (suggestions.length === 0) {
+    // The only way to get here is a search that ran out before settling the
+    // scene as it stands. Nothing was measured, so nothing is reported.
+    panel.append(
+      el('p', {
+        class: 'panel-lede',
+        text: 'Nothing was computed: the search never settled the scene as it stands, and a fix measured against an unsettled baseline would not mean anything.',
+      }),
+    );
+    return panel;
+  }
+
+  panel.append(
+    el('p', {
+      class: 'panel-lede',
+      text: 'Every positive number here was produced by a search that succeeded — the engine re-plans the counterfactual rather than estimating it.',
+    }),
+    suggestionList(suggestions, params),
+  );
+
+  if (truncated) {
+    panel.append(
+      el('p', {
+        class: 'muted',
+        text: 'Some counterfactuals were left unevaluated: either the node budget ran out, or an actionable answer was already in hand.',
+      }),
+    );
+  }
+  return panel;
 }
