@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { rectangleFitsInRectangle, provableNoFit } from '../src/geometry/crossSection.ts';
+import { sortedDimensions } from '../src/geometry/worldBox.ts';
 import { REFRIGERATOR, SOFA_3_SEAT, WARDROBE } from '../src/fixtures/items.ts';
 
 /**
@@ -219,5 +220,54 @@ describe('provableNoFit', () => {
     const proof = provableNoFit(WARDROBE.boxes, 55, 210);
     expect(proof.proven).toBe(true);
     expect(proof.crossSection).toEqual([60, 180]);
+  });
+});
+
+/**
+ * The single most common real query: a three-seat sofa against a standard
+ * 76 cm interior door.
+ *
+ * It is tempting to settle this in closed form — the sofa is 85 cm across at
+ * its narrowest and the door is 76 cm — but that reasoning is about the item's
+ * convex hull, and the hull is not what has to fit through the hole. What has
+ * to fit is the item's SECTION at the instant it crosses the wall plane, and a
+ * sofa is not convex: a plane through its seating well cuts an L-shaped profile
+ * roughly 95 x 70, which turned on its side clears a 76 x 210 doorway.
+ *
+ * So the honest answer is that this scene is a search question, not a proof
+ * question, and `provableNoFit` must decline it. Reporting "proven" here would
+ * be the one failure mode this engine is built to avoid.
+ */
+describe('a sofa at a standard 76 cm door', () => {
+  const DOOR_WIDTH = 76;
+  const DOOR_HEIGHT = 210;
+
+  it('is not proven impossible, because no single box is too large', () => {
+    expect(provableNoFit(SOFA_3_SEAT.boxes, DOOR_WIDTH, DOOR_HEIGHT).proven).toBe(false);
+  });
+
+  it('names the box that comes closest: the seat block, at 40 x 80', () => {
+    // The widest "smallest face" in the item is what the per-box argument turns
+    // on, and it is the seat block. That is the threshold below.
+    const faces = SOFA_3_SEAT.boxes.map((box) => sortedDimensions(box).slice(0, 2) as [number, number]);
+    const widest = faces.reduce((a, b) => (b[0] > a[0] ? b : a));
+    expect(widest).toEqual([40, 80]);
+  });
+
+  it('fires just below that threshold and declines just above it', () => {
+    // 39 cm cannot take the seat block's 40 x 80 face at any angle; 40 cm can,
+    // and then every other box fits too, so nothing is proven.
+    const below = provableNoFit(SOFA_3_SEAT.boxes, 39, DOOR_HEIGHT);
+    expect(below.proven).toBe(true);
+    expect(below.crossSection).toEqual([40, 80]);
+
+    expect(provableNoFit(SOFA_3_SEAT.boxes, 40, DOOR_HEIGHT).proven).toBe(false);
+  });
+
+  it('stays undecided across the whole range of ordinary interior doors', () => {
+    for (let width = 40; width <= 100; width++) {
+      expect(`${width}:${provableNoFit(SOFA_3_SEAT.boxes, width, DOOR_HEIGHT).proven}`)
+        .toBe(`${width}:false`);
+    }
   });
 });
