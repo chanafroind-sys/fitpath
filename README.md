@@ -6,12 +6,19 @@ in the way.
 
 ```
 fitpath/
-  packages/engine/   the geometry engine (this is the whole project so far)
-  apps/              consumers of the engine — nothing here yet
+  packages/engine/   the geometry engine
+  apps/demo/         a mock retailer storefront that runs it in the browser
 ```
 
 The interesting part is [`packages/engine`](packages/engine) — start with its
 [README](packages/engine/README.md).
+
+[`apps/demo`](apps/demo) is a consumer of it, never a copy: a demonstration
+furniture shop whose "will it fit through my door?" button runs the real planner
+in a Web Worker while you watch, animates the path it returns, and says in as
+many words which of its answers are proofs and which are only the absence of a
+result. Its [README](apps/demo/README.md) sets out what on the page is computed
+and what is illustrated.
 
 A taste of what it is for. A 220 cm sofa passes a 110 cm doorway comfortably;
 its cross-section is only 95 × 85 cm. But if it arrives down a corridor with

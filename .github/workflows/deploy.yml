@@ -1,0 +1,61 @@
+# Build the investor demo and publish it to GitHub Pages.
+#
+# The engine's tests run first and the job stops if they fail. The demo's only
+# claim is that its numbers come from the engine, so shipping a demo built on an
+# engine whose tests are red would publish exactly the thing this project says
+# it does not do.
+name: Deploy demo
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# One deployment at a time; let a run in progress finish rather than
+# cancelling it half-published.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Typecheck the engine
+        run: npm --workspace @fitpath/engine run typecheck
+
+      - name: Test the engine
+        run: npm --workspace @fitpath/engine test
+
+      - name: Typecheck and build the demo
+        run: npm --workspace @fitpath/demo run build
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/demo/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
