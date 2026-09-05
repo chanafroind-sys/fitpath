@@ -8,14 +8,20 @@
  * path — what would fix it a couple of seconds later.
  */
 import { buildEnvironment } from '@fitpath/engine';
-import type { EnvironmentParams, Environment, Step, Suggestion } from '@fitpath/engine';
+import type {
+  Environment,
+  EnvironmentParams,
+  PassageOutlook,
+  Step,
+  Suggestion,
+} from '@fitpath/engine';
 import type { Product } from '../catalog.ts';
 import { retailDimensions } from '../catalog.ts';
 import { runPlan, type RunningPlan } from '../engine/client.ts';
 import type { Verdict } from '../engine/protocol.ts';
 import { buildTimeline, stepRanges } from '../viewer/timeline.ts';
 import { clear, el, hebrew } from './dom.ts';
-import { cm, seconds } from './format.ts';
+import { cm, degrees, seconds } from './format.ts';
 import { Playback } from './playback.ts';
 import { Stage, createTransport, type Transport } from './stage.ts';
 import {
@@ -23,7 +29,7 @@ import {
   measurementsStrip,
   spinner,
   stepList,
-  suggestionList,
+  suggestionsPanel,
   verdictCard,
 } from './results.ts';
 
@@ -216,7 +222,7 @@ export function createChecker(product: Product, onBack: () => void): CheckerView
 
   form.addEventListener('submit', submit);
 
-  function render(params: EnvironmentParams, environment: Environment): void {
+  function render(params: EnvironmentParams, environment: Environment, force = false): void {
     clear(results);
 
     const progress = el('div', { class: 'run-progress' }, [spinner('Searching for a path…')]);
@@ -230,33 +236,24 @@ export function createChecker(product: Product, onBack: () => void): CheckerView
     }, 100);
 
     job = runPlan(
-      { itemId: product.id, params },
+      { itemId: product.id, params, ...(force ? { force: true } : {}) },
       {
         onVerdict(verdict: Verdict, millis: number): void {
+          const skipped = !verdict.feasible && verdict.reason === 'not-searched';
           progress.replaceChildren(
             spinner(verdict.feasible ? 'Preparing the animation…' : 'Working out what would fix it…'),
             elapsed,
           );
-          results.append(verdictCard(verdict), statsLine(verdict, millis));
+          results.append(verdictCard(verdict));
+          const stats = statsLine(verdict, millis);
+          if (stats !== null) results.append(stats);
+          if (skipped && !verdict.feasible && verdict.reason === 'not-searched') {
+            results.append(notSearchedPanel(verdict.outlook, () => render(params, environment, true)));
+          }
           if (verdict.feasible) showPath(verdict, environment);
         },
         onDiagnostics(suggestions: Suggestion[], truncated: boolean): void {
-          results.append(
-            el('div', { class: 'panel' }, [
-              el('h3', { text: 'What would change the answer' }),
-              el('p', {
-                class: 'panel-lede',
-                text: 'Every positive number here was produced by a search that succeeded — the engine re-plans the counterfactual rather than estimating it.',
-              }),
-              suggestionList(suggestions, params),
-              truncated
-                ? el('p', {
-                    class: 'muted',
-                    text: 'Some counterfactuals were left unevaluated: either the node budget ran out, or an actionable answer was already in hand.',
-                  })
-                : null,
-            ]),
-          );
+          results.append(suggestionsPanel(suggestions, truncated, params));
         },
         onDone(): void {
           progress.remove();
@@ -315,14 +312,69 @@ export function createChecker(product: Product, onBack: () => void): CheckerView
   };
 }
 
-function statsLine(verdict: Verdict, millis: number): HTMLElement {
+/**
+ * What to do about a scene the search was never spent on.
+ *
+ * Two things: name the removable part that would bring the item under the
+ * opening, when there is one, and offer to run the search anyway. The triage is
+ * a measurement rather than a verdict, so the search has to stay available —
+ * refusing to look would be the measurement overstepping.
+ */
+function notSearchedPanel(outlook: PassageOutlook, onForce: () => void): HTMLElement {
+  const relief = outlook.relievedBy;
+  return el('div', { class: 'panel' }, [
+    el('h3', { text: 'What would change the answer' }),
+    relief !== undefined
+      ? el('div', { class: 'suggestions' }, [
+          el('div', { class: 'suggestion suggestion-fix' }, [
+            el('div', { class: 'suggestion-head' }, [
+              el('span', {
+                class: 'suggestion-headline',
+                text:
+                  `Take the ${relief.part} off: that brings the item to ${cm(relief.hullMinimumWidth)} cm, ` +
+                  `which clears the ${cm(outlook.openingSmallerSide)} cm opening`,
+              }),
+              el('span', { class: 'badge badge-approximate', text: 'measured, not searched' }),
+            ]),
+            hebrew(
+              `להסיר את ${relief.partHe}: כך הרהיט יורד ל-${cm(relief.hullMinimumWidth)} ס״מ, ` +
+                `שעובר את הפתח של ${cm(outlook.openingSmallerSide)} ס״מ`,
+              'suggestion-he',
+            ),
+            el('p', {
+              class: 'suggestion-caveat',
+              text: 'This compares measurements, not paths. Whether a path exists once the part is off is a question only the search answers.',
+            }),
+          ]),
+        ])
+      : el('p', {
+          class: 'panel-lede',
+          text: 'No removable part brings the item under the opening, so there is nothing cheap left to try.',
+        }),
+    el('div', { class: 'form-actions' }, [
+      el('button', {
+        class: 'primary-button',
+        type: 'button',
+        text: 'Search anyway',
+        onclick: onForce,
+      }),
+    ]),
+    el('p', {
+      class: 'muted',
+      text: 'The full search takes a few seconds and can still only answer “no path found” or “inconclusive” — it cannot prove impossibility.',
+    }),
+  ]);
+}
+
+function statsLine(verdict: Verdict, millis: number): HTMLElement | null {
+  if (verdict.feasible === false && verdict.reason === 'not-searched') return null;
   const { stats } = verdict;
   return el('p', { class: 'stats-line' }, [
     el('span', { text: `${seconds(millis)}` }),
     el('span', { text: `${stats.nodesGenerated.toLocaleString('en-US')} nodes` }),
     el('span', { text: `${stats.collisionChecks.toLocaleString('en-US')} collision tests` }),
     el('span', {
-      text: `lattice ${stats.lattice.positionStep} cm / ${stats.lattice.yawStepDeg}°`,
+      text: `lattice ${stats.lattice.positionStep} cm / ${degrees(stats.lattice.yawStepDeg)}°`,
     }),
     stats.solvedOnCoarsePass ? el('span', { text: 'solved on a coarse rung' }) : null,
   ]);

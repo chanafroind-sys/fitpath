@@ -20,7 +20,9 @@ import {
   buildEnvironment,
   diagnose,
   firstContactAlongPath,
+  passageOutlook,
   plan,
+  provableNoFit,
   resolveLattices,
 } from '@fitpath/engine';
 import type { Item, PlanOptions } from '@fitpath/engine';
@@ -41,6 +43,32 @@ const post = (message: WorkerMessage): void => ctx.postMessage(message);
 function run(request: PlanRequest): void {
   const item = ITEMS[request.itemId];
   const environment = buildEnvironment(request.params);
+
+  // Triage, before anything expensive. Two cheap measurements decide whether a
+  // search is worth starting at all:
+  //
+  //  1. The closed-form proof. If it fires, `plan` returns in a millisecond and
+  //     the answer is a real proof, so never skip that.
+  //  2. Otherwise the hull-width outlook. A sofa 85 cm across at its narrowest
+  //     against a 76 cm door is the commonest query this product will get, and
+  //     it costs nearly seven seconds to arrive at "I do not know". The
+  //     measurement gets to the same place at once — and it is reported as a
+  //     search that was skipped, never as a verdict about the furniture.
+  const proof = provableNoFit(item.boxes, request.params.openingWidth, request.params.openingHeight);
+  if (!proof.proven && request.force !== true) {
+    const outlook = passageOutlook(item, request.params.openingWidth, request.params.openingHeight);
+    if (outlook.outlook === 'hopeless') {
+      post({
+        kind: 'verdict',
+        id: request.id,
+        millis: 0,
+        verdict: { feasible: false, reason: 'not-searched', proven: false, outlook },
+      });
+      post({ kind: 'done', id: request.id, millis: 0 });
+      return;
+    }
+  }
+
   const options: PlanOptions = {
     diagnostics: false,
     maxNodes: DEMO_MAX_NODES,

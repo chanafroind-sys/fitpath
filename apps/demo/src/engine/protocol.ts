@@ -10,6 +10,7 @@
 import type {
   EnvironmentParams,
   InfeasibleReason,
+  PassageOutlook,
   PathContact,
   Placement,
   PlanStats,
@@ -32,6 +33,13 @@ export interface PlanRequest {
   start?: Placement;
   /** When a path is found, replay it in this second scene and report the first contact. */
   replayIn?: EnvironmentParams;
+  /**
+   * Search even when the cheap triage says the scene is hopeless.
+   *
+   * The triage is a measurement, not a verdict, so refusing outright would be
+   * overstepping. This is how the page offers to spend the seconds anyway.
+   */
+  force?: boolean;
 }
 
 export type Verdict =
@@ -43,7 +51,19 @@ export type Verdict =
       message: string;
       messageHe: string;
       stats: PlanStats;
-    };
+    }
+  /**
+   * The search was never started, because a measurement said it was very
+   * unlikely to find anything. Not a verdict about the furniture: a statement
+   * about how the time was spent.
+   */
+  | { feasible: false; reason: 'not-searched'; proven: false; outlook: PassageOutlook };
+
+/** A verdict that came out of an actual search, and therefore carries stats. */
+export type SearchedVerdict = Exclude<Verdict, { reason: 'not-searched' }>;
+
+export const wasSearched = (verdict: Verdict): verdict is SearchedVerdict =>
+  verdict.feasible || verdict.reason !== 'not-searched';
 
 export type WorkerMessage =
   /** Phase one: the answer itself, posted as soon as the search returns. */

@@ -17,7 +17,7 @@
  *     rendered as approximations, and rounded UP, which is the direction that
  *     keeps the guarantee intact.
  */
-import type { InfeasibleReason, Suggestion } from '@fitpath/engine';
+import type { InfeasibleReason, PassageOutlook, Suggestion } from '@fitpath/engine';
 import type { Verdict } from '../engine/protocol.ts';
 
 export type VerdictTone = 'fits' | 'not-found' | 'proven' | 'inconclusive';
@@ -41,7 +41,34 @@ export function verdictLabel(verdict: Verdict): VerdictLabel {
       noteHe: 'נמצא מסלול, וכל מיקום לאורכו נבדק מול התנגשויות.',
     };
   }
+  if (verdict.reason === 'not-searched') return notSearchedLabel(verdict.outlook);
   return infeasibleLabel(verdict.reason);
+}
+
+/**
+ * The scene the planner was never asked about.
+ *
+ * The wording has one job: say that a measurement decided how to spend the
+ * time, and that a measurement is not a proof. The engine's sound refutation
+ * works on the item's cross-section; this works on its convex hull, and a shape
+ * with a hollow in it can be wider than an opening in every direction and still
+ * thread it. So: "not searched", never "does not fit".
+ */
+function notSearchedLabel(outlook: PassageOutlook): VerdictLabel {
+  const item = cm(outlook.hullMinimumWidth);
+  const opening = cm(outlook.openingSmallerSide);
+  return {
+    tone: 'inconclusive',
+    title: 'Not searched',
+    titleHe: 'לא בוצע חיפוש',
+    note:
+      `The item is ${item} cm across at its narrowest and the opening is ${opening} cm, ` +
+      'so the search was skipped rather than spent. That is a measurement, not a proof: ' +
+      'an item with a hollow in it can be wider than an opening in every direction and still get through.',
+    noteHe:
+      `הרהיט הוא ${item} ס״מ ברוחבו הצר ביותר והפתח הוא ${opening} ס״מ, ` +
+      'ולכן החיפוש לא בוצע. זו מדידה ולא הוכחה: פריט עם חלל פנימי יכול להיות רחב מהפתח בכל כיוון ובכל זאת לעבור.',
+  };
 }
 
 function infeasibleLabel(reason: InfeasibleReason): VerdictLabel {
@@ -230,6 +257,17 @@ export const PRECISION_BADGE: Record<SuggestionCopy['precision'], string> = {
   approximate: 'approximate',
   'not-evaluated': 'not evaluated',
 };
+
+/**
+ * An angle, for display.
+ *
+ * The engine keeps angles in radians and converts back to degrees at the API
+ * surface, so a 15 degree lattice step comes out as 14.999999999999998. That is
+ * a correct float and a terrible thing to print.
+ */
+export function degrees(value: number): string {
+  return String(Math.round(value * 100) / 100);
+}
 
 export function shekels(value: number): string {
   return `₪${value.toLocaleString('en-US')}`;

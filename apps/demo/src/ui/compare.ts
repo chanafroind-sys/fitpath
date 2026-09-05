@@ -13,6 +13,7 @@
 import { buildEnvironment } from '@fitpath/engine';
 import type { Environment, PathContact, Placement, Suggestion } from '@fitpath/engine';
 import { COMPARE } from '../catalog.ts';
+import { wasSearched } from '../engine/protocol.ts';
 import type { Verdict } from '../engine/protocol.ts';
 import { runPlan, type RunningPlan } from '../engine/client.ts';
 import { buildTimeline, stepRanges, type Timeline } from '../viewer/timeline.ts';
@@ -146,7 +147,12 @@ export function createCompareView(): CompareView {
           roomySide.stage.setOverlay(null);
           if (!verdict.feasible) {
             clear(roomySide.note);
-            roomySide.note.append(el('p', { class: 'muted', text: verdict.message }));
+            roomySide.note.append(
+              el('p', {
+                class: 'muted',
+                text: wasSearched(verdict) ? verdict.message : 'The search was not run for this scene.',
+              }),
+            );
             return;
           }
 
@@ -205,7 +211,9 @@ export function createCompareView(): CompareView {
               verdict.feasible
                 ? el('strong', { text: `${verdict.steps.length} moves` })
                 : el('strong', { text: 'Every reachable configuration ruled out' }),
-              ` · ${seconds(millis)} · ${verdict.stats.nodesGenerated.toLocaleString('en-US')} nodes`,
+              wasSearched(verdict)
+                ? ` · ${seconds(millis)} · ${verdict.stats.nodesGenerated.toLocaleString('en-US')} nodes`
+                : ' · not searched',
             ]),
             el('p', { class: 'compare-pending', text: 'Working out what would fix it…' }),
           );

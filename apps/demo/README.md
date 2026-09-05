@@ -24,7 +24,7 @@ plainly as it is stated on the page itself.
 
 | On the page | Where it comes from |
 | --- | --- |
-| Every verdict — *Fits*, *No path found*, *Won't fit — proven*, *Inconclusive* | `plan()`, in a Web Worker, from the measurements shown |
+| Every verdict — *Fits*, *No path found*, *Won't fit — proven*, *Inconclusive*, *Not searched* | `plan()` (or the triage below), in a Web Worker, from the measurements shown |
 | The animated maneuver | the `Placement[]` path `plan()` returned, interpolated by the engine's own `interpolate` |
 | The step instructions, English and Hebrew | `Step.en` / `Step.he` |
 | The thresholds — "about 195 cm of clearance" | `diagnose()`, which re-plans the counterfactual rather than estimating it |
@@ -78,6 +78,19 @@ the closed-form cross-section proof — establishes impossibility, and it is the
 only verdict allowed to look like one. `search-budget-exhausted` is a fourth
 state, rendered as *Inconclusive*, because a search that ran out of budget
 concluded nothing.
+
+**"Not searched" is its own state, and it is not a verdict about the
+furniture.** Before planning, the worker measures the item's convex hull at its
+narrowest and compares it with the opening's smaller side. A three-seat sofa is
+85 cm across at its narrowest; a standard interior door is 76 cm. That scene
+costs about seven seconds of search and ends in *Inconclusive*, so the search is
+skipped and the page says so — in 12 ms instead of 6,700. What it must never say
+is that the sofa does not fit, because the measurement is not a proof: the
+engine's own tests contain a helix whose hull is 86 cm at its narrowest and which
+screws through a 60 cm opening. The panel names the removable part that would
+bring the item under the opening when there is one, badges it *measured, not
+searched*, and offers **Search anyway**, which runs the full search and reports
+whatever it actually finds.
 
 **A coarse-lattice threshold is rendered as an approximation.** When a
 suggestion's `basis` is `'coarse-lattice'`, the number is one-sided: the coarse
@@ -133,7 +146,11 @@ Two presentation decisions are worth naming, since they change what you see:
 twenty-odd seconds before the search gives up — fine for a batch tool, fatal for
 a page someone is looking at. 1.2 M settles all five named scenarios with room
 to spare (the dearest needs 825,087) and caps the pathological case at about six
-seconds, after which the page says *Inconclusive* rather than pretending to a no.
+seconds, after which the page says *Inconclusive* rather than pretending to a no. The
+triage above removes the commonest reason that budget was ever reached; a scene
+that is genuinely borderline — where the item does clear the opening on paper and
+the difficulty is the room to maneuver — still costs the full budget, which is
+the honest price of a node count rather than a stopwatch.
 
 ---
 
