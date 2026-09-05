@@ -46,6 +46,11 @@ export {
   type PreparedItem,
 } from './geometry/collide.ts';
 export {
+  convexHullMinimumWidth,
+  passageOutlook,
+  type PassageOutlook,
+} from './geometry/hullWidth.ts';
+export {
   provableNoFit,
   provableNoFitInEnvironment,
   rectangleFitsInRectangle,

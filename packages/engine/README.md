@@ -425,6 +425,92 @@ algebra would quietly widen every doorway in the engine.
 
 ---
 
+## Triage: deciding whether to search at all
+
+`provableNoFit` is a **proof** and it is deliberately weak. Everything below is
+a **measurement** and is deliberately not trusted.
+
+### Why the proof is per-box, and why that is not a bug
+
+The closed-form check walks the item's boxes and asks whether any *one* of them
+has a smallest face too large for the opening. It never looks at the item as a
+whole, and for a multi-box item that is a big gap: a three-seat sofa's widest
+"smallest face" is its seat block's 40 x 80, which sails through a 76 cm
+doorway, while the assembled sofa is 85 cm across at its narrowest.
+
+The gap is not an oversight — it is where the argument runs out. The proof is
+sound because each box is a **convex** rigid sub-body that must cross the wall
+plane, so at the instant that box's centre lies on the plane its section is a
+central section, and the smallest rectangle containing any central section of a
+box is its smallest face. Every step of that needs convexity. The item as a
+whole is not convex, and neither of the obvious substitutes works:
+
+- **Its bounding box** is not sound. The item is a *subset* of its bounding box,
+  so a bounding box too large to pass proves nothing whatever about the item.
+- **Its convex hull** is not sound either, for the same reason and less
+  obviously. What has to fit through the hole is the item's *section* at the
+  instant it crosses, and the section of a non-convex body can be arbitrarily
+  smaller than the corresponding section of its hull.
+
+### The counterexample, because "less obviously" is not good enough
+
+`test/hullWidth.test.ts` builds a helix out of overlapping cubes: 40 cm radius,
+two turns, a 6 cm wire. Its convex hull is a cylinder, and the hull's minimum
+width over all directions is **86 cm**. It goes through a **60 cm** opening —
+cleanly, with 2,000 sampled placements all verified clear by the engine's own
+`collides` — by screwing, the way a bolt goes through a nut. The engine's
+placement model expresses that motion exactly: at yaw 0, pitch turns about the
+world Y axis, which is the axis through the wall, so a screw is a pitch sweep
+with the translation matched to the helix's pitch.
+
+So a body can be wider than a hole in **every** direction and still thread it.
+Any rule of the form "hull minimum width > opening, therefore impossible" would
+be confidently wrong about that shape, and `proven` would stop meaning proven.
+
+### What the sofa case actually is
+
+For the commonest real query — a 220 x 95 x 85 sofa at a standard 76 cm interior
+door — **no closed-form refutation is available at all**, and the engine says so
+by declining. The reason is the sofa's seating well: a plane cutting through it
+produces an L-shaped profile roughly 95 x 70, and turned on its side that clears
+a 76 x 210 doorway. Sampling every candidate fixed point against 16,380 plane
+directions, between 30% and 55% of directions give a section that fits. The
+section argument therefore cannot refute it, and nothing weaker is sound.
+
+That scene is a search question. It is also one the search does not settle: it
+exhausts 1.2 M nodes and reports `search-budget-exhausted`.
+
+### `convexHullMinimumWidth` and `passageOutlook`
+
+Which is where the measurement earns its place. `passageOutlook` compares the
+item's hull minimum width against the opening's smaller side and returns
+`'hopeless'` or `'worth-searching'`. It decides **how much time to spend**, never
+what the answer is, and a caller that shows it to a person must say the search
+was skipped rather than that the item does not fit.
+
+- `outlook` is about the item **as authored**, because that is the search about
+  to run.
+- A removable part that would bring the item under the opening is reported
+  separately in `relievedBy` — the sofa's legs take it from 85 cm to 70 cm —
+  rather than folded into `outlook`, which would answer a different question.
+
+The width is minimised over a fixed lattice of directions, so the figure is an
+**upper bound** on the true minimum, converging from above. For every fixture
+here it is exact at any density, because their thinnest direction is an axis.
+
+| item | hull minimum width |
+| --- | ---: |
+| 3-seat sofa | 85 cm |
+| ...without its legs | 70 cm |
+| wardrobe | 60 cm |
+| refrigerator | 70 cm |
+
+Ordering matters: run the proof first, the outlook second. `IMPOSSIBLE` (a
+refrigerator at a 50 cm opening) would be triaged as hopeless, but the proof
+answers it first and answers it *better* — with a proof.
+
+---
+
 ## Complexity
 
 Let the lattice be `Nx · Ny · Nz · Nyaw · Npitch` nodes. Branching factor is 22:
@@ -569,8 +655,12 @@ withParams(environment, overrides) -> Environment
 
 satOverlap(a, b) -> boolean
 collides(item, placement, environment) -> boolean
-provableNoFit(boxes, openingWidth, openingHeight) -> NoFitProof
+provableNoFit(boxes, openingWidth, openingHeight) -> NoFitProof     // a proof
 rectangleFitsInRectangle(p, q, a, b) -> boolean
+firstContactAlongPath(item, path, environment) -> PathContact | undefined
+
+convexHullMinimumWidth(boxes, resolution?) -> number                // a measurement
+passageOutlook(item, openingWidth, openingHeight) -> PassageOutlook // never a verdict
 ```
 
 `PlanOptions` covers lattice resolution (`positionStep`, `yawStepDeg`,
