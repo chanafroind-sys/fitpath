@@ -44,7 +44,11 @@ jobs:
       - name: Typecheck and build the demo
         run: npm --workspace @fitpath/demo run build
 
+      # `enablement` turns Pages on for the repository if it is off, so a fresh
+      # clone deploys without anyone visiting the settings page first.
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:
