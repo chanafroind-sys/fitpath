@@ -44,11 +44,12 @@ jobs:
       - name: Typecheck and build the demo
         run: npm --workspace @fitpath/demo run build
 
-      # `enablement` turns Pages on for the repository if it is off, so a fresh
-      # clone deploys without anyone visiting the settings page first.
+      # Requires Pages to be switched on for the repository first:
+      # Settings > Pages > Build and deployment > Source: "GitHub Actions".
+      # This action can also enable it via the API, but the default GITHUB_TOKEN
+      # is not permitted to create a Pages site, so that path just fails with
+      # "Resource not accessible by integration". One manual click, once.
       - uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:

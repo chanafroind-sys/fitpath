@@ -139,7 +139,16 @@ seconds, after which the page says *Inconclusive* rather than pretending to a no
 
 ## Deployment
 
-Pushing to `main` builds this app and publishes it to GitHub Pages via
+Pushing to `main` runs the engine's typecheck and tests, builds this app, and
+publishes it to GitHub Pages via
 [`.github/workflows/deploy.yml`](../../.github/workflows/deploy.yml). The build
 uses a relative `base`, so the same bundle works on a project-scoped Pages URL
 and from a local `vite preview` without a rebuild.
+
+**One-time setup.** Pages has to be switched on for the repository before the
+workflow can publish to it: **Settings → Pages → Build and deployment →
+Source: GitHub Actions**. The workflow could ask the API to enable it instead,
+but the default `GITHUB_TOKEN` is not permitted to create a Pages site, so that
+path only produces `Resource not accessible by integration`. Until the setting
+is flipped, the build and test steps still run and still gate the merge — only
+the deploy step fails.
