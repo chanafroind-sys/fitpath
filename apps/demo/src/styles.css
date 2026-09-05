@@ -572,14 +572,6 @@ img {
   padding: 0.3rem 0.7rem;
 }
 
-.stage-badges {
-  position: absolute;
-  left: 0.7rem;
-  bottom: 0.6rem;
-  display: flex;
-  gap: 0.4rem;
-}
-
 .stage-overlay {
   position: absolute;
   inset: 0;

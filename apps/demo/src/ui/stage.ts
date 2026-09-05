@@ -22,7 +22,6 @@ export class Stage {
   readonly element: HTMLElement;
   private readonly canvas: HTMLCanvasElement;
   private readonly overlay: HTMLElement;
-  private readonly badgeSlot: HTMLElement;
   private readonly labelSlot: HTMLElement;
   private readonly viewer: Viewer;
   private readonly unsubscribeTheme: () => void;
@@ -31,7 +30,6 @@ export class Stage {
   constructor(options: StageOptions = {}) {
     this.canvas = el('canvas', { class: 'stage-canvas' });
     this.overlay = el('div', { class: 'stage-overlay', hidden: true });
-    this.badgeSlot = el('div', { class: 'stage-badges' });
     this.labelSlot = el('div', { class: 'stage-label' }, [
       options.label !== undefined ? el('strong', { text: options.label }) : null,
       options.sublabel !== undefined ? el('span', { text: options.sublabel }) : null,
@@ -53,7 +51,6 @@ export class Stage {
     this.element = el('div', { class: 'stage' }, [
       this.canvas,
       this.labelSlot,
-      this.badgeSlot,
       el('div', { class: 'stage-tools' }, [topDownButton]),
       this.overlay,
     ]);
@@ -79,11 +76,6 @@ export class Stage {
     }
     this.overlay.append(content);
     this.overlay.hidden = false;
-  }
-
-  setBadges(badges: HTMLElement[]): void {
-    clear(this.badgeSlot);
-    for (const badge of badges) this.badgeSlot.append(badge);
   }
 
   dispose(): void {

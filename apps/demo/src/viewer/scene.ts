@@ -33,7 +33,6 @@ export interface Palette {
   item: number;
   removable: number;
   blocked: number;
-  ghost: number;
   accent: number;
   /** The key light, which gives the scene its shading. */
   keyIntensity: number;
@@ -69,7 +68,6 @@ export const LIGHT_PALETTE: Palette = {
   item: 0x8a7b66,
   removable: 0x453424,
   blocked: 0xb1382a,
-  ghost: 0x8b9198,
   accent: 0x1a6b58,
   keyIntensity: 1.25,
   fillIntensity: 1.75,
@@ -88,7 +86,6 @@ export const DARK_PALETTE: Palette = {
   item: 0x9aa4b0,
   removable: 0xd0aa47,
   blocked: 0xd04c3e,
-  ghost: 0x4d545c,
   accent: 0x3ec9a7,
   keyIntensity: 1.85,
   fillIntensity: 2.05,
@@ -242,7 +239,6 @@ export interface ItemView {
   group: THREE.Group;
   setPlacement(placement: Placement): void;
   setColour(colour: number): void;
-  setOpacity(value: number): void;
   dispose(): void;
 }
 
@@ -258,41 +254,32 @@ function applyRotation(object: THREE.Object3D, yaw: number, pitch: number, roll:
   );
 }
 
-export function buildItemView(
-  item: Item,
-  palette: Palette,
-  options: { ghost?: boolean } = {},
-): ItemView {
-  const ghost = options.ghost === true;
+export function buildItemView(item: Item, palette: Palette): ItemView {
   const group = new THREE.Group();
   const removable = new Set<number>();
   for (const part of item.removableParts ?? []) {
     for (const index of part.boxIndices) removable.add(index);
   }
 
-  // Transparency only when it is actually wanted. A `transparent` material with
-  // opacity 1 still goes down the blended path, and a solid sofa that renders
-  // as a faint pink smear is not a sofa.
+  // Opaque, deliberately. A `transparent` material with opacity 1 still goes
+  // down the blended path, and a solid sofa that renders as a faint smear is
+  // not a sofa.
   const body = new THREE.MeshStandardMaterial({
-    color: ghost ? palette.ghost : palette.item,
+    color: palette.item,
     roughness: 0.74,
     metalness: 0.02,
-    transparent: ghost,
-    opacity: ghost ? 0.32 : 1,
   });
   const parts = new THREE.MeshStandardMaterial({
-    color: ghost ? palette.ghost : palette.removable,
+    color: palette.removable,
     roughness: 0.55,
     metalness: 0.05,
-    transparent: ghost,
-    opacity: ghost ? 0.32 : 1,
   });
 
   const geometries: THREE.BufferGeometry[] = [];
   const outline = new THREE.LineBasicMaterial({
     color: 0x000000,
     transparent: true,
-    opacity: ghost ? 0.08 : 0.2,
+    opacity: 0.2,
   });
 
   for (const [index, box] of item.boxes.entries()) {
@@ -306,7 +293,7 @@ export function buildItemView(
     const mesh = new THREE.Mesh(geometry, removable.has(index) ? parts : body);
     mesh.position.set(box.center.x, box.center.y, box.center.z);
     applyRotation(mesh, box.rotation.yaw, box.rotation.pitch, box.rotation.roll);
-    mesh.castShadow = !ghost;
+    mesh.castShadow = true;
     group.add(mesh);
 
     // A soft outline, so the silhouette stays legible against a wall of the
@@ -328,14 +315,6 @@ export function buildItemView(
     setColour(colour: number): void {
       body.color.setHex(colour);
       parts.color.setHex(colour);
-    },
-    setOpacity(value: number): void {
-      body.transparent = value < 1;
-      parts.transparent = value < 1;
-      body.opacity = value;
-      parts.opacity = value;
-      body.needsUpdate = true;
-      parts.needsUpdate = true;
     },
     dispose(): void {
       for (const geometry of geometries) geometry.dispose();

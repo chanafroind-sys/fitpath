@@ -42,10 +42,6 @@ export class Playback {
     this.looping = on;
   }
 
-  get isPlaying(): boolean {
-    return this.playing;
-  }
-
   get position(): number {
     return this.fraction;
   }

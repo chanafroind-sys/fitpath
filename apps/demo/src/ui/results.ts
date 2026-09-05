@@ -6,7 +6,7 @@
  */
 import type { EnvironmentParams, Step, Suggestion } from '@fitpath/engine';
 import { el, hebrew } from './dom.ts';
-import { PRECISION_BADGE, cm, suggestionCopy, verdictLabel, type VerdictTone } from './format.ts';
+import { PRECISION_BADGE, cm, suggestionCopy, verdictLabel } from './format.ts';
 import type { Verdict } from '../engine/protocol.ts';
 
 export function verdictPill(verdict: Verdict): HTMLElement {
@@ -14,13 +14,6 @@ export function verdictPill(verdict: Verdict): HTMLElement {
   return el('span', { class: `pill pill-${label.tone}` }, [
     el('span', { class: 'pill-dot', 'aria-hidden': 'true' }),
     el('span', { text: label.title }),
-  ]);
-}
-
-export function tonePill(tone: VerdictTone, text: string): HTMLElement {
-  return el('span', { class: `pill pill-${tone}` }, [
-    el('span', { class: 'pill-dot', 'aria-hidden': 'true' }),
-    el('span', { text }),
   ]);
 }
 

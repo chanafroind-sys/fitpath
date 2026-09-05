@@ -13,7 +13,6 @@
 import { buildEnvironment } from '@fitpath/engine';
 import type { Environment, PathContact, Placement, Suggestion } from '@fitpath/engine';
 import { COMPARE } from '../catalog.ts';
-import { DEMO_MAX_NODES } from '../engine/protocol.ts';
 import type { Verdict } from '../engine/protocol.ts';
 import { runPlan, type RunningPlan } from '../engine/client.ts';
 import { buildTimeline, stepRanges, type Timeline } from '../viewer/timeline.ts';
@@ -36,7 +35,9 @@ function buildSide(
   label: string,
   sublabel: string,
 ): Side {
-  const stage = new Stage({ label, sublabel });
+  // No label on the canvas: the card header above it already says which
+  // corridor this is, and saying it twice in the same box reads as a mistake.
+  const stage = new Stage();
   const head = el('div', { class: 'compare-head' }, [
     el('div', {}, [
       el('h3', { class: 'compare-side-title', text: label }),
@@ -236,5 +237,3 @@ export function createCompareView(): CompareView {
     },
   };
 }
-
-export const COMPARE_NODE_CAP = DEMO_MAX_NODES;

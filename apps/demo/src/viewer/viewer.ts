@@ -242,10 +242,6 @@ export class Viewer {
     this.invalidate();
   }
 
-  resetCamera(): void {
-    this.setTopDown(false);
-  }
-
   /**
    * Called from the shared frame loop. Renders only when something changed, and
    * says whether it needs another frame — which is true exactly while the
