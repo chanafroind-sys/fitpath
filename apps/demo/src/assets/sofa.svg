@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-label="Three-seat sofa, illustration">
+  <defs>
+    <linearGradient id="s-body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b9b0a4"/><stop offset="1" stop-color="#9a9086"/>
+    </linearGradient>
+    <linearGradient id="s-back" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c8c0b5"/><stop offset="1" stop-color="#aba396"/>
+    </linearGradient>
+    <linearGradient id="s-floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4f2ee"/><stop offset="1" stop-color="#e6e2db"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="520" fill="url(#s-floor)"/>
+  <ellipse cx="400" cy="430" rx="290" ry="26" fill="#000" opacity="0.10"/>
+  <!-- backrest, leaning back -->
+  <path d="M148 176 L652 176 L664 300 L136 300 Z" fill="url(#s-back)"/>
+  <path d="M148 176 L652 176 L650 192 L150 192 Z" fill="#d6cfc4"/>
+  <!-- seat cushions -->
+  <g fill="url(#s-body)" stroke="#8c8378" stroke-width="2">
+    <rect x="168" y="272" width="152" height="56" rx="14"/>
+    <rect x="324" y="272" width="152" height="56" rx="14"/>
+    <rect x="480" y="272" width="152" height="56" rx="14"/>
+  </g>
+  <!-- base -->
+  <rect x="150" y="322" width="500" height="52" rx="10" fill="#8f8579"/>
+  <!-- armrests -->
+  <rect x="104" y="212" width="56" height="168" rx="18" fill="#b3aa9e" stroke="#8c8378" stroke-width="2"/>
+  <rect x="640" y="212" width="56" height="168" rx="18" fill="#b3aa9e" stroke="#8c8378" stroke-width="2"/>
+  <!-- legs -->
+  <g fill="#5c4a38">
+    <rect x="130" y="378" width="16" height="40" rx="4"/>
+    <rect x="654" y="378" width="16" height="40" rx="4"/>
+    <rect x="196" y="374" width="14" height="36" rx="4"/>
+    <rect x="590" y="374" width="14" height="36" rx="4"/>
+  </g>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-label="Refrigerator, illustration">
+  <defs>
+    <linearGradient id="f-steel" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#cfd4d8"/><stop offset="0.35" stop-color="#eef1f3"/>
+      <stop offset="0.6" stop-color="#c8ced3"/><stop offset="1" stop-color="#aab2b9"/>
+    </linearGradient>
+    <linearGradient id="f-floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4f2ee"/><stop offset="1" stop-color="#e6e2db"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="520" fill="url(#f-floor)"/>
+  <ellipse cx="400" cy="452" rx="150" ry="18" fill="#000" opacity="0.10"/>
+  <rect x="292" y="76" width="216" height="376" rx="10" fill="url(#f-steel)" stroke="#9aa2a9" stroke-width="2"/>
+  <rect x="300" y="84" width="200" height="128" rx="6" fill="#dde2e6" stroke="#b3bbc1" stroke-width="1.5"/>
+  <rect x="300" y="222" width="200" height="222" rx="6" fill="#dde2e6" stroke="#b3bbc1" stroke-width="1.5"/>
+  <g fill="#7d868d">
+    <rect x="470" y="112" width="9" height="72" rx="4.5"/>
+    <rect x="470" y="252" width="9" height="112" rx="4.5"/>
+  </g>
+  <rect x="316" y="106" width="52" height="8" rx="4" fill="#aeb6bc"/>
+</svg>

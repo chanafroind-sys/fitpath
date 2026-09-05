@@ -1,0 +1,22 @@
+{
+  "name": "@fitpath/demo",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Investor demo for @fitpath/engine: a mock retailer page and a fit checker.",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@fitpath/engine": "*",
+    "three": "^0.169.0"
+  },
+  "devDependencies": {
+    "@types/three": "^0.169.0",
+    "vite": "^5.4.11"
+  }
+}
