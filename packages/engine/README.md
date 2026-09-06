@@ -214,6 +214,88 @@ Completeness, termination and determinism are unaffected — every reachable nod
 is still reached, so an exhausted search is still exhaustive — but the path is
 even less of a shortest path than before. It was never claimed to be one.
 
+### Finding a path and proving there is none are different jobs
+
+They used to cost the same, and that is the wrong shape for the problem. A
+search only has to stumble on **one** working sequence to answer yes; it has to
+exhaust the whole reachable set to answer no. So each rung is asked the cheap
+question before the expensive one.
+
+**A greedy pass** runs first: the same A\*, with the heuristic weighted by fifty,
+which is best-first in all but name. It rushes at the goal, ignores how long the
+route is, and gives up after 20,000 nodes. Optimality is not wanted here — the
+path is smoothed, settled and relaxed afterwards anyway — and a path is a path.
+
+**Then a bidirectional pass.** One tree from the start, one grown backwards from
+settled poses inside the room, strictly alternating, meeting in the middle. At a
+branching factor of 22, halving the depth each tree must reach is not a
+percentage. It is capped at 60,000 nodes.
+
+Both are **allowed to conclude only yes**. Every edge is validated by the same
+`EdgeValidator` the ladder uses, so a path either returns is a real path; but
+the backward tree grows from a fixed handful of seeds rather than the whole goal
+region, and greedy abandons the space it has not looked at, so failing means
+nothing whatever. The full search still runs behind them.
+
+Three deliberate restrictions, each of them measured rather than assumed:
+
+- **Coarse rungs only.** On the reference lattice the fast passes are at their
+  most expensive and least likely to pay, and by the time a scene reaches that
+  rung the coarse ones have already failed. Left on, they cost the two
+  proof-of-absence scenarios seconds and found nothing.
+- **Not inside diagnostics** (`fastPasses: false`). A user-facing plan wants one
+  answer soon, so a bounded bet that usually pays is straightforwardly good. The
+  diagnostics phase wants many answers inside a fixed node budget, and there the
+  bet that does not pay is taken dozens of times over.
+- **Shared budget.** `maxNodes` is the allowance for the whole call, not one
+  each pass gets afresh, and the reported node count includes what the fast
+  passes spent. A count that hid it would understate what the engine cost.
+
+Measured, in nodes, which is the figure that is the same on every machine:
+
+| scenario | before | after |
+| --- | ---: | ---: |
+| trivially fits | 53,891 | 46,486 |
+| **fits only when tilted** | **275,399** | **17,604** |
+| cannot fit in any orientation | 0 | 0 |
+| hallway too narrow to turn in | 341,506 | 352,845 |
+| fits only after removing the legs | 825,087 | 825,087 |
+| sofa, 110 cm door | 28,903 | 27,044 |
+| sofa, 100 cm door | 25,615 | 32,518 |
+| sofa, 96 cm door | 22,935 | 44,271 |
+| sofa, 96 cm door, 250 cm hallway | 74,717 | 40,390 |
+
+One large win, several small ones, and two cases where trying the cheap question
+first costs about 20,000 nodes because the ladder would have answered anyway.
+That is the trade: a bounded tax on scenes that were already easy, against a
+fifteenfold saving on one that was not. Every feasible scene finishes well
+inside a second.
+
+The honest caveat is on the clock rather than the count. The bidirectional pass
+keeps its own tables and revalidates every edge from scratch, so it costs
+several times as much per node as the ladder, and on easy scenes its wall-clock
+saving is smaller than its node saving suggests — sometimes negative. The node
+figures above are exact and reproducible; timings on the development machine
+varied by a factor of three between identical runs.
+
+### The narrowest a sofa can be
+
+Worth stating plainly, because it is the answer to a question this section might
+otherwise seem to be dodging. **A 220 x 95 x 85 sofa cannot pass an opening
+narrower than 95 cm**, and no amount of search speed changes that.
+
+At yaw 90 its 95 cm depth lies across the doorway, and pitch turns about that
+very axis, so tilting cannot make the figure any smaller. Any other yaw brings
+some of the 220 cm length across the opening, which is worse. Sweeping every
+orientation the reference lattice admits, under a 210 cm lintel, the narrowest
+presentation is exactly 95.0 cm.
+
+Roll would fix it — laid on its side the sofa presents 85 cm — and roll is fixed
+at zero. So an 86 cm or 90 cm doorway is not a slow *yes*, it is a *no* that
+costs a proof of absence to establish. `test/fastPasses.test.ts` pins 80, 86, 90
+and 94 as negatives and 96 as feasible, so a future "improvement" that starts
+finding paths there is caught as the bug it would be.
+
 ### A*
 
 Neighbours are one step along a single dimension, in a fixed declared order,
