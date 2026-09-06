@@ -58,6 +58,27 @@ export interface Item {
 }
 
 /**
+ * Which of the item's own axes `pitch` turns about.
+ *
+ * Roll is still fixed at zero: this is not a third continuous angle, it is a
+ * choice between two tilt *families*, and the state space grows by a factor of
+ * two rather than the roughly twelvefold that admitting arbitrary roll would
+ * cost.
+ *
+ * Why it exists at all: with one family, which pair of faces an item can tip
+ * over is decided by nothing more principled than how whoever authored the
+ * fixture assigned its local axes. The sofa tips onto its back and never onto
+ * its side, so a 90 cm doorway it would go through in any real hallway comes
+ * back as "no path found" — a confident, wrong answer, and the failure mode
+ * this engine is otherwise careful to avoid.
+ *
+ * The two families meet at `pitch === 0`, where they describe the same
+ * orientation, and that is the only place a path may cross between them. Which
+ * is also what a person does: set it down level before tipping it the other way.
+ */
+export type TiltAxis = 'x' | 'y';
+
+/**
  * The configuration. Roll is deliberately absent, fixed at 0.
  *
  * Why two angles: yaw covers turning the item in plan and pitch covers tilting
@@ -74,6 +95,12 @@ export interface Placement {
   z: number;
   yaw: number;
   pitch: number;
+  /**
+   * Which local axis `pitch` turns about. Absent means 'y', which is what the
+   * engine searched before the second family existed — so every placement ever
+   * written down without this field still means exactly what it used to.
+   */
+  tiltAxis?: TiltAxis;
 }
 
 /** A box transformed into world space, with the derived quantities the broad phase needs. */
@@ -262,6 +289,28 @@ export interface PlanOptions {
   coarseAngleFactor?: number;
   /** Run the coarse pass first. Default true. */
   useCoarsePass?: boolean;
+  /**
+   * Search tilts about the item's local X as well as its local Y.
+   * **Default false**, and the reason is measured rather than assumed.
+   *
+   * The capability is real and correct — it is what lets a sofa go through a
+   * doorway on its side rather than only on its back, and it removes the
+   * dependence of the answer on how an author happened to assign the item's
+   * axes. It doubles the state space, exactly as intended, rather than the
+   * roughly twelvefold that arbitrary roll would cost.
+   *
+   * What it does not do, yet, is change any answer. The routes it unlocks for
+   * this fixture exist only on the reference lattice — the coarse rungs are
+   * exhausted with no path, measured — and on that rung the heuristic runs out
+   * long before the goal test fires, leaving a plateau of about fifty moves at
+   * a branching factor of twenty-two. So turning it on today buys nothing and
+   * costs: `legs-must-come-off` goes from 825,087 nodes to 1,130,248, and an
+   * 80 cm doorway stops being a clean `no-path-found` and becomes
+   * `search-budget-exhausted`, which is a true result lost.
+   *
+   * See the README's "The second tilt family, and what it is waiting for".
+   */
+  secondTiltFamily?: boolean;
   /**
    * Allow pivot moves: rotating one angular step about a bottom edge or corner,
    * with the translation derived so that anchor stays put. Default true.

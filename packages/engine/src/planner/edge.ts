@@ -47,6 +47,23 @@ export function interpolate(from: Placement, to: Placement, t: number): Placemen
   return interpolateInto(from, to, t, { x: 0, y: 0, z: 0, yaw: 0, pitch: 0 });
 }
 
+/**
+ * Can a straight motion be drawn between these two placements at all?
+ *
+ * Blending two tilt families at a nonzero pitch is meaningless: the angle turns
+ * about a different body axis at each end, and interpolating the number without
+ * interpolating the axis would describe a motion nothing performs. The families
+ * coincide at pitch 0, which is the only place a path may cross between them.
+ *
+ * Refusing an edge can only lose paths, never invent one, so this is the safe
+ * direction. Smoothing is the caller that needs it: it connects placements that
+ * were never adjacent in the search.
+ */
+export function sameTiltFrame(from: Placement, to: Placement): boolean {
+  if ((from.tiltAxis ?? 'y') === (to.tiltAxis ?? 'y')) return true;
+  return from.pitch === 0 && to.pitch === 0;
+}
+
 /** The same, into a caller-owned object, for the sampling loops. */
 export function interpolateInto(
   from: Placement,
@@ -59,6 +76,10 @@ export function interpolateInto(
   out.z = from.z + (to.z - from.z) * t;
   out.yaw = wrapAngle(from.yaw + angleDelta(from.yaw, to.yaw) * t);
   out.pitch = from.pitch + (to.pitch - from.pitch) * t;
+  // The destination's family, which is right in both admissible cases: the two
+  // ends agree, or they are both level and the families describe the same
+  // orientation anyway. `sameTiltFrame` rules out the rest.
+  out.tiltAxis = to.tiltAxis ?? 'y';
   return out;
 }
 
@@ -107,6 +128,7 @@ export function createEdgeValidator(
     },
 
     isValid(from: Placement, to: Placement): boolean {
+      if (!sameTiltFrame(from, to)) return false;
       const samples = validator.sampleCount(from, to);
       validator.edgeChecks++;
       // Sample from the far end inward. An edge that fails usually fails
@@ -121,6 +143,7 @@ export function createEdgeValidator(
     },
 
     isInteriorValid(from: Placement, to: Placement): boolean {
+      if (!sameTiltFrame(from, to)) return false;
       const samples = validator.sampleCount(from, to);
       validator.edgeChecks++;
       // With a single sample the whole motion is shorter than the allowed

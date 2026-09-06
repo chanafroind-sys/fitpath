@@ -56,9 +56,21 @@ export function segmentPath(path: Placement[], reach: number): Segment[] {
     }
   }
 
-  // A segment whose endpoints coincide carries no instruction; it can appear
-  // when smoothing collapses a run to nothing.
-  return segments.filter((s) => s.startIndex !== s.endIndex);
+  // A segment that moves the item nowhere carries no instruction. Coinciding
+  // endpoints are the obvious case, but relaxation can also leave a run whose
+  // net motion rounds to nothing while its indices still differ — which reads
+  // as "Lower it about 0 cm", an instruction to do nothing.
+  return segments.filter((s) => s.startIndex !== s.endIndex && sweptDistance(s, reach) > 0.5);
+}
+
+/** How far the item's furthest point actually travels across a segment. */
+function sweptDistance(segment: Segment, reach: number): number {
+  const { from, to } = segment;
+  return (
+    Math.hypot(to.x - from.x, to.y - from.y, to.z - from.z) +
+    Math.abs(angleDelta(from.yaw, to.yaw)) * reach +
+    Math.abs(to.pitch - from.pitch) * reach
+  );
 }
 
 /** Map a motion axis plus its direction onto the vocabulary the descriptions use. */

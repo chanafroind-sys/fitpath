@@ -40,6 +40,12 @@ export interface Lattice {
   /** Yaw wraps, so its index range always covers a full turn. */
   nyaw: number;
   npitch: number;
+  /**
+   * Tilt families searched: 2 for both, 1 for the historical local-Y family
+   * alone. The two coincide at pitch 0, so this is a factor of two on the
+   * state space rather than of two-minus-a-slice.
+   */
+  ntilt: number;
 
   /** Product of the five extents: the size of the space A* may not exceed. */
   nodeCount: number;
@@ -58,6 +64,8 @@ export interface LatticeRequest {
   yawStepDeg: number;
   pitchStepDeg: number;
   maxPitchDeg: number;
+  /** Search tilts about local X as well as local Y. Default true. */
+  secondTiltFamily?: boolean;
 }
 
 /** Indices identifying one node. */
@@ -67,6 +75,8 @@ export interface NodeIndices {
   iz: number;
   iyaw: number;
   ipitch: number;
+  /** 0 is the local-Y tilt family, 1 the local-X one. */
+  itilt: number;
 }
 
 const MAX_SAFE_NODES = 2 ** 50;
@@ -117,23 +127,28 @@ export function buildLattice(
   // heuristic must never overestimate.
   let goalYLow = Infinity;
 
-  for (let ipitch = ipitchMin; ipitch <= ipitchMax; ipitch++) {
-    for (let iyaw = 0; iyaw < nyaw; iyaw++) {
-      const probe: Placement = {
-        x: 0,
-        y: 0,
-        z: 0,
-        yaw: iyaw * yawStep,
-        pitch: ipitch * pitchStep,
-      };
-      const aabb = unionAabb(itemWorldBoxes(item, probe));
-      xLow = Math.min(xLow, freeMinX - aabb.minX);
-      xHigh = Math.max(xHigh, freeMaxX - aabb.maxX);
-      yLow = Math.min(yLow, freeMinY - aabb.minY);
-      yHigh = Math.max(yHigh, freeMaxY - aabb.maxY);
-      zLow = Math.min(zLow, freeMinZ - aabb.minZ);
-      zHigh = Math.max(zHigh, freeMaxZ - aabb.maxZ);
-      goalYLow = Math.min(goalYLow, environment.room.minY - aabb.minY);
+  const ntilt = request.secondTiltFamily === false ? 1 : 2;
+
+  for (let itilt = 0; itilt < ntilt; itilt++) {
+    for (let ipitch = ipitchMin; ipitch <= ipitchMax; ipitch++) {
+      for (let iyaw = 0; iyaw < nyaw; iyaw++) {
+        const probe: Placement = {
+          x: 0,
+          y: 0,
+          z: 0,
+          yaw: iyaw * yawStep,
+          pitch: ipitch * pitchStep,
+          tiltAxis: itilt === 1 ? 'x' : 'y',
+        };
+        const aabb = unionAabb(itemWorldBoxes(item, probe));
+        xLow = Math.min(xLow, freeMinX - aabb.minX);
+        xHigh = Math.max(xHigh, freeMaxX - aabb.maxX);
+        yLow = Math.min(yLow, freeMinY - aabb.minY);
+        yHigh = Math.max(yHigh, freeMaxY - aabb.maxY);
+        zLow = Math.min(zLow, freeMinZ - aabb.minZ);
+        zHigh = Math.max(zHigh, freeMaxZ - aabb.maxZ);
+        goalYLow = Math.min(goalYLow, environment.room.minY - aabb.minY);
+      }
     }
   }
 
@@ -149,7 +164,7 @@ export function buildLattice(
   const nz = Math.max(0, izMax - izMin + 1);
   const npitch = ipitchMax - ipitchMin + 1;
 
-  const nodeCount = nx * ny * nz * nyaw * npitch;
+  const nodeCount = nx * ny * nz * nyaw * npitch * ntilt;
   if (nodeCount > MAX_SAFE_NODES) {
     // Beyond this the packed key stops being an exact integer and two distinct
     // configurations could collide onto one node, which would silently corrupt
@@ -174,6 +189,7 @@ export function buildLattice(
     nz,
     nyaw,
     npitch,
+    ntilt,
     nodeCount,
     iyGoalMin: Math.ceil(goalYLow / request.stepY - 1e-9),
   };
@@ -186,7 +202,15 @@ export function packKey(lattice: Lattice, n: NodeIndices): number {
   const c = n.iz - lattice.izMin;
   const d = n.iyaw;
   const e = n.ipitch - lattice.ipitchMin;
-  return a + lattice.nx * (b + lattice.ny * (c + lattice.nz * (d + lattice.nyaw * e)));
+  // The two families coincide at pitch 0, so both spellings of a level pose
+  // must pack to the same key or the search would treat one orientation as two
+  // nodes and could "cross families" without moving.
+  const f = n.ipitch === 0 ? 0 : n.itilt;
+  return (
+    a +
+    lattice.nx *
+      (b + lattice.ny * (c + lattice.nz * (d + lattice.nyaw * (e + lattice.npitch * f))))
+  );
 }
 
 export function unpackKey(lattice: Lattice, key: number): NodeIndices {
@@ -197,13 +221,16 @@ export function unpackKey(lattice: Lattice, key: number): NodeIndices {
   const c = rest % lattice.nz;
   rest = (rest - c) / lattice.nz;
   const d = rest % lattice.nyaw;
-  const e = (rest - d) / lattice.nyaw;
+  rest = (rest - d) / lattice.nyaw;
+  const e = rest % lattice.npitch;
+  const f = (rest - e) / lattice.npitch;
   return {
     ix: a + lattice.ixMin,
     iy: b + lattice.iyMin,
     iz: c + lattice.izMin,
     iyaw: d,
     ipitch: e + lattice.ipitchMin,
+    itilt: f,
   };
 }
 
@@ -214,6 +241,7 @@ export function placementOf(lattice: Lattice, n: NodeIndices): Placement {
     z: n.iz * lattice.stepZ,
     yaw: n.iyaw * lattice.yawStep,
     pitch: n.ipitch * lattice.pitchStep,
+    tiltAxis: n.itilt === 1 ? 'x' : 'y',
   };
 }
 
@@ -230,6 +258,7 @@ export function placementInto(lattice: Lattice, n: NodeIndices, out: Placement):
   out.z = n.iz * lattice.stepZ;
   out.yaw = n.iyaw * lattice.yawStep;
   out.pitch = n.ipitch * lattice.pitchStep;
+  out.tiltAxis = n.itilt === 1 ? 'x' : 'y';
   return out;
 }
 
@@ -242,12 +271,15 @@ export function unpackKeyInto(lattice: Lattice, key: number, out: NodeIndices): 
   const c = rest % lattice.nz;
   rest = (rest - c) / lattice.nz;
   const d = rest % lattice.nyaw;
-  const e = (rest - d) / lattice.nyaw;
+  rest = (rest - d) / lattice.nyaw;
+  const e = rest % lattice.npitch;
+  const f = (rest - e) / lattice.npitch;
   out.ix = a + lattice.ixMin;
   out.iy = b + lattice.iyMin;
   out.iz = c + lattice.izMin;
   out.iyaw = d;
   out.ipitch = e + lattice.ipitchMin;
+  out.itilt = f;
   return out;
 }
 
@@ -260,7 +292,9 @@ export function inBounds(lattice: Lattice, n: NodeIndices): boolean {
     n.iz >= lattice.izMin &&
     n.iz < lattice.izMin + lattice.nz &&
     n.ipitch >= lattice.ipitchMin &&
-    n.ipitch < lattice.ipitchMin + lattice.npitch
+    n.ipitch < lattice.ipitchMin + lattice.npitch &&
+    n.itilt >= 0 &&
+    n.itilt < lattice.ntilt
   );
 }
 
@@ -280,6 +314,10 @@ export function snap(lattice: Lattice, placement: Placement): NodeIndices {
     iz: Math.round(placement.z / lattice.stepZ),
     iyaw: Math.round(yaw / lattice.yawStep) % lattice.nyaw,
     ipitch: Math.round(placement.pitch / lattice.pitchStep),
+    // A level pose belongs to family 0 whichever way it was written, so that
+    // snapping and packing agree about which node it is.
+    itilt:
+      placement.tiltAxis === 'x' && Math.round(placement.pitch / lattice.pitchStep) !== 0 ? 1 : 0,
   };
 }
 

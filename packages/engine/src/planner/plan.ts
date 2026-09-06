@@ -27,6 +27,7 @@ const DEFAULTS = {
   coarsePositionFactor: 8,
   coarseAngleFactor: 3,
   useCoarsePass: true,
+  secondTiltFamily: false,
   maxNodes: 6_000_000,
   diagnostics: true,
   exhaustive: false,
@@ -55,6 +56,7 @@ export function resolveLattices(options: PlanOptions): LatticeRequest[] {
     yawStepDeg: options.yawStepDeg ?? DEFAULTS.yawStepDeg,
     pitchStepDeg: options.pitchStepDeg ?? DEFAULTS.pitchStepDeg,
     maxPitchDeg: options.maxPitchDeg ?? DEFAULTS.maxPitchDeg,
+    secondTiltFamily: options.secondTiltFamily ?? DEFAULTS.secondTiltFamily,
   };
   if ((options.useCoarsePass ?? DEFAULTS.useCoarsePass) === false) return [fine];
 
@@ -76,6 +78,7 @@ export function resolveLattices(options: PlanOptions): LatticeRequest[] {
       stepX: fine.stepX * pf,
       stepY: fine.stepY * pf,
       stepZ: fine.stepZ * pf,
+      secondTiltFamily: fine.secondTiltFamily,
       yawStepDeg: fine.yawStepDeg * af,
       pitchStepDeg: fine.pitchStepDeg * af,
       maxPitchDeg: fine.maxPitchDeg,

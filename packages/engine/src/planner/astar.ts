@@ -1,5 +1,6 @@
 import type { Environment, Placement } from '../types.ts';
 import type { CollisionCounter, PreparedItem } from '../geometry/collide.ts';
+import type { TiltAxis } from '../types.ts';
 import type { EdgeValidator } from './edge.ts';
 import type { Lattice, NodeIndices } from './lattice.ts';
 import { collides, itemWorldBoxes } from '../geometry/collide.ts';
@@ -59,6 +60,9 @@ export interface PivotAnchor {
   z: number;
 }
 
+/** Pivot anchors for one tilt family, indexed by `itilt`. */
+export type PivotAnchorsByFamily = readonly (readonly PivotAnchor[])[];
+
 /**
  * The bottom edges and bottom corners the item can turn on.
  *
@@ -76,16 +80,44 @@ export interface PivotAnchor {
  * a person could actually put their weight.
  */
 export function pivotAnchors(item: PreparedItem): readonly PivotAnchor[] {
+  return pivotAnchorsByFamily(item)[0]!;
+}
+
+/**
+ * The same, for both tilt families.
+ *
+ * A pitch pivot has to turn about a line every point of which stays fixed, and
+ * which line that is depends on the family: family 'y' tips over the bottom
+ * edges parallel to local Y, family 'x' over those parallel to local X. Using
+ * one family's edges for the other would offer a "pivot" that was nothing of
+ * the kind, which is the same objection that kept roll's edges out to begin
+ * with.
+ *
+ * Yaw pivots are the same four bottom corners either way: yaw turns about the
+ * world vertical and does not care how the item is tilted.
+ */
+export function pivotAnchorsByFamily(item: PreparedItem): PivotAnchorsByFamily {
   const b = item.localBounds;
+  const midX = (b.minX + b.maxX) / 2;
   const midY = (b.minY + b.maxY) / 2;
   // Fixed order. Tie-breaking in the search is part of the engine's output.
-  return [
-    { axis: 'pitch', x: b.minX, y: midY, z: b.minZ },
-    { axis: 'pitch', x: b.maxX, y: midY, z: b.minZ },
+  const corners: PivotAnchor[] = [
     { axis: 'yaw', x: b.minX, y: b.minY, z: b.minZ },
     { axis: 'yaw', x: b.maxX, y: b.minY, z: b.minZ },
     { axis: 'yaw', x: b.minX, y: b.maxY, z: b.minZ },
     { axis: 'yaw', x: b.maxX, y: b.maxY, z: b.minZ },
+  ];
+  return [
+    [
+      { axis: 'pitch', x: b.minX, y: midY, z: b.minZ },
+      { axis: 'pitch', x: b.maxX, y: midY, z: b.minZ },
+      ...corners,
+    ],
+    [
+      { axis: 'pitch', x: midX, y: b.minY, z: b.minZ },
+      { axis: 'pitch', x: midX, y: b.maxY, z: b.minZ },
+      ...corners,
+    ],
   ];
 }
 
@@ -99,6 +131,7 @@ export function pivotAnchors(item: PreparedItem): readonly PivotAnchor[] {
 function rotateLocal(
   yaw: number,
   pitch: number,
+  tiltAxis: TiltAxis,
   lx: number,
   ly: number,
   lz: number,
@@ -108,9 +141,17 @@ function rotateLocal(
   const sa = Math.sin(yaw);
   const cb = Math.cos(pitch);
   const sb = Math.sin(pitch);
-  out.x = ca * cb * lx - sa * ly + ca * sb * lz;
-  out.y = sa * cb * lx + ca * ly + sa * sb * lz;
-  out.z = -sb * lx + cb * lz;
+  if (tiltAxis === 'x') {
+    // Columns of Rz(yaw) * Rx(pitch).
+    out.x = ca * lx - sa * cb * ly + sa * sb * lz;
+    out.y = sa * lx + ca * cb * ly - ca * sb * lz;
+    out.z = sb * ly + cb * lz;
+  } else {
+    // Columns of Rz(yaw) * Ry(pitch).
+    out.x = ca * cb * lx - sa * ly + ca * sb * lz;
+    out.y = sa * cb * lx + ca * ly + sa * sb * lz;
+    out.z = -sb * lx + cb * lz;
+  }
 }
 
 export interface Vec3Scratch {
@@ -315,7 +356,7 @@ export function searchLattice(
 ): SearchOutcome {
   const open = new Heap();
   const table = new NodeTable();
-  const anchors = usePivots ? pivotAnchors(item) : [];
+  const anchors = usePivots ? pivotAnchorsByFamily(item) : [[], []];
   const offset: Vec3Scratch = { x: 0, y: 0, z: 0 };
 
   let nodesGenerated = 0;
@@ -323,8 +364,8 @@ export function searchLattice(
 
   // Scratch, reused for every probe. Nothing here outlives the statement that
   // fills it.
-  const here: NodeIndices = { ix: 0, iy: 0, iz: 0, iyaw: 0, ipitch: 0 };
-  const there: NodeIndices = { ix: 0, iy: 0, iz: 0, iyaw: 0, ipitch: 0 };
+  const here: NodeIndices = { ix: 0, iy: 0, iz: 0, iyaw: 0, ipitch: 0, itilt: 0 };
+  const there: NodeIndices = { ix: 0, iy: 0, iz: 0, iyaw: 0, ipitch: 0, itilt: 0 };
   const herePlacement: Placement = { x: 0, y: 0, z: 0, yaw: 0, pitch: 0 };
   const therePlacement: Placement = { x: 0, y: 0, z: 0, yaw: 0, pitch: 0 };
 
@@ -489,7 +530,8 @@ export function defaultStart(
   for (let ix = Math.max(ixLow, lattice.ixMin); ix <= ixHigh; ix++) {
     for (let iz = Math.max(izLow, lattice.izMin); iz <= izHigh; iz++) {
       for (let iy = Math.max(iyLow, lattice.iyMin); iy <= iyHigh; iy++) {
-        const candidate: NodeIndices = { ix, iy, iz, iyaw: 0, ipitch: 0 };
+        // Level and untilted, so the family is 0 by construction.
+        const candidate: NodeIndices = { ix, iy, iz, iyaw: 0, ipitch: 0, itilt: 0 };
         if (!inBounds(lattice, candidate)) continue;
         if (collides(item, placementOf(lattice, candidate), environment)) continue;
         return candidate;
@@ -512,13 +554,23 @@ export function defaultStart(
  */
 export function expandNeighbours(
   lattice: Lattice,
-  anchors: readonly PivotAnchor[],
+  anchorsByFamily: PivotAnchorsByFamily,
   here: NodeIndices,
   herePlacement: Placement,
   there: NodeIndices,
   offset: Vec3Scratch,
   visit: () => boolean,
 ): boolean {
+  // Which tilt families this node may move into.
+  //
+  // A level node belongs to both: the two families describe the same
+  // orientation at pitch 0, and pack to the same key, so it is the move that
+  // LEAVES level that chooses which way the item tips. Off level, the family is
+  // already fixed and cannot change without setting the item down first — which
+  // is also what a person does.
+  const familyLow = here.ipitch === 0 ? 0 : here.itilt;
+  const familyHigh = here.ipitch === 0 ? lattice.ntilt - 1 : here.itilt;
+
   for (let d = 0; d < NEIGHBOURS.length; d++) {
     const delta = NEIGHBOURS[d]!;
     there.ix = here.ix + delta[0];
@@ -527,48 +579,78 @@ export function expandNeighbours(
     // Yaw is periodic: a full turn is a loop in the lattice, not a wall.
     there.iyaw = (here.iyaw + delta[3] + lattice.nyaw) % lattice.nyaw;
     there.ipitch = here.ipitch + delta[4];
-    if (!visit()) return false;
+
+    if (there.ipitch === 0) {
+      there.itilt = 0;
+      if (!visit()) return false;
+    } else {
+      for (let family = familyLow; family <= familyHigh; family++) {
+        there.itilt = family;
+        if (!visit()) return false;
+      }
+    }
   }
 
   // Pivot moves: turn one angular step about a bottom edge or corner, and
   // derive where the item must sit for that anchor to stay put.
-  for (let a = 0; a < anchors.length; a++) {
-    const anchor = anchors[a]!;
-    // Where the anchor currently is in the world.
-    rotateLocal(herePlacement.yaw, herePlacement.pitch, anchor.x, anchor.y, anchor.z, offset);
-    const worldX = herePlacement.x + offset.x;
-    const worldY = herePlacement.y + offset.y;
-    const worldZ = herePlacement.z + offset.z;
+  for (let family = familyLow; family <= familyHigh; family++) {
+    const anchors = anchorsByFamily[family] ?? [];
+    const tiltAxis: TiltAxis = family === 1 ? 'x' : 'y';
 
-    for (let sign = -1; sign <= 1; sign += 2) {
-      const nextYaw =
-        anchor.axis === 'yaw' ? (here.iyaw + sign + lattice.nyaw) % lattice.nyaw : here.iyaw;
-      const nextPitch = anchor.axis === 'pitch' ? here.ipitch + sign : here.ipitch;
-      if (nextPitch < lattice.ipitchMin || nextPitch >= lattice.ipitchMin + lattice.npitch) {
-        continue;
-      }
-
-      // Where the item's origin has to go so the anchor lands back on itself.
+    for (let a = 0; a < anchors.length; a++) {
+      const anchor = anchors[a]!;
+      // Where the anchor currently is in the world. At pitch 0 both families
+      // give the same rotation, and off level `family` is the node's own, so
+      // this is always the orientation the item is actually in.
       rotateLocal(
-        nextYaw * lattice.yawStep,
-        nextPitch * lattice.pitchStep,
+        herePlacement.yaw,
+        herePlacement.pitch,
+        tiltAxis,
         anchor.x,
         anchor.y,
         anchor.z,
         offset,
       );
-      // Snapped to the lattice, so a pivot lands on a real node like every
-      // other move. The anchor therefore shifts by up to half a step; the edge
-      // validation judges the motion that actually results, not the idealised
-      // one.
-      there.ix = Math.round((worldX - offset.x) / lattice.stepX);
-      there.iy = Math.round((worldY - offset.y) / lattice.stepY);
-      there.iz = Math.round((worldZ - offset.z) / lattice.stepZ);
-      there.iyaw = nextYaw;
-      there.ipitch = nextPitch;
+      const worldX = herePlacement.x + offset.x;
+      const worldY = herePlacement.y + offset.y;
+      const worldZ = herePlacement.z + offset.z;
 
-      if (!visit()) return false;
+      for (let sign = -1; sign <= 1; sign += 2) {
+        const nextYaw =
+          anchor.axis === 'yaw' ? (here.iyaw + sign + lattice.nyaw) % lattice.nyaw : here.iyaw;
+        const nextPitch = anchor.axis === 'pitch' ? here.ipitch + sign : here.ipitch;
+        if (nextPitch < lattice.ipitchMin || nextPitch >= lattice.ipitchMin + lattice.npitch) {
+          continue;
+        }
+        // A yaw pivot from a level node does not leave level, so it would offer
+        // the same node once per family. Skip the duplicate.
+        if (nextPitch === 0 && family !== familyLow) continue;
+
+        // Where the item's origin has to go so the anchor lands back on itself.
+        rotateLocal(
+          nextYaw * lattice.yawStep,
+          nextPitch * lattice.pitchStep,
+          tiltAxis,
+          anchor.x,
+          anchor.y,
+          anchor.z,
+          offset,
+        );
+        // Snapped to the lattice, so a pivot lands on a real node like every
+        // other move. The anchor therefore shifts by up to half a step; the edge
+        // validation judges the motion that actually results, not the idealised
+        // one.
+        there.ix = Math.round((worldX - offset.x) / lattice.stepX);
+        there.iy = Math.round((worldY - offset.y) / lattice.stepY);
+        there.iz = Math.round((worldZ - offset.z) / lattice.stepZ);
+        there.iyaw = nextYaw;
+        there.ipitch = nextPitch;
+        there.itilt = nextPitch === 0 ? 0 : family;
+
+        if (!visit()) return false;
+      }
     }
   }
+
   return true;
 }

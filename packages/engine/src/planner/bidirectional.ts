@@ -12,7 +12,7 @@ import {
   KNOWN_CLEAR,
   NodeTable,
   expandNeighbours,
-  pivotAnchors,
+  pivotAnchorsByFamily,
   type Vec3Scratch,
 } from './astar.ts';
 
@@ -117,6 +117,7 @@ function goalSeeds(
       iz: template.iz,
       iyaw,
       ipitch: template.ipitch,
+      itilt: template.itilt,
     };
 
     const limit = Math.ceil(SEED_SCAN / lattice.stepY);
@@ -135,7 +136,7 @@ function goalSeeds(
 
 export function searchBidirectional(request: BidirectionalRequest): SearchOutcome {
   const { item, environment, lattice, validator, start, maxNodes, counter } = request;
-  const anchors = request.usePivots ? pivotAnchors(item) : [];
+  const anchors = request.usePivots ? pivotAnchorsByFamily(item) : [[], []];
 
   const seeds = goalSeeds(item, environment, lattice);
   let nodesGenerated = 0;
@@ -173,8 +174,8 @@ export function searchBidirectional(request: BidirectionalRequest): SearchOutcom
     nodesGenerated++;
   }
 
-  const here: NodeIndices = { ix: 0, iy: 0, iz: 0, iyaw: 0, ipitch: 0 };
-  const there: NodeIndices = { ix: 0, iy: 0, iz: 0, iyaw: 0, ipitch: 0 };
+  const here: NodeIndices = { ix: 0, iy: 0, iz: 0, iyaw: 0, ipitch: 0, itilt: 0 };
+  const there: NodeIndices = { ix: 0, iy: 0, iz: 0, iyaw: 0, ipitch: 0, itilt: 0 };
   const offset: Vec3Scratch = { x: 0, y: 0, z: 0 };
   const herePlacement: Placement = { x: 0, y: 0, z: 0, yaw: 0, pitch: 0 };
   const therePlacement: Placement = { x: 0, y: 0, z: 0, yaw: 0, pitch: 0 };

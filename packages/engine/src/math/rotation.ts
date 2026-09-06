@@ -101,3 +101,26 @@ export function angleDelta(from: number, to: number): number {
   if (d <= -Math.PI) d += twoPi;
   return d;
 }
+
+/**
+ * The world orientation a placement describes.
+ *
+ * Both tilt families are `Rz(yaw)` on the outside — yaw always swings the
+ * already-tilted item about the world vertical — and differ only in which body
+ * axis the tilt turns about. Family 'y' is `Rz(yaw) * Ry(pitch)`, which tips
+ * the item over its local Y; family 'x' is `Rz(yaw) * Rx(pitch)`, which tips it
+ * over its local X. Roll stays structurally zero in both: this is a choice of
+ * axis, not a third angle.
+ *
+ * At `pitch === 0` the two coincide, which is what lets a path cross between
+ * families without any special case in the interpolation.
+ */
+export function placementRotation(placement: {
+  yaw: number;
+  pitch: number;
+  tiltAxis?: 'x' | 'y';
+}): Mat3 {
+  return placement.tiltAxis === 'x'
+    ? rotationMatrix(placement.yaw, 0, placement.pitch)
+    : rotationMatrix(placement.yaw, placement.pitch, 0);
+}

@@ -1,5 +1,5 @@
 import type { AxisBox, Box, Environment, Item, Placement, Vec3, WorldBox } from '../types.ts';
-import { multiply, rotationFrom, rotationMatrix, transform } from '../math/rotation.ts';
+import { multiply, placementRotation, rotationFrom, transform } from '../math/rotation.ts';
 import { boxReach } from './worldBox.ts';
 import { EPSILON, satOverlap } from './sat.ts';
 
@@ -196,13 +196,13 @@ function prepareEnvironment(environment: Environment): PreparedEnvironment {
  */
 export function itemWorldBoxes(item: Item | PreparedItem, placement: Placement): WorldBox[] {
   const prepared = asPrepared(item);
-  const placementRotation = rotationMatrix(placement.yaw, placement.pitch, 0);
+  const placementMatrix = placementRotation(placement);
 
   const out: WorldBox[] = [];
   for (let i = 0; i < prepared.boxes.length; i++) {
     const box = prepared.boxes[i]!;
-    const axes = multiply(placementRotation, rotationFrom(box.rotation));
-    const offset = transform(placementRotation, box.center);
+    const axes = multiply(placementMatrix, rotationFrom(box.rotation));
+    const offset = transform(placementMatrix, box.center);
     const center: Vec3 = {
       x: placement.x + offset.x,
       y: placement.y + offset.y,
@@ -275,21 +275,47 @@ export function collides(
   }
   if (nearbyCount === 0) return false;
 
-  // The placement's rotation, with roll structurally zero, as nine scalars.
+  // The placement's rotation as nine scalars, written out rather than built
+  // through the matrix helpers because this is the innermost loop in the engine
+  // and the helper form allocates three vectors per call.
   const ca = Math.cos(placement.yaw);
   const sa = Math.sin(placement.yaw);
   const cb = Math.cos(placement.pitch);
   const sb = Math.sin(placement.pitch);
-  // Columns of Rz(yaw) * Ry(pitch): the world directions of local +X, +Y, +Z.
-  const p00 = ca * cb;
-  const p01 = sa * cb;
-  const p02 = -sb;
-  const p10 = -sa;
-  const p11 = ca;
-  const p12 = 0;
-  const p20 = ca * sb;
-  const p21 = sa * sb;
-  const p22 = cb;
+
+  let p00: number;
+  let p01: number;
+  let p02: number;
+  let p10: number;
+  let p11: number;
+  let p12: number;
+  let p20: number;
+  let p21: number;
+  let p22: number;
+
+  if (placement.tiltAxis === 'x') {
+    // Columns of Rz(yaw) * Rx(pitch).
+    p00 = ca;
+    p01 = sa;
+    p02 = 0;
+    p10 = -sa * cb;
+    p11 = ca * cb;
+    p12 = sb;
+    p20 = sa * sb;
+    p21 = -ca * sb;
+    p22 = cb;
+  } else {
+    // Columns of Rz(yaw) * Ry(pitch).
+    p00 = ca * cb;
+    p01 = sa * cb;
+    p02 = -sb;
+    p10 = -sa;
+    p11 = ca;
+    p12 = 0;
+    p20 = ca * sb;
+    p21 = sa * sb;
+    p22 = cb;
+  }
 
   for (let b = 0; b < prepared.count; b++) {
     const b3 = b * 3;

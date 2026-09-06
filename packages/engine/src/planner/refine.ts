@@ -4,7 +4,7 @@ import type { LatticeRequest } from './lattice.ts';
 import { angleDelta, radians } from '../math/rotation.ts';
 import { itemWorldBoxes } from '../geometry/collide.ts';
 import { contains, unionAabb } from '../geometry/worldBox.ts';
-import { interpolate } from './edge.ts';
+import { interpolate, sameTiltFrame } from './edge.ts';
 import type { EdgeValidator } from './edge.ts';
 
 /**
@@ -123,11 +123,14 @@ export function relaxPath(
       // degrees on the way to minus 90, say.
       const towardRest = settled(here);
       const towardLine =
-        after !== undefined ? interpolate(before, after, 0.5) : undefined;
+        after !== undefined && sameTiltFrame(before, after)
+          ? interpolate(before, after, 0.5)
+          : undefined;
 
       let moved = false;
       for (const aim of [towardRest, towardLine]) {
         if (aim === undefined || moved) continue;
+        if (!sameTiltFrame(here, aim)) continue;
         for (const blend of RELAXATION_BLENDS) {
           const candidate = interpolate(here, aim, blend);
           if (after === undefined && !isGoal(candidate)) continue;
@@ -199,7 +202,14 @@ export function settlePath(
 
   for (let dy = 0; dy <= SETTLE_REACH; dy += SETTLE_STEP) {
     const y = last.y + dy;
-    const target: Placement = { x: last.x, y, z: restZ, yaw: last.yaw, pitch: 0 };
+    const target: Placement = {
+      x: last.x,
+      y,
+      z: restZ,
+      yaw: last.yaw,
+      pitch: 0,
+      ...(last.tiltAxis !== undefined ? { tiltAxis: last.tiltAxis } : {}),
+    };
     if (!inRoom(target)) continue;
 
     // Straight in and down, when the room allows it.
@@ -210,7 +220,7 @@ export function settlePath(
     // Interpolating height and pitch together swings the low end below the
     // floor, which is why the one-motion version fails on a long item.
     const carried: Placement = { ...last, y };
-    const levelled: Placement = { x: last.x, y, z: last.z, yaw: last.yaw, pitch: 0 };
+    const levelled: Placement = { ...last, y, pitch: 0 };
     const staged = walk([carried, levelled, target]);
     if (staged !== undefined) return staged;
   }
