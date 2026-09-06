@@ -33,6 +33,9 @@ export interface Palette {
   item: number;
   removable: number;
   blocked: number;
+  /** Silhouette line around the item, so it never dissolves into the wall behind it. */
+  outline: number;
+  outlineOpacity: number;
   accent: number;
   /** The key light, which gives the scene its shading. */
   keyIntensity: number;
@@ -59,15 +62,17 @@ export interface Palette {
  * exposure is set per theme.
  */
 export const LIGHT_PALETTE: Palette = {
-  background: 0xe8e4dc,
-  floorHallway: 0xb4ab99,
-  floorRoom: 0xc9c1b0,
-  grid: 0x7c7361,
-  wall: 0x9a9280,
-  doorWall: 0x7d7565,
-  item: 0x8a7b66,
-  removable: 0x453424,
-  blocked: 0xb1382a,
+  background: 0xe7e7e8,
+  floorHallway: 0xbcc0c5,
+  floorRoom: 0xd2d5d9,
+  grid: 0x8b9198,
+  wall: 0x99a0a7,
+  doorWall: 0x7b838c,
+  item: 0xc2600f,
+  removable: 0x53290a,
+  blocked: 0xa81b10,
+  outline: 0x2a1a08,
+  outlineOpacity: 0.4,
   accent: 0x1a6b58,
   keyIntensity: 1.25,
   fillIntensity: 1.75,
@@ -78,19 +83,21 @@ export const LIGHT_PALETTE: Palette = {
 
 export const DARK_PALETTE: Palette = {
   background: 0x0f1215,
-  floorHallway: 0x333b44,
-  floorRoom: 0x272d34,
-  grid: 0x4d5866,
-  wall: 0x3f4854,
-  doorWall: 0x56616f,
-  item: 0x9aa4b0,
-  removable: 0xd0aa47,
-  blocked: 0xd04c3e,
+  floorHallway: 0x2b323a,
+  floorRoom: 0x1f242a,
+  grid: 0x4a535d,
+  wall: 0x39424c,
+  doorWall: 0x4d5764,
+  item: 0xf0a24b,
+  removable: 0xffd89b,
+  blocked: 0xe0574a,
+  outline: 0x120b02,
+  outlineOpacity: 0.55,
   accent: 0x3ec9a7,
   keyIntensity: 1.85,
   fillIntensity: 2.05,
-  fillSky: 0xbcccdc,
   fillGround: 0x3f4a57,
+  fillSky: 0xbcccdc,
   exposure: 1.0,
 };
 
@@ -276,10 +283,13 @@ export function buildItemView(item: Item, palette: Palette): ItemView {
   });
 
   const geometries: THREE.BufferGeometry[] = [];
+  // The item has to read as the subject and the room as the setting. Colour
+  // alone does not survive a wall of the same tone behind it at a shallow
+  // angle, so the silhouette gets its own line.
   const outline = new THREE.LineBasicMaterial({
-    color: 0x000000,
+    color: palette.outline,
     transparent: true,
-    opacity: 0.2,
+    opacity: palette.outlineOpacity,
   });
 
   for (const [index, box] of item.boxes.entries()) {
