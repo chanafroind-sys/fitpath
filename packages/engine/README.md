@@ -226,10 +226,20 @@ which is best-first in all but name. It rushes at the goal, ignores how long the
 route is, and gives up after 20,000 nodes. Optimality is not wanted here — the
 path is smoothed, settled and relaxed afterwards anyway — and a path is a path.
 
-**Then a bidirectional pass.** One tree from the start, one grown backwards from
-settled poses inside the room, strictly alternating, meeting in the middle. At a
-branching factor of 22, halving the depth each tree must reach is not a
-percentage. It is capped at 60,000 nodes.
+**Then a bidirectional pass** — implemented, kept, and **off by default.** One
+tree from the start, one grown backwards from settled poses inside the room,
+strictly alternating, meeting in the middle. At a branching factor of 22,
+halving the depth each tree must reach is not a percentage. It is capped at
+60,000 nodes.
+
+The reason it is off is structural rather than a matter of tuning. A fast pass
+can only pre-empt a rung's *complete* full search — so on a scene the ladder
+already solves on a coarse rung, the only thing bidirectional can do is replace
+a good answer with its own. On the 96 cm doorway that meant 44,271 nodes and a
+longer route in place of 32,344 nodes and two steps. It stays available behind
+`bidirectional: true` because the reasoning that motivated it is sound and a
+harder scene may yet want it; it is not on because on the scenes that exist it
+has nothing to pre-empt.
 
 Both are **allowed to conclude only yes**. Every edge is validated by the same
 `EdgeValidator` the ladder uses, so a path either returns is a real path; but
@@ -340,17 +350,26 @@ searching it blind. Starting the sofa already on its side and lined up with the
 doorway does not help: the straight walk through is 160 uninformed moves.
 
 So switching it on today costs and buys nothing: `legs-must-come-off` goes from
-825,087 nodes to 1,130,248, and an 80 cm doorway stops being a clean
-`no-path-found` and becomes `search-budget-exhausted` — a true result lost.
+825,087 nodes to 1,130,248, and the 96 cm doorway — the one scene a visitor
+actually runs — goes from two clean steps to four.
+
+*(An earlier revision of this paragraph also said the family degraded an 80 cm
+doorway from a clean `no-path-found` to `search-budget-exhausted`. That was
+wrong, and checking it against the committed tree is what showed it: 80 cm was
+already `search-budget-exhausted` with one family. The family cost nothing
+there. The claim is retracted rather than quietly deleted because it was used as
+an argument.)*
 
 **What would make it pay** is a heuristic that knows where the goal actually is
-for the orientation in hand. The admissible form is
+for the orientation in hand:
 `h(n) = min over orientations o of [ max(0, G(o) - y) + d(orientation(n), o) ]`,
 where `G(o)` is the y at which orientation `o` is wholly inside the room and `d`
-is lattice distance in orientation space. That is a lower bound on the true cost
-and strictly tighter than the current `max(0, iyGoalMin - y)`, which is the same
-expression with the `d` term dropped and the `min` taken over `G` alone. It is
-not built here.
+is lattice distance in orientation space. That has since been **built** — it is
+the heuristic A\* now runs — and it did not close the plateau. The measurements,
+and why a relaxation over orientations alone still cannot see the wall, are
+under [the orientation-aware
+heuristic](#the-orientation-aware-heuristic-and-the-plateau-it-does-not-close)
+below.
 
 ---
 
@@ -383,10 +402,22 @@ turn are not equally hard to perform — but it makes the heuristic admissible
 with no tuning, and the path is smoothed and re-segmented afterwards anyway, so
 the cost function's job is to terminate, not to be beautiful.
 
-The heuristic is the number of y-steps still needed before the item could
-possibly be clear of the wall. Weak, but unimpeachably admissible and
-consistent: every move changes exactly one index by one, so no move can reduce
-the y-shortfall by more than one.
+The heuristic is orientation-aware:
+
+    h(n) = min over orientations o of [ max(0, G(o) - y) + d(orientation(n), o) ]
+
+`G(o)` is the smallest y-index at which an item held at orientation `o` is
+wholly inside the room, and `d` counts the lattice moves needed to turn into
+`o`. Pick whichever orientation you mean to arrive in, pay for the turning, and
+pay for the walking that orientation still needs. It is strictly tighter than
+the plain y-shortfall it replaced, which is the same expression with the `d`
+term dropped, and it is admissible for the same reason: no move changes both an
+angular index and the y index — pivots excepted, which is a hole the previous
+heuristic had identically and which is discussed under pivot moves above.
+
+It costs one breadth-first sweep over the orientation graph per orientation
+(624 of them on the reference lattice) plus a linear fold per orientation, a few
+milliseconds in total. What it buys, and does not buy, is measured below.
 
 **Determinism.** A binary heap over parallel typed arrays with a strict total
 order on `(f, then h, then the packed node key)`, so no two entries ever compare
@@ -753,9 +784,70 @@ these scenes is orientation**, and no relaxation over positions alone can see
 it. What makes a 96 cm doorway hard is not getting the sofa to the door, it is
 that reaching the one bearing that fits costs about thirty non-advancing moves,
 and with a branching factor of 22 the search must consider every way of spending
-them. A heuristic that would help has to price *that*, and the permissive goal —
-any pose whose bounding box is inside the room — means no admissible heuristic
-can charge for orientation at all.
+them. A heuristic that would help has to price *that*. So one was built that
+does, and the next section is what it measured.
+
+---
+
+### The orientation-aware heuristic, and the plateau it does not close
+
+The distance field failed because it relaxed over positions when the binding
+constraint is orientation. The `h` now in `goalHeuristic.ts` relaxes over
+orientations instead, and it is genuinely tighter — where the plain y-shortfall
+read **0** for the last fifty moves of a sideways approach, the new one reads
+**5**, because it knows the sofa still has to turn before it can be a goal.
+
+It did not close the plateau. Measured on the 210 cm-high doorway, sofa fixture,
+300 cm hallway, 1.2 M node budget:
+
+| doorway | one tilt family | both families |
+| --- | --- | --- |
+| 96 cm | **feasible**, 32,344 nodes, 2 steps | feasible, 44,574 nodes, 4 steps |
+| 94 cm | budget exhausted | budget exhausted |
+| 90 cm | budget exhausted | budget exhausted |
+| 86 cm | budget exhausted | budget exhausted |
+| 80 cm | budget exhausted | budget exhausted |
+
+**So the second tilt family stays off by default.** The condition for turning it
+on was that it resolve the model-limited negatives; it does not, and on the one
+scene that was working it costs two extra steps. The moves are implemented,
+tested and reachable — `secondTiltFamily: true` — and the sideways route is a
+documented next milestone rather than a shipped capability.
+
+**Why the tighter estimate is still far too loose.** `min over o` is dominated
+by orientations the relaxation cannot know are unusable. It charges for turning
+into *some* orientation that would be a goal, and there is always a cheap one —
+the sofa held level and square, which is a perfectly good goal pose two moves
+away *if you are already in the room*. The wall is what makes it unreachable,
+and the wall is exactly what a relaxation over orientations alone drops. Pricing
+that would require the joint position-and-orientation reachability the search is
+there to compute.
+
+The decisive check: start the sofa **already on its side and already lined up**
+with a 90 cm doorway, 150 cm out, so that nothing remains but to walk it in. It
+still exhausts 600,000 nodes. The difficulty is not finding the sideways
+orientation. It is that the corridor around it is a needle in the position
+dimensions too, and every move out of the needle looks equally good to any
+heuristic that has not solved the problem.
+
+**And the lattice-alignment finding stands separately.** For the sofa on its
+side to clear a 90 cm opening its origin must sit in a window roughly 25–30 cm
+across the corridor. No coarse rung's grid has a node in it — 25–30 contains no
+multiple of 16 and no multiple of 8 that also satisfies the other axes — so the
+pose is not merely expensive to find on the rungs that are fast enough to reach
+it, it is **absent** from them. Only the 2 cm reference rung represents it, and
+that rung is the one whose full search is measured in billions of nodes. Adding
+a rung positioned to hit this window would make this one scene pass and would be
+a special case dressed as a parameter, so it has not been added.
+
+**The 80 cm reading is not what an earlier note in this file claimed.** It is
+`search-budget-exhausted`, not a clean `no-path-found` — and it already was
+before the second tilt family existed, on one family, verified against the
+committed tree. The family did not degrade it. 80 cm remains a true negative in
+the sense that matters (85 cm is the sofa's smallest face, so no rotation about
+any axis gets it through, and the test pinning it must never flip) but the
+engine reaches that verdict by running out of budget rather than by exhausting
+the space, and this file should not have said otherwise.
 
 ---
 
