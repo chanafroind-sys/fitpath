@@ -38,21 +38,47 @@ export function dominantAxis(from: Placement, to: Placement, reach: number): Mot
   return best[0];
 }
 
-/** Split the path wherever the dominant axis of motion changes. */
+/**
+ * Which way the item is moving along one axis: +1, -1, or 0 for neither.
+ *
+ * Needed because a segment is described by its NET change from end to end, so a
+ * run that tilts up and then back down again reads as a single instruction to
+ * tilt by nothing. "Tilt the front edge up about 0 degrees" is not an
+ * instruction. Two motions in opposite directions are two instructions, and the
+ * split below is what keeps them that way.
+ */
+function direction(axis: MotionAxis, from: Placement, to: Placement): number {
+  const delta =
+    axis === 'yaw' ? angleDelta(from.yaw, to.yaw) : axis === 'pitch' ? to.pitch - from.pitch : to[axis] - from[axis];
+  if (delta > 1e-9) return 1;
+  if (delta < -1e-9) return -1;
+  return 0;
+}
+
+/** Split the path wherever the dominant axis of motion, or its direction, changes. */
 export function segmentPath(path: Placement[], reach: number): Segment[] {
   if (path.length < 2) return [];
 
   const segments: Segment[] = [];
   let axis = dominantAxis(path[0]!, path[1]!, reach);
+  let heading = direction(axis, path[0]!, path[1]!);
   let startIndex = 0;
 
   for (let i = 1; i < path.length; i++) {
-    const next = i + 1 < path.length ? dominantAxis(path[i]!, path[i + 1]!, reach) : undefined;
-    if (next !== axis) {
+    const nextAxis = i + 1 < path.length ? dominantAxis(path[i]!, path[i + 1]!, reach) : undefined;
+    const nextHeading =
+      nextAxis === undefined ? 0 : direction(nextAxis, path[i]!, path[i + 1]!);
+    // A heading of zero carries no information, so it never forces a split.
+    const reversed =
+      nextAxis === axis && heading !== 0 && nextHeading !== 0 && nextHeading !== heading;
+    if (nextAxis !== axis || reversed) {
       segments.push({ axis, from: path[startIndex]!, to: path[i]!, startIndex, endIndex: i });
-      if (next === undefined) break;
-      axis = next;
+      if (nextAxis === undefined) break;
+      axis = nextAxis;
+      heading = nextHeading;
       startIndex = i;
+    } else if (heading === 0) {
+      heading = nextHeading;
     }
   }
 

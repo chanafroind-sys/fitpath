@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import type { EnvironmentParams, NodeIndices, Placement } from '../src/types.ts';
+import type { EnvironmentParams, Placement } from '../src/types.ts';
+import type { NodeIndices } from '../src/planner/lattice.ts';
 import { buildEnvironment } from '../src/environment/build.ts';
 import { collides, itemWorldBoxes, prepareItem } from '../src/geometry/collide.ts';
 import { contains, unionAabb } from '../src/geometry/worldBox.ts';

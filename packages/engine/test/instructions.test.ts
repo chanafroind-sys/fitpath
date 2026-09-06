@@ -45,6 +45,31 @@ describe('instructions a person could actually follow', () => {
     }
   });
 
+  /**
+   * The pin. This scene is the one a visitor actually runs, and it has
+   * regressed twice: once to six steps with a 120 degree turn, and once again
+   * after the search changed underneath it.
+   *
+   * Two motions is what the geometry asks for — the sofa's 95 cm depth clears a
+   * 96 cm doorway with the long side leading, so you turn it square to the door
+   * and walk it in. Anything more is the lattice showing through. The exact
+   * numbers are pinned rather than bounded because a change to either is a
+   * change to what a person is told to do, and should have to be looked at.
+   */
+  it('solves the reported 96 cm doorway in two steps, turning only 90 degrees', () => {
+    expect(result.feasible).toBe(true);
+    if (!result.feasible) return;
+
+    expect(result.steps.map((s) => s.kind)).toEqual(['yaw', 'advance']);
+    expect(Math.abs(result.steps[0]!.amount)).toBeCloseTo(90, 6);
+    // Straight in, no detour: the doorway is 15 cm of wall plus the run up to
+    // it, and 248 cm covers that plus the length of the sofa.
+    expect(result.steps[1]!.amount).toBeGreaterThan(200);
+    // And it ends level and on the floor, not balanced on one end.
+    const last = result.path.at(-1)!;
+    expect(degrees(last.pitch)).toBeCloseTo(0, 6);
+  });
+
   it('never leaves the item past vertical', () => {
     // Pitch is clamped to +/-90 by the lattice, so any placement beyond it
     // would mean the path escaped the configuration space it was searched in.
