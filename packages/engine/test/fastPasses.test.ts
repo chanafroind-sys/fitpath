@@ -22,15 +22,15 @@ const door = (openingWidth: number): EnvironmentParams => ({
 });
 
 /**
- * The line the fast passes must not cross.
+ * The line the fast passes must not cross — and it is two lines, not one.
  *
- * The sofa's narrowest presentation is 95 cm: at yaw 90 its 95 cm depth lies
- * across the doorway, and pitch turns about that same axis so it cannot make
- * the figure any smaller. Roll would, and roll is fixed at zero.
+ * A 220 x 95 x 85 sofa has two relevant figures. Its smallest face is 85 cm
+ * across; its smallest face *reachable with roll fixed at zero* is 95 cm,
+ * because at yaw 90 the 95 cm depth lies across the doorway and pitch turns
+ * about that very axis, so tilting cannot shrink it.
  *
- * So 96 cm passes and 94 cm cannot, and a fast pass that ever reported
- * otherwise would be finding a path that does not exist — a bug in the moves,
- * not a better search.
+ * Those two figures produce two different kinds of negative, and merging them
+ * would be a mistake: one is geometry and the other is a modelling choice.
  */
 describe('a faster yes must not become a wrong yes', () => {
   it('still fits through 96 cm, where there is one centimetre to spare', () => {
@@ -41,11 +41,39 @@ describe('a faster yes must not become a wrong yes', () => {
     expect(result.feasible).toBe(true);
   });
 
-  for (const width of [80, 86, 90, 94]) {
-    it(`never reports a path through ${width} cm, which admits no orientation`, () => {
-      // A small budget on purpose. The claim is not that the space was
-      // exhausted — it is that no pass ever reports a path here — and the fast
-      // passes spend their whole allowance well inside 60,000 nodes.
+  /**
+   * Below 85 cm nothing helps. The sofa's smallest face is 95 x 85, so no
+   * rotation about any axis — including ones this engine does not search —
+   * presents anything narrower than 85 cm. This negative is permanent, and a
+   * path through it would mean the item was being let through a wall.
+   */
+  it('never reports a path through 80 cm, which no rotation whatsoever admits', () => {
+    const result = plan(SOFA_3_SEAT, buildEnvironment(door(80)), {
+      diagnostics: false,
+      maxNodes: 60_000,
+    });
+    expect(result.feasible).toBe(false);
+  });
+
+  /**
+   * MODEL-LIMITED NEGATIVES, NOT TRUE ONES.
+   *
+   * 86, 90 and 94 sit in the band between the sofa's 85 cm smallest face and
+   * the 95 cm it can present with roll fixed at zero. In a real hallway the
+   * sofa goes through all three of these doors, laid on its side. It fails here
+   * only because the engine searches one tilt family: pitch about the item's
+   * local Y, which for this fixture tips it onto its back and never onto its
+   * side.
+   *
+   * **When the second tilt family lands, these must FLIP to feasible.** That
+   * flip is the fix arriving, not a regression, and the assertion below should
+   * be inverted rather than deleted — the band is exactly the evidence that the
+   * new family does what it was added to do.
+   *
+   * The one thing that must not change is 80 cm above.
+   */
+  for (const width of [86, 90, 94]) {
+    it(`does not yet find the sideways route through ${width} cm (one tilt family)`, () => {
       const result = plan(SOFA_3_SEAT, buildEnvironment(door(width)), {
         diagnostics: false,
         maxNodes: 60_000,
