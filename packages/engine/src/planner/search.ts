@@ -37,6 +37,8 @@ export interface SearchReport {
   /** True when the item could not be stood up anywhere in the hallway at all. */
   noStart: boolean;
   edgeChecks: number;
+  /** Where the ladder started, at reference resolution. Undefined when there was no start. */
+  startPlacement?: Placement;
 }
 
 /**
@@ -127,6 +129,7 @@ export function findPath(
         solvedOnCoarsePass: !isFinest,
         noStart: false,
         edgeChecks,
+        startPlacement,
       };
     }
   }
@@ -138,6 +141,7 @@ export function findPath(
     solvedOnCoarsePass: false,
     noStart: false,
     edgeChecks,
+    startPlacement,
   };
 }
 

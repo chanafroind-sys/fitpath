@@ -277,7 +277,7 @@ class NodeTable {
  *
  * Uniform edge cost of one step. That is deliberately crude — a 2 cm slide and a
  * 15 degree turn are not equally hard to perform — but it makes the heuristic
- * below admissible with no tuning, and the path is smoothed and re-segmented
+ * admissible with no tuning, and the path is smoothed and re-segmented
  * afterwards anyway, so the cost function's job is to terminate, not to be
  * beautiful.
  *
@@ -285,6 +285,11 @@ class NodeTable {
  * possibly be clear of the wall. It ignores x, z and both angles, which makes it
  * weak but unimpeachably admissible and consistent: every move changes exactly
  * one index by one, so no move can reduce the y-shortfall by more than one.
+ *
+ * A stronger heuristic was tried and rejected: a distance field over positions,
+ * built by one backward breadth-first sweep from the goal. It is admissible and
+ * it does prune, but it is not worth its cost, and the reason is worth keeping.
+ * See the README's "A distance-field heuristic, measured and rejected".
  */
 export function searchLattice(
   item: PreparedItem,
@@ -295,6 +300,13 @@ export function searchLattice(
   maxNodes: number,
   counter: CollisionCounter,
   usePivots = true,
+  /**
+   * Optional restriction on which nodes may be entered at all.
+   *
+   * Used by the refinement pass to re-solve inside a corridor around a coarse
+   * path. Restricting can only lose paths, never invent them, so a restricted
+   * failure means nothing and the caller must have a fallback.
+   */
 ): SearchOutcome {
   const open = new Heap();
   const table = new NodeTable();

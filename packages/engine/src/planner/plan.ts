@@ -13,6 +13,7 @@ import { prepareItem } from '../geometry/collide.ts';
 import { provableNoFitInEnvironment } from '../geometry/crossSection.ts';
 import { createEdgeValidator } from './edge.ts';
 import { findPath } from './search.ts';
+import { refinePath, relaxPath, settlePath } from './refine.ts';
 import { shortcutSmooth } from './smooth.ts';
 import { segmentPath } from './segment.ts';
 import { describePath } from './describe.ts';
@@ -188,10 +189,22 @@ export function plan(
     // Smoothing needs its own validator: the search's counters are part of the
     // reported statistics and post-processing is not search work.
     const validator = createEdgeValidator(prepared, environment);
-    const raw = report.outcome.path;
-    const smoothed = (options.smooth ?? DEFAULTS.smooth)
-      ? shortcutSmooth(raw, validator)
-      : raw;
+    // A coarse rung may decide feasibility; it may not decide what a person is
+    // told to do. Re-cut its path at the reference resolution first, so that
+    // smoothing has somewhere to cut and the instructions describe a motion
+    // someone would actually make. See refine.ts.
+    // A coarse rung may decide feasibility; it may not decide what a person is
+    // told to do. Re-cut it at the reference resolution, smooth, pull the
+    // waypoints back toward the floor and toward level, then smooth again now
+    // that the shape has changed. See refine.ts.
+    const raw = report.solvedOnCoarsePass
+      ? refinePath(report.outcome.path, fine)
+      : report.outcome.path;
+    let smoothed = raw;
+    if (options.smooth ?? DEFAULTS.smooth) {
+      smoothed = shortcutSmooth(settlePath(prepared, environment, raw, validator), validator);
+      smoothed = shortcutSmooth(relaxPath(prepared, environment, smoothed, validator), validator);
+    }
     const steps = describePath(prepared, segmentPath(smoothed, prepared.reach));
     stats.millis = performance.now() - startedAt;
     return { feasible: true, path: smoothed, steps, stats };

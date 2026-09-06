@@ -149,5 +149,38 @@ export function describeSegment(item: PreparedItem, segment: Segment, index: num
 }
 
 export function describePath(item: PreparedItem, segments: Segment[]): Step[] {
-  return segments.map((segment, i) => describeSegment(item, segment, i));
+  const steps = segments.map((segment, i) => describeSegment(item, segment, i));
+  assertPlausible(steps);
+  return steps;
+}
+
+/**
+ * The largest rotation any single instruction may report.
+ *
+ * Yaw is reported through `angleDelta`, which takes the short way round and so
+ * cannot exceed 180 by construction; pitch is clamped to +/-90, so a net change
+ * cannot exceed 180 either. The check is therefore not defending against
+ * arithmetic — it is defending against a future change to segmentation or to
+ * the lattice quietly producing an instruction like "tilt the back edge up
+ * about 300 degrees", which is the kind of output that destroys trust in
+ * everything else on the page.
+ */
+const MAX_REPORTED_ROTATION_DEG = 180;
+
+/**
+ * Refuse to hand back an instruction a person could not perform.
+ *
+ * Throwing is deliberate. A wrong number here is worse than an error: it is
+ * read, believed, and acted on.
+ */
+export function assertPlausible(steps: readonly Step[]): void {
+  for (const step of steps) {
+    if (step.kind !== 'yaw' && step.kind !== 'pitch') continue;
+    if (Math.abs(step.amount) > MAX_REPORTED_ROTATION_DEG + 1e-9) {
+      throw new Error(
+        `describePath: step ${step.index} reports a ${step.kind} of ${step.amount.toFixed(1)} degrees, ` +
+          `beyond the ${MAX_REPORTED_ROTATION_DEG} degree maximum a single instruction may describe`,
+      );
+    }
+  }
 }
