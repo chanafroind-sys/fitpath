@@ -51,7 +51,7 @@ const NEIGHBOURS: readonly (readonly [number, number, number, number, number])[]
  * A pivot move therefore picks the rotation and *derives* the translation, so
  * the branching factor grows by a small constant rather than multiplying.
  */
-interface PivotAnchor {
+export interface PivotAnchor {
   /** Which lattice angle this pivot turns. */
   axis: 'pitch' | 'yaw';
   x: number;
@@ -75,7 +75,7 @@ interface PivotAnchor {
  * about the world vertical, but is kept at floor level so the anchor is a place
  * a person could actually put their weight.
  */
-function pivotAnchors(item: PreparedItem): readonly PivotAnchor[] {
+export function pivotAnchors(item: PreparedItem): readonly PivotAnchor[] {
   const b = item.localBounds;
   const midY = (b.minY + b.maxY) / 2;
   // Fixed order. Tie-breaking in the search is part of the engine's output.
@@ -113,15 +113,15 @@ function rotateLocal(
   out.z = -sb * lx + cb * lz;
 }
 
-interface Vec3Scratch {
+export interface Vec3Scratch {
   x: number;
   y: number;
   z: number;
 }
 
 /** Node state bits, packed one byte per node. */
-const KNOWN_CLEAR = 1;
-const IS_CLEAR = 2;
+export const KNOWN_CLEAR = 1;
+export const IS_CLEAR = 2;
 const CLOSED = 4;
 
 export interface SearchOutcome {
@@ -150,7 +150,7 @@ export interface SearchOutcome {
  * no two distinct entries ever compare equal and the heap's internal order
  * cannot depend on insertion history. That is the other half of determinism.
  */
-class Heap {
+export class Heap {
   private f = new Float64Array(1024);
   private h = new Float64Array(1024);
   private k = new Float64Array(1024);
@@ -236,7 +236,7 @@ class Heap {
  * cache, a Set for the closed list — costs four hash lookups per neighbour and
  * was, measured, most of the planner's runtime. This costs one.
  */
-class NodeTable {
+export class NodeTable {
   private slots = new Map<number, number>();
   private capacity = 1 << 16;
   g = new Float64Array(this.capacity);
@@ -301,12 +301,17 @@ export function searchLattice(
   counter: CollisionCounter,
   usePivots = true,
   /**
-   * Optional restriction on which nodes may be entered at all.
+   * Multiplier on the heuristic, which turns A* into weighted A*.
    *
-   * Used by the refinement pass to re-solve inside a corridor around a coarse
-   * path. Restricting can only lose paths, never invent them, so a restricted
-   * failure means nothing and the caller must have a fallback.
+   * One is ordinary A*. A large value is greedy best-first: it rushes at the
+   * goal and stops caring how long the route is. Finding a path needs no
+   * optimality proof — a path is a path — so a greedy pass under a small budget
+   * is a cheap first question, and the ladder is still there when it fails.
+   *
+   * This does not affect determinism: the tie-break is still (f, then h, then
+   * the packed key), so no two entries ever compare equal.
    */
+  heuristicWeight = 1,
 ): SearchOutcome {
   const open = new Heap();
   const table = new NodeTable();
@@ -351,7 +356,8 @@ export function searchLattice(
   };
 
   table.g[startSlot] = 0;
-  open.push(heuristic(start.iy), heuristic(start.iy), startKey);
+  const startH = heuristic(start.iy);
+  open.push(startH * heuristicWeight, startH, startKey);
   nodesGenerated = 1;
 
   while (open.size > 0) {
@@ -405,66 +411,12 @@ export function searchLattice(
       table.g[nextSlot] = g + 1;
       table.parent[nextSlot] = key;
       const h = heuristic(there.iy);
-      open.push(g + 1 + h, h, nextKey);
+      open.push(g + 1 + h * heuristicWeight, h, nextKey);
       return true;
     };
 
-    for (let d = 0; d < NEIGHBOURS.length; d++) {
-      const delta = NEIGHBOURS[d]!;
-      there.ix = here.ix + delta[0];
-      there.iy = here.iy + delta[1];
-      there.iz = here.iz + delta[2];
-      // Yaw is periodic: a full turn is a loop in the lattice, not a wall.
-      there.iyaw = (here.iyaw + delta[3] + lattice.nyaw) % lattice.nyaw;
-      there.ipitch = here.ipitch + delta[4];
-      if (!consider()) {
-        return { exhausted: false, budgetExhausted: true, nodesGenerated, nodesExpanded };
-      }
-    }
-
-    // Pivot moves: turn one angular step about a bottom edge or corner, and
-    // derive where the item must sit for that anchor to stay put.
-    for (let a = 0; a < anchors.length; a++) {
-      const anchor = anchors[a]!;
-      // Where the anchor currently is in the world.
-      rotateLocal(herePlacement.yaw, herePlacement.pitch, anchor.x, anchor.y, anchor.z, offset);
-      const worldX = herePlacement.x + offset.x;
-      const worldY = herePlacement.y + offset.y;
-      const worldZ = herePlacement.z + offset.z;
-
-      for (let sign = -1; sign <= 1; sign += 2) {
-        const nextYaw =
-          anchor.axis === 'yaw'
-            ? (here.iyaw + sign + lattice.nyaw) % lattice.nyaw
-            : here.iyaw;
-        const nextPitch = anchor.axis === 'pitch' ? here.ipitch + sign : here.ipitch;
-        if (nextPitch < lattice.ipitchMin || nextPitch >= lattice.ipitchMin + lattice.npitch) {
-          continue;
-        }
-
-        // Where the item's origin has to go so the anchor lands back on itself.
-        rotateLocal(
-          nextYaw * lattice.yawStep,
-          nextPitch * lattice.pitchStep,
-          anchor.x,
-          anchor.y,
-          anchor.z,
-          offset,
-        );
-        // Snapped to the lattice, so a pivot lands on a real node like every
-        // other move. The anchor therefore shifts by up to half a step; the
-        // edge validation below judges the motion that actually results, not
-        // the idealised one.
-        there.ix = Math.round((worldX - offset.x) / lattice.stepX);
-        there.iy = Math.round((worldY - offset.y) / lattice.stepY);
-        there.iz = Math.round((worldZ - offset.z) / lattice.stepZ);
-        there.iyaw = nextYaw;
-        there.ipitch = nextPitch;
-
-        if (!consider()) {
-          return { exhausted: false, budgetExhausted: true, nodesGenerated, nodesExpanded };
-        }
-      }
+    if (!expandNeighbours(lattice, anchors, here, herePlacement, there, offset, consider)) {
+      return { exhausted: false, budgetExhausted: true, nodesGenerated, nodesExpanded };
     }
   }
 
@@ -545,4 +497,78 @@ export function defaultStart(
     }
   }
   return undefined;
+}
+
+/**
+ * Every neighbour of one node, in a fixed order.
+ *
+ * Extracted so that the bidirectional search cannot drift from the one the
+ * ladder uses. Order is part of the determinism guarantee: ten single-axis
+ * moves in the declared order, then the twelve pivots, anchor by anchor.
+ *
+ * `visit` is called with `there` filled in and returns false to abort the walk,
+ * which is how a spent node budget stops it. `there` and `offset` are the
+ * caller's scratch, refilled per candidate and not to be retained.
+ */
+export function expandNeighbours(
+  lattice: Lattice,
+  anchors: readonly PivotAnchor[],
+  here: NodeIndices,
+  herePlacement: Placement,
+  there: NodeIndices,
+  offset: Vec3Scratch,
+  visit: () => boolean,
+): boolean {
+  for (let d = 0; d < NEIGHBOURS.length; d++) {
+    const delta = NEIGHBOURS[d]!;
+    there.ix = here.ix + delta[0];
+    there.iy = here.iy + delta[1];
+    there.iz = here.iz + delta[2];
+    // Yaw is periodic: a full turn is a loop in the lattice, not a wall.
+    there.iyaw = (here.iyaw + delta[3] + lattice.nyaw) % lattice.nyaw;
+    there.ipitch = here.ipitch + delta[4];
+    if (!visit()) return false;
+  }
+
+  // Pivot moves: turn one angular step about a bottom edge or corner, and
+  // derive where the item must sit for that anchor to stay put.
+  for (let a = 0; a < anchors.length; a++) {
+    const anchor = anchors[a]!;
+    // Where the anchor currently is in the world.
+    rotateLocal(herePlacement.yaw, herePlacement.pitch, anchor.x, anchor.y, anchor.z, offset);
+    const worldX = herePlacement.x + offset.x;
+    const worldY = herePlacement.y + offset.y;
+    const worldZ = herePlacement.z + offset.z;
+
+    for (let sign = -1; sign <= 1; sign += 2) {
+      const nextYaw =
+        anchor.axis === 'yaw' ? (here.iyaw + sign + lattice.nyaw) % lattice.nyaw : here.iyaw;
+      const nextPitch = anchor.axis === 'pitch' ? here.ipitch + sign : here.ipitch;
+      if (nextPitch < lattice.ipitchMin || nextPitch >= lattice.ipitchMin + lattice.npitch) {
+        continue;
+      }
+
+      // Where the item's origin has to go so the anchor lands back on itself.
+      rotateLocal(
+        nextYaw * lattice.yawStep,
+        nextPitch * lattice.pitchStep,
+        anchor.x,
+        anchor.y,
+        anchor.z,
+        offset,
+      );
+      // Snapped to the lattice, so a pivot lands on a real node like every
+      // other move. The anchor therefore shifts by up to half a step; the edge
+      // validation judges the motion that actually results, not the idealised
+      // one.
+      there.ix = Math.round((worldX - offset.x) / lattice.stepX);
+      there.iy = Math.round((worldY - offset.y) / lattice.stepY);
+      there.iz = Math.round((worldZ - offset.z) / lattice.stepZ);
+      there.iyaw = nextYaw;
+      there.ipitch = nextPitch;
+
+      if (!visit()) return false;
+    }
+  }
+  return true;
 }

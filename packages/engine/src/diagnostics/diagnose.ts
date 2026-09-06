@@ -145,6 +145,9 @@ export function diagnose(context: DiagnoseContext): DiagnosisReport {
       ...(depth === 'sketch' ? { sketchOnly: true } : {}),
       maxNodes: Math.min(remaining, context.maxNodes),
       pivotMoves: context.pivotMoves,
+      // See SearchRequest.fastPasses: a good bet for one answer, a bad one
+      // taken dozens of times against a fixed node budget.
+      fastPasses: false,
       ...(start !== undefined ? { start } : {}),
     });
     remaining -= report.outcome.nodesGenerated;
