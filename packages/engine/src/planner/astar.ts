@@ -4,6 +4,7 @@ import type { TiltAxis } from '../types.ts';
 import type { EdgeValidator } from './edge.ts';
 import type { Lattice, NodeIndices } from './lattice.ts';
 import { collides, itemWorldBoxes } from '../geometry/collide.ts';
+import { UNREACHABLE_ORIENTATION, buildOrientationHeuristic } from './goalHeuristic.ts';
 import { contains, unionAabb } from '../geometry/worldBox.ts';
 import {
   inBounds,
@@ -322,15 +323,15 @@ export class NodeTable {
  * afterwards anyway, so the cost function's job is to terminate, not to be
  * beautiful.
  *
- * The heuristic is the number of y-steps still needed before the item could
- * possibly be clear of the wall. It ignores x, z and both angles, which makes it
- * weak but unimpeachably admissible and consistent: every move changes exactly
- * one index by one, so no move can reduce the y-shortfall by more than one.
+ * The heuristic counts the turning as well as the walking: for every
+ * orientation, how far in that orientation still has to travel plus how many
+ * moves it takes to turn into it, minimised over orientations. See
+ * goalHeuristic.ts — including why it is admissible and why the pivot caveat is
+ * the same one the y-shortfall estimate it replaced already carried.
  *
- * A stronger heuristic was tried and rejected: a distance field over positions,
- * built by one backward breadth-first sweep from the goal. It is admissible and
- * it does prune, but it is not worth its cost, and the reason is worth keeping.
- * See the README's "A distance-field heuristic, measured and rejected".
+ * A different stronger heuristic was tried and rejected: a distance field over
+ * positions. Admissible, and not worth its cost. See the README's
+ * "A distance-field heuristic, measured and rejected".
  */
 export function searchLattice(
   item: PreparedItem,
@@ -369,7 +370,8 @@ export function searchLattice(
   const herePlacement: Placement = { x: 0, y: 0, z: 0, yaw: 0, pitch: 0 };
   const therePlacement: Placement = { x: 0, y: 0, z: 0, yaw: 0, pitch: 0 };
 
-  const heuristic = (iy: number): number => Math.max(0, lattice.iyGoalMin - iy);
+  const estimate = buildOrientationHeuristic(item, environment, lattice);
+  const heuristic = (n: NodeIndices): number => estimate.at(n.iyaw, n.ipitch, n.itilt, n.iy);
 
   const isClear = (slot: number, placement: Placement): boolean => {
     const state = table.state[slot]!;
@@ -397,7 +399,11 @@ export function searchLattice(
   };
 
   table.g[startSlot] = 0;
-  const startH = heuristic(start.iy);
+  const startH = heuristic(start);
+  if (startH >= UNREACHABLE_ORIENTATION) {
+    // No orientation this node can turn into is ever wholly inside the room.
+    return { exhausted: true, budgetExhausted: false, nodesGenerated: 1, nodesExpanded: 0 };
+  }
   open.push(startH * heuristicWeight, startH, startKey);
   nodesGenerated = 1;
 
@@ -451,7 +457,10 @@ export function searchLattice(
 
       table.g[nextSlot] = g + 1;
       table.parent[nextSlot] = key;
-      const h = heuristic(there.iy);
+      const h = heuristic(there);
+      // An orientation that can never be a goal, and cannot be turned out of
+      // into one, is not worth a node.
+      if (h >= UNREACHABLE_ORIENTATION) return true;
       open.push(g + 1 + h * heuristicWeight, h, nextKey);
       return true;
     };

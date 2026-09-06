@@ -40,6 +40,23 @@ export interface SearchRequest {
    * loaded the machine was, and changed no suggestion it produced.
    */
   fastPasses?: boolean;
+  /**
+   * Run the bidirectional pass as well as the greedy one. **Default false.**
+   *
+   * Measured, and the measurement is against it. Its only chance to help is
+   * BEFORE a rung's full search, since a full search is complete on its rung and
+   * a bidirectional pass over the same lattice cannot find what that already
+   * ruled out. So it can only ever pre-empt a search that was going to succeed
+   * — and on the 96 cm doorway, the scene a visitor actually runs, it did:
+   * 44,271 nodes and six steps including a 120 degree swing, against the
+   * ladder's 22,935 nodes and four clean ones. It never settled a scene the
+   * ladder could not.
+   *
+   * Kept, with its tests, because the reasoning that motivates it is sound and
+   * because the thing standing between it and paying off is the heuristic, not
+   * the algorithm. See the README.
+   */
+  bidirectional?: boolean;
 }
 
 export interface SearchReport {
@@ -210,11 +227,9 @@ export function findPath(
       if (greedy.path !== undefined) return found(greedy);
       spentElsewhere += greedy.nodesGenerated;
 
-      // Then from both ends. Where greedy fails because the y-shortfall points
-      // it straight at a wall, a second tree grown backwards from settled poses
-      // inside the room often meets it in the doorway — and meeting in the
-      // middle halves the depth each tree has to reach, which at a branching
-      // factor of 22 is not a percentage.
+      // Then from both ends, when asked for. Off by default: see
+      // SearchRequest.bidirectional.
+      if (request.bidirectional === true) {
       const bothEndsValidator = createEdgeValidator(item, environment, counter);
       const bothEnds = searchBidirectional({
         item,
@@ -229,6 +244,7 @@ export function findPath(
       edgeChecks += bothEndsValidator.edgeChecks;
       if (bothEnds.path !== undefined) return found(bothEnds);
       spentElsewhere += bothEnds.nodesGenerated;
+      }
     }
 
     const validator = createEdgeValidator(item, environment, counter);
