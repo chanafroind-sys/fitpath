@@ -256,6 +256,56 @@ This is a **sampling bound, not a proof**; see *Not supported yet*.
 
 ### Path post-processing
 
+A coarse rung may decide **feasibility**; it may not decide what a person is
+told to do. The two are not the same job, and treating them as one produced the
+worst output this engine has shipped: for a 96 cm doorway the 8 cm / 30 degree
+rung returned a path that lifted a sofa a metre off the floor and swung it from
+60 degrees of pitch to minus 60, which came out as *"rotate it 120 degrees"* and
+*"tilt the back edge up about 120 degrees"*.
+
+Two of those three moves existed only to satisfy the goal test. **A\* stops at
+the first configuration whose bounding box lies inside the room, and tipping an
+item up shrinks its bounding box** — so standing a sofa on end is a cheaper way
+to "be in the room" than carrying it another half metre and setting it down. The
+search was right by the definition it was given; the definition was the problem.
+
+So a found path goes through four stages before anyone sees it:
+
+1. **Re-cut at the reference resolution.** Each coarse edge is subdivided into
+   reference-sized pieces. This does not change the path — the pieces lie on the
+   straight interpolation the edge validator already cleared — it changes how
+   many places the smoother is allowed to cut.
+2. **Settle.** Look beyond the end of the path for a pose that is level, resting
+   on the floor, and far enough in to be wholly inside the room, and append it if
+   a validated motion reaches it. Lowering a tilted item lengthens its footprint,
+   which drives its tail back through the doorway it just came through, so the
+   settle tries a straight descent first and a carry-then-level-then-lower
+   sequence second.
+3. **Shortcut smoothing**, twice: once after settling, and again after
+   relaxation, because relaxation changes the shape.
+4. **Relaxation.** Smoothing removes waypoints; it never moves one. Each interior
+   waypoint is offered two destinations — lower and flatter, or closer to the
+   straight line between its neighbours — and moves to the furthest one whose
+   two edges revalidate.
+
+Every one of those keeps the same guarantee as the search: nothing is added that
+the edge validator has not cleared, and the last placement is re-checked against
+the goal.
+
+What that leaves, on the scene above: *forward 126 cm, rotate 120 degrees, tilt
+the back edge up 41 degrees, forward 133 cm*. The item ends level and on the
+floor, and no instruction repeats another's magnitude. The 120 degree turn is
+still not the 90 degrees a person would use — edge cost is uniform, so a path
+that turns too far costs exactly what one that does not costs, and A\* has no
+reason to prefer either. Pricing rotation would change every result in this
+README and has not been done.
+
+`describePath` refuses to emit a rotation beyond 180 degrees at all, and throws
+instead. A wrong number there is worse than an error: it is read, believed, and
+acted on.
+
+Then, in detail:
+
 1. **Shortcut smoothing.** Repeatedly try to connect two placements on the path
    directly and keep the connection if the edge validates. The raw A* path is a
    staircase — it can only move one axis at a time — so a diagonal slide comes
@@ -508,6 +558,46 @@ here it is exact at any density, because their thinnest direction is an axis.
 Ordering matters: run the proof first, the outlook second. `IMPOSSIBLE` (a
 refrigerator at a 50 cm opening) would be triaged as hopeless, but the proof
 answers it first and answers it *better* — with a proof.
+
+---
+
+### A distance-field heuristic, measured and rejected
+
+The heuristic above is the search's weakest point, and the obvious fix is a
+distance field: one backward breadth-first sweep from the goal over the position
+grid, ignoring the item's shape and orientation, used in place of the
+y-shortfall. It was built, and then removed. The reasoning is worth keeping so
+that nobody spends the day on it twice.
+
+**The informative version is not admissible.** "Treat a cell as free only if the
+item's bounding sphere fits" makes the field's free space *smaller* than the
+truth, so its distances are over-estimates, and A\* stops being able to trust
+them. The admissible version has to relax in the other direction: a cell is
+blocked only when a *point* could not be there.
+
+**The admissible version is not informative.** Measured against the reference
+lattice, node counts moved like this:
+
+| scenario | y-shortfall | distance field |
+| --- | ---: | ---: |
+| trivially fits | 53,891 | 40,038 |
+| fits only when tilted | 275,399 | 260,744 |
+| hallway too narrow to turn in | 341,506 | **341,506** |
+| fits only after removing the legs | 825,087 | **825,087** |
+
+Identical on the two cases that matter, because in an open corridor the item's
+origin can go anywhere the point can. Back to back on the narrow hallway it was
+slower on both halves — plan 1,205 ms against 774 ms, diagnostics 3,629 ms
+against 2,527 ms — since every search pays for a sweep of the grid.
+
+The reason is structural, not a tuning failure. **The binding constraint in
+these scenes is orientation**, and no relaxation over positions alone can see
+it. What makes a 96 cm doorway hard is not getting the sofa to the door, it is
+that reaching the one bearing that fits costs about thirty non-advancing moves,
+and with a branching factor of 22 the search must consider every way of spending
+them. A heuristic that would help has to price *that*, and the permissive goal —
+any pose whose bounding box is inside the room — means no admissible heuristic
+can charge for orientation at all.
 
 ---
 
