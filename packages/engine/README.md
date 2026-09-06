@@ -278,6 +278,82 @@ saving is smaller than its node saving suggests — sometimes negative. The node
 figures above are exact and reproducible; timings on the development machine
 varied by a factor of three between identical runs.
 
+### The second tilt family, and what it is waiting for
+
+Roll is still fixed at zero, but `pitch` may now turn about the item's local X
+as well as its local Y — two alternative tilt *families* rather than a third
+continuous angle. `PlanOptions.secondTiltFamily` switches it on, and it is
+**off by default**, which needs explaining because the capability is real and
+the reason is measured.
+
+**What it does.** With one family, which pair of faces an item can tip over is
+decided by nothing more principled than how its author assigned its local axes.
+The sofa tips onto its back and never onto its side, so its narrowest
+presentation is 95 cm however it is turned. With both, it can be laid on its
+side and presents 85 cm. That is the difference between "no path found" and a
+door a person walks the sofa through, and it removes the silent dependence on an
+authoring convention that the *Not supported yet* section calls out as this
+engine's most dangerous limitation.
+
+The cost is as advertised: the state space grows by a factor of 2.27, not the
+roughly twelvefold that arbitrary roll would cost. (Slightly over two because
+lattice bounds are computed per orientation and the sideways poses reach further
+across and higher, so the position ranges widen a little too.)
+
+Both families get pivot moves on the same terms — rotation about a bottom edge
+or corner, translation derived rather than searched, fixed candidate order, the
+same edge validation. Family Y pivots on the bottom edges parallel to local Y;
+family X on those parallel to local X. Using one family's edges for the other
+would offer a "pivot" that was nothing of the kind, which is the objection that
+kept roll's edges out to begin with.
+
+The two families meet at `pitch === 0`, where they describe the same
+orientation, and that is the only place a path may cross between them. Both
+spellings of a level pose pack to one key, so the search never sees one
+orientation as two nodes. Crossing is therefore something a path does by setting
+the item down first, which is also what a person does.
+
+**What it does not do, yet.** It changes no answer. Measured on the sofa against
+a 90 cm doorway, with the family on:
+
+| rung | step | nodes in the space | searched |
+| --- | --- | ---: | --- |
+| 0 | 16 cm | 949,440 | exhausted, no path |
+| 1 | 8 cm | 16,297,344 | exhausted, no path |
+| 2 | 2 cm | 3,722,016,480 | not exhaustible |
+
+The sideways route exists — every pose along it is collision-free and the whole
+traverse validates, which `test/tiltFamily.test.ts` pins — but it exists **only
+on the reference lattice**. Laid on its side the sofa spans `origin-70` to
+`origin+15`, so a doorway of width W puts its origin in a window `70 - W/2` to
+`W/2 - 15`. For 90 cm that window is 25..30 and no multiple of 16 or 8 falls
+inside it; for 86 cm it is 27..28. The coarse rungs cannot express the pose at
+all, however long they search.
+
+And on the reference rung the search cannot reach it, for a reason that predates
+this work. `iyGoalMin` — where the heuristic reaches zero — is 30 cm, because it
+has to be the most optimistic orientation or the heuristic would overestimate.
+The goal test, which wants the item's whole bounding box inside the room, does
+not fire for the sideways orientation until y = 126 cm. Between the two lies a
+plateau about fifty moves deep at a branching factor of twenty-two, and A* is
+searching it blind. Starting the sofa already on its side and lined up with the
+doorway does not help: the straight walk through is 160 uninformed moves.
+
+So switching it on today costs and buys nothing: `legs-must-come-off` goes from
+825,087 nodes to 1,130,248, and an 80 cm doorway stops being a clean
+`no-path-found` and becomes `search-budget-exhausted` — a true result lost.
+
+**What would make it pay** is a heuristic that knows where the goal actually is
+for the orientation in hand. The admissible form is
+`h(n) = min over orientations o of [ max(0, G(o) - y) + d(orientation(n), o) ]`,
+where `G(o)` is the y at which orientation `o` is wholly inside the room and `d`
+is lattice distance in orientation space. That is a lower bound on the true cost
+and strictly tighter than the current `max(0, iyGoalMin - y)`, which is the same
+expression with the `d` term dropped and the `min` taken over `G` alone. It is
+not built here.
+
+---
+
 ### The narrowest a sofa can be
 
 Worth stating plainly, because it is the answer to a question this section might
