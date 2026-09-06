@@ -151,7 +151,28 @@ describe('4. fits through the opening but the hallway is too narrow to turn in',
     }
   });
 
-  it('keeps diagnostics inside the wall-clock budget', () => {
+  /**
+   * What the diagnostics phase costs, measured against the search it follows
+   * rather than against the clock.
+   *
+   * This assertion used to be an absolute wall-clock bound, and it was the one
+   * thing in this suite that failed for reasons having nothing to do with the
+   * code: the same commit measured 2.8 s idle and 8.5 s on a machine also
+   * running a dev server, so it went red on work that had not touched the
+   * planner. That is precisely the irreproducibility the engine refuses to
+   * accept in its own output — `diagnosticsNodeBudget` is a node count and not
+   * a timeout for exactly this reason — and a test is not entitled to an
+   * exemption from the project's own argument.
+   *
+   * So the bound is a ratio. Both halves are measured in the same process on
+   * the same machine within a few seconds of each other, which divides out how
+   * fast or how loaded that machine is. Diagnostics re-plans a handful of
+   * counterfactuals, each comparable in cost to the original search, so a
+   * multiple of it is the right shape for the claim; six is loose enough not to
+   * flap and tight enough that a phase which started exhausting the space would
+   * still trip it.
+   */
+  it('keeps diagnostics proportionate to the search it follows', () => {
     const environment = buildEnvironment(NARROW_HALLWAY.params);
     const started = performance.now();
     plan(NARROW_HALLWAY.item, environment);
@@ -162,9 +183,12 @@ describe('4. fits through the opening but the hallway is too narrow to turn in',
     const withoutDiagnostics = performance.now() - bare;
 
     const diagnosticsOnly = withDiagnostics - withoutDiagnostics;
-    console.log(`[narrow-hallway/diagnostics] ${diagnosticsOnly.toFixed(0)} ms`);
-    // Generous against a loaded CI box; the measured figure is about 2.3 s.
-    expect(diagnosticsOnly).toBeLessThan(8000);
+    const ratio = diagnosticsOnly / withoutDiagnostics;
+    console.log(
+      `[narrow-hallway/diagnostics] ${diagnosticsOnly.toFixed(0)} ms, ` +
+        `${ratio.toFixed(1)}x the ${withoutDiagnostics.toFixed(0)} ms search`,
+    );
+    expect(ratio).toBeLessThan(6);
   });
 });
 
