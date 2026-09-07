@@ -46,26 +46,50 @@ describe('instructions a person could actually follow', () => {
   });
 
   /**
-   * The pin. This scene is the one a visitor actually runs, and it has
-   * regressed twice: once to six steps with a 120 degree turn, and once again
-   * after the search changed underneath it.
+   * The pin. This scene is the one the bug reports keep landing on, and it has
+   * regressed twice: to six steps with a 120 degree turn, and again when the
+   * search changed underneath it.
    *
-   * Two motions is what the geometry asks for — the sofa's 95 cm depth clears a
-   * 96 cm doorway with the long side leading, so you turn it square to the door
-   * and walk it in. Anything more is the lattice showing through. The exact
-   * numbers are pinned rather than bounded because a change to either is a
-   * change to what a person is told to do, and should have to be looked at.
+   * Two configurations are pinned, because since the second tilt family became
+   * the default they disagree, and the disagreement is the thing worth seeing.
+   * With one family the route is what the geometry asks for: the sofa's 95 cm
+   * depth clears 96 cm with the long side leading, so turn it square to the
+   * door and walk it in. With both families the search reaches a different
+   * valid route first and takes the same passage with a 41 degree tilt it does
+   * not need.
+   *
+   * The family stays on regardless. It is there so that an item whose author
+   * put its length on local Y is not told a doorway is impassable when a person
+   * would walk it through, and a less tidy instruction on one scene does not
+   * buy back a wrong answer on another. Pinning both is what keeps the cost
+   * visible instead of silent.
    */
-  it('solves the reported 96 cm doorway in two steps, turning only 90 degrees', () => {
+  it('takes the 96 cm doorway in two steps and one 90 degree turn, with one tilt family', () => {
+    const one = plan(SOFA_3_SEAT, buildEnvironment(REPORTED), {
+      diagnostics: false,
+      maxNodes: 1_200_000,
+      secondTiltFamily: false,
+    });
+    expect(one.feasible).toBe(true);
+    if (!one.feasible) return;
+
+    expect(one.steps.map((s) => s.kind)).toEqual(['yaw', 'advance']);
+    expect(Math.abs(one.steps[0]!.amount)).toBeCloseTo(90, 6);
+    // Straight in: 15 cm of wall, the run up to it, and the sofa's own length.
+    expect(one.steps[1]!.amount).toBeGreaterThan(200);
+    expect(degrees(one.path.at(-1)!.pitch)).toBeCloseTo(0, 6);
+  });
+
+  it('takes it in four steps with both families, and still ends level on the floor', () => {
     expect(result.feasible).toBe(true);
     if (!result.feasible) return;
 
-    expect(result.steps.map((s) => s.kind)).toEqual(['yaw', 'advance']);
-    expect(Math.abs(result.steps[0]!.amount)).toBeCloseTo(90, 6);
-    // Straight in, no detour: the doorway is 15 cm of wall plus the run up to
-    // it, and 248 cm covers that plus the length of the sofa.
-    expect(result.steps[1]!.amount).toBeGreaterThan(200);
-    // And it ends level and on the floor, not balanced on one end.
+    // The measured cost of searching both families on this scene. Not a target
+    // — a record. If this number moves, someone should look at why.
+    expect(result.steps).toHaveLength(4);
+    for (const step of rotations(result.steps)) {
+      expect(`${step.kind} ${Math.abs(step.amount) <= 100}`).toBe(`${step.kind} true`);
+    }
     const last = result.path.at(-1)!;
     expect(degrees(last.pitch)).toBeCloseTo(0, 6);
   });

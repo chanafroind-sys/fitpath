@@ -56,29 +56,36 @@ describe('a faster yes must not become a wrong yes', () => {
   });
 
   /**
-   * MODEL-LIMITED NEGATIVES, NOT TRUE ONES.
+   * SEARCH-LIMITED NEGATIVES. NOT MODEL-LIMITED, AND NOT TRUE.
    *
-   * 86, 90 and 94 sit in the band between the sofa's 85 cm smallest face and
-   * the 95 cm it can present with roll fixed at zero. In a real hallway the
-   * sofa goes through all three of these doors, laid on its side. It fails here
-   * only because the engine searches one tilt family: pitch about the item's
-   * local Y, which for this fixture tips it onto its back and never onto its
-   * side.
+   * These three were labelled model-limited when the engine searched one tilt
+   * family and could not express the sideways pose at all. That label is now
+   * wrong: both families are searched by default, the pose is representable,
+   * and a straight sideways run through each of these doorways has been
+   * constructed and put through the same `EdgeValidator` the planner uses —
+   * see "the sideways run really does clear" in tiltFamily.test.ts.
    *
-   * **When the second tilt family lands, these must FLIP to feasible.** That
-   * flip is the fix arriving, not a regression, and the assertion below should
-   * be inverted rather than deleted — the band is exactly the evidence that the
-   * new family does what it was added to do.
+   * So a path exists and the engine does not find it. What comes back is
+   * `search-budget-exhausted`, which is the honest thing to return and is not
+   * the same claim as "no path found": the budget ran out, nothing was proved.
+   * The barrier is measured and written up in the README — the sideways pose
+   * needs its origin inside a 25 to 30 cm window that no coarse rung's grid
+   * contains, so only the 2 cm reference rung represents it, and that rung's
+   * full search runs to billions of nodes.
    *
-   * The one thing that must not change is 80 cm above.
+   * These assertions are a record of a known gap, not a specification. When the
+   * search gets there they must flip to feasible, and the flip is the fix
+   * landing. The one that must never flip is 80 cm above.
    */
   for (const width of [86, 90, 94]) {
-    it(`does not yet find the sideways route through ${width} cm (one tilt family)`, () => {
+    it(`does not find the sideways route through ${width} cm, though one exists`, () => {
       const result = plan(SOFA_3_SEAT, buildEnvironment(door(width)), {
         diagnostics: false,
         maxNodes: 60_000,
       });
       expect(result.feasible).toBe(false);
+      // And when it fails it must fail honestly: budget, not proof.
+      if (!result.feasible) expect(result.reason).not.toBe('proven-too-large');
     });
   }
 });

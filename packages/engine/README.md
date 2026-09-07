@@ -288,13 +288,18 @@ saving is smaller than its node saving suggests — sometimes negative. The node
 figures above are exact and reproducible; timings on the development machine
 varied by a factor of three between identical runs.
 
-### The second tilt family, and what it is waiting for
+### The second tilt family
 
 Roll is still fixed at zero, but `pitch` may now turn about the item's local X
 as well as its local Y — two alternative tilt *families* rather than a third
-continuous angle. `PlanOptions.secondTiltFamily` switches it on, and it is
-**off by default**, which needs explaining because the capability is real and
-the reason is measured.
+continuous angle. It is **on by default**.
+
+It shipped off, on the argument that it changed no answer on the fixtures to
+hand and cost nodes. That argument was wrong in a way worth recording: the
+fixtures to hand are not the items a user brings, and what the option decides is
+whether an item's author picking one local axis over another can make the engine
+report a doorway impassable that a person walks through. An option that removes
+correct answers silently is not a speed setting.
 
 **What it does.** With one family, which pair of faces an item can tip over is
 decided by nothing more principled than how its author assigned its local axes.
@@ -375,21 +380,58 @@ below.
 
 ### The narrowest a sofa can be
 
-Worth stating plainly, because it is the answer to a question this section might
-otherwise seem to be dodging. **A 220 x 95 x 85 sofa cannot pass an opening
-narrower than 95 cm**, and no amount of search speed changes that.
+This section used to say 95 cm, on the reasoning that pitch turns about the very
+axis the 95 cm depth lies on. That was a fact about one tilt family, not about
+the sofa. With both families the number is **85.00 cm**, and it is worth setting
+out how it is arrived at, because the interesting part is what sets it.
 
-At yaw 90 its 95 cm depth lies across the doorway, and pitch turns about that
-very axis, so tilting cannot make the figure any smaller. Any other yaw brings
-some of the 220 cm length across the opening, which is worse. Sweeping every
-orientation the reference lattice admits, under a 210 cm lintel, the narrowest
-presentation is exactly 95.0 cm.
+Swept over full SO(3) — yaw, pitch **and** roll, which is wider than the model
+the planner searches — under a 210 cm lintel:
 
-Roll would fix it — laid on its side the sofa presents 85 cm — and roll is fixed
-at zero. So an 86 cm or 90 cm doorway is not a slow *yes*, it is a *no* that
-costs a proof of absence to establish. `test/fastPasses.test.ts` pins 80, 86, 90
-and 94 as negatives and 96 as feasible, so a future "improvement" that starts
-finding paths there is caught as the bug it would be.
+| body | narrowest it can be held | at |
+| --- | ---: | --- |
+| sofa as authored, 8 boxes | **85.00 cm** | yaw 90, pitch 18, roll 90 |
+| legs removed | 70.00 cm | yaw 90, pitch 32, roll 90 |
+| mid-length section alone: seat + backrest | 66.22 cm | yaw 90, pitch −31, roll 249 |
+
+The three numbers are the whole story. The sofa's mid-length cross-section is an
+**L** — a seat 95 cm deep and 40 tall, and a backrest leaning over the back of
+it, 30 deep and reaching 70 — and an L rolled past the upright tucks into 66 cm,
+well under the 95 its bounding box will show at any angle. That is real, and it
+is exactly the geometry that lets a non-convex item thread an opening its box
+could never enter.
+
+**It does not help this sofa, and the reason is the legs.** They stand 15 cm
+proud of the body at x = ±100. Laid on its side the body is 70 cm across and the
+legs make it 85. Every station of the item has to cross the wall, so the leg
+station's 85 cm is a floor for the whole passage — measured over every rotation,
+not assumed. Taking the legs off drops the floor to 70, which is what the
+`legs-must-come-off` scenario is.
+
+Width presented as the sofa is rolled, by station:
+
+| roll | mid-length | at a leg | armrest tip |
+| ---: | ---: | ---: | ---: |
+| 0° | 95.00 | 95.00 | 95.00 |
+| −45° | 114.03 | 122.16 | 114.03 |
+| −75° | 88.59 | 102.17 | 88.59 |
+| −90° | **70.00** | **85.00** | 70.00 |
+
+**Can it be threaded through something narrower than 85?** Asked directly,
+because the L-shape makes it a fair question: lead with the thin part, turn as
+the thick part arrives, and the full cross-section is never in the doorway plane
+at one time. Nothing was found. The search exhausts its budget at every width
+below 96 and returns no path, threading or otherwise; the straight-run witnesses
+stop at 86; and the geometry says why — the mid-length section would thread down
+to 66, but the legs must cross too, and 85 is the least they can be made to
+present at any rotation.
+
+What has **not** been established is that threading is impossible below 85 for
+this fixture. That would need a statement about continuous motions, and the only
+sound negative this engine has is `provableNoFit`, which does not fire here. So
+the honest position is the one the rest of this file takes: a floor of 85.00 cm
+for a straight run, measured; no threading path found, searched for; and no
+proof that none exists.
 
 ### A*
 
@@ -691,6 +733,46 @@ whole is not convex, and neither of the obvious substitutes works:
   instant it crosses, and the section of a non-convex body can be arbitrarily
   smaller than the corresponding section of its hull.
 
+### The bounding box, used the way round it works
+
+Both bullets above are about the bounding box **failing**, and both are right:
+a box too large to pass proves nothing about the item inside it.
+
+The other direction is sound, and is worth having. The item sits rigidly inside
+its box, so any motion that carries the box through carries the item through
+with it. If the box goes, the item goes. `openingAdmits` is that argument, and
+it is a **positive screen only**:
+
+    three choices of travel axis; the remaining two dimensions p x q enter a
+    W x H opening if (p <= W and q <= H) or (q <= W and p <= H)
+
+A pass is a proof the aperture admits the item, with no search. A failure is a
+**hint** — it says a straight walk-through will not do it and the route, if
+there is one, has to turn the item — and it is used only to bias where the
+greedy pass looks first. Nothing may report a negative from it. The only thing
+allowed to say "no" is `provableNoFit`, whose argument runs per box, on central
+sections, and holds over all of SO(3).
+
+Two conservatisms, both in the safe direction for a positive screen:
+
+- **Axis-aligned entry only.** A rectangle tilted in the opening's plane
+  genuinely can fit where the axis-aligned placement cannot, and this engine has
+  the exact criterion for it in `rectangleFitsInRectangle`, brute-force verified
+  in the tests. Using it here would make the screen strictly stronger. It is
+  left out because a tilted entry is a maneuver rather than a walk-through.
+- **The authored frame.** The box is taken as the author drew it; some other
+  orientation may have a smaller one.
+
+And what a pass licenses is narrow. It is a statement about the **aperture**,
+not the environment: the `narrow-hallway` fixture has a 110 cm opening this
+screen passes and no path at all, because there is nowhere to line the sofa up.
+
+Measured on the fixture that motivated it — the sofa's mid-length section, a
+seat and a leaning backrest, whose bounding box is 95 x 70. The box will never
+present less than 70 cm. The L inside it rolls to 66.22. So a 68 cm opening
+fails the screen and admits the shape, which is the whole reason a failure is
+not a verdict.
+
 ### The counterexample, because "less obviously" is not good enough
 
 `test/hullWidth.test.ts` builds a helix out of overlapping cubes: 40 cm radius,
@@ -797,22 +879,33 @@ orientations instead, and it is genuinely tighter — where the plain y-shortfal
 read **0** for the last fifty moves of a sideways approach, the new one reads
 **5**, because it knows the sofa still has to turn before it can be a goal.
 
-It did not close the plateau. Measured on the 210 cm-high doorway, sofa fixture,
-300 cm hallway, 1.2 M node budget:
+It did not close the plateau. Sofa fixture, 210 cm lintel, 300 cm hallway,
+1.2 M node budget, both tilt families searched — the width swept down in 2 cm
+steps, and beside each the answer to a different question: does a path exist at
+all? That second column is not the search's opinion. It is a straight run
+constructed at a fixed orientation and put through the same `EdgeValidator` the
+planner uses on every edge it considers. A run that validates is a path.
 
-| doorway | one tilt family | both families |
-| --- | --- | --- |
-| 96 cm | **feasible**, 32,344 nodes, 2 steps | feasible, 44,574 nodes, 4 steps |
-| 94 cm | budget exhausted | budget exhausted |
-| 90 cm | budget exhausted | budget exhausted |
-| 86 cm | budget exhausted | budget exhausted |
-| 80 cm | budget exhausted | budget exhausted |
+| doorway | what `plan` returns | nodes | time | does a path exist? |
+| ---: | --- | ---: | ---: | --- |
+| 96 cm | **feasible**, 4 steps | 44,574 | 0.2 s | yes |
+| 94 cm | budget exhausted | 1,200,000 | 17 s | **yes** — sideways, x = 24 |
+| 92 cm | budget exhausted | 1,200,000 | 25 s | **yes** — sideways, x = 24 |
+| 90 cm | budget exhausted | 1,200,000 | 20 s | **yes** — sideways, x = 26 |
+| 88 cm | budget exhausted | 1,200,000 | 15 s | **yes** — sideways, x = 26 |
+| 86 cm | budget exhausted | 1,200,000 | 14 s | **yes** — sideways, x = 28 |
+| 84 cm | budget exhausted | 1,200,000 | 14 s | no |
+| 82 cm | budget exhausted | 1,200,000 | 14 s | no |
+| 80 cm | budget exhausted | 1,200,000 | 14 s | no |
 
-**So the second tilt family stays off by default.** The condition for turning it
-on was that it resolve the model-limited negatives; it does not, and on the one
-scene that was working it costs two extra steps. The moves are implemented,
-tested and reachable — `secondTiltFamily: true` — and the sideways route is a
-documented next milestone rather than a shipped capability.
+Two things to read off it. The floor is between 84 and 86, and the closed-form
+sweep above puts it at exactly **85.00 cm**, set by the legs. And between 86 and
+94 the engine returns `search-budget-exhausted` for five doorways a person walks
+a sofa through. That verdict is honest — the budget ran out, nothing was proved,
+and it is not the same claim as `no-path-found` — but it is a gap, and it is a
+gap in the search rather than in the model. `test/fastPasses.test.ts` now labels
+those three cases **search-limited** where it used to say model-limited, and
+`test/tiltFamily.test.ts` carries the witnesses that justify the relabelling.
 
 **Why the tighter estimate is still far too loose.** `min over o` is dominated
 by orientations the relaxation cannot know are unusable. It charges for turning

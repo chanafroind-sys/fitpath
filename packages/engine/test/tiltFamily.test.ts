@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { EnvironmentParams, Placement } from '../src/types.ts';
+import type { EnvironmentParams, Placement, Vec3 } from '../src/types.ts';
 import type { NodeIndices } from '../src/planner/lattice.ts';
 import { buildEnvironment } from '../src/environment/build.ts';
 import { collides, itemWorldBoxes, prepareItem } from '../src/geometry/collide.ts';
@@ -8,7 +8,7 @@ import { createEdgeValidator } from '../src/planner/edge.ts';
 import { buildLattice, packKey, placementOf, snap, unpackKey } from '../src/planner/lattice.ts';
 import { expandNeighbours, pivotAnchorsByFamily } from '../src/planner/astar.ts';
 import { plan } from '../src/planner/plan.ts';
-import { degrees, radians } from '../src/math/rotation.ts';
+import { degrees, radians, rotationMatrix, transform } from '../src/math/rotation.ts';
 import { SOFA_3_SEAT } from '../src/fixtures/items.ts';
 
 const door = (openingWidth: number): EnvironmentParams => ({
@@ -63,6 +63,67 @@ describe('the second tilt family', () => {
     // Both families: local X is the 220 cm length, so tilting about it lays the
     // sofa on its side and puts the 85 cm height across the doorway.
     expect(narrowestPresentation(['x', 'y'])).toBeCloseTo(85, 6);
+  });
+
+  /**
+   * The floor beneath both families, and beneath any model this engine might
+   * grow later.
+   *
+   * Swept over full SO(3) — yaw, pitch AND roll, which is wider than the
+   * placement model the planner searches — the sofa cannot be held so as to
+   * present less than 85 cm to a 210 cm lintel. So 85.00 is not an artefact of
+   * fixing roll at zero; it is the item. The README quotes this number, and a
+   * quoted number with nothing checking it is a number that drifts.
+   *
+   * What sets it is the legs: on its side the body is 70 cm across and the legs
+   * stand 15 cm proud of it. Both halves of that are asserted, because the
+   * explanation is the useful part.
+   */
+  it('cannot be held narrower than 85 cm at any rotation whatsoever, and the legs are why', () => {
+    const corners = itemWorldBoxes(prepareItem(SOFA_3_SEAT), {
+      x: 0, y: 0, z: 0, yaw: 0, pitch: 0,
+    }).map((b) => {
+      const [ax, ay, az] = b.axes;
+      const h = b.halfExtents;
+      const out: Vec3[] = [];
+      for (const sx of [-1, 1]) for (const sy of [-1, 1]) for (const sz of [-1, 1]) {
+        out.push({
+          x: b.center.x + sx * ax.x * h.x + sy * ay.x * h.y + sz * az.x * h.z,
+          y: b.center.y + sx * ax.y * h.x + sy * ay.y * h.y + sz * az.y * h.z,
+          z: b.center.z + sx * ax.z * h.x + sy * ay.z * h.y + sz * az.z * h.z,
+        });
+      }
+      return out;
+    });
+
+    // 6 degrees, which lands on the optimum at yaw 90 / pitch 18 / roll 90.
+    const narrowest = (boxes: readonly number[]): number => {
+      let best = Infinity;
+      for (let yaw = 0; yaw < 360; yaw += 6) {
+        for (let pitch = -90; pitch <= 90; pitch += 6) {
+          for (let roll = 0; roll < 360; roll += 6) {
+            const R = rotationMatrix(radians(yaw), radians(pitch), radians(roll));
+            let minX = Infinity, maxX = -Infinity, minZ = Infinity, maxZ = -Infinity;
+            for (const bi of boxes) for (const c of corners[bi]!) {
+              const w = transform(R, c);
+              if (w.x < minX) minX = w.x;
+              if (w.x > maxX) maxX = w.x;
+              if (w.z < minZ) minZ = w.z;
+              if (w.z > maxZ) maxZ = w.z;
+            }
+            if (maxZ - minZ > 210) continue;
+            if (maxX - minX < best) best = maxX - minX;
+          }
+        }
+      }
+      return best;
+    };
+
+    const ALL = corners.map((_, i) => i);
+    expect(narrowest(ALL)).toBeCloseTo(85, 2);
+    // Take the legs off — indices 4 to 7, the fixture's own removable part —
+    // and the same sweep drops to the body's 70 cm.
+    expect(narrowest([0, 1, 2, 3])).toBeCloseTo(70, 2);
   });
 
   it('doubles the state space rather than multiplying it by twelve', () => {
@@ -158,26 +219,73 @@ describe('the second tilt family', () => {
     }
   });
 
-  it('lays the sofa on its side, and that really does clear a 90 cm doorway', () => {
-    const environment = buildEnvironment(door(90));
+  /**
+   * The witness behind the "search-limited" label in fastPasses.test.ts.
+   *
+   * Each of these is a straight run at a fixed orientation — the sofa on its
+   * side, 85 cm of height presented to the doorway instead of 95 cm of depth —
+   * carried from the hallway to wholly inside the room, and put through the
+   * same `EdgeValidator` the planner uses on every edge it considers. A run
+   * that validates is a path. The planner not finding it is a fact about the
+   * planner.
+   *
+   * The x offsets differ by doorway because a narrower opening leaves less room
+   * either side; they were found by scanning the corridor on a fixed 2 cm grid,
+   * not fitted.
+   */
+  for (const [openingWidth, x] of [
+    [94, 24],
+    [90, 26],
+    [86, 28],
+  ] as const) {
+    it(`the sideways run really does clear a ${openingWidth} cm doorway`, () => {
+      const environment = buildEnvironment(door(openingWidth));
+      const item = prepareItem(SOFA_3_SEAT);
+      const validator = createEdgeValidator(item, environment);
+      const at = (y: number): Placement => ({
+        x,
+        y,
+        z: 48,
+        yaw: radians(90),
+        pitch: radians(-90),
+        tiltAxis: 'x',
+      });
+
+      for (let y = -150; y <= 170; y += 2) {
+        expect(`y=${y}: ${collides(item, at(y), environment) ? 'blocked' : 'clear'}`).toBe(
+          `y=${y}: clear`,
+        );
+      }
+      expect(validator.isValid(at(-150), at(180))).toBe(true);
+      expect(contains(environment.room, unionAabb(itemWorldBoxes(item, at(180))))).toBe(true);
+    });
+  }
+
+  /**
+   * And the floor beneath them, measured rather than assumed.
+   *
+   * 84 cm has no straight run at any orientation the lattice admits, and the
+   * reason is the legs: on its side the sofa's body is 70 cm across, but the
+   * legs stand 15 cm proud of it, and every station of the item has to cross
+   * the wall. 85.00 cm is where that stops being possible.
+   */
+  it('has no sideways run through 84 cm, because the legs stand 15 cm proud', () => {
+    const environment = buildEnvironment(door(84));
     const item = prepareItem(SOFA_3_SEAT);
     const validator = createEdgeValidator(item, environment);
-    const at = (y: number): Placement => ({
-      x: 28,
-      y,
-      z: 50,
-      yaw: radians(90),
-      pitch: radians(-90),
-      tiltAxis: 'x',
-    });
-
-    for (let y = -150; y <= 170; y += 2) {
-      expect(`y=${y}: ${collides(item, at(y), environment) ? 'blocked' : 'clear'}`).toBe(
-        `y=${y}: clear`,
-      );
+    for (let pitchDeg = -90; pitchDeg <= 90; pitchDeg += 15) {
+      if (pitchDeg === 0) continue;
+      for (const tiltAxis of ['x', 'y'] as const) {
+        for (let x = -60; x <= 60; x += 2) {
+          for (let z = 0; z <= 140; z += 2) {
+            const at = (y: number): Placement => ({
+              x, y, z, yaw: radians(90), pitch: radians(pitchDeg), tiltAxis,
+            });
+            expect(validator.isValid(at(-150), at(180))).toBe(false);
+          }
+        }
+      }
     }
-    expect(validator.isValid(at(-150), at(170))).toBe(true);
-    expect(contains(environment.room, unionAabb(itemWorldBoxes(item, at(170))))).toBe(true);
   });
 
   /**
