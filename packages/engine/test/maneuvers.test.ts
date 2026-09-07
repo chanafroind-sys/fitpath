@@ -4,7 +4,7 @@ import { buildEnvironment } from '../src/environment/build.ts';
 import { collides, prepareItem } from '../src/geometry/collide.ts';
 import { createEdgeValidator } from '../src/planner/edge.ts';
 import { buildLibrary, buildManeuver } from '../src/maneuvers/build.ts';
-import { ON_ITS_SIDE, SEAT_FIRST, STRAIGHT_IN, TEMPLATES, rollSchedule } from '../src/maneuvers/templates.ts';
+import { ON_ITS_SIDE, SEAT_FIRST, STRAIGHT_IN, TEMPLATES, bestRollSchedule } from '../src/maneuvers/templates.ts';
 import { selectManeuver } from '../src/maneuvers/select.ts';
 import { SOFA_3_SEAT } from '../src/fixtures/items.ts';
 
@@ -69,7 +69,7 @@ describe('the maneuver library', () => {
    * side, and the reason is in the next test.
    */
   it('threading cannot beat lying on its side, and its own bound says so', () => {
-    const schedule = rollSchedule(sofa, WALL, 210);
+    const schedule = bestRollSchedule(sofa, WALL, 210);
     expect(schedule).toBeDefined();
     expect(schedule!.bound).toBeCloseTo(85.0, 2);
 
@@ -94,7 +94,7 @@ describe('the maneuver library', () => {
    */
   it('the legs are what set the floor, not the shape of the middle', () => {
     const legless = prepareItem(LEGLESS);
-    expect(rollSchedule(legless, WALL, 210)!.bound).toBeCloseTo(70.0, 2);
+    expect(bestRollSchedule(legless, WALL, 210)!.bound).toBeCloseTo(70.0, 2);
     expect(requirementOf(legless, ON_ITS_SIDE).requirement.doorWidth).toBeCloseTo(70.01, 2);
     expect(requirementOf(legless, SEAT_FIRST).requirement.doorWidth).toBeCloseTo(70.01, 2);
     // Straight in cannot use the difference at all: it never turns the item.

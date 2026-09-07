@@ -128,7 +128,9 @@ export {
   SEAT_FIRST,
   STRAIGHT_IN,
   TEMPLATES,
+  bestRollSchedule,
   rollSchedule,
+  type RollSchedule,
 } from './maneuvers/templates.ts';
 export {
   selectManeuver,
@@ -153,3 +155,24 @@ export {
   type Section,
   type SectionPoint,
 } from './maneuvers/footprint.ts';
+
+export {
+  bindingStation,
+  reportOn,
+  type BindingPart,
+  type BindingStation,
+  type ItemReport,
+  type ManeuverLine,
+  type RemovablePartLine,
+} from './maneuvers/report.ts';
+export {
+  CORNER_MAIN,
+  CORNER_RETURN,
+  CORNER_SOFA,
+  DEEP_SEAT_LOUNGE,
+  MODULES,
+  RECLINER_2_SEAT,
+  SLIM_ARM_2_SEAT,
+  SOFAS,
+  SOFA_BED,
+} from './fixtures/sofas.ts';

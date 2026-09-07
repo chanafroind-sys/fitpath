@@ -53,8 +53,16 @@ interface Extents {
   /** Whole item: how far back into the hallway and forward into the room. */
   back: number;
   forward: number;
-  /** Whole item, for sizing the dimensions this library does not claim. */
-  spanX: number;
+  /**
+   * How far the whole item reaches sideways, and how high.
+   *
+   * Kept as a signed range rather than a distance from the centre, because the
+   * path is slid sideways after it is measured and an asymmetric item does not
+   * reach the same distance either way. Recording only the larger of the two
+   * would size the corridor from where the item used to be.
+   */
+  wholeMinX: number;
+  wholeMaxX: number;
   topZ: number;
 }
 
@@ -64,7 +72,8 @@ const EMPTY: Extents = {
   maxZ: 0,
   back: 0,
   forward: 0,
-  spanX: 0,
+  wholeMinX: Infinity,
+  wholeMaxX: -Infinity,
   topZ: 0,
 };
 
@@ -78,8 +87,8 @@ function absorb(item: PreparedItem, placement: Placement, wallThickness: number,
   const whole = unionAabb(itemWorldBoxes(item, placement));
   if (-whole.minY > into.back) into.back = -whole.minY;
   if (whole.maxY - wallThickness > into.forward) into.forward = whole.maxY - wallThickness;
-  const span = Math.max(Math.abs(whole.minX), Math.abs(whole.maxX));
-  if (span > into.spanX) into.spanX = span;
+  if (whole.minX < into.wholeMinX) into.wholeMinX = whole.minX;
+  if (whole.maxX > into.wholeMaxX) into.wholeMaxX = whole.maxX;
   if (whole.maxZ > into.topZ) into.topZ = whole.maxZ;
 }
 
@@ -90,7 +99,8 @@ function merge(a: Extents, b: Extents): Extents {
     maxZ: Math.max(a.maxZ, b.maxZ),
     back: Math.max(a.back, b.back),
     forward: Math.max(a.forward, b.forward),
-    spanX: Math.max(a.spanX, b.spanX),
+    wholeMinX: Math.min(a.wholeMinX, b.wholeMinX),
+    wholeMaxX: Math.max(a.wholeMaxX, b.wholeMaxX),
     topZ: Math.max(a.topZ, b.topZ),
   };
 }
@@ -204,7 +214,13 @@ export function buildManeuver(
   // The two dimensions the library does not claim — how far the corridor runs
   // along its own length, and how wide the room is — are set generously from
   // the motion, so that the four numbers above are the only things under test.
-  const clear = Math.max(60, total.spanX * 2 + 40);
+  // Measured AFTER the shift, or an asymmetric item is given a corridor sized
+  // for where it used to be and then reported as colliding with the end of it.
+  const reach = Math.max(
+    Math.abs(total.wholeMinX + shift),
+    Math.abs(total.wholeMaxX + shift),
+  );
+  const clear = Math.max(60, reach * 2 + 40);
   const params: EnvironmentParams = {
     openingWidth: requirement.doorWidth,
     openingHeight: requirement.doorHeight,

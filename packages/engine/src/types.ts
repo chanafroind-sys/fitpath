@@ -32,6 +32,17 @@ export interface Box {
   center: Vec3;
   halfExtents: Vec3;
   rotation: Rotation;
+  /**
+   * What this box is, in words a person would use: "legs", "armrests", "the
+   * recliner housing".
+   *
+   * The maneuver library reports which part of an item is the one that decides
+   * how wide a doorway it needs, and that sentence is only worth reading if the
+   * name in it came from the same model the measurement did. Optional, because
+   * an item modelled as one block has nothing to distinguish.
+   */
+  label?: string;
+  labelHe?: string;
 }
 
 /** A group of boxes that can be unscrewed and carried separately (legs, feet, shelves). */

@@ -7,6 +7,41 @@ function box(center: Vec3, halfExtents: Vec3, rotation: Rotation = UPRIGHT): Box
   return { center, halfExtents, rotation };
 }
 
+/**
+ * The same, named.
+ *
+ * A named box is what lets the library say "the widest part of this sofa is its
+ * armrests" from the measurement rather than from a hand-written note that can
+ * drift away from the model.
+ */
+export function part(
+  label: string,
+  labelHe: string,
+  center: Vec3,
+  halfExtents: Vec3,
+  rotation: Rotation = UPRIGHT,
+): Box {
+  return { center, halfExtents, rotation, label, labelHe };
+}
+
+/** A box spanning a literal range on each axis, which is how sofas are drawn. */
+export function spanning(
+  label: string,
+  labelHe: string,
+  x: readonly [number, number],
+  y: readonly [number, number],
+  z: readonly [number, number],
+  rotation: Rotation = UPRIGHT,
+): Box {
+  return part(
+    label,
+    labelHe,
+    { x: (x[0] + x[1]) / 2, y: (y[0] + y[1]) / 2, z: (z[0] + z[1]) / 2 },
+    { x: (x[1] - x[0]) / 2, y: (y[1] - y[0]) / 2, z: (z[1] - z[0]) / 2 },
+    rotation,
+  );
+}
+
 // The backrest leans back 12 degrees about the sofa's long axis, which changes
 // how much depth and height it occupies. Its centre is derived from the rotated
 // half-extents rather than written down as a rounded number, so the sofa's
@@ -43,12 +78,14 @@ export const SOFA_3_SEAT: Item = {
   nameHe: 'ספה תלת-מושבית',
   boxes: [
     // seat block: the full length, from the front edge back under the backrest
-    box({ x: 0, y: -7.5, z: 20 }, { x: 110, y: 40, z: 20 }),
+    part('the seat', 'המושב', { x: 0, y: -7.5, z: 20 }, { x: 110, y: 40, z: 20 }),
     // Backrest, leaning back 12 degrees about the sofa's long axis. Negative
     // roll tips the top toward +Y, which is the back. Its centre is placed so
     // that the rotated box lands exactly on the sofa's 95 cm depth and 70 cm
     // body height.
-    box(
+    part(
+      'the backrest',
+      'המשענת',
       {
         x: 0,
         y: 47.5 - BACKREST_ROTATED_HALF_DEPTH,
@@ -58,13 +95,13 @@ export const SOFA_3_SEAT: Item = {
       { yaw: 0, pitch: 0, roll: BACKREST_ROLL },
     ),
     // armrests: full depth, and they define the sofa's 95 cm depth
-    box({ x: -105, y: 0, z: 27.5 }, { x: 5, y: 47.5, z: 27.5 }),
-    box({ x: 105, y: 0, z: 27.5 }, { x: 5, y: 47.5, z: 27.5 }),
+    part('the armrests', 'המשענות', { x: -105, y: 0, z: 27.5 }, { x: 5, y: 47.5, z: 27.5 }),
+    part('the armrests', 'המשענות', { x: 105, y: 0, z: 27.5 }, { x: 5, y: 47.5, z: 27.5 }),
     // legs, hanging below the body. Indices 4-7.
-    box({ x: -100, y: -40, z: -7.5 }, { x: 4, y: 4, z: 7.5 }),
-    box({ x: 100, y: -40, z: -7.5 }, { x: 4, y: 4, z: 7.5 }),
-    box({ x: -100, y: 40, z: -7.5 }, { x: 4, y: 4, z: 7.5 }),
-    box({ x: 100, y: 40, z: -7.5 }, { x: 4, y: 4, z: 7.5 }),
+    part('the legs', 'הרגליים', { x: -100, y: -40, z: -7.5 }, { x: 4, y: 4, z: 7.5 }),
+    part('the legs', 'הרגליים', { x: 100, y: -40, z: -7.5 }, { x: 4, y: 4, z: 7.5 }),
+    part('the legs', 'הרגליים', { x: -100, y: 40, z: -7.5 }, { x: 4, y: 4, z: 7.5 }),
+    part('the legs', 'הרגליים', { x: 100, y: 40, z: -7.5 }, { x: 4, y: 4, z: 7.5 }),
   ],
   removableParts: [{ name: 'legs', nameHe: 'הרגליים', boxIndices: [4, 5, 6, 7] }],
 };

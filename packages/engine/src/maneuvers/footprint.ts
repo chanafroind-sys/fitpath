@@ -19,6 +19,9 @@ import { itemWorldBoxes } from '../geometry/collide.ts';
  * sampling, no tolerance.
  */
 
+/** Which of the item's own axes is pointed through the doorway. */
+export type TravelAxis = 'x' | 'y';
+
 const CORNER_SIGNS: readonly (readonly [number, number, number])[] = [
   [-1, -1, -1],
   [-1, -1, 1],
@@ -112,14 +115,30 @@ export function slabSection(
   return any ? { minX, maxX, minZ, maxZ } : undefined;
 }
 
-/** A point of the item's cross-section, in the item's own frame. */
+/**
+ * A point of the item's cross-section, in the frame the doorway sees.
+ *
+ * `a` is the coordinate that runs across the opening and `b` the one that runs
+ * up it, before any roll. Which of the item's own axes those are depends on
+ * which axis is pointed through the door, and the sign convention differs
+ * between the two so that a positive roll turns the same way in both:
+ *
+ *   travel along local X, at yaw 90:  a = -y,  b = z
+ *   travel along local Y, at yaw 0:   a =  x,  b = z
+ *
+ * With that substitution the world mapping is the same either way —
+ * `worldX = a cos p + b sin p`, `worldZ = -a sin p + b cos p` — which is what
+ * lets one schedule serve both.
+ */
 export interface SectionPoint {
-  y: number;
-  z: number;
+  a: number;
+  b: number;
+  /** Which box of the item this point came from, so extremes can be named. */
+  box: number;
 }
 
 /**
- * The item's cross-section over a band of its own length, `x` in `[from, to]`.
+ * The item's cross-section over a band of its own length.
  *
  * Used to work out, station by station, how narrow the item could be presented
  * there if it were rolled to suit. Same clipping argument as `slabSection`, one
@@ -129,59 +148,58 @@ export function bandSection(
   boxes: readonly WorldBox[],
   from: number,
   to: number,
+  travelAxis: TravelAxis = 'x',
 ): SectionPoint[] {
+  const along = travelAxis === 'x' ? 'x' : 'y';
   const out: SectionPoint[] = [];
-  for (const box of boxes) {
-    if (box.aabbMax.x < from || box.aabbMin.x > to) continue;
+  for (let index = 0; index < boxes.length; index++) {
+    const box = boxes[index]!;
+    if (box.aabbMax[along] < from || box.aabbMin[along] > to) continue;
     const corners = boxCorners(box);
+    const take = (p: Vec3): void => {
+      out.push({ a: travelAxis === 'x' ? -p.y : p.x, b: p.z, box: index });
+    };
     for (const c of corners) {
-      if (c.x >= from && c.x <= to) out.push({ y: c.y, z: c.z });
+      if (c[along] >= from && c[along] <= to) take(c);
     }
     for (const [i, j] of EDGES) {
-      const a = corners[i]!;
-      const b = corners[j]!;
+      const p = corners[i]!;
+      const q = corners[j]!;
       for (const plane of [from, to]) {
-        const da = a.x - plane;
-        const db = b.x - plane;
-        if ((da > 0 && db > 0) || (da < 0 && db < 0)) continue;
-        if (da === db) continue;
-        const t = da / (da - db);
+        const dp = p[along] - plane;
+        const dq = q[along] - plane;
+        if ((dp > 0 && dq > 0) || (dp < 0 && dq < 0)) continue;
+        if (dp === dq) continue;
+        const t = dp / (dp - dq);
         if (t < 0 || t > 1) continue;
-        out.push({ y: a.y + t * (b.y - a.y), z: a.z + t * (b.z - a.z) });
+        take({ x: p.x + t * (q.x - p.x), y: p.y + t * (q.y - p.y), z: p.z + t * (q.z - p.z) });
       }
     }
   }
   return out;
 }
 
-/**
- * How wide and tall that cross-section would be if the item were rolled.
- *
- * At yaw 90 in the second tilt family, a placement's pitch turns the item about
- * the axis pointing through the doorway, so this is exactly what the doorway
- * would have to admit. The world mapping is `x = -(y cos p - z sin p)` and
- * `z = y sin p + z cos p`; a sign has no effect on an extent.
- */
 export interface RolledExtent {
   width: number;
   height: number;
   /**
-   * The section's range along the doorway's width, in the rolled frame.
+   * Where the section sits across the doorway, in world x, before the item is
+   * placed.
    *
-   * World x is `-u`, so an item is centred in the opening when its placement's
-   * x equals `(minU + maxU) / 2`. Threading needs that: as the item turns, the
-   * middle of its section moves, and a carrier slides it sideways to keep it in
-   * the doorway. A maneuver that only ever turned would have to buy a doorway
-   * wide enough for the section wherever it happened to sit.
+   * An item is centred in the opening when its placement's x is
+   * `-(minU + maxU) / 2`. Threading needs that: as the item turns, the middle
+   * of its section moves, and a carrier slides it sideways to keep it in the
+   * doorway. A maneuver that only turned would have to buy a doorway wide
+   * enough for the section wherever it happened to end up.
    */
   minU: number;
   maxU: number;
+  minV: number;
+  maxV: number;
 }
 
-export function rolledExtent(
-  points: readonly SectionPoint[],
-  roll: number,
-): RolledExtent {
+/** How wide and tall that cross-section would be if the item were rolled. */
+export function rolledExtent(points: readonly SectionPoint[], roll: number): RolledExtent {
   const c = Math.cos(roll);
   const s = Math.sin(roll);
   let minU = Infinity;
@@ -189,14 +207,14 @@ export function rolledExtent(
   let minV = Infinity;
   let maxV = -Infinity;
   for (const p of points) {
-    const u = p.y * c - p.z * s;
-    const v = p.y * s + p.z * c;
+    const u = p.a * c + p.b * s;
+    const v = -p.a * s + p.b * c;
     if (u < minU) minU = u;
     if (u > maxU) maxU = u;
     if (v < minV) minV = v;
     if (v > maxV) maxV = v;
   }
-  return { width: maxU - minU, height: maxV - minV, minU, maxU };
+  return { width: maxU - minU, height: maxV - minV, minU, maxU, minV, maxV };
 }
 
 /** The item's boxes in its own frame, which is where cross-sections live. */
@@ -209,7 +227,7 @@ export function orientedBounds(
   item: PreparedItem,
   yaw: number,
   pitch: number,
-  tiltAxis: 'x' | 'y',
+  tiltAxis: TravelAxis,
 ): Section & { minY: number; maxY: number } {
   let minX = Infinity;
   let maxX = -Infinity;
