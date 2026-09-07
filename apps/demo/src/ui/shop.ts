@@ -8,6 +8,7 @@
  * planner about how big a sofa is would make the whole exercise pointless.
  */
 import { PRODUCTS, boundsOf, retailDimensions, type Product } from '../catalog.ts';
+import { entryFor, reportPanel } from './library.ts';
 import { cm, shekels } from './format.ts';
 import { el, hebrew } from './dom.ts';
 
@@ -43,7 +44,7 @@ export function createShop(onOpen: (id: string) => void): HTMLElement {
   return el('section', { class: 'shop', id: 'shop' }, [
     el('div', { class: 'section-head' }, [
       el('p', { class: 'eyebrow', text: 'The shop' }),
-      el('h2', { text: 'Three things that have to get through a door' }),
+      el('h2', { text: 'Six sofas that have to get through a door' }),
       el('p', {
         class: 'section-lede',
         text: 'A demonstration storefront. Every dimension below is read from the engine’s own fixtures — the same objects its tests are written against.',
@@ -85,6 +86,9 @@ export function createProductPage(
   product: Product,
   handlers: { onCheck: (id: string) => void; onBack: () => void },
 ): HTMLElement {
+  // Measured offline, when the library was built, so the page publishes the
+  // same numbers the checker will answer with.
+  const report = entryFor(product.id);
   return el('section', { class: 'product-page' }, [
     el('button', {
       class: 'ghost-button back-link',
@@ -117,5 +121,6 @@ export function createProductPage(
         dimensionsTable(product),
       ]),
     ]),
+    report === undefined ? el('span', {}) : reportPanel(report.report, report.modules),
   ]);
 }

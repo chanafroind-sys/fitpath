@@ -1,0 +1,417 @@
+/*
+ * The maneuver library: the two-engine hero, the reports, the catalogue.
+ *
+ * Same single accent as the rest of the app. The library and the planner are
+ * told apart by weight rather than by hue — the side with an answer gets a
+ * solid surface and a live viewer, the side without gets hatching — so which is
+ * which reads before any of the words do.
+ */
+
+.duel {
+  margin: 4rem 0;
+}
+
+.duel-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+  .duel-grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+.duel-side {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  padding: 1rem 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.duel-library {
+  border-color: var(--accent);
+}
+
+.duel-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.duel-head h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.duel-sub {
+  margin: 0.15rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+.duel-stat {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+.duel-caption,
+.duel-footnote,
+.legs-footnote {
+  max-width: 62ch;
+}
+
+/*
+ * The side with no answer. Hatched rather than empty, so that it reads as "we
+ * looked and found nothing" instead of as a component that failed to load.
+ */
+.duel-blank {
+  min-height: 240px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--surface-2),
+    var(--surface-2) 10px,
+    transparent 10px,
+    transparent 20px
+  );
+  border: 1px dashed var(--line-strong);
+}
+
+.duel-blank-inner {
+  text-align: center;
+}
+
+.duel-nodes {
+  margin: 0;
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.duel-blank-inner .muted {
+  margin: 0.25rem 0 0;
+}
+
+/* --- which engine spoke -------------------------------------------------- */
+
+.source-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  align-self: flex-start;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.source-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--line-strong);
+}
+
+.source-library .source-dot {
+  background: var(--accent);
+}
+
+.source-proof .source-dot {
+  background: var(--ink);
+}
+
+.source-note {
+  margin: 0.15rem 0 0;
+  font-size: 0.82rem;
+}
+
+/* --- the caveat that rides with every library answer --------------------- */
+
+.caveat {
+  border-left: 3px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0 8px 8px 0;
+  padding: 0.7rem 0.9rem;
+}
+
+.caveat p {
+  margin: 0;
+  font-size: 0.88rem;
+}
+
+.caveat p + p {
+  margin-top: 0.4rem;
+}
+
+/* --- stage lists --------------------------------------------------------- */
+
+.stage-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+}
+
+.stage-list li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: space-between;
+}
+
+.stage-he {
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+/* --- the measured report ------------------------------------------------- */
+
+.report-panel {
+  margin-top: 2rem;
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin: 0.75rem 0 1rem;
+}
+
+.report-table th,
+.report-table td {
+  text-align: left;
+  padding: 0.5rem 0.6rem;
+  border-bottom: 1px solid var(--line);
+  vertical-align: baseline;
+}
+
+.report-table thead th {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  border-bottom-color: var(--line-strong);
+}
+
+.report-table td {
+  font-variant-numeric: tabular-nums;
+}
+
+.row-invalid th,
+.row-invalid td {
+  color: var(--ink-soft);
+}
+
+.ok-tick {
+  color: var(--accent-ink);
+  font-weight: 600;
+  font-size: 0.82rem;
+}
+
+.report-figures {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin: 1rem 0 0.5rem;
+}
+
+.report-figures > div {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.7rem 0.85rem;
+  background: var(--surface-2);
+}
+
+.figure-label {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+.figure-value {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.binding {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.binding h3 {
+  margin: 0 0 0.35rem;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+.binding-line {
+  font-size: 1.1rem;
+  margin: 0 0 0.4rem;
+}
+
+.binding p + h3 {
+  margin-top: 1rem;
+}
+
+.tick-list {
+  margin: 0.25rem 0 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.25rem;
+  font-size: 0.92rem;
+}
+
+/* --- the catalogue ------------------------------------------------------- */
+
+.catalogue-table tbody tr {
+  cursor: pointer;
+}
+
+.catalogue-table tbody tr:hover {
+  background: var(--surface-2);
+}
+
+.link-button {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: var(--accent-ink);
+  cursor: pointer;
+  text-align: left;
+  font-weight: 600;
+}
+
+.link-button:hover {
+  text-decoration: underline;
+}
+
+/* --- the legs case ------------------------------------------------------- */
+
+.legs-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin: 1rem 0;
+}
+
+.legs-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1rem;
+  background: var(--surface-2);
+}
+
+.legs-card.legs-off {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.legs-title {
+  margin: 0;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+.legs-value {
+  margin: 0.2rem 0 0.35rem;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.legs-card p:last-child {
+  margin: 0;
+  font-size: 0.86rem;
+}
+
+/* --- the checker's library answer ---------------------------------------- */
+
+.library-hit {
+  border-color: var(--accent);
+  display: grid;
+  gap: 0.75rem;
+}
+
+.library-hit-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.library-hit-head h2 {
+  margin: 0;
+}
+
+.library-hit-head p {
+  margin: 0.2rem 0 0;
+}
+
+.library-miss {
+  border-style: dashed;
+}
+
+.library-miss p {
+  margin: 0;
+}
+
+.library-miss p + p {
+  margin-top: 0.35rem;
+}
+
+.result-stage {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+/*
+ * Dark theme. Only the tokens that need a different mix, not a second palette:
+ * the accent washes are too heavy at full strength on a dark ground, and the
+ * accent's darker ink reads as mud.
+ */
+:root[data-theme='dark'] .caveat,
+:root[data-theme='dark'] .legs-card.legs-off {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+:root[data-theme='dark'] .ok-tick,
+:root[data-theme='dark'] .link-button {
+  color: var(--accent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .caveat,
+  :root:not([data-theme='light']) .legs-card.legs-off {
+    background: color-mix(in srgb, var(--accent) 16%, transparent);
+  }
+
+  :root:not([data-theme='light']) .ok-tick,
+  :root:not([data-theme='light']) .link-button {
+    color: var(--accent);
+  }
+}

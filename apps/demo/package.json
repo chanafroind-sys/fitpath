@@ -7,9 +7,10 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "npm run precompute && tsc --noEmit && vite build",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "precompute": "node scripts/precompute.ts"
   },
   "dependencies": {
     "@fitpath/engine": "*",

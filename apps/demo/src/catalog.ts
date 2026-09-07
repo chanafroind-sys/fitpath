@@ -1,5 +1,5 @@
 /**
- * The shop's three products.
+ * The shop's six products, all sofas.
  *
  * Every measurement on the page is read out of the engine's own fixtures — the
  * same objects its tests are written against — rather than typed in here. What
@@ -8,22 +8,21 @@
  * "width".
  */
 import {
-  IMPOSSIBLE,
+  CORNER_SOFA,
+  DEEP_SEAT_LOUNGE,
   LEGS_MUST_COME_OFF,
   NARROW_HALLWAY,
-  REFRIGERATOR,
+  RECLINER_2_SEAT,
+  SLIM_ARM_2_SEAT,
   SOFA_3_SEAT,
-  TILT_REQUIRED,
+  SOFA_BED,
   TRIVIAL_FIT,
-  WARDROBE,
   itemWorldBoxes,
   unionAabb,
 } from '@fitpath/engine';
 import type { AxisBox, EnvironmentParams, Item, Placement, Scenario } from '@fitpath/engine';
 import type { ItemId } from './engine/protocol.ts';
 import sofaImage from './assets/sofa.svg';
-import wardrobeImage from './assets/wardrobe.svg';
-import refrigeratorImage from './assets/refrigerator.svg';
 
 /** The item at its own origin, unrotated: the pose its declared box list describes. */
 const ORIGIN: Placement = { x: 0, y: 0, z: 0, yaw: 0, pitch: 0 };
@@ -87,28 +86,38 @@ const SOFA_DEFAULTS: EnvironmentParams = {
   ceilingHeight: 250,
 };
 
-const WARDROBE_DEFAULTS: EnvironmentParams = {
-  openingWidth: 200,
-  openingHeight: 205,
+/**
+ * A default scene per sofa, each one chosen so the first answer a visitor sees
+ * is decisive rather than borderline, and so the doorway is a size that exists.
+ */
+const withDoor = (openingWidth: number, hallwayWidth: number): EnvironmentParams => ({
+  openingWidth,
+  openingHeight: 210,
   wallThickness: 15,
-  hallwayWidth: 260,
-  hallwayDepth: 420,
-  roomDepth: 380,
-  roomWidth: 380,
-  ceilingHeight: 250,
-};
-
-const REFRIGERATOR_DEFAULTS: EnvironmentParams = {
-  openingWidth: 80,
-  openingHeight: 200,
-  wallThickness: 15,
-  hallwayWidth: 150,
-  hallwayDepth: 320,
+  hallwayWidth,
+  hallwayDepth: 360,
   roomDepth: 400,
   roomWidth: 400,
   ceilingHeight: 250,
-};
+});
 
+const SLIM_DEFAULTS = withDoor(80, 240);
+const CORNER_DEFAULTS = withDoor(90, 300);
+const DEEP_DEFAULTS = withDoor(80, 240);
+const RECLINER_DEFAULTS = withDoor(105, 240);
+const SOFA_BED_DEFAULTS = withDoor(95, 240);
+
+/**
+ * The catalogue: six sofas, chosen so a different part binds in each.
+ *
+ * Wardrobes and refrigerators came out because they are not the interesting
+ * case — a wardrobe gets taken apart. Sofas are the real problem: rigid, heavy,
+ * and shaped so that the answer turns on a detail. Every one of these needs a
+ * different doorway for a different reason, and the reason is on its page.
+ *
+ * One illustration serves all six. The engine never sees it, and the roadmap
+ * section says plainly that product imagery here is drawn rather than measured.
+ */
 export const PRODUCTS: readonly Product[] = [
   {
     id: 'sofa-3-seat',
@@ -118,7 +127,7 @@ export const PRODUCTS: readonly Product[] = [
     tagline: 'Deep seat, feather-topped cushions, solid beech legs',
     price: 6490,
     blurb:
-      'A generous three-seater with a 12° reclined back and a removable leg set. The legs unscrew in about a minute, which occasionally turns out to matter.',
+      'A generous three-seater with a 12° reclined back and a removable leg set. The legs unscrew in about a minute, and they are exactly what decides the answer.',
     material: 'Wool-blend upholstery · solid beech legs',
     image: sofaImage,
     widthAxis: 'x',
@@ -126,34 +135,79 @@ export const PRODUCTS: readonly Product[] = [
     scenarios: [TRIVIAL_FIT, NARROW_HALLWAY, LEGS_MUST_COME_OFF],
   },
   {
-    id: 'wardrobe',
-    item: WARDROBE,
-    title: 'Vinter two-door wardrobe',
-    titleHe: 'ארון בגדים דו-דלתי וינטר',
-    tagline: 'Full-height hanging space, soft-close doors',
-    price: 3890,
+    id: 'slim-arm-2-seat',
+    item: SLIM_ARM_2_SEAT,
+    title: 'Vetle slim-arm 2-seat',
+    titleHe: 'ספה דו-מושבית ווטלה',
+    tagline: 'Eight-centimetre arms, low back, recessed plinth',
+    price: 4290,
     blurb:
-      'Taller than a standard door, which is the whole problem. It goes in tipped onto its back — a maneuver that needs the ceiling as much as it needs the doorway.',
-    material: 'Oak veneer · soft-close hinges',
-    image: wardrobeImage,
-    widthAxis: 'y',
-    defaults: WARDROBE_DEFAULTS,
-    scenarios: [TILT_REQUIRED],
+      'Slim arms that stop well below the back, and a plinth instead of legs. That combination is why this is the one sofa here that gains from being turned as it goes rather than simply laid on its side.',
+    material: 'Bouclé upholstery · powder-coated plinth',
+    image: sofaImage,
+    widthAxis: 'x',
+    defaults: SLIM_DEFAULTS,
+    scenarios: [],
   },
   {
-    id: 'refrigerator',
-    item: REFRIGERATOR,
-    title: 'Kelvin 380 fridge-freezer',
-    titleHe: 'מקרר-מקפיא קלווין 380',
-    tagline: '380 litres, no-frost, reversible doors',
-    price: 5250,
+    id: 'corner-sofa',
+    item: CORNER_SOFA,
+    title: 'Rosendal corner sofa',
+    titleHe: 'ספה פינתית רוזנדל',
+    tagline: 'Chaise return, 280 × 200 cm overall',
+    price: 11900,
     blurb:
-      'A single rigid block with nothing to remove and nothing that folds. When it does not fit, it does not fit — and the engine can sometimes prove that outright.',
-    material: 'Brushed stainless steel',
-    image: refrigeratorImage,
+      'An L, which a rectangular doorway does not forgive. Delivered as two modules that bolt together, and the difference between the assembled figure and the module figure is the difference between impossible and ordinary.',
+    material: 'Linen-blend upholstery · steel connectors',
+    image: sofaImage,
     widthAxis: 'x',
-    defaults: REFRIGERATOR_DEFAULTS,
-    scenarios: [IMPOSSIBLE],
+    defaults: CORNER_DEFAULTS,
+    scenarios: [],
+  },
+  {
+    id: 'deep-seat-lounge',
+    item: DEEP_SEAT_LOUNGE,
+    title: 'Havsta deep-seat lounge',
+    titleHe: 'ספת לאונג עמוקה הבסטה',
+    tagline: '110 cm deep, 75 cm tall, nothing removable',
+    price: 7350,
+    blurb:
+      'Low and very deep, so depth rather than height is what a doorway sees. It is the narrowest-clearing sofa in the catalogue, and it goes in on end.',
+    material: 'Cotton-velvet upholstery · hardwood frame',
+    image: sofaImage,
+    widthAxis: 'x',
+    defaults: DEEP_DEFAULTS,
+    scenarios: [],
+  },
+  {
+    id: 'recliner-2-seat',
+    item: RECLINER_2_SEAT,
+    title: 'Brekke 2-seat recliner',
+    titleHe: 'ספת ריקליינר דו-מושבית ברקה',
+    tagline: 'Powered recline, mechanism housed across the back',
+    price: 8990,
+    blurb:
+      'The reclining mechanism lives in a housing across the back and is bolted to the frame. It adds ten centimetres of depth that cannot be taken off, and those ten centimetres are the whole answer.',
+    material: 'Leather upholstery · steel mechanism',
+    image: sofaImage,
+    widthAxis: 'x',
+    defaults: RECLINER_DEFAULTS,
+    scenarios: [],
+  },
+  {
+    id: 'sofa-bed',
+    item: SOFA_BED,
+    title: 'Lindholm sofa bed',
+    titleHe: 'ספה נפתחת לינדהולם',
+    tagline: 'Full-size folding frame, nothing to unbolt',
+    price: 6790,
+    blurb:
+      'The folded bed fills the body, so there is no hollow to turn into clearance and nothing that comes off. The hardest case here, and it is in the catalogue for that reason.',
+    material: 'Heavy-weave upholstery · sprung steel frame',
+    image: sofaImage,
+    widthAxis: 'x',
+    defaults: SOFA_BED_DEFAULTS,
+    scenarios: [],
   },
 ];
 

@@ -15,6 +15,34 @@ No backend. No API key. Nothing is precomputed.
 
 ---
 
+## Which engine answered
+
+Three things can answer "will it fit", and they are not worth the same, so the
+page always says which one spoke.
+
+1. **The maneuver library** — microseconds. A short list of maneuvers, each one
+   instantiated for this exact sofa and validated placement by placement against
+   the collider *before the page was built*, each recorded with the four numbers
+   it asks of a doorway. Answering is a comparison of four numbers.
+2. **The closed-form proof** — `provableNoFit`, a geometric argument with no
+   search in it. The only thing in the system allowed to report a definite no.
+3. **The general planner** — a full search of positions and orientations. The
+   fallback, and the only one that takes real time.
+
+**"No maneuver in the library fits" is never rendered as "does not fit."** The
+library is a list of moves known to work, so its silence is a statement about
+the list. When it misses, the page says so in those words and hands the question
+to the planner.
+
+### The clearance caveat, which is on every library answer
+
+Every maneuver begins with the sofa **already square to the doorway**, and
+holding a two-metre sofa square to a wall takes two metres of floor in front of
+that wall. So each answer carries its `hallwayClearance` figure — 222 cm for the
+three-seater — and says plainly that turning an item square from along a
+corridor is not yet in the library. A shopper with a 120 cm hallway must not be
+handed an answer that quietly assumed 222.
+
 ## What is real, and what is illustrated
 
 This distinction is the whole point of the demo, so it is stated here as
@@ -32,6 +60,16 @@ plainly as it is stated on the page itself.
 | Product dimensions in the shop | `unionAabb(itemWorldBoxes(item, origin))` on the engine's own fixtures |
 | The scene geometry drawn in 3D | `buildEnvironment()` — the same call the planner searched |
 | Timings and node counts | `PlanResult.stats` |
+| Every maneuver's four requirement numbers | `buildManeuver()`, measured from the motion and then validated in exactly the environment it asks for |
+| "The widest part of this sofa is its legs" | `bindingStation()` — the run of the item that forces the widest opening, and whichever part is concentrated in it |
+| The theoretical floor beside each maneuver | `bestRollSchedule().bound`, a minimax over every roll at every station: no schedule can do better |
+| The catalogue table, sorted by narrowest doorway | `reportOn()` for each of the six sofas |
+
+The library and the hero's planner figures are computed by `scripts/precompute.ts`
+at **build time**, not in the browser — the planner's side of the hero takes
+eleven seconds to fail to find a route, and the point is that it happened, not
+that it happens while you wait. The output is committed so `npm run dev` works
+without a build step, and `npm run build` regenerates it first.
 
 ### Illustrated, and labelled as such on the page
 

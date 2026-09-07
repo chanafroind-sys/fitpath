@@ -14,9 +14,7 @@
  */
 import {
   DEFAULT_DIAGNOSTICS_NODE_BUDGET,
-  REFRIGERATOR,
-  SOFA_3_SEAT,
-  WARDROBE,
+  SOFAS,
   buildEnvironment,
   diagnose,
   firstContactAlongPath,
@@ -29,11 +27,8 @@ import type { Item, PlanOptions } from '@fitpath/engine';
 import { DEMO_MAX_NODES } from './protocol.ts';
 import type { ItemId, PlanRequest, WorkerMessage } from './protocol.ts';
 
-const ITEMS: Record<ItemId, Item> = {
-  'sofa-3-seat': SOFA_3_SEAT,
-  wardrobe: WARDROBE,
-  refrigerator: REFRIGERATOR,
-};
+/** Every fixture the demo can ask about, keyed by the id the engine gave it. */
+const ITEMS: Record<ItemId, Item> = Object.fromEntries(SOFAS.map((item) => [item.id, item]));
 
 /** `self` in a module worker. Typed through the DOM lib rather than pulling in the WebWorker lib. */
 const ctx = self as unknown as Worker;

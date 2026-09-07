@@ -6,9 +6,12 @@
  * than a form waiting to be filled in.
  */
 import './styles.css';
+import './styles-library.css';
 import { productById } from './catalog.ts';
 import { clear, el } from './ui/dom.ts';
 import { createCompareView, type CompareView } from './ui/compare.ts';
+import { createHero, type HeroView } from './ui/hero.ts';
+import { catalogueTable, legsPanel } from './ui/library.ts';
 import { createChecker, type CheckerView } from './ui/checker.ts';
 import { createProductPage, createShop } from './ui/shop.ts';
 import { createRoadmap } from './ui/roadmap.ts';
@@ -57,7 +60,8 @@ function masthead(): HTMLElement {
       el('span', { class: 'badge badge-demo', text: 'Fictional store · engine demo' }),
       el('nav', { class: 'masthead-nav' }, [
         el('a', { href: '#/', text: 'Shop' }),
-        el('a', { href: '#/#compare', text: 'Why it matters' }),
+        el('a', { href: '#/#duel', text: 'Why it matters' }),
+        el('a', { href: '#/#catalogue', text: 'The range' }),
         el('a', { href: '#/#roadmap', text: 'What is real' }),
       ]),
       themeButton,
@@ -82,6 +86,7 @@ function colophon(): HTMLElement {
 }
 
 function homeView(): MountedView {
+  const duel: HeroView = createHero();
   const compare: CompareView = createCompareView();
   const element = el('div', { class: 'view view-home' }, [
     el('section', { class: 'hero' }, [
@@ -91,16 +96,25 @@ function homeView(): MountedView {
         el('p', { class: 'hero-lede' }, [
           'A geometry engine that works out whether a piece of furniture can actually be ',
           el('em', { text: 'maneuvered' }),
-          ' into a room — and when it cannot, what specifically is in the way. Everything below is computed live, in your browser.',
+          ' into a room — and when it cannot, what specifically is in the way. Every answer below says which engine produced it.',
         ]),
       ]),
     ]),
+    duel.element,
     compare.element,
+    legsPanel(),
+    catalogueTable((id) => navigate(`#/product/${id}`)),
     createShop((id) => navigate(`#/product/${id}`)),
     createRoadmap(),
   ]);
 
-  return { element, dispose: () => compare.dispose() };
+  return {
+    element,
+    dispose: () => {
+      duel.dispose();
+      compare.dispose();
+    },
+  };
 }
 
 function productView(id: string): MountedView {

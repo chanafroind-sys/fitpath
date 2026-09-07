@@ -12,12 +12,14 @@ import type {
   Environment,
   EnvironmentParams,
   PassageOutlook,
+  Placement,
   Step,
   Suggestion,
 } from '@fitpath/engine';
 import type { Product } from '../catalog.ts';
 import { retailDimensions } from '../catalog.ts';
 import { runPlan, type RunningPlan } from '../engine/client.ts';
+import { clearanceCaveat, entryFor, sourceBadge, sourceNote } from './library.ts';
 import type { Verdict } from '../engine/protocol.ts';
 import { buildTimeline, stepRanges } from '../viewer/timeline.ts';
 import { clear, el, hebrew } from './dom.ts';
@@ -222,13 +224,88 @@ export function createChecker(product: Product, onBack: () => void): CheckerView
 
   form.addEventListener('submit', submit);
 
+  /**
+   * Ask the maneuver library first.
+   *
+   * Microseconds, and when it answers the answer comes with a maneuver that was
+   * validated against this exact sofa before the page was built. It returns
+   * `false` when nothing in the library covers the doorway, and that is a
+   * statement about the library — never about the furniture — so the caller
+   * falls through to the search rather than reporting anything.
+   */
+  function tryLibrary(params: EnvironmentParams, environment: Environment): boolean {
+    const entry = entryFor(product.id);
+    if (entry === undefined) return false;
+
+    const fits = entry.maneuvers
+      .filter(
+        (m) =>
+          m.requirement.doorWidth <= params.openingWidth &&
+          m.requirement.doorHeight <= params.openingHeight &&
+          m.requirement.hallwayClearance <= params.hallwayWidth &&
+          m.requirement.roomDepth <= params.roomDepth,
+      )
+      // Fewest stages first: among maneuvers that all work, the one worth
+      // telling someone about is the one with the fewest separate motions.
+      .sort((a, b) => a.stages.length - b.stages.length);
+
+    const chosen = fits[0];
+    if (chosen === undefined) {
+      results.append(
+        el('div', { class: 'panel library-miss' }, [
+          el('p', {}, [
+            el('strong', { text: 'No maneuver in the library covers this doorway.' }),
+            ' That is a statement about the library, not about the sofa — it is a list of moves known to work, so its silence means only that none of them is this one.',
+          ]),
+          el('p', { class: 'muted', text: 'Handing the question to the general planner instead.' }),
+        ]),
+      );
+      return false;
+    }
+
+    results.append(
+      el('div', { class: 'panel library-hit' }, [
+        el('div', { class: 'library-hit-head' }, [
+          el('div', {}, [
+            el('h2', { text: 'Fits' }),
+            el('p', { class: 'muted', text: `By the “${chosen.name}” maneuver, in ${chosen.stages.length} stage${chosen.stages.length === 1 ? '' : 's'}.` }),
+          ]),
+          el('span', { class: 'pill pill-fits', text: 'Fits' }),
+        ]),
+        sourceBadge('library'),
+        sourceNote('library'),
+        el('ol', { class: 'stage-list' },
+          chosen.stages.map((stage) =>
+            el('li', {}, [
+              el('span', { text: stage.name }),
+              el('span', { class: 'stage-he', dir: 'rtl', text: stage.nameHe }),
+            ]),
+          ),
+        ),
+        el('p', { class: 'muted' }, [
+          `It needs a ${chosen.requirement.doorWidth.toFixed(2)} × ${chosen.requirement.doorHeight.toFixed(2)} cm opening, ` +
+            `and yours is ${params.openingWidth} × ${params.openingHeight} cm.`,
+        ]),
+        clearanceCaveat(chosen.requirement),
+      ]),
+    );
+
+    showManeuver(chosen.path, environment);
+    return true;
+  }
+
   function render(params: EnvironmentParams, environment: Environment, force = false): void {
     clear(results);
+    results.append(measurementsStrip(params));
+
+    // The library first, the proof second, the planner only when neither has
+    // anything to say. Whichever answers, the page says which one it was.
+    if (!force && tryLibrary(params, environment)) return;
 
     const progress = el('div', { class: 'run-progress' }, [spinner('Searching for a path…')]);
     const elapsed = el('span', { class: 'run-elapsed', text: '0.0 s' });
     progress.append(elapsed);
-    results.append(measurementsStrip(params), progress);
+    results.append(progress);
 
     const startedAt = performance.now();
     timer = window.setInterval(() => {
@@ -245,6 +322,12 @@ export function createChecker(product: Product, onBack: () => void): CheckerView
             elapsed,
           );
           results.append(verdictCard(verdict));
+          // Only the closed-form argument may report a definite no, so when it
+          // is the thing that spoke, the page says so rather than crediting the
+          // search with a proof it did not perform.
+          results.append(
+            sourceBadge(!verdict.feasible && verdict.reason === 'proven-too-large' ? 'proof' : 'planner'),
+          );
           const stats = statsLine(verdict, millis);
           if (stats !== null) results.append(stats);
           if (skipped && !verdict.feasible && verdict.reason === 'not-searched') {
@@ -267,6 +350,29 @@ export function createChecker(product: Product, onBack: () => void): CheckerView
         },
       },
     );
+  }
+
+  /**
+   * Animate a maneuver from the library.
+   *
+   * The path shown is the validated one, waypoint for waypoint — the same
+   * sequence the collider cleared when the library was built. There are no
+   * engine `Step`s to caption it with, because a maneuver is described by its
+   * stages instead, and those are listed above the viewer.
+   */
+  function showManeuver(path: readonly Placement[], environment: Environment): void {
+    const timeline = buildTimeline(product.item, path);
+    stage = new Stage({ label: 'The maneuver', sublabel: 'Drag to orbit · scroll to zoom' });
+    stage.setScene({ environment, item: product.item, path });
+
+    playback = new Playback();
+    playback.setLooping(true);
+    playback.setDuration(Math.min(16000, Math.max(5000, (timeline.sweep / 85) * 1000)));
+    playback.subscribe((fraction) => stage?.setFraction(fraction));
+    transport = createTransport({ playback });
+
+    results.append(el('div', { class: 'result-stage' }, [stage.element, transport.element]));
+    playback.play();
   }
 
   function showPath(verdict: Extract<Verdict, { feasible: true }>, environment: Environment): void {

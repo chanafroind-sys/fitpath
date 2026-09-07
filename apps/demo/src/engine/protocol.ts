@@ -18,7 +18,15 @@ import type {
   Suggestion,
 } from '@fitpath/engine';
 
-export type ItemId = 'sofa-3-seat' | 'wardrobe' | 'refrigerator';
+/**
+ * Which fixture the worker should plan for.
+ *
+ * A plain id rather than a union of the ones that happen to exist today: the
+ * catalogue is a list in the engine now, and a type here that had to be edited
+ * every time a sofa was added would be a copy of it waiting to go stale. The
+ * worker rejects an id it does not know.
+ */
+export type ItemId = string;
 
 export interface PlanRequest {
   id: number;
