@@ -944,6 +944,128 @@ the space, and this file should not have said otherwise.
 
 ---
 
+## The maneuver library
+
+The planner searches. The library does not: it is a short list of maneuvers,
+each already validated for one item, each recorded with the four numbers it asks
+of a doorway. At runtime the question "will it fit" becomes a comparison of a
+few numbers, which is instant, deterministic, and — unlike a search result —
+explainable in a sentence.
+
+**A maneuver is a sequence of stages, and a stage has a footprint.** The
+footprint is `doorWidth`, `doorHeight`, `hallwayClearance`, `roomDepth`, and a
+maneuver's requirement is the componentwise maximum over its stages. Splitting
+by stage is what lets the answer say *which* of a shopper's four numbers is the
+one that fails: tipping a sofa onto its side needs room in front of the wall and
+nothing of the doorway, and carrying it through needs the doorway and nothing in
+front.
+
+**The width at the doorway is a section, not a bounding box.** A sofa halfway
+through a door is 220 cm long and only the 15 cm of it inside the wall has to
+fit the opening. `slabSection` computes that exactly, by clipping each box to
+the wall slab and taking the extent over the clipped vertices — a convex set
+attains its extremes at its vertices, so there is no sampling and no tolerance
+in the number. Measuring the bounding box instead would make every threading
+maneuver look impossible, which is the mistake the library exists to avoid.
+
+### Offline: instantiate, then prove
+
+A template is a shape of motion written for a family of items. Instantiating it
+for one item's actual dimensions gives numbers; it does not give a maneuver.
+Whether the motion survives contact with *this* item — armrests 4 cm taller, a
+backrest that leans further — is a question only the collider can answer, so
+every waypoint is tested with `collides` and every edge with the same
+`EdgeValidator` the planner uses, in an environment built to exactly the
+requirement the motion was measured to need. Nothing is recorded unless it
+passes.
+
+The requirement is **derived from the motion** and then checked against it,
+rather than assumed: sample the path finely, measure the section at the wall and
+the item's reach either side, take the largest, build that environment, and see
+whether the motion still runs in it. `test/maneuvers.test.ts` checks the promise
+from both sides — each maneuver runs in exactly the environment it asks for, and
+fails in one a centimetre tighter.
+
+### The three templates, measured on the sofa
+
+| maneuver | stages | door it needs | valid? |
+| --- | ---: | --- | --- |
+| Straight in | 1 | **95.01** x 85.00 | yes |
+| On its side | 3 | **85.01** x 95.00 | yes |
+| Seat first, turning as it goes | 4 | **85.04** x 117.81 | yes |
+
+All three need 222 cm of hallway clearance, which is the sofa's own length plus
+a margin: the maneuvers begin with the item already square to the doorway, and
+holding a 220 cm sofa square to a wall takes 220 cm of depth in front of it.
+Getting it square from along a corridor is the planner's business, not the
+library's.
+
+**Threading ties. It does not win, and this is not a limitation of the
+implementation.** `rollSchedule` returns the minimax value over the whole
+crossing — the narrowest doorway *any* roll schedule could get the item through,
+computed station by station at one degree over the full circle — and for this
+sofa it is **85.00 cm**, the same width the item shows lying flat on its side.
+The maneuver achieves it to within 0.04 cm. A claim of anything narrower would
+have to be wrong.
+
+The reason is worth stating, because the geometry that motivates threading is
+real and the sofa has it. The middle of the item is an **L** — a seat 95 cm deep
+and a backrest leaning over the back of it — and rolled past the upright that L
+tucks into **66.22 cm**, well under the 95 it shows square on. But the legs
+stand 15 cm proud at each end, every station of the item has to cross the wall,
+and no roll makes a leg station narrower than 85. Threading can only be as good
+as the worst station it has to carry, and the worst station does not care how it
+is turned.
+
+Take the legs off — the fixture's own removable part — and the floor drops to
+the body's 70 cm, and threading reaches it:
+
+| maneuver | legs on | legs off |
+| --- | ---: | ---: |
+| Straight in | 95.01 | 95.01 |
+| On its side | 85.01 | 70.01 |
+| Seat first | 85.04 | 70.01 |
+| best any roll schedule could do | 85.00 | 70.00 |
+
+So for this item threading is dominated: it ties on width and needs a 117 cm
+lintel to do it. It would pay for an item whose ends are not solid full-depth
+blocks — which is a fact about sofas with armrests, not about the idea.
+
+### Runtime: a comparison of a few numbers
+
+`selectManeuver` filters the library by the four measurements and returns the
+least demanding survivor. Least demanding means **fewest stages first**: among
+maneuvers that all fit, the one worth telling someone about is the one with the
+fewest separate motions, not the one that would squeeze through the narrowest
+door. Walking a sofa straight through a 110 cm doorway beats threading it
+through the same doorway, even though threading would also clear an 85 cm one.
+
+What it buys, against the planner, on the doorways between:
+
+| doorway | library | planner |
+| ---: | --- | --- |
+| 96 cm | Straight in | feasible, 4 steps, 151 ms |
+| 94 cm | On its side | budget exhausted, 5.7 s |
+| 90 cm | On its side | budget exhausted, 9.5 s |
+| 86 cm | On its side | budget exhausted, 9.6 s |
+| 85 cm | nothing in the library | budget exhausted, 10.1 s |
+
+The middle three are the point. Those doorways have paths — there are validated
+witnesses for them in `test/tiltFamily.test.ts` — and the planner cannot find
+them inside 1.2 M nodes. The library answers them in microseconds, with the
+maneuver, the numbers, and the path to animate.
+
+### "No maneuver fits" is not "it does not fit"
+
+The rule the rest of this file keeps, kept here. A miss returns the reasons each
+maneuver was ruled out and which measurement fell short; it carries no
+`feasible` field to be misread as a verdict. The library is a list of things
+known to work, so its silence is a statement about the list. The caller falls
+back to the planner, and the closed-form `provableNoFit` remains the only thing
+allowed to report a definite no.
+
+---
+
 ## Complexity
 
 Let the lattice be `Nx · Ny · Nz · Nyaw · Npitch` nodes. Branching factor is 22:

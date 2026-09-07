@@ -116,3 +116,40 @@ export {
   TRIVIAL_FIT,
   type Scenario,
 } from './fixtures/scenarios.ts';
+
+export {
+  buildLibrary,
+  buildManeuver,
+  type Library,
+  type ManeuverOutcome,
+} from './maneuvers/build.ts';
+export {
+  ON_ITS_SIDE,
+  SEAT_FIRST,
+  STRAIGHT_IN,
+  TEMPLATES,
+  rollSchedule,
+} from './maneuvers/templates.ts';
+export {
+  selectManeuver,
+  type Measurements,
+  type Rejection,
+  type Selection,
+  type Shortfall,
+} from './maneuvers/select.ts';
+export type {
+  Maneuver,
+  ManeuverRequirement,
+  ManeuverStage,
+  ManeuverTemplate,
+  StageDraft,
+} from './maneuvers/types.ts';
+export {
+  bandSection,
+  itemLocalBoxes,
+  orientedBounds,
+  rolledExtent,
+  slabSection,
+  type Section,
+  type SectionPoint,
+} from './maneuvers/footprint.ts';
