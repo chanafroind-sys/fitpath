@@ -2,6 +2,9 @@ import type { Environment, Placement } from '../types.ts';
 import type { CollisionCounter, PreparedItem } from '../geometry/collide.ts';
 import type { Lattice, LatticeRequest, NodeIndices } from './lattice.ts';
 import type { SearchOutcome } from './astar.ts';
+import { itemWorldBoxes } from '../geometry/collide.ts';
+import { unionAabb } from '../geometry/worldBox.ts';
+import { openingAdmits } from '../geometry/crossSection.ts';
 import { createEdgeValidator } from './edge.ts';
 import { assertNested, buildLattice, inBounds, placementOf, snap } from './lattice.ts';
 import { defaultStart, searchLattice } from './astar.ts';
@@ -90,6 +93,18 @@ const GREEDY_MAX_NODES = 20_000;
  */
 const GREEDY_WEIGHT = 50;
 
+/**
+ * Moves charged to a level pose in the greedy pass when the item's bounding box
+ * cannot walk straight through the opening.
+ *
+ * Two, because tipping onto an edge and back is about what a person does — it
+ * is a statement of which way to look first, not a number fitted to a scene. It
+ * cannot make an answer wrong at any value: the greedy pass validates every
+ * edge and is allowed to conclude only "yes", so a bias that points the wrong
+ * way costs its own small budget and nothing else.
+ */
+const GREEDY_LEVEL_BIAS = 2;
+
 /** Nodes the bidirectional pass may spend on one rung. */
 /**
  * Nodes the bidirectional pass may spend on one rung.
@@ -146,6 +161,21 @@ export function findPath(
   let spentElsewhere = 0;
   /** What is left of the caller's budget, shared across every pass below. */
   const remaining = (): number => Math.max(0, request.maxNodes - spentElsewhere);
+
+  // Does a straight walk-through even exist for this opening? The item sits
+  // rigidly inside its bounding box, so if the box can be carried through, the
+  // item can. A failure here proves nothing — a non-convex item can thread an
+  // opening its box could never enter — but it does say that whatever route
+  // exists has to turn the item, so the greedy pass is told to look there
+  // first. Never used to report a negative; only the closed-form `provableNoFit`
+  // may do that.
+  const bounds = unionAabb(itemWorldBoxes(item, { x: 0, y: 0, z: 0, yaw: 0, pitch: 0 }));
+  const straightThrough = openingAdmits(
+    [bounds.maxX - bounds.minX, bounds.maxY - bounds.minY, bounds.maxZ - bounds.minZ],
+    environment.params.openingWidth,
+    environment.params.openingHeight,
+  );
+  const levelBias = straightThrough.passes ? 0 : GREEDY_LEVEL_BIAS;
 
   // The start is chosen once, at the reference resolution, and snapped onto
   // each coarser level. Choosing it per level would let the levels answer
@@ -222,6 +252,7 @@ export function findPath(
         counter,
         request.pivotMoves !== false,
         GREEDY_WEIGHT,
+        levelBias,
       );
       edgeChecks += greedyValidator.edgeChecks;
       if (greedy.path !== undefined) return found(greedy);

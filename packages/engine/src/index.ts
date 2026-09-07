@@ -51,11 +51,13 @@ export {
   type PassageOutlook,
 } from './geometry/hullWidth.ts';
 export {
+  openingAdmits,
   provableNoFit,
   provableNoFitInEnvironment,
   rectangleFitsInRectangle,
   smallestWidthPassingProof,
   type NoFitProof,
+  type OpeningProof,
 } from './geometry/crossSection.ts';
 
 // Environment

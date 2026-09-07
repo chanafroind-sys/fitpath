@@ -111,3 +111,70 @@ export function smallestWidthPassingProof(
   }
   return undefined;
 }
+
+export interface OpeningProof {
+  /** True when the item is proven to pass the opening, with no search involved. */
+  passes: boolean;
+  /** Which axis of the item's bounding box leads through: 0 = x, 1 = y, 2 = z. */
+  travelAxis?: 0 | 1 | 2;
+  /** The two dimensions that choice presents to the opening. */
+  presented?: [number, number];
+}
+
+/**
+ * A closed-form, search-free proof that an item **does** pass an opening.
+ *
+ * This is the other direction from `provableNoFit`, and the direction the
+ * bounding box is actually good for. The item sits rigidly inside its bounding
+ * box, so any motion that carries the box through carries the item through with
+ * it. If the box goes, the item goes.
+ *
+ * The converse does not hold and must not be assumed. A bounding box that
+ * cannot pass proves **nothing**: a non-convex item can thread an opening its
+ * box could never enter, by leading with a thin part and turning as the thick
+ * part arrives, so that its full cross-section is never in the doorway plane at
+ * one time. This is not a technicality. The sofa fixture's mid-length section
+ * is an L — a seat and a leaning backrest — 95 cm across as authored but 66 cm
+ * across when rolled 111 degrees, and its bounding box is 95 either way.
+ *
+ * So a failure here is a **hint**, never a verdict: it says a straight walk
+ * through will not do it and a threading path may be needed. The only thing
+ * allowed to report a negative is `provableNoFit`, whose argument runs the
+ * other way — per box, on central sections, sound over all of SO(3).
+ *
+ * The test: the box travels along one of its three axes, presenting the other
+ * two, and a `p x q` rectangle enters a `W x H` opening axis-aligned if
+ * `(p <= W and q <= H)` or `(q <= W and p <= H)`.
+ *
+ * Two deliberate conservatisms, both in the safe direction for a positive
+ * screen — they can only make it decline to fire, never fire wrongly:
+ *
+ * - **Axis-aligned only.** A rectangle tilted in the opening's plane genuinely
+ *   can fit where the axis-aligned placement does not, and this engine has the
+ *   exact criterion for it in `rectangleFitsInRectangle`, brute-force verified.
+ *   Using it here would make this screen strictly stronger. It is left out
+ *   because a tilted entry is a maneuver rather than a straight walk-through,
+ *   and this function's job is to certify the easy case cheaply.
+ * - **The item's authored frame.** The bounding box is taken as the author drew
+ *   it. Some other orientation may have a smaller box.
+ *
+ * And what it proves is about the **opening**, not about the environment: it
+ * says the aperture admits the item, not that a path to it exists. A hallway
+ * too narrow to line the item up in still has no path, which is exactly the
+ * `narrow-hallway` fixture — a 110 cm opening this screen passes, and no route.
+ */
+export function openingAdmits(
+  dimensions: readonly [number, number, number],
+  openingWidth: number,
+  openingHeight: number,
+): OpeningProof {
+  for (let axis = 0; axis < 3; axis++) {
+    const p = dimensions[((axis + 1) % 3) as 0 | 1 | 2];
+    const q = dimensions[((axis + 2) % 3) as 0 | 1 | 2];
+    const fits =
+      (p <= openingWidth + EPSILON && q <= openingHeight + EPSILON) ||
+      (q <= openingWidth + EPSILON && p <= openingHeight + EPSILON);
+    if (fits) return { passes: true, travelAxis: axis as 0 | 1 | 2, presented: [p, q] };
+  }
+  return { passes: false };
+}

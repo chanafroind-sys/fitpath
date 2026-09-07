@@ -354,6 +354,24 @@ export function searchLattice(
    * the packed key), so no two entries ever compare equal.
    */
   heuristicWeight = 1,
+  /**
+   * Extra estimated cost charged to level poses, in moves.
+   *
+   * **Not admissible.** It must only ever be handed to a pass that is allowed
+   * to conclude "yes" and nothing else — the greedy pass — because it can make
+   * the estimate exceed the true remaining cost and so break the guarantee
+   * every other caller relies on.
+   *
+   * Its purpose is to bias where that pass looks. When the item's bounding box
+   * cannot enter the opening by any straight walk-through, a route, if one
+   * exists, has to turn the item onto an edge or its side; a search that begins
+   * by shuffling it around level is looking in the wrong place. Charging level
+   * poses a few moves sends the greedy pass to the tilted ones first.
+   *
+   * Zero, the default, leaves the estimate exactly as computed. Determinism is
+   * unaffected: the charge is a fixed function of the node's pitch index.
+   */
+  levelBias = 0,
 ): SearchOutcome {
   const open = new Heap();
   const table = new NodeTable();
@@ -371,7 +389,11 @@ export function searchLattice(
   const therePlacement: Placement = { x: 0, y: 0, z: 0, yaw: 0, pitch: 0 };
 
   const estimate = buildOrientationHeuristic(item, environment, lattice);
-  const heuristic = (n: NodeIndices): number => estimate.at(n.iyaw, n.ipitch, n.itilt, n.iy);
+  const heuristic = (n: NodeIndices): number => {
+    const base = estimate.at(n.iyaw, n.ipitch, n.itilt, n.iy);
+    if (levelBias === 0 || base >= UNREACHABLE_ORIENTATION || n.ipitch !== 0) return base;
+    return base + levelBias;
+  };
 
   const isClear = (slot: number, placement: Placement): boolean => {
     const state = table.state[slot]!;
