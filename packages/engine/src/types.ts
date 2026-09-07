@@ -291,24 +291,23 @@ export interface PlanOptions {
   useCoarsePass?: boolean;
   /**
    * Search tilts about the item's local X as well as its local Y.
-   * **Default false**, and the reason is measured rather than assumed.
+   * **Default true.**
    *
-   * The capability is real and correct — it is what lets a sofa go through a
-   * doorway on its side rather than only on its back, and it removes the
-   * dependence of the answer on how an author happened to assign the item's
-   * axes. It doubles the state space, exactly as intended, rather than the
-   * roughly twelvefold that arbitrary roll would cost.
+   * Which pair of faces an item can tip over should not depend on how its
+   * author happened to assign its local axes, and with one family it does. A
+   * sofa whose length sits on local X can be laid on its side; the same sofa
+   * authored with its length on local Y cannot, and the engine would report a
+   * doorway impassable that a person walks through. Off, this option removes
+   * correct answers silently, which is the one kind of wrong answer this
+   * engine is built not to give.
    *
-   * What it does not do, yet, is change any answer. The routes it unlocks for
-   * this fixture exist only on the reference lattice — the coarse rungs are
-   * exhausted with no path, measured — and on that rung the heuristic runs out
-   * long before the goal test fires, leaving a plateau of about fifty moves at
-   * a branching factor of twenty-two. So turning it on today buys nothing and
-   * costs: `legs-must-come-off` goes from 825,087 nodes to 1,130,248, and an
-   * 80 cm doorway stops being a clean `no-path-found` and becomes
-   * `search-budget-exhausted`, which is a true result lost.
-   *
-   * See the README's "The second tilt family, and what it is waiting for".
+   * It costs about twice the state space — a second family, not a third
+   * continuous angle, which would be roughly twelvefold — and it does not
+   * always pay for itself on scenes the first family already solves. That is a
+   * speed trade. Trading it the other way was a correctness trade, taken by
+   * mistake, on the argument that a capability which changes no answer on the
+   * fixtures to hand may as well be off. What that argument missed is that the
+   * fixtures to hand are not the items a user brings.
    */
   secondTiltFamily?: boolean;
   /**

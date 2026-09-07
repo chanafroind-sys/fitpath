@@ -27,7 +27,7 @@ const DEFAULTS = {
   coarsePositionFactor: 8,
   coarseAngleFactor: 3,
   useCoarsePass: true,
-  secondTiltFamily: false,
+  secondTiltFamily: true,
   maxNodes: 6_000_000,
   diagnostics: true,
   exhaustive: false,
