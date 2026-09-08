@@ -20,7 +20,7 @@
  * what is visible, never what was planned.
  */
 import * as THREE from 'three';
-import { rotationMatrix } from '@fitpath/engine';
+import { placementRotation, rotationMatrix } from '@fitpath/engine';
 import type { AxisBox, Environment, Item, Placement, WorldBox } from '@fitpath/engine';
 
 export interface Palette {
@@ -249,9 +249,9 @@ export interface ItemView {
   dispose(): void;
 }
 
-/** Basis matrix from an engine rotation: its Mat3 columns are exactly a Three basis. */
-function applyRotation(object: THREE.Object3D, yaw: number, pitch: number, roll: number): void {
-  const [ex, ey, ez] = rotationMatrix(yaw, pitch, roll);
+/** Basis matrix from an engine Mat3: its columns are exactly a Three basis. */
+function applyBasis(object: THREE.Object3D, basis: ReturnType<typeof rotationMatrix>): void {
+  const [ex, ey, ez] = basis;
   object.setRotationFromMatrix(
     new THREE.Matrix4().makeBasis(
       new THREE.Vector3(ex.x, ex.y, ex.z),
@@ -259,6 +259,10 @@ function applyRotation(object: THREE.Object3D, yaw: number, pitch: number, roll:
       new THREE.Vector3(ez.x, ez.y, ez.z),
     ),
   );
+}
+
+function applyRotation(object: THREE.Object3D, yaw: number, pitch: number, roll: number): void {
+  applyBasis(object, rotationMatrix(yaw, pitch, roll));
 }
 
 export function buildItemView(item: Item, palette: Palette): ItemView {
@@ -320,7 +324,20 @@ export function buildItemView(item: Item, palette: Palette): ItemView {
     group,
     setPlacement(placement: Placement): void {
       group.position.set(placement.x, placement.y, placement.z);
-      applyRotation(group, placement.yaw, placement.pitch, 0);
+      // The engine's own function, not a reconstruction of it.
+      //
+      // A placement's pitch turns about the item's local Y or its local X
+      // depending on `tiltAxis`, and this used to call `rotationMatrix(yaw,
+      // pitch, 0)`, which is only ever the first of those. Every path the
+      // planner produced was in that family, so it looked right for as long as
+      // the planner was the only thing feeding it — and then the maneuver
+      // library started returning paths that lay a sofa on its SIDE, and the
+      // viewer drew them tipped onto their BACK instead: through the wall, over
+      // the lintel, in a pose the collider had never been asked about.
+      //
+      // There is no version of this that is safe to reimplement. The renderer
+      // must ask the same question the collider answered.
+      applyBasis(group, placementRotation(placement));
     },
     setColour(colour: number): void {
       body.color.setHex(colour);

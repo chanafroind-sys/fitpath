@@ -20,6 +20,7 @@ import type { Product } from '../catalog.ts';
 import { retailDimensions } from '../catalog.ts';
 import { runPlan, type RunningPlan } from '../engine/client.ts';
 import { clearanceCaveat, entryFor, sourceBadge, sourceNote } from './library.ts';
+import { prepareItem, verifyPathIn } from '@fitpath/engine';
 import type { Verdict } from '../engine/protocol.ts';
 import { buildTimeline, stepRanges } from '../viewer/timeline.ts';
 import { clear, el, hebrew } from './dom.ts';
@@ -249,13 +250,33 @@ export function createChecker(product: Product, onBack: () => void): CheckerView
       // telling someone about is the one with the fewest separate motions.
       .sort((a, b) => a.stages.length - b.stages.length);
 
-    const chosen = fits[0];
+    // Re-measure in the environment we are about to DRAW, not the synthetic one
+    // the maneuver was designed against.
+    //
+    // A requirement is a lower bound on the opening — "at least 85.01 x 95" —
+    // and a scene that satisfies it is not automatically a scene the path runs
+    // in. Wider and taller is the safe direction and nearly always where a
+    // shopper lands, but nearly always is not an argument when the failure mode
+    // is animating a sofa through a wall. This is a few hundred edge checks
+    // through the same collider the library used, and it is what makes the
+    // answer a route through the shopper's doorway rather than a claim about a
+    // doorway of the same size.
+    const prepared = prepareItem(product.item);
+    const chosen = fits.find((m) => verifyPathIn(prepared, m.path, environment) === undefined);
+
     if (chosen === undefined) {
       results.append(
         el('div', { class: 'panel library-miss' }, [
           el('p', {}, [
-            el('strong', { text: 'No maneuver in the library covers this doorway.' }),
-            ' That is a statement about the library, not about the sofa — it is a list of moves known to work, so its silence means only that none of them is this one.',
+            el('strong', {
+              text:
+                fits.length === 0
+                  ? 'No maneuver in the library covers this doorway.'
+                  : 'No maneuver in the library survives this exact scene.',
+            }),
+            fits.length === 0
+              ? ' That is a statement about the library, not about the sofa — it is a list of moves known to work, so its silence means only that none of them is this one.'
+              : ' One met the four measurements but did not clear the room when it was re-checked against it, so it is not offered. Still a statement about the library, not about the sofa.',
           ]),
           el('p', { class: 'muted', text: 'Handing the question to the general planner instead.' }),
         ]),

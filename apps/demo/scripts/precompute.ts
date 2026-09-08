@@ -26,6 +26,7 @@ import {
   plan,
   provableNoFit,
   reportOn,
+  verifyPathIn,
 } from '../../../packages/engine/src/index.ts';
 import { prepareItem } from '../../../packages/engine/src/geometry/collide.ts';
 import type { EnvironmentParams } from '../../../packages/engine/src/index.ts';
@@ -34,14 +35,70 @@ const WALL = 15;
 const HERO_WIDTH = 90;
 const HERO_BUDGET = 1_200_000;
 
-/** Round every number in the payload, so the shipped file is not full of noise. */
-function tidy<T>(value: T): T {
-  return JSON.parse(
-    JSON.stringify(value, (_key, v: unknown) =>
-      typeof v === 'number' && Number.isFinite(v) ? Number(v.toFixed(4)) : v,
-    ),
-  ) as T;
+/**
+ * Round the reported numbers, and NEVER the poses.
+ *
+ * This started as one line that rounded every number in the payload to four
+ * decimals, which seemed harmless and was not. A maneuver's carry stage sets
+ * the sofa down so its lowest corner is exactly on the floor; rounding the
+ * pitch of that pose from -1.5707963267948966 to -1.5708 moves the angle by
+ * 5e-5 radians, and on a 220 cm sofa that swings the far corner 2.4e-4 cm
+ * BELOW the floor. Small enough to be invisible, large enough to be a
+ * collision — the engine's contact tolerance is 1e-9 — so what shipped was a
+ * path the collider rejected, while the path the library had validated stayed
+ * behind in the build.
+ *
+ * The lesson generalises past this file: a pose is not a bag of independent
+ * numbers. Its parts were chosen against each other, and rounding one of them
+ * on its own breaks the contact the whole thing was resting on. Measurements
+ * are for reading and may be rounded; poses are for the collider and may not.
+ */
+function tidy<T>(value: T, insidePath = false): T {
+  if (typeof value === 'number') {
+    return (insidePath || !Number.isFinite(value) ? value : Number(value.toFixed(4))) as T;
+  }
+  if (Array.isArray(value)) return value.map((v) => tidy(v, insidePath)) as T;
+  if (value !== null && typeof value === 'object') {
+    const out: Record<string, unknown> = {};
+    for (const [key, v] of Object.entries(value)) {
+      out[key] = tidy(v, insidePath || key === 'path');
+    }
+    return out as T;
+  }
+  return value;
 }
+
+/**
+ * The scene each product page opens with, defined here and nowhere else.
+ *
+ * These used to live in the demo's catalogue, which meant the scene a maneuver
+ * was verified against and the scene it was drawn in were two separate literals
+ * that agreed by good intentions. They are one object now: the build checks
+ * every maneuver against exactly what the page will show, because it is the
+ * same data the page reads.
+ *
+ * Chosen so the first answer a visitor sees is decisive rather than borderline,
+ * and so the doorway is a size that exists in houses.
+ */
+const withDoor = (openingWidth: number, hallwayWidth: number): EnvironmentParams => ({
+  openingWidth,
+  openingHeight: 210,
+  wallThickness: WALL,
+  hallwayWidth,
+  hallwayDepth: 360,
+  roomDepth: 400,
+  roomWidth: 400,
+  ceilingHeight: 250,
+});
+
+const SCENES: Record<string, EnvironmentParams> = {
+  'sofa-3-seat': withDoor(110, 240),
+  'slim-arm-2-seat': withDoor(80, 240),
+  'corner-sofa': withDoor(90, 300),
+  'deep-seat-lounge': withDoor(80, 240),
+  'recliner-2-seat': withDoor(105, 240),
+  'sofa-bed': withDoor(95, 240),
+};
 
 const hero: EnvironmentParams = {
   openingWidth: HERO_WIDTH,
@@ -99,6 +156,7 @@ console.log(
 
 const payload = tidy({
   wallThickness: WALL,
+  scenes: SCENES,
   catalogue,
   hero: {
     params: hero,
@@ -124,6 +182,48 @@ const payload = tidy({
     proof: provableNoFit(heroItem.boxes, hero.openingWidth, hero.openingHeight),
   },
 });
+
+/**
+ * Nothing ships that the collider has not cleared IN THE SCENE IT IS DRAWN IN.
+ *
+ * The build fails rather than publishing a path that goes through a wall. This
+ * is checked on the payload after rounding, not before, because the rounding is
+ * exactly the step that broke it once.
+ */
+const heroItem2 = prepareItem(heroItem);
+const heroFault = verifyPathIn(heroItem2, payload.hero.library.path, heroEnvironment);
+if (heroFault !== undefined) {
+  throw new Error(
+    `the hero's animated path is not clear in the scene the page draws: ` +
+      `${heroFault.kind} ${heroFault.index}`,
+  );
+}
+console.log(`verified: the hero's ${payload.hero.library.path.length} waypoints are clear as drawn`);
+
+// And every maneuver, in the scene its own product page opens with.
+for (const entry of payload.catalogue) {
+  const item = SOFAS.find((candidate) => candidate.id === entry.id)!;
+  const prepared = prepareItem(item);
+  const scene = buildEnvironment(payload.scenes[entry.id] ?? hero);
+  for (const maneuver of entry.maneuvers) {
+    const requirement = maneuver.requirement;
+    const params = payload.scenes[entry.id] ?? hero;
+    const applies =
+      requirement.doorWidth <= params.openingWidth &&
+      requirement.doorHeight <= params.openingHeight &&
+      requirement.hallwayClearance <= params.hallwayWidth &&
+      requirement.roomDepth <= params.roomDepth;
+    if (!applies) continue;
+    const fault = verifyPathIn(prepared, maneuver.path, scene);
+    if (fault !== undefined) {
+      throw new Error(
+        `${entry.id} / ${maneuver.templateId} is not clear in its own default scene: ` +
+          `${fault.kind} ${fault.index}`,
+      );
+    }
+  }
+}
+console.log('verified: every maneuver is clear in the scene its product page opens with');
 
 const here = dirname(fileURLToPath(import.meta.url));
 const out = resolve(here, '../src/precomputed.ts');
@@ -172,6 +272,8 @@ export interface HeroPlannerAnswer {
 
 export interface Precomputed {
   wallThickness: number;
+  /** The scene each product page opens with — the one the build verified against. */
+  scenes: Record<string, EnvironmentParams>;
   catalogue: CatalogueEntry[];
   hero: {
     params: EnvironmentParams;

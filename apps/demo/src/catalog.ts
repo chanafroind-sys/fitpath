@@ -22,6 +22,7 @@ import {
 } from '@fitpath/engine';
 import type { AxisBox, EnvironmentParams, Item, Placement, Scenario } from '@fitpath/engine';
 import type { ItemId } from './engine/protocol.ts';
+import { PRECOMPUTED } from './precomputed.ts';
 import sofaImage from './assets/sofa.svg';
 
 /** The item at its own origin, unrotated: the pose its declared box list describes. */
@@ -72,52 +73,32 @@ export interface Product {
 }
 
 /**
- * Defaults chosen by measurement, not by taste: each answers decisively in
- * under a second so the first thing a visitor does is not a wait.
- */
-const SOFA_DEFAULTS: EnvironmentParams = {
-  openingWidth: 110,
-  openingHeight: 210,
-  wallThickness: 15,
-  hallwayWidth: 240,
-  hallwayDepth: 320,
-  roomDepth: 400,
-  roomWidth: 400,
-  ceilingHeight: 250,
-};
-
-/**
- * A default scene per sofa, each one chosen so the first answer a visitor sees
- * is decisive rather than borderline, and so the doorway is a size that exists.
- */
-const withDoor = (openingWidth: number, hallwayWidth: number): EnvironmentParams => ({
-  openingWidth,
-  openingHeight: 210,
-  wallThickness: 15,
-  hallwayWidth,
-  hallwayDepth: 360,
-  roomDepth: 400,
-  roomWidth: 400,
-  ceilingHeight: 250,
-});
-
-const SLIM_DEFAULTS = withDoor(80, 240);
-const CORNER_DEFAULTS = withDoor(90, 300);
-const DEEP_DEFAULTS = withDoor(80, 240);
-const RECLINER_DEFAULTS = withDoor(105, 240);
-const SOFA_BED_DEFAULTS = withDoor(95, 240);
-
-/**
- * The catalogue: six sofas, chosen so a different part binds in each.
+ * The scene each product page opens with.
  *
- * Wardrobes and refrigerators came out because they are not the interesting
- * case — a wardrobe gets taken apart. Sofas are the real problem: rigid, heavy,
- * and shaped so that the answer turns on a detail. Every one of these needs a
- * different doorway for a different reason, and the reason is on its page.
- *
- * One illustration serves all six. The engine never sees it, and the roadmap
- * section says plainly that product imagery here is drawn rather than measured.
+ * Read from the precomputed payload rather than written here, because the build
+ * verifies every maneuver against these exact numbers before it will publish.
+ * Two literals that agreed by good intentions is how a sofa ended up animating
+ * through a wall.
  */
+const scene = (id: string): EnvironmentParams =>
+  PRECOMPUTED.scenes[id] ?? {
+    openingWidth: 110,
+    openingHeight: 210,
+    wallThickness: 15,
+    hallwayWidth: 240,
+    hallwayDepth: 360,
+    roomDepth: 400,
+    roomWidth: 400,
+    ceilingHeight: 250,
+  };
+
+const SOFA_DEFAULTS = scene('sofa-3-seat');
+const SLIM_DEFAULTS = scene('slim-arm-2-seat');
+const CORNER_DEFAULTS = scene('corner-sofa');
+const DEEP_DEFAULTS = scene('deep-seat-lounge');
+const RECLINER_DEFAULTS = scene('recliner-2-seat');
+const SOFA_BED_DEFAULTS = scene('sofa-bed');
+
 export const PRODUCTS: readonly Product[] = [
   {
     id: 'sofa-3-seat',

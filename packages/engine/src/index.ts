@@ -100,6 +100,7 @@ export {
   angleDelta,
   degrees,
   radians,
+  placementRotation,
   rotationMatrix,
   wrapAngle,
   type Mat3,
@@ -176,3 +177,4 @@ export {
   SOFAS,
   SOFA_BED,
 } from './fixtures/sofas.ts';
+export { verifyPathIn, type PathFault } from './maneuvers/verify.ts';
