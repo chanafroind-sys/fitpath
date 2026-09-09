@@ -7,6 +7,8 @@ import { radians } from '../math/rotation.ts';
 import { bandSection, itemLocalBoxes, orientedBounds, rolledExtent } from './footprint.ts';
 import { LINTEL, TEMPLATES, bestRollSchedule } from './templates.ts';
 import { buildManeuver } from './build.ts';
+import { crossingStations, partBreakdown, turnsInTheOpening } from './parts.ts';
+import type { CrossingStation, PartLine } from './parts.ts';
 
 /** Stations within this of the worst one count as part of the bottleneck. */
 const AT_THE_PEAK = 0.05;
@@ -246,6 +248,17 @@ export interface ManeuverLine {
   valid: boolean;
   requirement?: ManeuverRequirement;
   reason?: string;
+  /**
+   * The crossing, broken up, so a reader can see the angle hold or change.
+   *
+   * This is what separates this engine from a doorway calculator, and it was
+   * invisible while the crossing was rendered as one step called "carry it
+   * through on its side". A constant-angle maneuver shows the same angle at
+   * every station; a threading one does not.
+   */
+  stations?: CrossingStation[];
+  /** True when the item's angle changes while it is inside the opening. */
+  turns?: boolean;
 }
 
 export interface RemovablePartLine {
@@ -261,6 +274,8 @@ export interface ItemReport {
   /** Length, depth and height as the author drew them, in centimetres. */
   dimensions: { length: number; depth: number; height: number };
   boxCount: number;
+  /** The model itself: what the item is made of, part by part. */
+  parts: PartLine[];
   removableParts: RemovablePartLine[];
   maneuvers: ManeuverLine[];
   /** The narrowest doorway any validated maneuver clears, if any does. */
@@ -285,12 +300,15 @@ export function reportOn(item: Item, wallThickness = 15): ItemReport {
   const prepared = prepareItem(item);
   const bounds = orientedBounds(prepared, 0, 0, 'y');
 
+  const travelAxis = bestRollSchedule(prepared, wallThickness)?.travelAxis ?? 'x';
+
   const maneuvers: ManeuverLine[] = [];
   let narrowest: number | undefined;
   for (const template of TEMPLATES) {
     const outcome = buildManeuver(prepared, template, wallThickness);
     if (outcome.ok) {
-      const { requirement, stages } = outcome.maneuver;
+      const { requirement, stages, path } = outcome.maneuver;
+      const stations = crossingStations(prepared, path, wallThickness, travelAxis);
       maneuvers.push({
         templateId: template.id,
         name: template.name,
@@ -298,6 +316,8 @@ export function reportOn(item: Item, wallThickness = 15): ItemReport {
         stages: stages.length,
         valid: true,
         requirement,
+        stations,
+        turns: turnsInTheOpening(stations),
       });
       if (narrowest === undefined || requirement.doorWidth < narrowest) {
         narrowest = requirement.doorWidth;
@@ -336,6 +356,12 @@ export function reportOn(item: Item, wallThickness = 15): ItemReport {
       height: bounds.maxZ - bounds.minZ,
     },
     boxCount: item.boxes.length,
+    parts: partBreakdown(
+      prepared,
+      binding?.part !== undefined
+        ? { label: binding.part.label, floor: binding.floor, floorWithout: binding.part.floorWithout }
+        : undefined,
+    ),
     removableParts,
     maneuvers,
     ...(narrowest !== undefined ? { narrowest } : {}),

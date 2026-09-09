@@ -1,0 +1,175 @@
+/*
+ * Every maneuver, the parts, and the crossing.
+ *
+ * Three tables that carry the argument, so they are styled to be read rather
+ * than skimmed: the chosen row marked without shouting, the binding part marked
+ * in the one accent this app has, and the angle column set in a tabular figure
+ * so that a constant angle reads as a straight edge down the page. That column
+ * not changing is the point of it.
+ */
+
+.choices,
+.parts,
+.stations {
+  margin-top: 1.25rem;
+}
+
+.choices h3,
+.parts h3 {
+  margin: 0 0 0.5rem;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+.choices-table th[scope='row'],
+.parts-table th[scope='row'] {
+  font-weight: 600;
+}
+
+.row-chosen > * {
+  background: var(--accent-soft);
+}
+
+.row-chosen th[scope='row'] {
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.chosen-tag {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0.05rem 0.4rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  vertical-align: 0.08em;
+}
+
+.turns-tag {
+  color: var(--accent-ink);
+  font-size: 0.8rem;
+}
+
+.station-head .turns-tag,
+.station-head .muted {
+  margin-left: 0.5rem;
+  font-weight: 400;
+}
+
+.row-binding > * {
+  background: var(--accent-soft);
+}
+
+.binds-tag {
+  color: var(--accent-ink);
+  font-size: 0.82rem;
+}
+
+/* --- the crossing --------------------------------------------------------- */
+
+.stations-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 940px) {
+  .stations-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    align-items: start;
+  }
+}
+
+.station-head {
+  margin: 0 0 0.4rem;
+  font-size: 0.92rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+
+.station-table {
+  font-size: 0.84rem;
+  margin: 0;
+}
+
+.station-table th,
+.station-table td {
+  padding: 0.35rem 0.45rem;
+}
+
+/*
+ * The angle column, which is the whole reason this table exists. Tabular
+ * figures and a right edge so that seven identical readings line up as one
+ * straight column, and a changing one visibly does not.
+ */
+.cell-angle {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.cell-parts {
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+}
+
+/* --- the maneuver shown beside the chosen one ---------------------------- */
+
+.alternative {
+  margin-top: 1.5rem;
+}
+
+.alternative h2,
+.alternative h4 {
+  margin: 0 0 0.3rem;
+}
+
+.alternative-inline {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.alternative-inline h4 {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+.trade-line {
+  margin: 0.5rem 0 0.75rem;
+  padding: 0.6rem 0.8rem;
+  border-left: 3px solid var(--accent);
+  background: var(--surface-2);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.9rem;
+}
+
+:root[data-theme='dark'] .row-chosen > *,
+:root[data-theme='dark'] .row-binding > * {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+:root[data-theme='dark'] .turns-tag,
+:root[data-theme='dark'] .binds-tag {
+  color: var(--accent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .row-chosen > *,
+  :root:not([data-theme='light']) .row-binding > * {
+    background: color-mix(in srgb, var(--accent) 16%, transparent);
+  }
+
+  :root:not([data-theme='light']) .turns-tag,
+  :root:not([data-theme='light']) .binds-tag {
+    color: var(--accent);
+  }
+}

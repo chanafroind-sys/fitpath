@@ -153,6 +153,7 @@ export {
   orientedBounds,
   rolledExtent,
   slabSection,
+  slabSectionsByBox,
   type Section,
   type SectionPoint,
 } from './maneuvers/footprint.ts';
@@ -178,3 +179,10 @@ export {
   SOFA_BED,
 } from './fixtures/sofas.ts';
 export { verifyPathIn, type PathFault } from './maneuvers/verify.ts';
+export {
+  crossingStations,
+  partBreakdown,
+  turnsInTheOpening,
+  type CrossingStation,
+  type PartLine,
+} from './maneuvers/parts.ts';

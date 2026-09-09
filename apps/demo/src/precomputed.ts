@@ -130,6 +130,62 @@ export const PRECOMPUTED: Precomputed = {
           "height": 85
         },
         "boxCount": 8,
+        "parts": [
+          {
+            "label": "the backrest",
+            "labelHe": "המשענת",
+            "boxes": 1,
+            "length": 220,
+            "depth": 30.0814,
+            "height": 62.4313,
+            "bottom": 7.5687,
+            "top": 70,
+            "from": -110,
+            "to": 110,
+            "leanDeg": -12,
+            "binding": false
+          },
+          {
+            "label": "the armrests",
+            "labelHe": "המשענות",
+            "boxes": 2,
+            "length": 10,
+            "depth": 95,
+            "height": 55,
+            "bottom": 0,
+            "top": 55,
+            "from": -110,
+            "to": 110,
+            "binding": false
+          },
+          {
+            "label": "the seat",
+            "labelHe": "המושב",
+            "boxes": 1,
+            "length": 220,
+            "depth": 80,
+            "height": 40,
+            "bottom": 0,
+            "top": 40,
+            "from": -110,
+            "to": 110,
+            "binding": false
+          },
+          {
+            "label": "the legs",
+            "labelHe": "הרגליים",
+            "boxes": 4,
+            "length": 8,
+            "depth": 8,
+            "height": 15,
+            "bottom": -15,
+            "top": 0,
+            "from": -104,
+            "to": 104,
+            "binding": true,
+            "bindsBy": 15
+          }
+        ],
         "removableParts": [
           {
             "name": "legs",
@@ -149,7 +205,119 @@ export const PRECOMPUTED: Precomputed = {
               "doorHeight": 85,
               "hallwayClearance": 222,
               "roomDepth": 222
-            }
+            },
+            "stations": [
+              {
+                "t": 0.0084,
+                "station": 110,
+                "parts": [
+                  "the backrest",
+                  "the armrests",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המשענות",
+                  "המושב"
+                ],
+                "width": 55,
+                "height": 84.4546,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.1715,
+                "station": 71,
+                "parts": [
+                  "the backrest",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המושב"
+                ],
+                "width": 95,
+                "height": 85,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.3347,
+                "station": 32,
+                "parts": [
+                  "the backrest",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המושב"
+                ],
+                "width": 95,
+                "height": 85,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.5021,
+                "station": -8,
+                "parts": [
+                  "the backrest",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המושב"
+                ],
+                "width": 95,
+                "height": 85,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.6653,
+                "station": -47,
+                "parts": [
+                  "the backrest",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המושב"
+                ],
+                "width": 95,
+                "height": 85,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.8285,
+                "station": -86,
+                "parts": [
+                  "the backrest",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המושב"
+                ],
+                "width": 95,
+                "height": 85,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.9916,
+                "station": -110,
+                "parts": [
+                  "the backrest",
+                  "the armrests",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המשענות",
+                  "המושב"
+                ],
+                "width": 95,
+                "height": 85,
+                "rollDeg": 0
+              }
+            ],
+            "turns": false
           },
           {
             "templateId": "on-its-side",
@@ -162,7 +330,119 @@ export const PRECOMPUTED: Precomputed = {
               "doorHeight": 95,
               "hallwayClearance": 222,
               "roomDepth": 222
-            }
+            },
+            "stations": [
+              {
+                "t": 0.4874,
+                "station": 110,
+                "parts": [
+                  "the seat",
+                  "the armrests",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "המשענות",
+                  "המשענת"
+                ],
+                "width": 50,
+                "height": 95,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.4916,
+                "station": 71,
+                "parts": [
+                  "the seat",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "המשענת"
+                ],
+                "width": 70,
+                "height": 95,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.4958,
+                "station": 32,
+                "parts": [
+                  "the seat",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "המשענת"
+                ],
+                "width": 70,
+                "height": 95,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5001,
+                "station": -8,
+                "parts": [
+                  "the seat",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "המשענת"
+                ],
+                "width": 70,
+                "height": 95,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5042,
+                "station": -47,
+                "parts": [
+                  "the seat",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "המשענת"
+                ],
+                "width": 70,
+                "height": 95,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5084,
+                "station": -86,
+                "parts": [
+                  "the seat",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "המשענת"
+                ],
+                "width": 70,
+                "height": 95,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5126,
+                "station": -110,
+                "parts": [
+                  "the seat",
+                  "the armrests",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "המשענות",
+                  "המשענת"
+                ],
+                "width": 40.6556,
+                "height": 95,
+                "rollDeg": -90
+              }
+            ],
+            "turns": false
           },
           {
             "templateId": "seat-first",
@@ -175,7 +455,119 @@ export const PRECOMPUTED: Precomputed = {
               "doorHeight": 117.81,
               "hallwayClearance": 222,
               "roomDepth": 222
-            }
+            },
+            "stations": [
+              {
+                "t": 0.0777,
+                "station": 110,
+                "parts": [
+                  "the seat",
+                  "the armrests",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "המשענות",
+                  "המשענת"
+                ],
+                "width": 50,
+                "height": 97,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.2,
+                "station": 75.4,
+                "parts": [
+                  "the seat",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "המשענת"
+                ],
+                "width": 67.7658,
+                "height": 112.0747,
+                "rollDeg": -106.8
+              },
+              {
+                "t": 0.2438,
+                "station": 63,
+                "parts": [
+                  "the seat",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "המשענת"
+                ],
+                "width": 84.8528,
+                "height": 116.0263,
+                "rollDeg": -135
+              },
+              {
+                "t": 0.5866,
+                "station": -34,
+                "parts": [
+                  "the seat",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "המשענת"
+                ],
+                "width": 84.8528,
+                "height": 116.0263,
+                "rollDeg": -135
+              },
+              {
+                "t": 0.7714,
+                "station": -86.3,
+                "parts": [
+                  "the seat",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "המשענת"
+                ],
+                "width": 73.8577,
+                "height": 117.2106,
+                "rollDeg": -119.1
+              },
+              {
+                "t": 0.8033,
+                "station": -95.3333,
+                "parts": [
+                  "the seat",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "המשענת"
+                ],
+                "width": 70.0483,
+                "height": 99.2394,
+                "rollDeg": -92
+              },
+              {
+                "t": 0.9081,
+                "station": -110,
+                "parts": [
+                  "the seat",
+                  "the armrests",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "המשענות",
+                  "המשענת"
+                ],
+                "width": 52.3081,
+                "height": 112.8251,
+                "rollDeg": -108
+              }
+            ],
+            "turns": true
           }
         ],
         "narrowest": 85.01,
@@ -3056,6 +3448,62 @@ export const PRECOMPUTED: Precomputed = {
           "height": 80
         },
         "boxCount": 5,
+        "parts": [
+          {
+            "label": "the backrest",
+            "labelHe": "המשענת",
+            "boxes": 1,
+            "length": 144,
+            "depth": 19.2822,
+            "height": 60.6513,
+            "bottom": 19.3487,
+            "top": 80,
+            "from": -72,
+            "to": 72,
+            "leanDeg": -10,
+            "binding": false
+          },
+          {
+            "label": "the armrests",
+            "labelHe": "המשענות",
+            "boxes": 2,
+            "length": 8,
+            "depth": 90,
+            "height": 44,
+            "bottom": 14,
+            "top": 58,
+            "from": -80,
+            "to": 80,
+            "binding": true,
+            "bindsBy": 2.9824
+          },
+          {
+            "label": "the seat",
+            "labelHe": "המושב",
+            "boxes": 1,
+            "length": 144,
+            "depth": 70,
+            "height": 32,
+            "bottom": 14,
+            "top": 46,
+            "from": -72,
+            "to": 72,
+            "binding": false
+          },
+          {
+            "label": "the plinth",
+            "labelHe": "הבסיס",
+            "boxes": 1,
+            "length": 144,
+            "depth": 76,
+            "height": 14,
+            "bottom": 0,
+            "top": 14,
+            "from": -72,
+            "to": 72,
+            "binding": false
+          }
+        ],
         "removableParts": [],
         "maneuvers": [
           {
@@ -3069,7 +3517,121 @@ export const PRECOMPUTED: Precomputed = {
               "doorHeight": 80,
               "hallwayClearance": 162,
               "roomDepth": 162
-            }
+            },
+            "stations": [
+              {
+                "t": 0.0112,
+                "station": 80,
+                "parts": [
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המשענות"
+                ],
+                "width": 45,
+                "height": 58,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.1732,
+                "station": 51,
+                "parts": [
+                  "the backrest",
+                  "the seat",
+                  "the plinth"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המושב",
+                  "הבסיס"
+                ],
+                "width": 90,
+                "height": 80,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.3352,
+                "station": 22,
+                "parts": [
+                  "the backrest",
+                  "the seat",
+                  "the plinth"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המושב",
+                  "הבסיס"
+                ],
+                "width": 90,
+                "height": 80,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.5028,
+                "station": -8,
+                "parts": [
+                  "the backrest",
+                  "the seat",
+                  "the plinth"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המושב",
+                  "הבסיס"
+                ],
+                "width": 90,
+                "height": 80,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.6648,
+                "station": -37,
+                "parts": [
+                  "the backrest",
+                  "the seat",
+                  "the plinth"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המושב",
+                  "הבסיס"
+                ],
+                "width": 90,
+                "height": 80,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.8268,
+                "station": -66,
+                "parts": [
+                  "the backrest",
+                  "the seat",
+                  "the plinth"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המושב",
+                  "הבסיס"
+                ],
+                "width": 90,
+                "height": 80,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.9888,
+                "station": -80,
+                "parts": [
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המשענות"
+                ],
+                "width": 45,
+                "height": 58,
+                "rollDeg": 0
+              }
+            ],
+            "turns": false
           },
           {
             "templateId": "on-its-side",
@@ -3082,7 +3644,121 @@ export const PRECOMPUTED: Precomputed = {
               "doorHeight": 90,
               "hallwayClearance": 162,
               "roomDepth": 162
-            }
+            },
+            "stations": [
+              {
+                "t": 0.4875,
+                "station": 80,
+                "parts": [
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המשענות"
+                ],
+                "width": 22,
+                "height": 90,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.4916,
+                "station": 51,
+                "parts": [
+                  "the seat",
+                  "the plinth",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "הבסיס",
+                  "המשענת"
+                ],
+                "width": 80,
+                "height": 90,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.4958,
+                "station": 22,
+                "parts": [
+                  "the seat",
+                  "the plinth",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "הבסיס",
+                  "המשענת"
+                ],
+                "width": 80,
+                "height": 90,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5001,
+                "station": -8,
+                "parts": [
+                  "the seat",
+                  "the plinth",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "הבסיס",
+                  "המשענת"
+                ],
+                "width": 80,
+                "height": 90,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5042,
+                "station": -37,
+                "parts": [
+                  "the seat",
+                  "the plinth",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "הבסיס",
+                  "המשענת"
+                ],
+                "width": 80,
+                "height": 90,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5084,
+                "station": -66,
+                "parts": [
+                  "the seat",
+                  "the plinth",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "הבסיס",
+                  "המשענת"
+                ],
+                "width": 80,
+                "height": 90,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5125,
+                "station": -80,
+                "parts": [
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המשענות"
+                ],
+                "width": 22,
+                "height": 90,
+                "rollDeg": -90
+              }
+            ],
+            "turns": false
           },
           {
             "templateId": "seat-first",
@@ -3095,7 +3771,123 @@ export const PRECOMPUTED: Precomputed = {
               "doorHeight": 111.14,
               "hallwayClearance": 162,
               "roomDepth": 162
-            }
+            },
+            "stations": [
+              {
+                "t": 0.0909,
+                "station": 80,
+                "parts": [
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המשענות"
+                ],
+                "width": 22,
+                "height": 92,
+                "rollDeg": 90
+              },
+              {
+                "t": 0.134,
+                "station": 71,
+                "parts": [
+                  "the backrest",
+                  "the armrests",
+                  "the plinth",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המשענות",
+                  "הבסיס",
+                  "המושב"
+                ],
+                "width": 77.7563,
+                "height": 105.6109,
+                "rollDeg": 75
+              },
+              {
+                "t": 0.2344,
+                "station": 50,
+                "parts": [
+                  "the backrest",
+                  "the seat",
+                  "the plinth"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המושב",
+                  "הבסיס"
+                ],
+                "width": 77.7293,
+                "height": 111.1389,
+                "rollDeg": 64
+              },
+              {
+                "t": 0.4737,
+                "station": 0,
+                "parts": [
+                  "the backrest",
+                  "the seat",
+                  "the plinth"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המושב",
+                  "הבסיס"
+                ],
+                "width": 77.7293,
+                "height": 111.1389,
+                "rollDeg": 64
+              },
+              {
+                "t": 0.7129,
+                "station": -50,
+                "parts": [
+                  "the backrest",
+                  "the seat",
+                  "the plinth"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המושב",
+                  "הבסיס"
+                ],
+                "width": 77.7293,
+                "height": 111.1389,
+                "rollDeg": 64
+              },
+              {
+                "t": 0.8167,
+                "station": -71.7,
+                "parts": [
+                  "the backrest",
+                  "the plinth",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "הבסיס",
+                  "המושב"
+                ],
+                "width": 77.4498,
+                "height": 106.1986,
+                "rollDeg": 74.1
+              },
+              {
+                "t": 0.9282,
+                "station": -80,
+                "parts": [
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המשענות"
+                ],
+                "width": 40.196,
+                "height": 102.1155,
+                "rollDeg": 66
+              }
+            ],
+            "turns": true
           }
         ],
         "narrowest": 77.79,
@@ -5384,6 +6176,61 @@ export const PRECOMPUTED: Precomputed = {
           "height": 85
         },
         "boxCount": 7,
+        "parts": [
+          {
+            "label": "the backrest",
+            "labelHe": "המשענת",
+            "boxes": 1,
+            "length": 272,
+            "depth": 20,
+            "height": 71,
+            "bottom": 14,
+            "top": 85,
+            "from": -136,
+            "to": 136,
+            "binding": true,
+            "bindsBy": 20
+          },
+          {
+            "label": "the armrests",
+            "labelHe": "המשענות",
+            "boxes": 1,
+            "length": 4,
+            "depth": 95,
+            "height": 65,
+            "bottom": 0,
+            "top": 65,
+            "from": -140,
+            "to": -136,
+            "binding": false
+          },
+          {
+            "label": "the chaise return",
+            "labelHe": "מקטע השזלונג",
+            "boxes": 3,
+            "length": 91,
+            "depth": 105,
+            "height": 32,
+            "bottom": 0,
+            "top": 65,
+            "from": 45,
+            "to": 140,
+            "binding": false
+          },
+          {
+            "label": "the main run",
+            "labelHe": "המקטע הראשי",
+            "boxes": 2,
+            "length": 272,
+            "depth": 75,
+            "height": 32,
+            "bottom": 0,
+            "top": 46,
+            "from": -136,
+            "to": 136,
+            "binding": false
+          }
+        ],
         "removableParts": [],
         "maneuvers": [
           {
@@ -5397,7 +6244,115 @@ export const PRECOMPUTED: Precomputed = {
               "doorHeight": 85,
               "hallwayClearance": 282,
               "roomDepth": 282
-            }
+            },
+            "stations": [
+              {
+                "t": 0.0067,
+                "station": 140,
+                "parts": [
+                  "the chaise return"
+                ],
+                "partsHe": [
+                  "מקטע השזלונג"
+                ],
+                "width": 52.5,
+                "height": 65,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.1706,
+                "station": 91,
+                "parts": [
+                  "the backrest",
+                  "the main run",
+                  "the chaise return"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המקטע הראשי",
+                  "מקטע השזלונג"
+                ],
+                "width": 200,
+                "height": 85,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.3344,
+                "station": 42,
+                "parts": [
+                  "the backrest",
+                  "the main run",
+                  "the chaise return"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המקטע הראשי",
+                  "מקטע השזלונג"
+                ],
+                "width": 200,
+                "height": 85,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.5017,
+                "station": -8,
+                "parts": [
+                  "the backrest",
+                  "the main run"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המקטע הראשי"
+                ],
+                "width": 95,
+                "height": 85,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.6656,
+                "station": -57,
+                "parts": [
+                  "the backrest",
+                  "the main run"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המקטע הראשי"
+                ],
+                "width": 95,
+                "height": 85,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.8294,
+                "station": -106,
+                "parts": [
+                  "the backrest",
+                  "the main run"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המקטע הראשי"
+                ],
+                "width": 95,
+                "height": 85,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.9933,
+                "station": -140,
+                "parts": [
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המשענות"
+                ],
+                "width": 47.5,
+                "height": 65,
+                "rollDeg": 0
+              }
+            ],
+            "turns": false
           },
           {
             "templateId": "on-its-side",
@@ -5410,7 +6365,115 @@ export const PRECOMPUTED: Precomputed = {
               "doorHeight": 200,
               "hallwayClearance": 282,
               "roomDepth": 282
-            }
+            },
+            "stations": [
+              {
+                "t": 0.4874,
+                "station": 140,
+                "parts": [
+                  "the chaise return"
+                ],
+                "partsHe": [
+                  "מקטע השזלונג"
+                ],
+                "width": 32.5,
+                "height": 105,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.4916,
+                "station": 91,
+                "parts": [
+                  "the main run",
+                  "the backrest",
+                  "the chaise return"
+                ],
+                "partsHe": [
+                  "המקטע הראשי",
+                  "המשענת",
+                  "מקטע השזלונג"
+                ],
+                "width": 85,
+                "height": 200,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.4958,
+                "station": 42,
+                "parts": [
+                  "the main run",
+                  "the backrest",
+                  "the chaise return"
+                ],
+                "partsHe": [
+                  "המקטע הראשי",
+                  "המשענת",
+                  "מקטע השזלונג"
+                ],
+                "width": 85,
+                "height": 200,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5,
+                "station": -8,
+                "parts": [
+                  "the main run",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המקטע הראשי",
+                  "המשענת"
+                ],
+                "width": 85,
+                "height": 200,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5042,
+                "station": -57,
+                "parts": [
+                  "the main run",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המקטע הראשי",
+                  "המשענת"
+                ],
+                "width": 85,
+                "height": 200,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5084,
+                "station": -106,
+                "parts": [
+                  "the main run",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המקטע הראשי",
+                  "המשענת"
+                ],
+                "width": 85,
+                "height": 200,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5126,
+                "station": -140,
+                "parts": [
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המשענות"
+                ],
+                "width": 32.5,
+                "height": 200,
+                "rollDeg": -90
+              }
+            ],
+            "turns": false
           },
           {
             "templateId": "seat-first",
@@ -5423,7 +6486,117 @@ export const PRECOMPUTED: Precomputed = {
               "doorHeight": 211.15,
               "hallwayClearance": 282,
               "roomDepth": 282
-            }
+            },
+            "stations": [
+              {
+                "t": 0.0645,
+                "station": 140,
+                "parts": [
+                  "the chaise return"
+                ],
+                "partsHe": [
+                  "מקטע השזלונג"
+                ],
+                "width": 32.5,
+                "height": 107,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.2082,
+                "station": 91,
+                "parts": [
+                  "the main run",
+                  "the backrest",
+                  "the chaise return"
+                ],
+                "partsHe": [
+                  "המקטע הראשי",
+                  "המשענת",
+                  "מקטע השזלונג"
+                ],
+                "width": 85,
+                "height": 202,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.3812,
+                "station": 32,
+                "parts": [
+                  "the main run",
+                  "the backrest",
+                  "the chaise return"
+                ],
+                "partsHe": [
+                  "המקטע הראשי",
+                  "המשענת",
+                  "מקטע השזלונג"
+                ],
+                "width": 85,
+                "height": 202,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5572,
+                "station": -28,
+                "parts": [
+                  "the main run",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המקטע הראשי",
+                  "המשענת"
+                ],
+                "width": 85,
+                "height": 202,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.7302,
+                "station": -87,
+                "parts": [
+                  "the main run",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המקטע הראשי",
+                  "המשענת"
+                ],
+                "width": 85,
+                "height": 202,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9032,
+                "station": -140,
+                "parts": [
+                  "the main run",
+                  "the backrest",
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המקטע הראשי",
+                  "המשענת",
+                  "המשענות"
+                ],
+                "width": 85,
+                "height": 202,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9296,
+                "station": -140,
+                "parts": [
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המשענות"
+                ],
+                "width": 51.5414,
+                "height": 211.1438,
+                "rollDeg": -102
+              }
+            ],
+            "turns": true
           }
         ],
         "narrowest": 85.01,
@@ -8756,6 +9929,47 @@ export const PRECOMPUTED: Precomputed = {
               "height": 85
             },
             "boxCount": 4,
+            "parts": [
+              {
+                "label": "the backrest",
+                "labelHe": "המשענת",
+                "boxes": 1,
+                "length": 272,
+                "depth": 20,
+                "height": 71,
+                "bottom": 14,
+                "top": 85,
+                "from": -136,
+                "to": 136,
+                "binding": false
+              },
+              {
+                "label": "the armrests",
+                "labelHe": "המשענות",
+                "boxes": 1,
+                "length": 4,
+                "depth": 95,
+                "height": 65,
+                "bottom": 0,
+                "top": 65,
+                "from": -140,
+                "to": -136,
+                "binding": false
+              },
+              {
+                "label": "the main run",
+                "labelHe": "המקטע הראשי",
+                "boxes": 2,
+                "length": 272,
+                "depth": 75,
+                "height": 32,
+                "bottom": 0,
+                "top": 46,
+                "from": -136,
+                "to": 136,
+                "binding": false
+              }
+            ],
             "removableParts": [],
             "maneuvers": [
               {
@@ -8769,7 +9983,113 @@ export const PRECOMPUTED: Precomputed = {
                   "doorHeight": 85,
                   "hallwayClearance": 278,
                   "roomDepth": 278
-                }
+                },
+                "stations": [
+                  {
+                    "t": 0.0068,
+                    "station": 136,
+                    "parts": [
+                      "the backrest",
+                      "the main run"
+                    ],
+                    "partsHe": [
+                      "המשענת",
+                      "המקטע הראשי"
+                    ],
+                    "width": 85,
+                    "height": 85,
+                    "rollDeg": 0
+                  },
+                  {
+                    "t": 0.1729,
+                    "station": 87,
+                    "parts": [
+                      "the backrest",
+                      "the main run"
+                    ],
+                    "partsHe": [
+                      "המשענת",
+                      "המקטע הראשי"
+                    ],
+                    "width": 95,
+                    "height": 85,
+                    "rollDeg": 0
+                  },
+                  {
+                    "t": 0.3356,
+                    "station": 39,
+                    "parts": [
+                      "the backrest",
+                      "the main run"
+                    ],
+                    "partsHe": [
+                      "המשענת",
+                      "המקטע הראשי"
+                    ],
+                    "width": 95,
+                    "height": 85,
+                    "rollDeg": 0
+                  },
+                  {
+                    "t": 0.5017,
+                    "station": -10,
+                    "parts": [
+                      "the backrest",
+                      "the main run"
+                    ],
+                    "partsHe": [
+                      "המשענת",
+                      "המקטע הראשי"
+                    ],
+                    "width": 95,
+                    "height": 85,
+                    "rollDeg": 0
+                  },
+                  {
+                    "t": 0.6644,
+                    "station": -58,
+                    "parts": [
+                      "the backrest",
+                      "the main run"
+                    ],
+                    "partsHe": [
+                      "המשענת",
+                      "המקטע הראשי"
+                    ],
+                    "width": 95,
+                    "height": 85,
+                    "rollDeg": 0
+                  },
+                  {
+                    "t": 0.8305,
+                    "station": -107,
+                    "parts": [
+                      "the backrest",
+                      "the main run"
+                    ],
+                    "partsHe": [
+                      "המשענת",
+                      "המקטע הראשי"
+                    ],
+                    "width": 95,
+                    "height": 85,
+                    "rollDeg": 0
+                  },
+                  {
+                    "t": 0.9932,
+                    "station": -140,
+                    "parts": [
+                      "the armrests"
+                    ],
+                    "partsHe": [
+                      "המשענות"
+                    ],
+                    "width": 47.5,
+                    "height": 65,
+                    "rollDeg": 0
+                  }
+                ],
+                "turns": false
               },
               {
                 "templateId": "on-its-side",
@@ -8782,7 +10102,113 @@ export const PRECOMPUTED: Precomputed = {
                   "doorHeight": 95,
                   "hallwayClearance": 278,
                   "roomDepth": 278
-                }
+                },
+                "stations": [
+                  {
+                    "t": 0.4874,
+                    "station": 136,
+                    "parts": [
+                      "the main run",
+                      "the backrest"
+                    ],
+                    "partsHe": [
+                      "המקטע הראשי",
+                      "המשענת"
+                    ],
+                    "width": 78,
+                    "height": 95,
+                    "rollDeg": -90
+                  },
+                  {
+                    "t": 0.4916,
+                    "station": 87,
+                    "parts": [
+                      "the main run",
+                      "the backrest"
+                    ],
+                    "partsHe": [
+                      "המקטע הראשי",
+                      "המשענת"
+                    ],
+                    "width": 85,
+                    "height": 95,
+                    "rollDeg": -90
+                  },
+                  {
+                    "t": 0.4958,
+                    "station": 39,
+                    "parts": [
+                      "the main run",
+                      "the backrest"
+                    ],
+                    "partsHe": [
+                      "המקטע הראשי",
+                      "המשענת"
+                    ],
+                    "width": 85,
+                    "height": 95,
+                    "rollDeg": -90
+                  },
+                  {
+                    "t": 0.5,
+                    "station": -10,
+                    "parts": [
+                      "the main run",
+                      "the backrest"
+                    ],
+                    "partsHe": [
+                      "המקטע הראשי",
+                      "המשענת"
+                    ],
+                    "width": 85,
+                    "height": 95,
+                    "rollDeg": -90
+                  },
+                  {
+                    "t": 0.5042,
+                    "station": -58,
+                    "parts": [
+                      "the main run",
+                      "the backrest"
+                    ],
+                    "partsHe": [
+                      "המקטע הראשי",
+                      "המשענת"
+                    ],
+                    "width": 85,
+                    "height": 95,
+                    "rollDeg": -90
+                  },
+                  {
+                    "t": 0.5085,
+                    "station": -107,
+                    "parts": [
+                      "the main run",
+                      "the backrest"
+                    ],
+                    "partsHe": [
+                      "המקטע הראשי",
+                      "המשענת"
+                    ],
+                    "width": 85,
+                    "height": 95,
+                    "rollDeg": -90
+                  },
+                  {
+                    "t": 0.5126,
+                    "station": -140,
+                    "parts": [
+                      "the armrests"
+                    ],
+                    "partsHe": [
+                      "המשענות"
+                    ],
+                    "width": 32.5,
+                    "height": 95,
+                    "rollDeg": -90
+                  }
+                ],
+                "turns": false
               },
               {
                 "templateId": "seat-first",
@@ -8795,7 +10221,115 @@ export const PRECOMPUTED: Precomputed = {
                   "doorHeight": 108.44,
                   "hallwayClearance": 278,
                   "roomDepth": 278
-                }
+                },
+                "stations": [
+                  {
+                    "t": 0.0651,
+                    "station": 136,
+                    "parts": [
+                      "the main run",
+                      "the backrest"
+                    ],
+                    "partsHe": [
+                      "המקטע הראשי",
+                      "המשענת"
+                    ],
+                    "width": 78,
+                    "height": 97,
+                    "rollDeg": -90
+                  },
+                  {
+                    "t": 0.2337,
+                    "station": 79,
+                    "parts": [
+                      "the main run",
+                      "the backrest"
+                    ],
+                    "partsHe": [
+                      "המקטע הראשי",
+                      "המשענת"
+                    ],
+                    "width": 85,
+                    "height": 97,
+                    "rollDeg": -90
+                  },
+                  {
+                    "t": 0.3994,
+                    "station": 23,
+                    "parts": [
+                      "the main run",
+                      "the backrest"
+                    ],
+                    "partsHe": [
+                      "המקטע הראשי",
+                      "המשענת"
+                    ],
+                    "width": 85,
+                    "height": 97,
+                    "rollDeg": -90
+                  },
+                  {
+                    "t": 0.568,
+                    "station": -34,
+                    "parts": [
+                      "the main run",
+                      "the backrest"
+                    ],
+                    "partsHe": [
+                      "המקטע הראשי",
+                      "המשענת"
+                    ],
+                    "width": 85,
+                    "height": 97,
+                    "rollDeg": -90
+                  },
+                  {
+                    "t": 0.7367,
+                    "station": -91,
+                    "parts": [
+                      "the main run",
+                      "the backrest"
+                    ],
+                    "partsHe": [
+                      "המקטע הראשי",
+                      "המשענת"
+                    ],
+                    "width": 85,
+                    "height": 97,
+                    "rollDeg": -90
+                  },
+                  {
+                    "t": 0.9024,
+                    "station": -140,
+                    "parts": [
+                      "the main run",
+                      "the backrest",
+                      "the armrests"
+                    ],
+                    "partsHe": [
+                      "המקטע הראשי",
+                      "המשענת",
+                      "המשענות"
+                    ],
+                    "width": 85,
+                    "height": 97,
+                    "rollDeg": -90
+                  },
+                  {
+                    "t": 0.926,
+                    "station": -140,
+                    "parts": [
+                      "the armrests"
+                    ],
+                    "partsHe": [
+                      "המשענות"
+                    ],
+                    "width": 51.5414,
+                    "height": 108.4383,
+                    "rollDeg": -102
+                  }
+                ],
+                "turns": true
               }
             ],
             "narrowest": 85.01,
@@ -8891,6 +10425,35 @@ export const PRECOMPUTED: Precomputed = {
               "height": 65
             },
             "boxCount": 3,
+            "parts": [
+              {
+                "label": "the armrests",
+                "labelHe": "המשענות",
+                "boxes": 1,
+                "length": 4,
+                "depth": 105,
+                "height": 65,
+                "bottom": 0,
+                "top": 65,
+                "from": 43.5,
+                "to": 47.5,
+                "binding": false
+              },
+              {
+                "label": "the chaise return",
+                "labelHe": "מקטע השזלונג",
+                "boxes": 2,
+                "length": 91,
+                "depth": 105,
+                "height": 32,
+                "bottom": 0,
+                "top": 46,
+                "from": -47.5,
+                "to": 43.5,
+                "binding": true,
+                "bindsBy": 60.569
+              }
+            ],
             "removableParts": [],
             "maneuvers": [
               {
@@ -8904,7 +10467,115 @@ export const PRECOMPUTED: Precomputed = {
                   "doorHeight": 65,
                   "hallwayClearance": 107,
                   "roomDepth": 107
-                }
+                },
+                "stations": [
+                  {
+                    "t": 0.0161,
+                    "station": 52.5,
+                    "parts": [
+                      "the armrests",
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "המשענות",
+                      "מקטע השזלונג"
+                    ],
+                    "width": 95,
+                    "height": 65,
+                    "rollDeg": 0
+                  },
+                  {
+                    "t": 0.1774,
+                    "station": 32.5,
+                    "parts": [
+                      "the armrests",
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "המשענות",
+                      "מקטע השזלונג"
+                    ],
+                    "width": 95,
+                    "height": 65,
+                    "rollDeg": 0
+                  },
+                  {
+                    "t": 0.3387,
+                    "station": 12.5,
+                    "parts": [
+                      "the armrests",
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "המשענות",
+                      "מקטע השזלונג"
+                    ],
+                    "width": 95,
+                    "height": 65,
+                    "rollDeg": 0
+                  },
+                  {
+                    "t": 0.5,
+                    "station": -7.5,
+                    "parts": [
+                      "the armrests",
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "המשענות",
+                      "מקטע השזלונג"
+                    ],
+                    "width": 95,
+                    "height": 65,
+                    "rollDeg": 0
+                  },
+                  {
+                    "t": 0.6613,
+                    "station": -27.5,
+                    "parts": [
+                      "the armrests",
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "המשענות",
+                      "מקטע השזלונג"
+                    ],
+                    "width": 95,
+                    "height": 65,
+                    "rollDeg": 0
+                  },
+                  {
+                    "t": 0.8226,
+                    "station": -47.5,
+                    "parts": [
+                      "the armrests",
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "המשענות",
+                      "מקטע השזלונג"
+                    ],
+                    "width": 95,
+                    "height": 65,
+                    "rollDeg": 0
+                  },
+                  {
+                    "t": 0.9839,
+                    "station": -52.5,
+                    "parts": [
+                      "the armrests",
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "המשענות",
+                      "מקטע השזלונג"
+                    ],
+                    "width": 95,
+                    "height": 65,
+                    "rollDeg": 0
+                  }
+                ],
+                "turns": false
               },
               {
                 "templateId": "on-its-side",
@@ -8917,7 +10588,103 @@ export const PRECOMPUTED: Precomputed = {
                   "doorHeight": 105,
                   "hallwayClearance": 97,
                   "roomDepth": 97
-                }
+                },
+                "stations": [
+                  {
+                    "t": 0.4876,
+                    "station": 47.5,
+                    "parts": [
+                      "the armrests"
+                    ],
+                    "partsHe": [
+                      "המשענות"
+                    ],
+                    "width": 32.5,
+                    "height": 105,
+                    "rollDeg": -90
+                  },
+                  {
+                    "t": 0.4917,
+                    "station": 29.5,
+                    "parts": [
+                      "the chaise return",
+                      "the armrests"
+                    ],
+                    "partsHe": [
+                      "מקטע השזלונג",
+                      "המשענות"
+                    ],
+                    "width": 65,
+                    "height": 105,
+                    "rollDeg": -90
+                  },
+                  {
+                    "t": 0.496,
+                    "station": 10.5,
+                    "parts": [
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "מקטע השזלונג"
+                    ],
+                    "width": 46,
+                    "height": 105,
+                    "rollDeg": -90
+                  },
+                  {
+                    "t": 0.5,
+                    "station": -7.5,
+                    "parts": [
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "מקטע השזלונג"
+                    ],
+                    "width": 46,
+                    "height": 105,
+                    "rollDeg": -90
+                  },
+                  {
+                    "t": 0.504,
+                    "station": -25.5,
+                    "parts": [
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "מקטע השזלונג"
+                    ],
+                    "width": 46,
+                    "height": 105,
+                    "rollDeg": -90
+                  },
+                  {
+                    "t": 0.5083,
+                    "station": -44.5,
+                    "parts": [
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "מקטע השזלונג"
+                    ],
+                    "width": 46,
+                    "height": 105,
+                    "rollDeg": -90
+                  },
+                  {
+                    "t": 0.5124,
+                    "station": -52.5,
+                    "parts": [
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "מקטע השזלונג"
+                    ],
+                    "width": 30,
+                    "height": 105,
+                    "rollDeg": -90
+                  }
+                ],
+                "turns": false
               },
               {
                 "templateId": "seat-first",
@@ -8930,7 +10697,115 @@ export const PRECOMPUTED: Precomputed = {
                   "doorHeight": 107.66,
                   "hallwayClearance": 107,
                   "roomDepth": 107
-                }
+                },
+                "stations": [
+                  {
+                    "t": 0.1195,
+                    "station": 52.5,
+                    "parts": [
+                      "the armrests",
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "המשענות",
+                      "מקטע השזלונג"
+                    ],
+                    "width": 64.569,
+                    "height": 107.6572,
+                    "rollDeg": -79
+                  },
+                  {
+                    "t": 0.2453,
+                    "station": 32.5,
+                    "parts": [
+                      "the armrests",
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "המשענות",
+                      "מקטע השזלונג"
+                    ],
+                    "width": 64.569,
+                    "height": 107.6572,
+                    "rollDeg": -79
+                  },
+                  {
+                    "t": 0.3711,
+                    "station": 12.5,
+                    "parts": [
+                      "the armrests",
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "המשענות",
+                      "מקטע השזלונג"
+                    ],
+                    "width": 64.569,
+                    "height": 107.6572,
+                    "rollDeg": -79
+                  },
+                  {
+                    "t": 0.4969,
+                    "station": -7.5,
+                    "parts": [
+                      "the armrests",
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "המשענות",
+                      "מקטע השזלונג"
+                    ],
+                    "width": 64.569,
+                    "height": 107.6572,
+                    "rollDeg": -79
+                  },
+                  {
+                    "t": 0.6226,
+                    "station": -27.5,
+                    "parts": [
+                      "the armrests",
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "המשענות",
+                      "מקטע השזלונג"
+                    ],
+                    "width": 64.569,
+                    "height": 107.6572,
+                    "rollDeg": -79
+                  },
+                  {
+                    "t": 0.7484,
+                    "station": -47.5,
+                    "parts": [
+                      "the armrests",
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "המשענות",
+                      "מקטע השזלונג"
+                    ],
+                    "width": 64.569,
+                    "height": 107.6572,
+                    "rollDeg": -79
+                  },
+                  {
+                    "t": 0.8742,
+                    "station": -52.5,
+                    "parts": [
+                      "the armrests",
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "המשענות",
+                      "מקטע השזלונג"
+                    ],
+                    "width": 64.569,
+                    "height": 107.6572,
+                    "rollDeg": -79
+                  }
+                ],
+                "turns": false
               }
             ],
             "narrowest": 64.57,
@@ -9021,6 +10896,61 @@ export const PRECOMPUTED: Precomputed = {
           "height": 75
         },
         "boxCount": 5,
+        "parts": [
+          {
+            "label": "the backrest",
+            "labelHe": "המשענת",
+            "boxes": 1,
+            "length": 210,
+            "depth": 30,
+            "height": 65,
+            "bottom": 10,
+            "top": 75,
+            "from": -105,
+            "to": 105,
+            "binding": true,
+            "bindsBy": 20
+          },
+          {
+            "label": "the armrests",
+            "labelHe": "המשענות",
+            "boxes": 2,
+            "length": 16,
+            "depth": 110,
+            "height": 45,
+            "bottom": 10,
+            "top": 55,
+            "from": -105,
+            "to": 105,
+            "binding": false
+          },
+          {
+            "label": "the seat",
+            "labelHe": "המושב",
+            "boxes": 1,
+            "length": 178,
+            "depth": 80,
+            "height": 38,
+            "bottom": 10,
+            "top": 48,
+            "from": -89,
+            "to": 89,
+            "binding": false
+          },
+          {
+            "label": "the plinth",
+            "labelHe": "הבסיס",
+            "boxes": 1,
+            "length": 200,
+            "depth": 100,
+            "height": 10,
+            "bottom": 0,
+            "top": 10,
+            "from": -100,
+            "to": 100,
+            "binding": false
+          }
+        ],
         "removableParts": [],
         "maneuvers": [
           {
@@ -9034,7 +10964,125 @@ export const PRECOMPUTED: Precomputed = {
               "doorHeight": 75,
               "hallwayClearance": 212,
               "roomDepth": 212
-            }
+            },
+            "stations": [
+              {
+                "t": 0.0087,
+                "station": 105,
+                "parts": [
+                  "the backrest",
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המשענות"
+                ],
+                "width": 55,
+                "height": 75,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.1747,
+                "station": 67,
+                "parts": [
+                  "the backrest",
+                  "the seat",
+                  "the plinth"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המושב",
+                  "הבסיס"
+                ],
+                "width": 110,
+                "height": 75,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.3362,
+                "station": 30,
+                "parts": [
+                  "the backrest",
+                  "the seat",
+                  "the plinth"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המושב",
+                  "הבסיס"
+                ],
+                "width": 110,
+                "height": 75,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.5022,
+                "station": -8,
+                "parts": [
+                  "the backrest",
+                  "the seat",
+                  "the plinth"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המושב",
+                  "הבסיס"
+                ],
+                "width": 110,
+                "height": 75,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.6638,
+                "station": -45,
+                "parts": [
+                  "the backrest",
+                  "the seat",
+                  "the plinth"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המושב",
+                  "הבסיס"
+                ],
+                "width": 110,
+                "height": 75,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.8297,
+                "station": -83,
+                "parts": [
+                  "the backrest",
+                  "the seat",
+                  "the plinth"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המושב",
+                  "הבסיס"
+                ],
+                "width": 110,
+                "height": 75,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.9913,
+                "station": -105,
+                "parts": [
+                  "the backrest",
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המשענות"
+                ],
+                "width": 95,
+                "height": 75,
+                "rollDeg": 0
+              }
+            ],
+            "turns": false
           },
           {
             "templateId": "on-its-side",
@@ -9047,7 +11095,127 @@ export const PRECOMPUTED: Precomputed = {
               "doorHeight": 210,
               "hallwayClearance": 112,
               "roomDepth": 112
-            }
+            },
+            "stations": [
+              {
+                "t": 0.4876,
+                "station": 55,
+                "parts": [
+                  "the backrest",
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המשענות"
+                ],
+                "width": 65,
+                "height": 210,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.4918,
+                "station": 34,
+                "parts": [
+                  "the backrest",
+                  "the armrests",
+                  "the plinth"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המשענות",
+                  "הבסיס"
+                ],
+                "width": 75,
+                "height": 210,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.4959,
+                "station": 13,
+                "parts": [
+                  "the backrest",
+                  "the armrests",
+                  "the plinth",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המשענות",
+                  "הבסיס",
+                  "המושב"
+                ],
+                "width": 75,
+                "height": 210,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5001,
+                "station": -8,
+                "parts": [
+                  "the armrests",
+                  "the plinth",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "הבסיס",
+                  "המושב"
+                ],
+                "width": 55,
+                "height": 210,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5041,
+                "station": -28,
+                "parts": [
+                  "the armrests",
+                  "the plinth",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "הבסיס",
+                  "המושב"
+                ],
+                "width": 55,
+                "height": 210,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5082,
+                "station": -49,
+                "parts": [
+                  "the armrests",
+                  "the plinth",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "הבסיס",
+                  "המושב"
+                ],
+                "width": 55,
+                "height": 210,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5124,
+                "station": -70,
+                "parts": [
+                  "the armrests",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "המושב"
+                ],
+                "width": 45,
+                "height": 210,
+                "rollDeg": -90
+              }
+            ],
+            "turns": false
           },
           {
             "templateId": "seat-first",
@@ -9060,7 +11228,123 @@ export const PRECOMPUTED: Precomputed = {
               "doorHeight": 125.08,
               "hallwayClearance": 212,
               "roomDepth": 212
-            }
+            },
+            "stations": [
+              {
+                "t": 0.0806,
+                "station": 105,
+                "parts": [
+                  "the armrests",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "המשענת"
+                ],
+                "width": 42.5,
+                "height": 112,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.2381,
+                "station": 62,
+                "parts": [
+                  "the seat",
+                  "the plinth",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "הבסיס",
+                  "המשענת"
+                ],
+                "width": 75,
+                "height": 112,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.4103,
+                "station": 15,
+                "parts": [
+                  "the seat",
+                  "the plinth",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "הבסיס",
+                  "המשענת"
+                ],
+                "width": 75,
+                "height": 112,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5861,
+                "station": -33,
+                "parts": [
+                  "the seat",
+                  "the plinth",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "הבסיס",
+                  "המשענת"
+                ],
+                "width": 75,
+                "height": 112,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.7582,
+                "station": -80,
+                "parts": [
+                  "the seat",
+                  "the plinth",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "הבסיס",
+                  "המשענת"
+                ],
+                "width": 75,
+                "height": 112,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.8904,
+                "station": -105,
+                "parts": [
+                  "the armrests",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "המשענת"
+                ],
+                "width": 66.5962,
+                "height": 115.5018,
+                "rollDeg": -93.25
+              },
+              {
+                "t": 0.9048,
+                "station": -105,
+                "parts": [
+                  "the armrests",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "המשענת"
+                ],
+                "width": 50.2034,
+                "height": 125.0751,
+                "rollDeg": -105
+              }
+            ],
+            "turns": true
           }
         ],
         "narrowest": 75.01,
@@ -11857,6 +14141,74 @@ export const PRECOMPUTED: Precomputed = {
           "height": 105
         },
         "boxCount": 6,
+        "parts": [
+          {
+            "label": "the backrest",
+            "labelHe": "המשענת",
+            "boxes": 1,
+            "length": 172,
+            "depth": 20,
+            "height": 93,
+            "bottom": 12,
+            "top": 105,
+            "from": -86,
+            "to": 86,
+            "binding": false
+          },
+          {
+            "label": "the armrests",
+            "labelHe": "המשענות",
+            "boxes": 2,
+            "length": 4,
+            "depth": 90,
+            "height": 70,
+            "bottom": 0,
+            "top": 70,
+            "from": -90,
+            "to": 90,
+            "binding": false
+          },
+          {
+            "label": "the recliner housing",
+            "labelHe": "בית המנגנון",
+            "boxes": 1,
+            "length": 140,
+            "depth": 10,
+            "height": 45,
+            "bottom": 25,
+            "top": 70,
+            "from": -70,
+            "to": 70,
+            "binding": true,
+            "bindsBy": 10
+          },
+          {
+            "label": "the seat",
+            "labelHe": "המושב",
+            "boxes": 1,
+            "length": 172,
+            "depth": 70,
+            "height": 38,
+            "bottom": 12,
+            "top": 50,
+            "from": -86,
+            "to": 86,
+            "binding": false
+          },
+          {
+            "label": "the base",
+            "labelHe": "הבסיס",
+            "boxes": 1,
+            "length": 172,
+            "depth": 90,
+            "height": 12,
+            "bottom": 0,
+            "top": 12,
+            "from": -86,
+            "to": 86,
+            "binding": false
+          }
+        ],
         "removableParts": [],
         "maneuvers": [
           {
@@ -11870,7 +14222,131 @@ export const PRECOMPUTED: Precomputed = {
               "doorHeight": 105,
               "hallwayClearance": 182,
               "roomDepth": 182
-            }
+            },
+            "stations": [
+              {
+                "t": 0.0101,
+                "station": 90,
+                "parts": [
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המשענות"
+                ],
+                "width": 45,
+                "height": 70,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.1759,
+                "station": 57,
+                "parts": [
+                  "the backrest",
+                  "the recliner housing",
+                  "the seat",
+                  "the base"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "בית המנגנון",
+                  "המושב",
+                  "הבסיס"
+                ],
+                "width": 100,
+                "height": 105,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.3367,
+                "station": 25,
+                "parts": [
+                  "the backrest",
+                  "the recliner housing",
+                  "the seat",
+                  "the base"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "בית המנגנון",
+                  "המושב",
+                  "הבסיס"
+                ],
+                "width": 100,
+                "height": 105,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.5025,
+                "station": -8,
+                "parts": [
+                  "the backrest",
+                  "the recliner housing",
+                  "the seat",
+                  "the base"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "בית המנגנון",
+                  "המושב",
+                  "הבסיס"
+                ],
+                "width": 100,
+                "height": 105,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.6633,
+                "station": -40,
+                "parts": [
+                  "the backrest",
+                  "the recliner housing",
+                  "the seat",
+                  "the base"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "בית המנגנון",
+                  "המושב",
+                  "הבסיס"
+                ],
+                "width": 100,
+                "height": 105,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.8291,
+                "station": -73,
+                "parts": [
+                  "the backrest",
+                  "the recliner housing",
+                  "the seat",
+                  "the base"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "בית המנגנון",
+                  "המושב",
+                  "הבסיס"
+                ],
+                "width": 100,
+                "height": 105,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.9899,
+                "station": -90,
+                "parts": [
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המשענות"
+                ],
+                "width": 45,
+                "height": 70,
+                "rollDeg": 0
+              }
+            ],
+            "turns": false
           },
           {
             "templateId": "on-its-side",
@@ -11883,7 +14359,129 @@ export const PRECOMPUTED: Precomputed = {
               "doorHeight": 180,
               "hallwayClearance": 102,
               "roomDepth": 102
-            }
+            },
+            "stations": [
+              {
+                "t": 0.4876,
+                "station": 50,
+                "parts": [
+                  "the recliner housing"
+                ],
+                "partsHe": [
+                  "בית המנגנון"
+                ],
+                "width": 45,
+                "height": 160,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.4917,
+                "station": 31,
+                "parts": [
+                  "the armrests",
+                  "the base",
+                  "the backrest",
+                  "the recliner housing"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "הבסיס",
+                  "המשענת",
+                  "בית המנגנון"
+                ],
+                "width": 105,
+                "height": 180,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.4958,
+                "station": 12,
+                "parts": [
+                  "the armrests",
+                  "the base",
+                  "the seat",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "הבסיס",
+                  "המושב",
+                  "המשענת"
+                ],
+                "width": 105,
+                "height": 180,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5001,
+                "station": -8,
+                "parts": [
+                  "the armrests",
+                  "the base",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "הבסיס",
+                  "המושב"
+                ],
+                "width": 70,
+                "height": 180,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5042,
+                "station": -27,
+                "parts": [
+                  "the armrests",
+                  "the base",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "הבסיס",
+                  "המושב"
+                ],
+                "width": 70,
+                "height": 180,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5083,
+                "station": -46,
+                "parts": [
+                  "the armrests",
+                  "the base",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "הבסיס",
+                  "המושב"
+                ],
+                "width": 70,
+                "height": 180,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5124,
+                "station": -65,
+                "parts": [
+                  "the armrests",
+                  "the base",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "הבסיס",
+                  "המושב"
+                ],
+                "width": 70,
+                "height": 180,
+                "rollDeg": -90
+              }
+            ],
+            "turns": false
           },
           {
             "templateId": "seat-first",
@@ -12429,6 +15027,61 @@ export const PRECOMPUTED: Precomputed = {
           "height": 90
         },
         "boxCount": 5,
+        "parts": [
+          {
+            "label": "the backrest",
+            "labelHe": "המשענת",
+            "boxes": 1,
+            "length": 192,
+            "depth": 30,
+            "height": 48,
+            "bottom": 42,
+            "top": 90,
+            "from": -96,
+            "to": 96,
+            "binding": true,
+            "bindsBy": 22
+          },
+          {
+            "label": "the armrests",
+            "labelHe": "המשענות",
+            "boxes": 2,
+            "length": 4,
+            "depth": 100,
+            "height": 68,
+            "bottom": 0,
+            "top": 68,
+            "from": -100,
+            "to": 100,
+            "binding": false
+          },
+          {
+            "label": "the seat",
+            "labelHe": "המושב",
+            "boxes": 1,
+            "length": 192,
+            "depth": 80,
+            "height": 20,
+            "bottom": 42,
+            "top": 62,
+            "from": -96,
+            "to": 96,
+            "binding": false
+          },
+          {
+            "label": "the folded bed frame",
+            "labelHe": "מנגנון המיטה",
+            "boxes": 1,
+            "length": 192,
+            "depth": 100,
+            "height": 42,
+            "bottom": 0,
+            "top": 42,
+            "from": -96,
+            "to": 96,
+            "binding": false
+          }
+        ],
         "removableParts": [],
         "maneuvers": [
           {
@@ -12442,7 +15095,121 @@ export const PRECOMPUTED: Precomputed = {
               "doorHeight": 90,
               "hallwayClearance": 202,
               "roomDepth": 202
-            }
+            },
+            "stations": [
+              {
+                "t": 0.0091,
+                "station": 100,
+                "parts": [
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המשענות"
+                ],
+                "width": 50,
+                "height": 68,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.1735,
+                "station": 64,
+                "parts": [
+                  "the backrest",
+                  "the seat",
+                  "the folded bed frame"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המושב",
+                  "מנגנון המיטה"
+                ],
+                "width": 100,
+                "height": 90,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.3379,
+                "station": 28,
+                "parts": [
+                  "the backrest",
+                  "the seat",
+                  "the folded bed frame"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המושב",
+                  "מנגנון המיטה"
+                ],
+                "width": 100,
+                "height": 90,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.5023,
+                "station": -8,
+                "parts": [
+                  "the backrest",
+                  "the seat",
+                  "the folded bed frame"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המושב",
+                  "מנגנון המיטה"
+                ],
+                "width": 100,
+                "height": 90,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.6621,
+                "station": -43,
+                "parts": [
+                  "the backrest",
+                  "the seat",
+                  "the folded bed frame"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המושב",
+                  "מנגנון המיטה"
+                ],
+                "width": 100,
+                "height": 90,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.8265,
+                "station": -79,
+                "parts": [
+                  "the backrest",
+                  "the seat",
+                  "the folded bed frame"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המושב",
+                  "מנגנון המיטה"
+                ],
+                "width": 100,
+                "height": 90,
+                "rollDeg": 0
+              },
+              {
+                "t": 0.9909,
+                "station": -100,
+                "parts": [
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המשענות"
+                ],
+                "width": 50,
+                "height": 68,
+                "rollDeg": 0
+              }
+            ],
+            "turns": false
           },
           {
             "templateId": "on-its-side",
@@ -12455,7 +15222,131 @@ export const PRECOMPUTED: Precomputed = {
               "doorHeight": 200,
               "hallwayClearance": 102,
               "roomDepth": 102
-            }
+            },
+            "stations": [
+              {
+                "t": 0.4876,
+                "station": 50,
+                "parts": [
+                  "the armrests",
+                  "the folded bed frame",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "מנגנון המיטה",
+                  "המשענת"
+                ],
+                "width": 90,
+                "height": 200,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.4917,
+                "station": 31,
+                "parts": [
+                  "the armrests",
+                  "the folded bed frame",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "מנגנון המיטה",
+                  "המשענת"
+                ],
+                "width": 90,
+                "height": 200,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.4958,
+                "station": 12,
+                "parts": [
+                  "the armrests",
+                  "the folded bed frame",
+                  "the seat",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "מנגנון המיטה",
+                  "המושב",
+                  "המשענת"
+                ],
+                "width": 90,
+                "height": 200,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5001,
+                "station": -8,
+                "parts": [
+                  "the armrests",
+                  "the folded bed frame",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "מנגנון המיטה",
+                  "המושב"
+                ],
+                "width": 68,
+                "height": 200,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5042,
+                "station": -27,
+                "parts": [
+                  "the armrests",
+                  "the folded bed frame",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "מנגנון המיטה",
+                  "המושב"
+                ],
+                "width": 68,
+                "height": 200,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5083,
+                "station": -46,
+                "parts": [
+                  "the armrests",
+                  "the folded bed frame",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "מנגנון המיטה",
+                  "המושב"
+                ],
+                "width": 68,
+                "height": 200,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5124,
+                "station": -65,
+                "parts": [
+                  "the armrests",
+                  "the folded bed frame",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "מנגנון המיטה",
+                  "המושב"
+                ],
+                "width": 68,
+                "height": 200,
+                "rollDeg": -90
+              }
+            ],
+            "turns": false
           },
           {
             "templateId": "seat-first",
@@ -12468,7 +15359,117 @@ export const PRECOMPUTED: Precomputed = {
               "doorHeight": 118.53,
               "hallwayClearance": 202,
               "roomDepth": 202
-            }
+            },
+            "stations": [
+              {
+                "t": 0.084,
+                "station": 100,
+                "parts": [
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המשענות"
+                ],
+                "width": 34,
+                "height": 102,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.2176,
+                "station": 65,
+                "parts": [
+                  "the folded bed frame",
+                  "the seat",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "מנגנון המיטה",
+                  "המושב",
+                  "המשענת"
+                ],
+                "width": 90,
+                "height": 102,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.3893,
+                "station": 20,
+                "parts": [
+                  "the folded bed frame",
+                  "the seat",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "מנגנון המיטה",
+                  "המושב",
+                  "המשענת"
+                ],
+                "width": 90,
+                "height": 102,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5649,
+                "station": -26,
+                "parts": [
+                  "the folded bed frame",
+                  "the seat",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "מנגנון המיטה",
+                  "המושב",
+                  "המשענת"
+                ],
+                "width": 90,
+                "height": 102,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.7405,
+                "station": -72,
+                "parts": [
+                  "the folded bed frame",
+                  "the seat",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "מנגנון המיטה",
+                  "המושב",
+                  "המשענת"
+                ],
+                "width": 90,
+                "height": 102,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.8911,
+                "station": -100,
+                "parts": [
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המשענות"
+                ],
+                "width": 70.3965,
+                "height": 104.1277,
+                "rollDeg": -91.3846
+              },
+              {
+                "t": 0.9046,
+                "station": -100,
+                "parts": [
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המשענות"
+                ],
+                "width": 54.0482,
+                "height": 118.5268,
+                "rollDeg": -102
+              }
+            ],
+            "turns": true
           }
         ],
         "narrowest": 90.01,
@@ -15551,13 +18552,13 @@ export const PRECOMPUTED: Precomputed = {
           "tiltAxis": "x"
         }
       ],
-      "micros": 116
+      "micros": 138
     },
     "planner": {
       "feasible": false,
       "reason": "search-budget-exhausted",
       "nodes": 1200000,
-      "ms": 9449,
+      "ms": 14319,
       "budget": 1200000
     },
     "proof": {

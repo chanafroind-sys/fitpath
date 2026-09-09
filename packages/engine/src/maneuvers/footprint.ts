@@ -116,6 +116,60 @@ export function slabSection(
 }
 
 /**
+ * The same slab section, kept box by box.
+ *
+ * Used to say WHICH parts of an item are in the doorway at a given moment,
+ * which is a different question from how wide the whole section is and cannot
+ * be recovered from the union. Boxes that miss the slab are absent from the
+ * result rather than present with an empty one.
+ */
+export function slabSectionsByBox(
+  item: PreparedItem,
+  placement: Placement,
+  minY: number,
+  maxY: number,
+): Map<number, Section> {
+  const out = new Map<number, Section>();
+  const boxes = itemWorldBoxes(item, placement);
+  for (let index = 0; index < boxes.length; index++) {
+    const box = boxes[index]!;
+    if (box.aabbMax.y < minY || box.aabbMin.y > maxY) continue;
+    let minX = Infinity;
+    let maxX = -Infinity;
+    let minZ = Infinity;
+    let maxZ = -Infinity;
+    let any = false;
+    const take = (x: number, z: number): void => {
+      any = true;
+      if (x < minX) minX = x;
+      if (x > maxX) maxX = x;
+      if (z < minZ) minZ = z;
+      if (z > maxZ) maxZ = z;
+    };
+    const corners = boxCorners(box);
+    for (const c of corners) {
+      if (c.y >= minY && c.y <= maxY) take(c.x, c.z);
+    }
+    for (const [i, j] of EDGES) {
+      const a = corners[i]!;
+      const b = corners[j]!;
+      for (const plane of [minY, maxY]) {
+        const da = a.y - plane;
+        const db = b.y - plane;
+        if ((da > 0 && db > 0) || (da < 0 && db < 0)) continue;
+        if (da === db) continue;
+        const t = da / (da - db);
+        if (t < 0 || t > 1) continue;
+        take(a.x + t * (b.x - a.x), a.z + t * (b.z - a.z));
+      }
+    }
+    if (any) out.set(index, { minX, maxX, minZ, maxZ });
+  }
+  return out;
+}
+
+
+/**
  * A point of the item's cross-section, in the frame the doorway sees.
  *
  * `a` is the coordinate that runs across the opening and `b` the one that runs

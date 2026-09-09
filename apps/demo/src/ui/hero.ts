@@ -23,7 +23,8 @@ import { buildTimeline } from '../viewer/timeline.ts';
 import { clear, el } from './dom.ts';
 import { Playback } from './playback.ts';
 import { Stage, createTransport, type Transport } from './stage.ts';
-import { clearanceCaveat, sourceBadge } from './library.ts';
+import { clearanceCaveat, entryFor, sourceBadge } from './library.ts';
+import { maneuverChoices, maneuverStage, tradeLine, turningAlternative, validHere, type Animated } from './panels.ts';
 
 export interface HeroView {
   element: HTMLElement;
@@ -42,6 +43,25 @@ export function createHero(): HeroView {
   const stage = new Stage();
   const transportSlot = el('div', { class: 'hero-transport' });
   let transport: Transport | undefined;
+
+  // Every maneuver that works at this doorway, not only the one animated
+  // above. The turning one ties the winner to within three hundredths of a
+  // centimetre here, and it is the only one whose angle changes while the sofa
+  // is inside the opening — so showing the winner alone would hide the single
+  // thing this engine does that arithmetic cannot.
+  const entry = product === undefined ? undefined : entryFor(product.id);
+  const fits =
+    product !== undefined && entry !== undefined
+      ? validHere(product.item, params, environment, entry.maneuvers)
+      : [];
+  const choices =
+    entry === undefined || fits.length === 0
+      ? el('span', {})
+      : maneuverChoices(fits, entry.report.maneuvers, library.templateId);
+
+  const alternative =
+    entry === undefined ? undefined : turningAlternative(fits, entry.report.maneuvers, library.templateId);
+  const alternates: Animated[] = [];
 
   // --- left: the library --------------------------------------------------
   const stageList = el('ol', { class: 'stage-list' },
@@ -67,6 +87,7 @@ export function createHero(): HeroView {
     stageList,
     sourceBadge('library'),
     clearanceCaveat(library.requirement),
+    choices,
   ]);
 
   // --- right: the planner -------------------------------------------------
@@ -111,6 +132,28 @@ export function createHero(): HeroView {
     ]),
   ]);
 
+  if (product !== undefined && alternative !== undefined) {
+    const shown = maneuverStage(
+      product.item,
+      environment,
+      alternative.maneuver.path,
+      alternative.maneuver.name,
+    );
+    alternates.push(shown);
+    left.append(
+      el('div', { class: 'alternative alternative-inline' }, [
+        el('h4', { text: 'The other way through' }),
+        el('p', { class: 'muted' }, [
+          `“${alternative.maneuver.name}” also clears this doorway, and it is the only maneuver here that changes the sofa's angle `,
+          el('em', { text: 'while it is in the opening' }),
+          '.',
+        ]),
+        tradeLine(alternative),
+        shown.element,
+      ]),
+    );
+  }
+
   if (product !== undefined) {
     stage.setScene({ environment, item: product.item, path: library.path });
     const timeline = buildTimeline(product.item, library.path);
@@ -125,6 +168,7 @@ export function createHero(): HeroView {
   return {
     element,
     dispose(): void {
+      for (const extra of alternates) extra.dispose();
       transport?.dispose();
       playback.dispose();
       stage.dispose();

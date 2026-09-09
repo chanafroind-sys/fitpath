@@ -10,6 +10,7 @@ import { PRECOMPUTED } from '../precomputed.ts';
 import { productById } from '../catalog.ts';
 import type { CatalogueEntry } from '../precomputed.ts';
 import { el } from './dom.ts';
+import { crossingSection, partsTable } from './panels.ts';
 
 /** Which of the three engines produced an answer. Shown, always. */
 export type Source = 'library' | 'proof' | 'planner';
@@ -112,11 +113,12 @@ export function reportPanel(report: ItemReport, modules: readonly { id: string; 
   return el('section', { class: 'panel report-panel' }, [
     el('h2', { text: 'What the engine measured' }),
     el('p', { class: 'muted' }, [
-      `Modelled as ${report.boxCount} boxes, ${d.length.toFixed(0)} × ${d.depth.toFixed(0)} × ${d.height.toFixed(0)} cm. `,
+      `${d.length.toFixed(0)} × ${d.depth.toFixed(0)} × ${d.height.toFixed(0)} cm overall. `,
       report.removableParts.length > 0
         ? `Removable: ${report.removableParts.map((p) => p.name).join(', ')}.`
         : 'Nothing on it is removable.',
     ]),
+    partsTable(report),
 
     el('table', { class: 'report-table' }, [
       el('thead', {}, [
@@ -188,6 +190,8 @@ export function reportPanel(report: ItemReport, modules: readonly { id: string; 
               ]),
         ])
       : el('span', {}),
+
+    crossingSection(report),
 
     modules.length > 0
       ? el('div', { class: 'binding' }, [

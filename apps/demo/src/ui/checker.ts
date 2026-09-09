@@ -20,7 +20,14 @@ import type { Product } from '../catalog.ts';
 import { retailDimensions } from '../catalog.ts';
 import { runPlan, type RunningPlan } from '../engine/client.ts';
 import { clearanceCaveat, entryFor, sourceBadge, sourceNote } from './library.ts';
-import { prepareItem, verifyPathIn } from '@fitpath/engine';
+import {
+  maneuverChoices,
+  maneuverStage,
+  tradeLine,
+  turningAlternative,
+  validHere,
+  type Animated,
+} from './panels.ts';
 import type { Verdict } from '../engine/protocol.ts';
 import { buildTimeline, stepRanges } from '../viewer/timeline.ts';
 import { clear, el, hebrew } from './dom.ts';
@@ -184,8 +191,17 @@ export function createChecker(product: Product, onBack: () => void): CheckerView
   let transport: Transport | undefined;
   let stage: Stage | undefined;
   let timer = 0;
+  /** Extra viewers for maneuvers shown beside the chosen one. */
+  const alternates: Animated[] = [];
+
+  /** Viewers for maneuvers shown beside the chosen one own their own scenes. */
+  const disposeAlternates = (): void => {
+    for (const extra of alternates) extra.dispose();
+    alternates.length = 0;
+  };
 
   const teardownRun = (): void => {
+    disposeAlternates();
     job?.cancel();
     job = undefined;
     transport?.dispose();
@@ -238,45 +254,17 @@ export function createChecker(product: Product, onBack: () => void): CheckerView
     const entry = entryFor(product.id);
     if (entry === undefined) return false;
 
-    const fits = entry.maneuvers
-      .filter(
-        (m) =>
-          m.requirement.doorWidth <= params.openingWidth &&
-          m.requirement.doorHeight <= params.openingHeight &&
-          m.requirement.hallwayClearance <= params.hallwayWidth &&
-          m.requirement.roomDepth <= params.roomDepth,
-      )
-      // Fewest stages first: among maneuvers that all work, the one worth
-      // telling someone about is the one with the fewest separate motions.
-      .sort((a, b) => a.stages.length - b.stages.length);
-
-    // Re-measure in the environment we are about to DRAW, not the synthetic one
-    // the maneuver was designed against.
-    //
-    // A requirement is a lower bound on the opening — "at least 85.01 x 95" —
-    // and a scene that satisfies it is not automatically a scene the path runs
-    // in. Wider and taller is the safe direction and nearly always where a
-    // shopper lands, but nearly always is not an argument when the failure mode
-    // is animating a sofa through a wall. This is a few hundred edge checks
-    // through the same collider the library used, and it is what makes the
-    // answer a route through the shopper's doorway rather than a claim about a
-    // doorway of the same size.
-    const prepared = prepareItem(product.item);
-    const chosen = fits.find((m) => verifyPathIn(prepared, m.path, environment) === undefined);
+    // Every maneuver that runs in THIS room, re-checked against it rather than
+    // trusted from its requirement.
+    const fits = validHere(product.item, params, environment, entry.maneuvers);
+    const chosen = fits[0];
 
     if (chosen === undefined) {
       results.append(
         el('div', { class: 'panel library-miss' }, [
           el('p', {}, [
-            el('strong', {
-              text:
-                fits.length === 0
-                  ? 'No maneuver in the library covers this doorway.'
-                  : 'No maneuver in the library survives this exact scene.',
-            }),
-            fits.length === 0
-              ? ' That is a statement about the library, not about the sofa — it is a list of moves known to work, so its silence means only that none of them is this one.'
-              : ' One met the four measurements but did not clear the room when it was re-checked against it, so it is not offered. Still a statement about the library, not about the sofa.',
+            el('strong', { text: 'No maneuver in the library covers this doorway.' }),
+            ' That is a statement about the library, not about the sofa — it is a list of moves known to work, so its silence means only that none of them is this one.',
           ]),
           el('p', { class: 'muted', text: 'Handing the question to the general planner instead.' }),
         ]),
@@ -289,7 +277,10 @@ export function createChecker(product: Product, onBack: () => void): CheckerView
         el('div', { class: 'library-hit-head' }, [
           el('div', {}, [
             el('h2', { text: 'Fits' }),
-            el('p', { class: 'muted', text: `By the “${chosen.name}” maneuver, in ${chosen.stages.length} stage${chosen.stages.length === 1 ? '' : 's'}.` }),
+            el('p', {
+              class: 'muted',
+              text: `By the “${chosen.name}” maneuver, in ${chosen.stages.length} stage${chosen.stages.length === 1 ? '' : 's'}.`,
+            }),
           ]),
           el('span', { class: 'pill pill-fits', text: 'Fits' }),
         ]),
@@ -308,14 +299,44 @@ export function createChecker(product: Product, onBack: () => void): CheckerView
             `and yours is ${params.openingWidth} × ${params.openingHeight} cm.`,
         ]),
         clearanceCaveat(chosen.requirement),
+        maneuverChoices(fits, entry.report.maneuvers, chosen.templateId),
       ]),
     );
 
     showManeuver(chosen.path, environment);
+
+    // And the turning maneuver beside it, when it is close enough to be a real
+    // choice. It is the only one whose angle changes while the sofa is inside
+    // the opening, so presenting the winner alone would hide the thing this
+    // engine is for.
+    const alternative = turningAlternative(fits, entry.report.maneuvers, chosen.templateId);
+    if (alternative !== undefined) {
+      const shown = maneuverStage(
+        product.item,
+        environment,
+        alternative.maneuver.path,
+        alternative.maneuver.name,
+      );
+      alternates.push(shown);
+      results.append(
+        el('div', { class: 'panel alternative' }, [
+          el('h2', { text: 'The other way through' }),
+          el('p', { class: 'muted' }, [
+            `“${alternative.maneuver.name}” also works here, and it is the only maneuver that changes the sofa's angle `,
+            el('em', { text: 'while it is in the doorway' }),
+            '.',
+          ]),
+          tradeLine(alternative),
+          shown.element,
+        ]),
+      );
+    }
+
     return true;
   }
 
   function render(params: EnvironmentParams, environment: Environment, force = false): void {
+    disposeAlternates();
     clear(results);
     results.append(measurementsStrip(params));
 

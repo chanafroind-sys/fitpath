@@ -7,6 +7,7 @@
  */
 import './styles.css';
 import './styles-library.css';
+import './styles-panels.css';
 import { productById } from './catalog.ts';
 import { clear, el } from './ui/dom.ts';
 import { createCompareView, type CompareView } from './ui/compare.ts';
