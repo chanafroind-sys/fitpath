@@ -58,6 +58,17 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    # Declared on the job as well as on the workflow.
+    #
+    # `actions/deploy-pages` mints an OIDC token, and it reads the permissions
+    # of the job it runs in rather than the workflow's. The workflow-level block
+    # above is what the rest of the run uses and is not enough on its own — the
+    # deploy failed with "ensure GITHUB_TOKEN has permission id-token: write"
+    # while that permission was plainly granted a few lines higher up.
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
