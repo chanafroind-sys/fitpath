@@ -78,6 +78,11 @@ export function validHere(
         m.requirement.doorHeight <= params.openingHeight &&
         m.requirement.hallwayClearance <= params.hallwayWidth &&
         m.requirement.roomDepth <= params.roomDepth &&
+        // The third corridor dimension, which the approach maneuvers spend
+        // instead of depth. Leaving it out would offer somebody a maneuver that
+        // needs 261 cm along their wall when they have 200.
+        m.requirement.alongWall <= params.hallwayDepth &&
+        m.requirement.alongWall <= params.roomWidth &&
         verifyPathIn(prepared, m.path, environment) === undefined,
     )
     .sort((a, b) => a.stages.length - b.stages.length);
@@ -109,7 +114,9 @@ export function maneuverChoices(
         el('tr', {}, [
           el('th', { scope: 'col', text: 'Maneuver' }),
           el('th', { scope: 'col', text: 'Doorway' }),
-          el('th', { scope: 'col', text: 'Hallway' }),
+          el('th', { scope: 'col', text: 'In front' }),
+          el('th', { scope: 'col', text: 'Along' }),
+          el('th', { scope: 'col', text: 'Behind' }),
           el('th', { scope: 'col', text: 'Angle' }),
         ]),
       ]),
@@ -132,6 +139,8 @@ export function maneuverChoices(
               text: `${cm(m.requirement.doorWidth)} × ${cm(m.requirement.doorHeight)}`,
             }),
             el('td', { text: cm(m.requirement.hallwayClearance) }),
+            el('td', { text: cm(m.requirement.alongWall) }),
+            el('td', { text: cm(m.requirement.roomDepth) }),
             el('td', {}, [
               turnsById(lines, m.templateId)
                 ? el('strong', { class: 'turns-tag', text: 'turns in the opening' })

@@ -4,6 +4,7 @@ import type { Maneuver, ManeuverRequirement, ManeuverStage, ManeuverTemplate } f
 import { buildEnvironment } from '../environment/build.ts';
 import { collides, itemWorldBoxes } from '../geometry/collide.ts';
 import { contains, unionAabb } from '../geometry/worldBox.ts';
+import { EPSILON } from '../geometry/sat.ts';
 import { createEdgeValidator, interpolate } from '../planner/edge.ts';
 import { angleDelta } from '../math/rotation.ts';
 import { slabSection } from './footprint.ts';
@@ -117,11 +118,16 @@ function requirementOf(extents: Extents, shift: number): ManeuverRequirement {
     extents.minX === Infinity
       ? 0
       : Math.max(Math.abs(extents.minX + shift), Math.abs(extents.maxX + shift));
+  const along =
+    extents.wholeMinX === Infinity
+      ? 0
+      : 2 * Math.max(Math.abs(extents.wholeMinX + shift), Math.abs(extents.wholeMaxX + shift));
   return {
     doorWidth: ceilTo(2 * reach),
     doorHeight: ceilTo(extents.maxZ),
     hallwayClearance: ceilTo(Math.max(0, extents.back)),
     roomDepth: ceilTo(Math.max(0, extents.forward)),
+    alongWall: ceilTo(along),
   };
 }
 
@@ -214,13 +220,11 @@ export function buildManeuver(
   // The two dimensions the library does not claim — how far the corridor runs
   // along its own length, and how wide the room is — are set generously from
   // the motion, so that the four numbers above are the only things under test.
-  // Measured AFTER the shift, or an asymmetric item is given a corridor sized
-  // for where it used to be and then reported as colliding with the end of it.
-  const reach = Math.max(
-    Math.abs(total.wholeMinX + shift),
-    Math.abs(total.wholeMaxX + shift),
-  );
-  const clear = Math.max(60, reach * 2 + 40);
+  // The corridor's own length is a claim now, not a generous guess, so it is
+  // built to exactly what was measured — and measured AFTER the shift, or an
+  // asymmetric item gets a corridor sized for where it used to be and is then
+  // rejected for hitting the end of it.
+  const clear = Math.max(60, requirement.alongWall);
   const params: EnvironmentParams = {
     openingWidth: requirement.doorWidth,
     openingHeight: requirement.doorHeight,
@@ -248,7 +252,16 @@ export function buildManeuver(
 
   const first = unionAabb(itemWorldBoxes(item, path[0]!));
   if (first.maxY > 0) return fail('the motion does not begin wholly in the hallway');
-  if (!contains(environment.room, unionAabb(itemWorldBoxes(item, path[path.length - 1]!)))) {
+  // Contact counts as inside, exactly as it counts as a fit everywhere else in
+  // this engine. An item set down on the floor has a lowest point of zero, or
+  // of minus one part in a quadrillion depending on which way the arithmetic
+  // fell, and a goal test with no tolerance calls the second of those a miss.
+  // That is how a maneuver that ends by standing an item down in the room —
+  // and so ends at its own deepest point, with nothing to spare — reported
+  // itself invalid.
+  if (
+    !contains(environment.room, unionAabb(itemWorldBoxes(item, path[path.length - 1]!)), EPSILON)
+  ) {
     return fail('the motion does not end wholly inside the room');
   }
 

@@ -20,6 +20,7 @@ import type { Product } from '../catalog.ts';
 import { retailDimensions } from '../catalog.ts';
 import { runPlan, type RunningPlan } from '../engine/client.ts';
 import { clearanceCaveat, entryFor, sourceBadge, sourceNote } from './library.ts';
+import { corridorDiagram } from './corridor.ts';
 import {
   maneuverChoices,
   maneuverStage,
@@ -52,6 +53,17 @@ interface Field {
 }
 
 /** The four a person can actually measure. */
+/**
+ * The four a shopper measures, and the three corridor numbers named so that
+ * they cannot be confused with each other.
+ *
+ * "Hallway clearance" and "free depth behind" were two of the three, and the
+ * third — how far the corridor runs ALONG the wall — sat in Advanced under
+ * "Corridor length", where nobody would find it and nobody would guess what it
+ * meant. It is the dimension that decides whether an item can be turned to
+ * face the door at all, so it is on the main form now with the other two, and
+ * all three say which way they point.
+ */
 const PRIMARY: Field[] = [
   {
     key: 'openingWidth',
@@ -69,25 +81,31 @@ const PRIMARY: Field[] = [
   },
   {
     key: 'hallwayWidth',
-    label: 'Hallway clearance',
-    hint: 'Free depth in front of the opening — the number that usually decides it',
+    label: 'Depth in front of the door',
+    hint: 'From the door back into the hallway',
     min: 60,
     max: 400,
   },
   {
+    key: 'hallwayDepth',
+    label: 'Width of the hallway along the wall',
+    hint: 'Left to right past the door — what you need to turn the item',
+    min: 100,
+    max: 800,
+  },
+  {
     key: 'roomDepth',
-    label: 'Free depth behind the opening',
-    hint: 'How far into the room the item can travel',
+    label: 'Depth behind the door',
+    hint: 'From the door into the room',
     min: 100,
     max: 600,
   },
 ];
 
 const ADVANCED: Field[] = [
-  { key: 'ceilingHeight', label: 'Ceiling height', hint: 'Decides whether the item can be tilted at all', min: 150, max: 400 },
+  { key: 'ceilingHeight', label: 'Ceiling height', hint: 'Decides whether an item can be stood on its end', min: 150, max: 400 },
   { key: 'wallThickness', label: 'Wall thickness', hint: 'Depth of the opening itself', min: 4, max: 80 },
-  { key: 'hallwayDepth', label: 'Corridor length', hint: 'Total, centred on the opening. Longer corridors cost search time', min: 150, max: 600 },
-  { key: 'roomWidth', label: 'Room width', hint: 'Across the opening, inside the room', min: 150, max: 600 },
+  { key: 'roomWidth', label: 'Width of the room along the wall', hint: 'Left to right past the door, on the far side', min: 150, max: 800 },
 ];
 
 function numberField(field: Field, value: number): HTMLElement {
@@ -124,7 +142,10 @@ export function createChecker(product: Product, onBack: () => void): CheckerView
   const advancedFields = el('div', { class: 'field-grid' }, ADVANCED.map((f) => numberField(f, product.defaults[f.key])));
 
   form.append(
-    el('div', { class: 'field-grid' }, PRIMARY.map((f) => numberField(f, product.defaults[f.key]))),
+    el('div', { class: 'measure-row' }, [
+      el('div', { class: 'field-grid' }, PRIMARY.map((f) => numberField(f, product.defaults[f.key]))),
+      corridorDiagram(),
+    ]),
     el('details', { class: 'advanced' }, [
       el('summary', { text: 'Advanced' }),
       el('p', {

@@ -204,7 +204,8 @@ export const PRECOMPUTED: Precomputed = {
               "doorWidth": 95.01,
               "doorHeight": 85,
               "hallwayClearance": 222,
-              "roomDepth": 222
+              "roomDepth": 222,
+              "alongWall": 95.01
             },
             "stations": [
               {
@@ -329,7 +330,8 @@ export const PRECOMPUTED: Precomputed = {
               "doorWidth": 85.01,
               "doorHeight": 95,
               "hallwayClearance": 222,
-              "roomDepth": 222
+              "roomDepth": 222,
+              "alongWall": 150.01
             },
             "stations": [
               {
@@ -454,7 +456,8 @@ export const PRECOMPUTED: Precomputed = {
               "doorWidth": 85.04,
               "doorHeight": 117.81,
               "hallwayClearance": 222,
-              "roomDepth": 222
+              "roomDepth": 222,
+              "alongWall": 165.02
             },
             "stations": [
               {
@@ -568,6 +571,254 @@ export const PRECOMPUTED: Precomputed = {
               }
             ],
             "turns": true
+          },
+          {
+            "templateId": "upright-through",
+            "name": "Stood on end, turned, and walked through",
+            "nameHe": "בעמידה על הקצה, מסובבת ומועברת",
+            "stages": 5,
+            "valid": true,
+            "requirement": {
+              "doorWidth": 95,
+              "doorHeight": 222,
+              "hallwayClearance": 122.18,
+              "roomDepth": 119.51,
+              "alongWall": 260.77
+            },
+            "stations": [
+              {
+                "t": 0.4967,
+                "station": 14.6277,
+                "parts": [
+                  "the legs"
+                ],
+                "partsHe": [
+                  "הרגליים"
+                ],
+                "width": 88,
+                "height": 216,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.499,
+                "station": -8.2883,
+                "parts": [
+                  "the seat",
+                  "the backrest",
+                  "the armrests",
+                  "the legs"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "המשענת",
+                  "המשענות",
+                  "הרגליים"
+                ],
+                "width": 95,
+                "height": 222,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5011,
+                "station": -30.208,
+                "parts": [
+                  "the seat",
+                  "the backrest",
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "המשענת",
+                  "המשענות"
+                ],
+                "width": 95,
+                "height": 222,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5034,
+                "station": -53.1241,
+                "parts": [
+                  "the seat",
+                  "the backrest",
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "המשענת",
+                  "המשענות"
+                ],
+                "width": 95,
+                "height": 222,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5056,
+                "station": -76.0401,
+                "parts": [
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענת"
+                ],
+                "width": 19.5111,
+                "height": 222,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.61,
+                "station": -87,
+                "parts": [
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המשענות"
+                ],
+                "width": 1.2804,
+                "height": 222,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.6356,
+                "station": -87,
+                "parts": [
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המשענות"
+                ],
+                "width": 0.0956,
+                "height": 222,
+                "rollDeg": -90
+              }
+            ],
+            "turns": false
+          },
+          {
+            "templateId": "upright-left-standing",
+            "name": "Stood on end and left standing inside",
+            "nameHe": "בעמידה על הקצה, נשארת עומדת בפנים",
+            "stages": 4,
+            "valid": true,
+            "requirement": {
+              "doorWidth": 95,
+              "doorHeight": 222,
+              "hallwayClearance": 122.18,
+              "roomDepth": 87.01,
+              "alongWall": 260.77
+            },
+            "stations": [
+              {
+                "t": 0.9553,
+                "station": 14.6277,
+                "parts": [
+                  "the legs"
+                ],
+                "partsHe": [
+                  "הרגליים"
+                ],
+                "width": 88,
+                "height": 216,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9585,
+                "station": -2.3102,
+                "parts": [
+                  "the seat",
+                  "the armrests",
+                  "the legs"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "המשענות",
+                  "הרגליים"
+                ],
+                "width": 95,
+                "height": 222,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9614,
+                "station": -18.2518,
+                "parts": [
+                  "the seat",
+                  "the backrest",
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "המשענת",
+                  "המשענות"
+                ],
+                "width": 95,
+                "height": 222,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9646,
+                "station": -35.1898,
+                "parts": [
+                  "the seat",
+                  "the backrest",
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "המשענת",
+                  "המשענות"
+                ],
+                "width": 95,
+                "height": 222,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9676,
+                "station": -51.1314,
+                "parts": [
+                  "the seat",
+                  "the backrest",
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "המשענת",
+                  "המשענות"
+                ],
+                "width": 95,
+                "height": 222,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9708,
+                "station": -68.0693,
+                "parts": [
+                  "the backrest",
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המשענות"
+                ],
+                "width": 95,
+                "height": 222,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9738,
+                "station": -84.0109,
+                "parts": [
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענת"
+                ],
+                "width": 4.8633,
+                "height": 222,
+                "rollDeg": -90
+              }
+            ],
+            "turns": false
           }
         ],
         "narrowest": 85.01,
@@ -684,7 +935,8 @@ export const PRECOMPUTED: Precomputed = {
             "doorWidth": 95.01,
             "doorHeight": 85,
             "hallwayClearance": 222,
-            "roomDepth": 222
+            "roomDepth": 222,
+            "alongWall": 95.01
           },
           "stages": [
             {
@@ -697,7 +949,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 95.01,
                 "doorHeight": 85,
                 "hallwayClearance": 222,
-                "roomDepth": 222
+                "roomDepth": 222,
+                "alongWall": 95.01
               }
             }
           ],
@@ -728,7 +981,8 @@ export const PRECOMPUTED: Precomputed = {
             "doorWidth": 85.01,
             "doorHeight": 95,
             "hallwayClearance": 222,
-            "roomDepth": 222
+            "roomDepth": 222,
+            "alongWall": 150.01
           },
           "stages": [
             {
@@ -741,7 +995,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 222,
-                "roomDepth": 0
+                "roomDepth": 0,
+                "alongWall": 150.01
               }
             },
             {
@@ -754,7 +1009,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 85.01,
                 "doorHeight": 95,
                 "hallwayClearance": 222,
-                "roomDepth": 222
+                "roomDepth": 222,
+                "alongWall": 85.01
               }
             },
             {
@@ -767,7 +1023,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 0,
-                "roomDepth": 222
+                "roomDepth": 222,
+                "alongWall": 150.01
               }
             }
           ],
@@ -1102,7 +1359,8 @@ export const PRECOMPUTED: Precomputed = {
             "doorWidth": 85.04,
             "doorHeight": 117.81,
             "hallwayClearance": 222,
-            "roomDepth": 222
+            "roomDepth": 222,
+            "alongWall": 165.02
           },
           "stages": [
             {
@@ -1115,7 +1373,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 222,
-                "roomDepth": 0
+                "roomDepth": 0,
+                "alongWall": 165.02
               }
             },
             {
@@ -1128,7 +1387,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 85.04,
                 "doorHeight": 117.81,
                 "hallwayClearance": 222,
-                "roomDepth": 222
+                "roomDepth": 222,
+                "alongWall": 122.84
               }
             },
             {
@@ -1141,7 +1401,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 0,
-                "roomDepth": 222
+                "roomDepth": 222,
+                "alongWall": 150.02
               }
             },
             {
@@ -1154,7 +1415,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 0,
-                "roomDepth": 222
+                "roomDepth": 222,
+                "alongWall": 150.02
               }
             }
           ],
@@ -3432,6 +3694,1092 @@ export const PRECOMPUTED: Precomputed = {
               "tiltAxis": "x"
             }
           ]
+        },
+        {
+          "templateId": "upright-through",
+          "name": "Stood on end, turned, and walked through",
+          "nameHe": "בעמידה על הקצה, מסובבת ומועברת",
+          "requirement": {
+            "doorWidth": 95,
+            "doorHeight": 222,
+            "hallwayClearance": 122.18,
+            "roomDepth": 119.51,
+            "alongWall": 260.77
+          },
+          "stages": [
+            {
+              "id": "stand-up",
+              "name": "Stand it on its end in the corridor",
+              "nameHe": "להעמיד אותה על הקצה במסדרון",
+              "startIndex": 0,
+              "endIndex": 19,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 97,
+                "roomDepth": 0,
+                "alongWall": 260.77
+              }
+            },
+            {
+              "id": "turn-to-face",
+              "name": "Turn it to face the doorway",
+              "nameHe": "לסובב אותה אל מול הפתח",
+              "startIndex": 19,
+              "endIndex": 37,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 122.18,
+                "roomDepth": 0,
+                "alongWall": 163.05
+              }
+            },
+            {
+              "id": "carry-through",
+              "name": "Walk it through standing up",
+              "nameHe": "להעביר אותה דרך הפתח בעמידה",
+              "startIndex": 37,
+              "endIndex": 38,
+              "requirement": {
+                "doorWidth": 95,
+                "doorHeight": 222,
+                "hallwayClearance": 119.51,
+                "roomDepth": 87.01,
+                "alongWall": 95
+              }
+            },
+            {
+              "id": "turn-in-room",
+              "name": "Turn it along the room’s wall",
+              "nameHe": "לסובב אותה לאורך קיר החדר",
+              "startIndex": 38,
+              "endIndex": 56,
+              "requirement": {
+                "doorWidth": 19.72,
+                "doorHeight": 222,
+                "hallwayClearance": 0,
+                "roomDepth": 119.51,
+                "alongWall": 163.05
+              }
+            },
+            {
+              "id": "lay-down",
+              "name": "Lay it down along the wall",
+              "nameHe": "להניח אותה לאורך הקיר",
+              "startIndex": 56,
+              "endIndex": 75,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 0,
+                "roomDepth": 119.51,
+                "alongWall": 260.77
+              }
+            }
+          ],
+          "path": [
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 15,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 17,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 26.007117717132633,
+              "yaw": 0,
+              "pitch": -0.08726646259971647,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 34.831526772543874,
+              "yaw": 0,
+              "pitch": -0.17453292519943295,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 43.40606808499818,
+              "yaw": 0,
+              "pitch": -0.2617993877991494,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 51.66548421765817,
+              "yaw": 0,
+              "pitch": -0.3490658503988659,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 59.546916026582494,
+              "yaw": 0,
+              "pitch": -0.4363323129985824,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 66.99038105676658,
+              "yaw": 0,
+              "pitch": -0.5235987755982988,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 73.93923004484367,
+              "yaw": 0,
+              "pitch": -0.6108652381980153,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 80.34057805418475,
+              "yaw": 0,
+              "pitch": -0.6981317007977318,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 86.14570696119914,
+              "yaw": 0,
+              "pitch": -0.7853981633974483,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 91.31043622967181,
+              "yaw": 0,
+              "pitch": -0.8726646259971648,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 95.79545915132083,
+              "yaw": 0,
+              "pitch": -0.9599310885968813,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 99.56664199358161,
+              "yaw": 0,
+              "pitch": -1.0471975511965976,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 102.59528377792208,
+              "yaw": 0,
+              "pitch": -1.1344640137963142,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 105.36618828644991,
+              "yaw": 0,
+              "pitch": -1.2217304763960306,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 108.25184089179751,
+              "yaw": 0,
+              "pitch": -1.3089969389957472,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 110.32885283134289,
+              "yaw": 0,
+              "pitch": -1.3962634015954636,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 111.581416790092,
+              "yaw": 0,
+              "pitch": -1.4835298641951802,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 0,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 0.08726646259971647,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 0.17453292519943295,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 0.2617993877991494,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 0.3490658503988659,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 0.4363323129985824,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 0.5235987755982988,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 0.6108652381980153,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 0.6981317007977318,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 0.7853981633974483,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 0.8726646259971648,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 0.9599310885968813,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 1.0471975511965976,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 1.1344640137963142,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 1.2217304763960306,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 1.3089969389957472,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 1.3962634015954636,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 1.4835298641951802,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 1.5707963267948966,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 112,
+              "yaw": 1.5707963267948966,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 112,
+              "yaw": 1.4835298641951802,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 112,
+              "yaw": 1.3962634015954636,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 112,
+              "yaw": 1.3089969389957472,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 112,
+              "yaw": 1.2217304763960306,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 112,
+              "yaw": 1.1344640137963142,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 112,
+              "yaw": 1.0471975511965976,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 112,
+              "yaw": 0.9599310885968813,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 112,
+              "yaw": 0.8726646259971648,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 112,
+              "yaw": 0.7853981633974483,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 112,
+              "yaw": 0.6981317007977318,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 112,
+              "yaw": 0.6108652381980153,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 112,
+              "yaw": 0.5235987755982988,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 112,
+              "yaw": 0.4363323129985824,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 112,
+              "yaw": 0.3490658503988659,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 112,
+              "yaw": 0.2617993877991494,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 112,
+              "yaw": 0.17453292519943295,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 112,
+              "yaw": 0.08726646259971647,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 112,
+              "yaw": 0,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 111.581416790092,
+              "yaw": 0,
+              "pitch": -1.4835298641951802,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 110.32885283134289,
+              "yaw": 0,
+              "pitch": -1.3962634015954636,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 108.25184089179751,
+              "yaw": 0,
+              "pitch": -1.3089969389957472,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 105.36618828644991,
+              "yaw": 0,
+              "pitch": -1.2217304763960306,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 102.59528377792208,
+              "yaw": 0,
+              "pitch": -1.1344640137963142,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 99.56664199358161,
+              "yaw": 0,
+              "pitch": -1.0471975511965976,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 95.79545915132083,
+              "yaw": 0,
+              "pitch": -0.9599310885968813,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 91.31043622967181,
+              "yaw": 0,
+              "pitch": -0.8726646259971648,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 86.14570696119914,
+              "yaw": 0,
+              "pitch": -0.7853981633974483,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 80.34057805418475,
+              "yaw": 0,
+              "pitch": -0.6981317007977318,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 73.93923004484367,
+              "yaw": 0,
+              "pitch": -0.6108652381980153,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 66.99038105676658,
+              "yaw": 0,
+              "pitch": -0.5235987755982988,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 59.546916026582494,
+              "yaw": 0,
+              "pitch": -0.4363323129985824,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 51.66548421765817,
+              "yaw": 0,
+              "pitch": -0.3490658503988659,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 43.40606808499818,
+              "yaw": 0,
+              "pitch": -0.2617993877991494,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 34.831526772543874,
+              "yaw": 0,
+              "pitch": -0.17453292519943295,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 26.007117717132633,
+              "yaw": 0,
+              "pitch": -0.08726646259971647,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 17,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 15,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            }
+          ]
+        },
+        {
+          "templateId": "upright-left-standing",
+          "name": "Stood on end and left standing inside",
+          "nameHe": "בעמידה על הקצה, נשארת עומדת בפנים",
+          "requirement": {
+            "doorWidth": 95,
+            "doorHeight": 222,
+            "hallwayClearance": 122.18,
+            "roomDepth": 87.01,
+            "alongWall": 260.77
+          },
+          "stages": [
+            {
+              "id": "stand-up",
+              "name": "Stand it on its end in the corridor",
+              "nameHe": "להעמיד אותה על הקצה במסדרון",
+              "startIndex": 0,
+              "endIndex": 19,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 97,
+                "roomDepth": 0,
+                "alongWall": 260.77
+              }
+            },
+            {
+              "id": "turn-to-face",
+              "name": "Turn it to face the doorway",
+              "nameHe": "לסובב אותה אל מול הפתח",
+              "startIndex": 19,
+              "endIndex": 37,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 122.18,
+                "roomDepth": 0,
+                "alongWall": 163.05
+              }
+            },
+            {
+              "id": "carry-through",
+              "name": "Walk it through standing up",
+              "nameHe": "להעביר אותה דרך הפתח בעמידה",
+              "startIndex": 37,
+              "endIndex": 38,
+              "requirement": {
+                "doorWidth": 95,
+                "doorHeight": 222,
+                "hallwayClearance": 119.51,
+                "roomDepth": 87.01,
+                "alongWall": 95
+              }
+            },
+            {
+              "id": "set-down-standing",
+              "name": "Set it down still standing",
+              "nameHe": "להניח אותה בעמידה",
+              "startIndex": 38,
+              "endIndex": 39,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 0,
+                "roomDepth": 87.01,
+                "alongWall": 95
+              }
+            }
+          ],
+          "path": [
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 15,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 17,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 26.007117717132633,
+              "yaw": 0,
+              "pitch": -0.08726646259971647,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 34.831526772543874,
+              "yaw": 0,
+              "pitch": -0.17453292519943295,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 43.40606808499818,
+              "yaw": 0,
+              "pitch": -0.2617993877991494,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 51.66548421765817,
+              "yaw": 0,
+              "pitch": -0.3490658503988659,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 59.546916026582494,
+              "yaw": 0,
+              "pitch": -0.4363323129985824,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 66.99038105676658,
+              "yaw": 0,
+              "pitch": -0.5235987755982988,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 73.93923004484367,
+              "yaw": 0,
+              "pitch": -0.6108652381980153,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 80.34057805418475,
+              "yaw": 0,
+              "pitch": -0.6981317007977318,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 86.14570696119914,
+              "yaw": 0,
+              "pitch": -0.7853981633974483,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 91.31043622967181,
+              "yaw": 0,
+              "pitch": -0.8726646259971648,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 95.79545915132083,
+              "yaw": 0,
+              "pitch": -0.9599310885968813,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 99.56664199358161,
+              "yaw": 0,
+              "pitch": -1.0471975511965976,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 102.59528377792208,
+              "yaw": 0,
+              "pitch": -1.1344640137963142,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 105.36618828644991,
+              "yaw": 0,
+              "pitch": -1.2217304763960306,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 108.25184089179751,
+              "yaw": 0,
+              "pitch": -1.3089969389957472,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 110.32885283134289,
+              "yaw": 0,
+              "pitch": -1.3962634015954636,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 111.581416790092,
+              "yaw": 0,
+              "pitch": -1.4835298641951802,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 0,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 0.08726646259971647,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 0.17453292519943295,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 0.2617993877991494,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 0.3490658503988659,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 0.4363323129985824,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 0.5235987755982988,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 0.6108652381980153,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 0.6981317007977318,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 0.7853981633974483,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 0.8726646259971648,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 0.9599310885968813,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 1.0471975511965976,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 1.1344640137963142,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 1.2217304763960306,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 1.3089969389957472,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 1.3962634015954636,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 1.4835298641951802,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -49.5,
+              "z": 112,
+              "yaw": 1.5707963267948966,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 112,
+              "yaw": 1.5707963267948966,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 87.00000000000001,
+              "z": 110,
+              "yaw": 1.5707963267948966,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            }
+          ]
         }
       ],
       "modules": []
@@ -3516,7 +4864,8 @@ export const PRECOMPUTED: Precomputed = {
               "doorWidth": 90.01,
               "doorHeight": 80,
               "hallwayClearance": 162,
-              "roomDepth": 162
+              "roomDepth": 162,
+              "alongWall": 90.01
             },
             "stations": [
               {
@@ -3643,7 +4992,8 @@ export const PRECOMPUTED: Precomputed = {
               "doorWidth": 80.01,
               "doorHeight": 90,
               "hallwayClearance": 162,
-              "roomDepth": 162
+              "roomDepth": 162,
+              "alongWall": 170
             },
             "stations": [
               {
@@ -3770,7 +5120,8 @@ export const PRECOMPUTED: Precomputed = {
               "doorWidth": 77.79,
               "doorHeight": 111.14,
               "hallwayClearance": 162,
-              "roomDepth": 162
+              "roomDepth": 162,
+              "alongWall": 162.02
             },
             "stations": [
               {
@@ -3888,6 +5239,250 @@ export const PRECOMPUTED: Precomputed = {
               }
             ],
             "turns": true
+          },
+          {
+            "templateId": "upright-through",
+            "name": "Stood on end, turned, and walked through",
+            "nameHe": "בעמידה על הקצה, מסובבת ומועברת",
+            "stages": 5,
+            "valid": true,
+            "requirement": {
+              "doorWidth": 90,
+              "doorHeight": 162,
+              "hallwayClearance": 127,
+              "roomDepth": 127,
+              "alongWall": 215.26
+            },
+            "stations": [
+              {
+                "t": 0.4977,
+                "station": 0,
+                "parts": [
+                  "the plinth"
+                ],
+                "partsHe": [
+                  "הבסיס"
+                ],
+                "width": 76,
+                "height": 154,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.4992,
+                "station": -16,
+                "parts": [
+                  "the armrests",
+                  "the plinth",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "הבסיס",
+                  "המושב"
+                ],
+                "width": 90,
+                "height": 162,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5006,
+                "station": -32,
+                "parts": [
+                  "the armrests",
+                  "the seat",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "המושב",
+                  "המשענת"
+                ],
+                "width": 90,
+                "height": 162,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5021,
+                "station": -48,
+                "parts": [
+                  "the armrests",
+                  "the seat",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "המושב",
+                  "המשענת"
+                ],
+                "width": 90,
+                "height": 162,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5035,
+                "station": -63,
+                "parts": [
+                  "the armrests",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "המשענת"
+                ],
+                "width": 90,
+                "height": 162,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.505,
+                "station": -79,
+                "parts": [
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענת"
+                ],
+                "width": 11.6845,
+                "height": 154,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5065,
+                "station": -80,
+                "parts": [
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענת"
+                ],
+                "width": 0,
+                "height": 82,
+                "rollDeg": -90
+              }
+            ],
+            "turns": false
+          },
+          {
+            "templateId": "upright-left-standing",
+            "name": "Stood on end and left standing inside",
+            "nameHe": "בעמידה על הקצה, נשארת עומדת בפנים",
+            "stages": 4,
+            "valid": true,
+            "requirement": {
+              "doorWidth": 90,
+              "doorHeight": 162,
+              "hallwayClearance": 127,
+              "roomDepth": 82,
+              "alongWall": 215.26
+            },
+            "stations": [
+              {
+                "t": 0.9571,
+                "station": 0,
+                "parts": [
+                  "the plinth"
+                ],
+                "partsHe": [
+                  "הבסיס"
+                ],
+                "width": 76,
+                "height": 154,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9599,
+                "station": -16,
+                "parts": [
+                  "the armrests",
+                  "the plinth",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "הבסיס",
+                  "המושב"
+                ],
+                "width": 90,
+                "height": 162,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9628,
+                "station": -32,
+                "parts": [
+                  "the armrests",
+                  "the seat",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "המושב",
+                  "המשענת"
+                ],
+                "width": 90,
+                "height": 162,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9656,
+                "station": -48,
+                "parts": [
+                  "the armrests",
+                  "the seat",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "המושב",
+                  "המשענת"
+                ],
+                "width": 90,
+                "height": 162,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9683,
+                "station": -63,
+                "parts": [
+                  "the armrests",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "המשענת"
+                ],
+                "width": 90,
+                "height": 162,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9712,
+                "station": -79,
+                "parts": [
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענת"
+                ],
+                "width": 11.6845,
+                "height": 154,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.974,
+                "station": -80,
+                "parts": [
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענת"
+                ],
+                "width": 0,
+                "height": 82,
+                "rollDeg": -90
+              }
+            ],
+            "turns": false
           }
         ],
         "narrowest": 77.79,
@@ -4004,7 +5599,8 @@ export const PRECOMPUTED: Precomputed = {
             "doorWidth": 90.01,
             "doorHeight": 80,
             "hallwayClearance": 162,
-            "roomDepth": 162
+            "roomDepth": 162,
+            "alongWall": 90.01
           },
           "stages": [
             {
@@ -4017,7 +5613,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 90.01,
                 "doorHeight": 80,
                 "hallwayClearance": 162,
-                "roomDepth": 162
+                "roomDepth": 162,
+                "alongWall": 90.01
               }
             }
           ],
@@ -4048,7 +5645,8 @@ export const PRECOMPUTED: Precomputed = {
             "doorWidth": 80.01,
             "doorHeight": 90,
             "hallwayClearance": 162,
-            "roomDepth": 162
+            "roomDepth": 162,
+            "alongWall": 170
           },
           "stages": [
             {
@@ -4061,7 +5659,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 162,
-                "roomDepth": 0
+                "roomDepth": 0,
+                "alongWall": 170
               }
             },
             {
@@ -4074,7 +5673,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 80.01,
                 "doorHeight": 90,
                 "hallwayClearance": 162,
-                "roomDepth": 162
+                "roomDepth": 162,
+                "alongWall": 80.01
               }
             },
             {
@@ -4087,7 +5687,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 0,
-                "roomDepth": 162
+                "roomDepth": 162,
+                "alongWall": 170
               }
             }
           ],
@@ -4422,7 +6023,8 @@ export const PRECOMPUTED: Precomputed = {
             "doorWidth": 77.79,
             "doorHeight": 111.14,
             "hallwayClearance": 162,
-            "roomDepth": 162
+            "roomDepth": 162,
+            "alongWall": 162.02
           },
           "stages": [
             {
@@ -4435,7 +6037,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 162,
-                "roomDepth": 0
+                "roomDepth": 0,
+                "alongWall": 162.02
               }
             },
             {
@@ -4448,7 +6051,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 77.79,
                 "doorHeight": 111.14,
                 "hallwayClearance": 162,
-                "roomDepth": 162
+                "roomDepth": 162,
+                "alongWall": 102.85
               }
             },
             {
@@ -4461,7 +6065,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 0,
-                "roomDepth": 162
+                "roomDepth": 162,
+                "alongWall": 154.85
               }
             },
             {
@@ -4474,7 +6079,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 0,
-                "roomDepth": 162
+                "roomDepth": 162,
+                "alongWall": 154.85
               }
             }
           ],
@@ -6160,6 +7766,1092 @@ export const PRECOMPUTED: Precomputed = {
               "tiltAxis": "x"
             }
           ]
+        },
+        {
+          "templateId": "upright-through",
+          "name": "Stood on end, turned, and walked through",
+          "nameHe": "בעמידה על הקצה, מסובבת ומועברת",
+          "requirement": {
+            "doorWidth": 90,
+            "doorHeight": 162,
+            "hallwayClearance": 127,
+            "roomDepth": 127,
+            "alongWall": 215.26
+          },
+          "stages": [
+            {
+              "id": "stand-up",
+              "name": "Stand it on its end in the corridor",
+              "nameHe": "להעמיד אותה על הקצה במסדרון",
+              "startIndex": 0,
+              "endIndex": 19,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 92,
+                "roomDepth": 0,
+                "alongWall": 215.26
+              }
+            },
+            {
+              "id": "turn-to-face",
+              "name": "Turn it to face the doorway",
+              "nameHe": "לסובב אותה אל מול הפתח",
+              "startIndex": 19,
+              "endIndex": 37,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 127,
+                "roomDepth": 0,
+                "alongWall": 180.86
+              }
+            },
+            {
+              "id": "carry-through",
+              "name": "Walk it through standing up",
+              "nameHe": "להעביר אותה דרך הפתח בעמידה",
+              "startIndex": 37,
+              "endIndex": 38,
+              "requirement": {
+                "doorWidth": 90,
+                "doorHeight": 162,
+                "hallwayClearance": 127,
+                "roomDepth": 82,
+                "alongWall": 90
+              }
+            },
+            {
+              "id": "turn-in-room",
+              "name": "Turn it along the room’s wall",
+              "nameHe": "לסובב אותה לאורך קיר החדר",
+              "startIndex": 38,
+              "endIndex": 56,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 0,
+                "roomDepth": 127,
+                "alongWall": 180.86
+              }
+            },
+            {
+              "id": "lay-down",
+              "name": "Lay it down along the wall",
+              "nameHe": "להניח אותה לאורך הקיר",
+              "startIndex": 56,
+              "endIndex": 75,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 0,
+                "roomDepth": 127,
+                "alongWall": 215.26
+              }
+            }
+          ],
+          "path": [
+            {
+              "x": 0,
+              "y": -47,
+              "z": 0,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 2,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 8.275213477831388,
+              "yaw": 0,
+              "pitch": -0.08726646259971647,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 14.502668792018984,
+              "yaw": 0,
+              "pitch": -0.17453292519943295,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 20.634971247381493,
+              "yaw": 0,
+              "pitch": -0.2617993877991494,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 26.62545031944815,
+              "yaw": 0,
+              "pitch": -0.3490658503988659,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 32.42851484533036,
+              "yaw": 0,
+              "pitch": -0.4363323129985824,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 37.99999999999999,
+              "yaw": 0,
+              "pitch": -0.5235987755982988,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 43.297503417275315,
+              "yaw": 0,
+              "pitch": -0.6108652381980153,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 48.28070789743083,
+              "yaw": 0,
+              "pitch": -0.6981317007977318,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 52.91168824543142,
+              "yaw": 0,
+              "pitch": -0.7853981633974483,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 57.155199904566416,
+              "yaw": 0,
+              "pitch": -0.8726646259971648,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 60.97894718880741,
+              "yaw": 0,
+              "pitch": -0.9599310885968813,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 64.35382907247958,
+              "yaw": 0,
+              "pitch": -1.0471975511965976,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 68.5879672985622,
+              "yaw": 0,
+              "pitch": -1.1344640137963142,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 72.3871276563133,
+              "yaw": 0,
+              "pitch": -1.2217304763960306,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 75.65059947169017,
+              "yaw": 0,
+              "pitch": -1.3089969389957472,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 78.35354575363962,
+              "yaw": 0,
+              "pitch": -1.3962634015954636,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 80.47539544887243,
+              "yaw": 0,
+              "pitch": -1.4835298641951802,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 0,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 0.08726646259971647,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 0.17453292519943295,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 0.2617993877991494,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 0.3490658503988659,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 0.4363323129985824,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 0.5235987755982988,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 0.6108652381980153,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 0.6981317007977318,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 0.7853981633974483,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 0.8726646259971648,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 0.9599310885968813,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 1.0471975511965976,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 1.1344640137963142,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 1.2217304763960306,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 1.3089969389957472,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 1.3962634015954636,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 1.4835298641951802,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 1.5707963267948966,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 82,
+              "yaw": 1.5707963267948966,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 82,
+              "yaw": 1.4835298641951802,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 82,
+              "yaw": 1.3962634015954636,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 82,
+              "yaw": 1.3089969389957472,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 82,
+              "yaw": 1.2217304763960306,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 82,
+              "yaw": 1.1344640137963142,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 82,
+              "yaw": 1.0471975511965976,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 82,
+              "yaw": 0.9599310885968813,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 82,
+              "yaw": 0.8726646259971648,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 82,
+              "yaw": 0.7853981633974483,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 82,
+              "yaw": 0.6981317007977318,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 82,
+              "yaw": 0.6108652381980153,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 82,
+              "yaw": 0.5235987755982988,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 82,
+              "yaw": 0.4363323129985824,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 82,
+              "yaw": 0.3490658503988659,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 82,
+              "yaw": 0.2617993877991494,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 82,
+              "yaw": 0.17453292519943295,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 82,
+              "yaw": 0.08726646259971647,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 82,
+              "yaw": 0,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 80.47539544887243,
+              "yaw": 0,
+              "pitch": -1.4835298641951802,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 78.35354575363962,
+              "yaw": 0,
+              "pitch": -1.3962634015954636,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 75.65059947169017,
+              "yaw": 0,
+              "pitch": -1.3089969389957472,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 72.3871276563133,
+              "yaw": 0,
+              "pitch": -1.2217304763960306,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 68.5879672985622,
+              "yaw": 0,
+              "pitch": -1.1344640137963142,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 64.35382907247958,
+              "yaw": 0,
+              "pitch": -1.0471975511965976,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 60.97894718880741,
+              "yaw": 0,
+              "pitch": -0.9599310885968813,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 57.155199904566416,
+              "yaw": 0,
+              "pitch": -0.8726646259971648,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 52.91168824543142,
+              "yaw": 0,
+              "pitch": -0.7853981633974483,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 48.28070789743083,
+              "yaw": 0,
+              "pitch": -0.6981317007977318,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 43.297503417275315,
+              "yaw": 0,
+              "pitch": -0.6108652381980153,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 37.99999999999999,
+              "yaw": 0,
+              "pitch": -0.5235987755982988,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 32.42851484533036,
+              "yaw": 0,
+              "pitch": -0.4363323129985824,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 26.62545031944815,
+              "yaw": 0,
+              "pitch": -0.3490658503988659,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 20.634971247381493,
+              "yaw": 0,
+              "pitch": -0.2617993877991494,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 14.502668792018984,
+              "yaw": 0,
+              "pitch": -0.17453292519943295,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 8.275213477831388,
+              "yaw": 0,
+              "pitch": -0.08726646259971647,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 2,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 0,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            }
+          ]
+        },
+        {
+          "templateId": "upright-left-standing",
+          "name": "Stood on end and left standing inside",
+          "nameHe": "בעמידה על הקצה, נשארת עומדת בפנים",
+          "requirement": {
+            "doorWidth": 90,
+            "doorHeight": 162,
+            "hallwayClearance": 127,
+            "roomDepth": 82,
+            "alongWall": 215.26
+          },
+          "stages": [
+            {
+              "id": "stand-up",
+              "name": "Stand it on its end in the corridor",
+              "nameHe": "להעמיד אותה על הקצה במסדרון",
+              "startIndex": 0,
+              "endIndex": 19,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 92,
+                "roomDepth": 0,
+                "alongWall": 215.26
+              }
+            },
+            {
+              "id": "turn-to-face",
+              "name": "Turn it to face the doorway",
+              "nameHe": "לסובב אותה אל מול הפתח",
+              "startIndex": 19,
+              "endIndex": 37,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 127,
+                "roomDepth": 0,
+                "alongWall": 180.86
+              }
+            },
+            {
+              "id": "carry-through",
+              "name": "Walk it through standing up",
+              "nameHe": "להעביר אותה דרך הפתח בעמידה",
+              "startIndex": 37,
+              "endIndex": 38,
+              "requirement": {
+                "doorWidth": 90,
+                "doorHeight": 162,
+                "hallwayClearance": 127,
+                "roomDepth": 82,
+                "alongWall": 90
+              }
+            },
+            {
+              "id": "set-down-standing",
+              "name": "Set it down still standing",
+              "nameHe": "להניח אותה בעמידה",
+              "startIndex": 38,
+              "endIndex": 39,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 0,
+                "roomDepth": 82,
+                "alongWall": 90
+              }
+            }
+          ],
+          "path": [
+            {
+              "x": 0,
+              "y": -47,
+              "z": 0,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 2,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 8.275213477831388,
+              "yaw": 0,
+              "pitch": -0.08726646259971647,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 14.502668792018984,
+              "yaw": 0,
+              "pitch": -0.17453292519943295,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 20.634971247381493,
+              "yaw": 0,
+              "pitch": -0.2617993877991494,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 26.62545031944815,
+              "yaw": 0,
+              "pitch": -0.3490658503988659,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 32.42851484533036,
+              "yaw": 0,
+              "pitch": -0.4363323129985824,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 37.99999999999999,
+              "yaw": 0,
+              "pitch": -0.5235987755982988,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 43.297503417275315,
+              "yaw": 0,
+              "pitch": -0.6108652381980153,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 48.28070789743083,
+              "yaw": 0,
+              "pitch": -0.6981317007977318,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 52.91168824543142,
+              "yaw": 0,
+              "pitch": -0.7853981633974483,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 57.155199904566416,
+              "yaw": 0,
+              "pitch": -0.8726646259971648,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 60.97894718880741,
+              "yaw": 0,
+              "pitch": -0.9599310885968813,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 64.35382907247958,
+              "yaw": 0,
+              "pitch": -1.0471975511965976,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 68.5879672985622,
+              "yaw": 0,
+              "pitch": -1.1344640137963142,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 72.3871276563133,
+              "yaw": 0,
+              "pitch": -1.2217304763960306,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 75.65059947169017,
+              "yaw": 0,
+              "pitch": -1.3089969389957472,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 78.35354575363962,
+              "yaw": 0,
+              "pitch": -1.3962634015954636,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 80.47539544887243,
+              "yaw": 0,
+              "pitch": -1.4835298641951802,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 0,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 0.08726646259971647,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 0.17453292519943295,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 0.2617993877991494,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 0.3490658503988659,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 0.4363323129985824,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 0.5235987755982988,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 0.6108652381980153,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 0.6981317007977318,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 0.7853981633974483,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 0.8726646259971648,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 0.9599310885968813,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 1.0471975511965976,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 1.1344640137963142,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 1.2217304763960306,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 1.3089969389957472,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 1.3962634015954636,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 1.4835298641951802,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -47,
+              "z": 82,
+              "yaw": 1.5707963267948966,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 82,
+              "yaw": 1.5707963267948966,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 97,
+              "z": 80,
+              "yaw": 1.5707963267948966,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            }
+          ]
         }
       ],
       "modules": []
@@ -6243,7 +8935,8 @@ export const PRECOMPUTED: Precomputed = {
               "doorWidth": 200,
               "doorHeight": 85,
               "hallwayClearance": 282,
-              "roomDepth": 282
+              "roomDepth": 282,
+              "alongWall": 200
             },
             "stations": [
               {
@@ -6364,7 +9057,8 @@ export const PRECOMPUTED: Precomputed = {
               "doorWidth": 85.01,
               "doorHeight": 200,
               "hallwayClearance": 282,
-              "roomDepth": 282
+              "roomDepth": 282,
+              "alongWall": 285
             },
             "stations": [
               {
@@ -6485,7 +9179,8 @@ export const PRECOMPUTED: Precomputed = {
               "doorWidth": 85.01,
               "doorHeight": 211.15,
               "hallwayClearance": 282,
-              "roomDepth": 282
+              "roomDepth": 282,
+              "alongWall": 285
             },
             "stations": [
               {
@@ -6597,6 +9292,22 @@ export const PRECOMPUTED: Precomputed = {
               }
             ],
             "turns": true
+          },
+          {
+            "templateId": "upright-through",
+            "name": "Stood on end, turned, and walked through",
+            "nameHe": "בעמידה על הקצה, מסובבת ומועברת",
+            "stages": 0,
+            "valid": false,
+            "reason": "the template does not apply to this item"
+          },
+          {
+            "templateId": "upright-left-standing",
+            "name": "Stood on end and left standing inside",
+            "nameHe": "בעמידה על הקצה, נשארת עומדת בפנים",
+            "stages": 0,
+            "valid": false,
+            "reason": "the template does not apply to this item"
           }
         ],
         "narrowest": 85.01,
@@ -6702,7 +9413,8 @@ export const PRECOMPUTED: Precomputed = {
             "doorWidth": 200,
             "doorHeight": 85,
             "hallwayClearance": 282,
-            "roomDepth": 282
+            "roomDepth": 282,
+            "alongWall": 200
           },
           "stages": [
             {
@@ -6715,7 +9427,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 200,
                 "doorHeight": 85,
                 "hallwayClearance": 282,
-                "roomDepth": 282
+                "roomDepth": 282,
+                "alongWall": 200
               }
             }
           ],
@@ -6746,7 +9459,8 @@ export const PRECOMPUTED: Precomputed = {
             "doorWidth": 85.01,
             "doorHeight": 200,
             "hallwayClearance": 282,
-            "roomDepth": 282
+            "roomDepth": 282,
+            "alongWall": 285
           },
           "stages": [
             {
@@ -6759,7 +9473,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 282,
-                "roomDepth": 0
+                "roomDepth": 0,
+                "alongWall": 285
               }
             },
             {
@@ -6772,7 +9487,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 85.01,
                 "doorHeight": 200,
                 "hallwayClearance": 282,
-                "roomDepth": 282
+                "roomDepth": 282,
+                "alongWall": 85.01
               }
             },
             {
@@ -6785,7 +9501,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 0,
-                "roomDepth": 282
+                "roomDepth": 282,
+                "alongWall": 285
               }
             }
           ],
@@ -7120,7 +9837,8 @@ export const PRECOMPUTED: Precomputed = {
             "doorWidth": 85.01,
             "doorHeight": 211.15,
             "hallwayClearance": 282,
-            "roomDepth": 282
+            "roomDepth": 282,
+            "alongWall": 285
           },
           "stages": [
             {
@@ -7133,7 +9851,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 282,
-                "roomDepth": 0
+                "roomDepth": 0,
+                "alongWall": 265
               }
             },
             {
@@ -7146,7 +9865,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 85.01,
                 "doorHeight": 211.15,
                 "hallwayClearance": 282,
-                "roomDepth": 282
+                "roomDepth": 282,
+                "alongWall": 133.39
               }
             },
             {
@@ -7159,7 +9879,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 0,
-                "roomDepth": 282
+                "roomDepth": 282,
+                "alongWall": 285
               }
             },
             {
@@ -7172,7 +9893,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 0,
-                "roomDepth": 282
+                "roomDepth": 282,
+                "alongWall": 285
               }
             }
           ],
@@ -9982,7 +12704,8 @@ export const PRECOMPUTED: Precomputed = {
                   "doorWidth": 95.01,
                   "doorHeight": 85,
                   "hallwayClearance": 278,
-                  "roomDepth": 278
+                  "roomDepth": 278,
+                  "alongWall": 95.01
                 },
                 "stations": [
                   {
@@ -10101,7 +12824,8 @@ export const PRECOMPUTED: Precomputed = {
                   "doorWidth": 85.01,
                   "doorHeight": 95,
                   "hallwayClearance": 278,
-                  "roomDepth": 278
+                  "roomDepth": 278,
+                  "alongWall": 180
                 },
                 "stations": [
                   {
@@ -10220,7 +12944,8 @@ export const PRECOMPUTED: Precomputed = {
                   "doorWidth": 85.01,
                   "doorHeight": 108.44,
                   "hallwayClearance": 278,
-                  "roomDepth": 278
+                  "roomDepth": 278,
+                  "alongWall": 180
                 },
                 "stations": [
                   {
@@ -10330,6 +13055,22 @@ export const PRECOMPUTED: Precomputed = {
                   }
                 ],
                 "turns": true
+              },
+              {
+                "templateId": "upright-through",
+                "name": "Stood on end, turned, and walked through",
+                "nameHe": "בעמידה על הקצה, מסובבת ומועברת",
+                "stages": 0,
+                "valid": false,
+                "reason": "the template does not apply to this item"
+              },
+              {
+                "templateId": "upright-left-standing",
+                "name": "Stood on end and left standing inside",
+                "nameHe": "בעמידה על הקצה, נשארת עומדת בפנים",
+                "stages": 0,
+                "valid": false,
+                "reason": "the template does not apply to this item"
               }
             ],
             "narrowest": 85.01,
@@ -10466,7 +13207,8 @@ export const PRECOMPUTED: Precomputed = {
                   "doorWidth": 95,
                   "doorHeight": 65,
                   "hallwayClearance": 107,
-                  "roomDepth": 107
+                  "roomDepth": 107,
+                  "alongWall": 95
                 },
                 "stations": [
                   {
@@ -10587,7 +13329,8 @@ export const PRECOMPUTED: Precomputed = {
                   "doorWidth": 65.01,
                   "doorHeight": 105,
                   "hallwayClearance": 97,
-                  "roomDepth": 97
+                  "roomDepth": 97,
+                  "alongWall": 170
                 },
                 "stations": [
                   {
@@ -10696,7 +13439,8 @@ export const PRECOMPUTED: Precomputed = {
                   "doorWidth": 64.57,
                   "doorHeight": 107.66,
                   "hallwayClearance": 107,
-                  "roomDepth": 107
+                  "roomDepth": 107,
+                  "alongWall": 141.45
                 },
                 "stations": [
                   {
@@ -10801,6 +13545,242 @@ export const PRECOMPUTED: Precomputed = {
                       "מקטע השזלונג"
                     ],
                     "width": 64.569,
+                    "height": 107.6572,
+                    "rollDeg": -79
+                  }
+                ],
+                "turns": false
+              },
+              {
+                "templateId": "upright-through",
+                "name": "Stood on end, turned, and walked through",
+                "nameHe": "בעמידה על הקצה, מסובבת ומועברת",
+                "stages": 5,
+                "valid": true,
+                "requirement": {
+                  "doorWidth": 105,
+                  "doorHeight": 107.66,
+                  "hallwayClearance": 130.91,
+                  "roomDepth": 110.79,
+                  "alongWall": 152.81
+                },
+                "stations": [
+                  {
+                    "t": 0.498,
+                    "station": 8.8574,
+                    "parts": [
+                      "the armrests"
+                    ],
+                    "partsHe": [
+                      "המשענות"
+                    ],
+                    "width": 105,
+                    "height": 95.2946,
+                    "rollDeg": -79
+                  },
+                  {
+                    "t": 0.5022,
+                    "station": -28.8474,
+                    "parts": [
+                      "the armrests",
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "המשענות",
+                      "מקטע השזלונג"
+                    ],
+                    "width": 105,
+                    "height": 102.6237,
+                    "rollDeg": -79
+                  },
+                  {
+                    "t": 0.5064,
+                    "station": -52.5,
+                    "parts": [
+                      "the armrests",
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "המשענות",
+                      "מקטע השזלונג"
+                    ],
+                    "width": 105,
+                    "height": 107.6572,
+                    "rollDeg": -79
+                  },
+                  {
+                    "t": 0.5681,
+                    "station": -52.5,
+                    "parts": [
+                      "the armrests",
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "המשענות",
+                      "מקטע השזלונג"
+                    ],
+                    "width": 39.2332,
+                    "height": 107.6572,
+                    "rollDeg": -79
+                  },
+                  {
+                    "t": 0.626,
+                    "station": -52.5,
+                    "parts": [
+                      "the armrests",
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "המשענות",
+                      "מקטע השזלונג"
+                    ],
+                    "width": 37.9365,
+                    "height": 107.6572,
+                    "rollDeg": -79
+                  },
+                  {
+                    "t": 0.6854,
+                    "station": -52.5,
+                    "parts": [
+                      "the armrests",
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "המשענות",
+                      "מקטע השזלונג"
+                    ],
+                    "width": 35.7077,
+                    "height": 107.6572,
+                    "rollDeg": -79
+                  },
+                  {
+                    "t": 0.7449,
+                    "station": -52.5,
+                    "parts": [
+                      "the armrests"
+                    ],
+                    "partsHe": [
+                      "המשענות"
+                    ],
+                    "width": 1.2595,
+                    "height": 107.6572,
+                    "rollDeg": -79
+                  }
+                ],
+                "turns": false
+              },
+              {
+                "templateId": "upright-left-standing",
+                "name": "Stood on end and left standing inside",
+                "nameHe": "בעמידה על הקצה, נשארת עומדת בפנים",
+                "stages": 4,
+                "valid": true,
+                "requirement": {
+                  "doorWidth": 105,
+                  "doorHeight": 107.66,
+                  "hallwayClearance": 130.91,
+                  "roomDepth": 66.57,
+                  "alongWall": 152.81
+                },
+                "stations": [
+                  {
+                    "t": 0.9557,
+                    "station": 8.8574,
+                    "parts": [
+                      "the armrests"
+                    ],
+                    "partsHe": [
+                      "המשענות"
+                    ],
+                    "width": 105,
+                    "height": 95.2946,
+                    "rollDeg": -79
+                  },
+                  {
+                    "t": 0.9584,
+                    "station": -4.0416,
+                    "parts": [
+                      "the armrests",
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "המשענות",
+                      "מקטע השזלונג"
+                    ],
+                    "width": 105,
+                    "height": 97.8019,
+                    "rollDeg": -79
+                  },
+                  {
+                    "t": 0.9611,
+                    "station": -16.9406,
+                    "parts": [
+                      "the armrests",
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "המשענות",
+                      "מקטע השזלונג"
+                    ],
+                    "width": 105,
+                    "height": 100.3093,
+                    "rollDeg": -79
+                  },
+                  {
+                    "t": 0.9641,
+                    "station": -30.8319,
+                    "parts": [
+                      "the armrests",
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "המשענות",
+                      "מקטע השזלונג"
+                    ],
+                    "width": 105,
+                    "height": 103.0094,
+                    "rollDeg": -79
+                  },
+                  {
+                    "t": 0.9668,
+                    "station": -43.7309,
+                    "parts": [
+                      "the armrests",
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "המשענות",
+                      "מקטע השזלונג"
+                    ],
+                    "width": 105,
+                    "height": 105.5168,
+                    "rollDeg": -79
+                  },
+                  {
+                    "t": 0.9696,
+                    "station": -52.5,
+                    "parts": [
+                      "the armrests",
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "המשענות",
+                      "מקטע השזלונג"
+                    ],
+                    "width": 105,
+                    "height": 107.6572,
+                    "rollDeg": -79
+                  },
+                  {
+                    "t": 0.9723,
+                    "station": -52.5,
+                    "parts": [
+                      "the armrests"
+                    ],
+                    "partsHe": [
+                      "המשענות"
+                    ],
+                    "width": 105,
                     "height": 107.6572,
                     "rollDeg": -79
                   }
@@ -10963,7 +13943,8 @@ export const PRECOMPUTED: Precomputed = {
               "doorWidth": 110.01,
               "doorHeight": 75,
               "hallwayClearance": 212,
-              "roomDepth": 212
+              "roomDepth": 212,
+              "alongWall": 110.01
             },
             "stations": [
               {
@@ -11094,7 +14075,8 @@ export const PRECOMPUTED: Precomputed = {
               "doorWidth": 75.01,
               "doorHeight": 210,
               "hallwayClearance": 112,
-              "roomDepth": 112
+              "roomDepth": 112,
+              "alongWall": 285
             },
             "stations": [
               {
@@ -11227,7 +14209,8 @@ export const PRECOMPUTED: Precomputed = {
               "doorWidth": 75.01,
               "doorHeight": 125.08,
               "hallwayClearance": 212,
-              "roomDepth": 212
+              "roomDepth": 212,
+              "alongWall": 195
             },
             "stations": [
               {
@@ -11345,6 +14328,252 @@ export const PRECOMPUTED: Precomputed = {
               }
             ],
             "turns": true
+          },
+          {
+            "templateId": "upright-through",
+            "name": "Stood on end, turned, and walked through",
+            "nameHe": "בעמידה על הקצה, מסובבת ומועברת",
+            "stages": 5,
+            "valid": true,
+            "requirement": {
+              "doorWidth": 110,
+              "doorHeight": 212,
+              "hallwayClearance": 134.79,
+              "roomDepth": 132,
+              "alongWall": 258.07
+            },
+            "stations": [
+              {
+                "t": 0.4984,
+                "station": 0,
+                "parts": [
+                  "the plinth"
+                ],
+                "partsHe": [
+                  "הבסיס"
+                ],
+                "width": 100,
+                "height": 207,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5004,
+                "station": -22,
+                "parts": [
+                  "the backrest",
+                  "the armrests",
+                  "the plinth",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המשענות",
+                  "הבסיס",
+                  "המושב"
+                ],
+                "width": 110,
+                "height": 212,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5024,
+                "station": -44,
+                "parts": [
+                  "the backrest",
+                  "the armrests",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המשענות",
+                  "המושב"
+                ],
+                "width": 110,
+                "height": 212,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5044,
+                "station": -67,
+                "parts": [
+                  "the backrest",
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המשענות"
+                ],
+                "width": 110,
+                "height": 212,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5064,
+                "station": -89,
+                "parts": [
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענת"
+                ],
+                "width": 30,
+                "height": 212,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.6256,
+                "station": -92,
+                "parts": [
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המשענות"
+                ],
+                "width": 1.5601,
+                "height": 212,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.6482,
+                "station": -92,
+                "parts": [
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המשענות"
+                ],
+                "width": 0.0212,
+                "height": 212,
+                "rollDeg": -90
+              }
+            ],
+            "turns": false
+          },
+          {
+            "templateId": "upright-left-standing",
+            "name": "Stood on end and left standing inside",
+            "nameHe": "בעמידה על הקצה, נשארת עומדת בפנים",
+            "stages": 4,
+            "valid": true,
+            "requirement": {
+              "doorWidth": 110,
+              "doorHeight": 212,
+              "hallwayClearance": 134.79,
+              "roomDepth": 77.01,
+              "alongWall": 258.07
+            },
+            "stations": [
+              {
+                "t": 0.9585,
+                "station": 0,
+                "parts": [
+                  "the plinth"
+                ],
+                "partsHe": [
+                  "הבסיס"
+                ],
+                "width": 100,
+                "height": 207,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9611,
+                "station": -15,
+                "parts": [
+                  "the backrest",
+                  "the armrests",
+                  "the plinth",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המשענות",
+                  "הבסיס",
+                  "המושב"
+                ],
+                "width": 110,
+                "height": 212,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9637,
+                "station": -30,
+                "parts": [
+                  "the backrest",
+                  "the armrests",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המשענות",
+                  "המושב"
+                ],
+                "width": 110,
+                "height": 212,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9663,
+                "station": -45,
+                "parts": [
+                  "the backrest",
+                  "the armrests",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המשענות",
+                  "המושב"
+                ],
+                "width": 110,
+                "height": 212,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9689,
+                "station": -60,
+                "parts": [
+                  "the backrest",
+                  "the armrests",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המשענות",
+                  "המושב"
+                ],
+                "width": 110,
+                "height": 212,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9714,
+                "station": -75,
+                "parts": [
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענת"
+                ],
+                "width": 30,
+                "height": 212,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.974,
+                "station": -90,
+                "parts": [
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענת"
+                ],
+                "width": 30,
+                "height": 107,
+                "rollDeg": -90
+              }
+            ],
+            "turns": false
           }
         ],
         "narrowest": 75.01,
@@ -11457,7 +14686,8 @@ export const PRECOMPUTED: Precomputed = {
             "doorWidth": 110.01,
             "doorHeight": 75,
             "hallwayClearance": 212,
-            "roomDepth": 212
+            "roomDepth": 212,
+            "alongWall": 110.01
           },
           "stages": [
             {
@@ -11470,7 +14700,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 110.01,
                 "doorHeight": 75,
                 "hallwayClearance": 212,
-                "roomDepth": 212
+                "roomDepth": 212,
+                "alongWall": 110.01
               }
             }
           ],
@@ -11501,7 +14732,8 @@ export const PRECOMPUTED: Precomputed = {
             "doorWidth": 75.01,
             "doorHeight": 210,
             "hallwayClearance": 112,
-            "roomDepth": 112
+            "roomDepth": 112,
+            "alongWall": 285
           },
           "stages": [
             {
@@ -11514,7 +14746,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 112,
-                "roomDepth": 0
+                "roomDepth": 0,
+                "alongWall": 285
               }
             },
             {
@@ -11527,7 +14760,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 75.01,
                 "doorHeight": 210,
                 "hallwayClearance": 112,
-                "roomDepth": 112
+                "roomDepth": 112,
+                "alongWall": 75.01
               }
             },
             {
@@ -11540,7 +14774,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 0,
-                "roomDepth": 112
+                "roomDepth": 112,
+                "alongWall": 285
               }
             }
           ],
@@ -11875,7 +15110,8 @@ export const PRECOMPUTED: Precomputed = {
             "doorWidth": 75.01,
             "doorHeight": 125.08,
             "hallwayClearance": 212,
-            "roomDepth": 212
+            "roomDepth": 212,
+            "alongWall": 195
           },
           "stages": [
             {
@@ -11888,7 +15124,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 212,
-                "roomDepth": 0
+                "roomDepth": 0,
+                "alongWall": 195
               }
             },
             {
@@ -11901,7 +15138,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 75.01,
                 "doorHeight": 125.08,
                 "hallwayClearance": 212,
-                "roomDepth": 212
+                "roomDepth": 212,
+                "alongWall": 101.69
               }
             },
             {
@@ -11914,7 +15152,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 0,
-                "roomDepth": 212
+                "roomDepth": 212,
+                "alongWall": 175.85
               }
             },
             {
@@ -11927,7 +15166,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 0,
-                "roomDepth": 212
+                "roomDepth": 212,
+                "alongWall": 175.85
               }
             }
           ],
@@ -14125,6 +17365,1092 @@ export const PRECOMPUTED: Precomputed = {
               "tiltAxis": "x"
             }
           ]
+        },
+        {
+          "templateId": "upright-through",
+          "name": "Stood on end, turned, and walked through",
+          "nameHe": "בעמידה על הקצה, מסובבת ומועברת",
+          "requirement": {
+            "doorWidth": 110,
+            "doorHeight": 212,
+            "hallwayClearance": 134.79,
+            "roomDepth": 132,
+            "alongWall": 258.07
+          },
+          "stages": [
+            {
+              "id": "stand-up",
+              "name": "Stand it on its end in the corridor",
+              "nameHe": "להעמיד אותה על הקצה במסדרון",
+              "startIndex": 0,
+              "endIndex": 19,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 112,
+                "roomDepth": 0,
+                "alongWall": 258.07
+              }
+            },
+            {
+              "id": "turn-to-face",
+              "name": "Turn it to face the doorway",
+              "nameHe": "לסובב אותה אל מול הפתח",
+              "startIndex": 19,
+              "endIndex": 37,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 134.79,
+                "roomDepth": 0,
+                "alongWall": 186.02
+              }
+            },
+            {
+              "id": "carry-through",
+              "name": "Walk it through standing up",
+              "nameHe": "להעביר אותה דרך הפתח בעמידה",
+              "startIndex": 37,
+              "endIndex": 38,
+              "requirement": {
+                "doorWidth": 110,
+                "doorHeight": 212,
+                "hallwayClearance": 132,
+                "roomDepth": 77.01,
+                "alongWall": 110
+              }
+            },
+            {
+              "id": "turn-in-room",
+              "name": "Turn it along the room’s wall",
+              "nameHe": "לסובב אותה לאורך קיר החדר",
+              "startIndex": 38,
+              "endIndex": 56,
+              "requirement": {
+                "doorWidth": 21.84,
+                "doorHeight": 212,
+                "hallwayClearance": 0,
+                "roomDepth": 132,
+                "alongWall": 186.02
+              }
+            },
+            {
+              "id": "lay-down",
+              "name": "Lay it down along the wall",
+              "nameHe": "להניח אותה לאורך הקיר",
+              "startIndex": 56,
+              "endIndex": 75,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 0,
+                "roomDepth": 132,
+                "alongWall": 258.07
+              }
+            }
+          ],
+          "path": [
+            {
+              "x": 0,
+              "y": -57,
+              "z": 0,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 2,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 10.715574274765817,
+              "yaw": 0,
+              "pitch": -0.08726646259971647,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 19.36481776669303,
+              "yaw": 0,
+              "pitch": -0.17453292519943295,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 27.881904510252074,
+              "yaw": 0,
+              "pitch": -0.2617993877991494,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 36.20201433256687,
+              "yaw": 0,
+              "pitch": -0.3490658503988659,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 44.261826174069945,
+              "yaw": 0,
+              "pitch": -0.4363323129985824,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 51.99999999999999,
+              "yaw": 0,
+              "pitch": -0.5235987755982988,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 59.35764363510461,
+              "yaw": 0,
+              "pitch": -0.6108652381980153,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 66.27876096865393,
+              "yaw": 0,
+              "pitch": -0.6981317007977318,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 72.71067811865474,
+              "yaw": 0,
+              "pitch": -0.7853981633974483,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 78.60444431189781,
+              "yaw": 0,
+              "pitch": -0.8726646259971648,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 83.91520442889917,
+              "yaw": 0,
+              "pitch": -0.9599310885968813,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 88.60254037844386,
+              "yaw": 0,
+              "pitch": -1.0471975511965976,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 92.93613502144126,
+              "yaw": 0,
+              "pitch": -1.1344640137963142,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 97.24752374926368,
+              "yaw": 0,
+              "pitch": -1.2217304763960306,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 100.83402130932697,
+              "yaw": 0,
+              "pitch": -1.3089969389957472,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 103.66833228961255,
+              "yaw": 0,
+              "pitch": -1.3962634015954636,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 105.72888587215671,
+              "yaw": 0,
+              "pitch": -1.4835298641951802,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 0,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 0.08726646259971647,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 0.17453292519943295,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 0.2617993877991494,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 0.3490658503988659,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 0.4363323129985824,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 0.5235987755982988,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 0.6108652381980153,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 0.6981317007977318,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 0.7853981633974483,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 0.8726646259971648,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 0.9599310885968813,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 1.0471975511965976,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 1.1344640137963142,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 1.2217304763960306,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 1.3089969389957472,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 1.3962634015954636,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 1.4835298641951802,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 1.5707963267948966,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 107,
+              "yaw": 1.5707963267948966,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 107,
+              "yaw": 1.4835298641951802,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 107,
+              "yaw": 1.3962634015954636,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 107,
+              "yaw": 1.3089969389957472,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 107,
+              "yaw": 1.2217304763960306,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 107,
+              "yaw": 1.1344640137963142,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 107,
+              "yaw": 1.0471975511965976,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 107,
+              "yaw": 0.9599310885968813,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 107,
+              "yaw": 0.8726646259971648,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 107,
+              "yaw": 0.7853981633974483,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 107,
+              "yaw": 0.6981317007977318,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 107,
+              "yaw": 0.6108652381980153,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 107,
+              "yaw": 0.5235987755982988,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 107,
+              "yaw": 0.4363323129985824,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 107,
+              "yaw": 0.3490658503988659,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 107,
+              "yaw": 0.2617993877991494,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 107,
+              "yaw": 0.17453292519943295,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 107,
+              "yaw": 0.08726646259971647,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 107,
+              "yaw": 0,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 105.72888587215671,
+              "yaw": 0,
+              "pitch": -1.4835298641951802,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 103.66833228961255,
+              "yaw": 0,
+              "pitch": -1.3962634015954636,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 100.83402130932697,
+              "yaw": 0,
+              "pitch": -1.3089969389957472,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 97.24752374926368,
+              "yaw": 0,
+              "pitch": -1.2217304763960306,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 92.93613502144126,
+              "yaw": 0,
+              "pitch": -1.1344640137963142,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 88.60254037844386,
+              "yaw": 0,
+              "pitch": -1.0471975511965976,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 83.91520442889917,
+              "yaw": 0,
+              "pitch": -0.9599310885968813,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 78.60444431189781,
+              "yaw": 0,
+              "pitch": -0.8726646259971648,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 72.71067811865474,
+              "yaw": 0,
+              "pitch": -0.7853981633974483,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 66.27876096865393,
+              "yaw": 0,
+              "pitch": -0.6981317007977318,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 59.35764363510461,
+              "yaw": 0,
+              "pitch": -0.6108652381980153,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 51.99999999999999,
+              "yaw": 0,
+              "pitch": -0.5235987755982988,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 44.261826174069945,
+              "yaw": 0,
+              "pitch": -0.4363323129985824,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 36.20201433256687,
+              "yaw": 0,
+              "pitch": -0.3490658503988659,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 27.881904510252074,
+              "yaw": 0,
+              "pitch": -0.2617993877991494,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 19.36481776669303,
+              "yaw": 0,
+              "pitch": -0.17453292519943295,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 10.715574274765817,
+              "yaw": 0,
+              "pitch": -0.08726646259971647,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 2,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 0,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            }
+          ]
+        },
+        {
+          "templateId": "upright-left-standing",
+          "name": "Stood on end and left standing inside",
+          "nameHe": "בעמידה על הקצה, נשארת עומדת בפנים",
+          "requirement": {
+            "doorWidth": 110,
+            "doorHeight": 212,
+            "hallwayClearance": 134.79,
+            "roomDepth": 77.01,
+            "alongWall": 258.07
+          },
+          "stages": [
+            {
+              "id": "stand-up",
+              "name": "Stand it on its end in the corridor",
+              "nameHe": "להעמיד אותה על הקצה במסדרון",
+              "startIndex": 0,
+              "endIndex": 19,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 112,
+                "roomDepth": 0,
+                "alongWall": 258.07
+              }
+            },
+            {
+              "id": "turn-to-face",
+              "name": "Turn it to face the doorway",
+              "nameHe": "לסובב אותה אל מול הפתח",
+              "startIndex": 19,
+              "endIndex": 37,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 134.79,
+                "roomDepth": 0,
+                "alongWall": 186.02
+              }
+            },
+            {
+              "id": "carry-through",
+              "name": "Walk it through standing up",
+              "nameHe": "להעביר אותה דרך הפתח בעמידה",
+              "startIndex": 37,
+              "endIndex": 38,
+              "requirement": {
+                "doorWidth": 110,
+                "doorHeight": 212,
+                "hallwayClearance": 132,
+                "roomDepth": 77.01,
+                "alongWall": 110
+              }
+            },
+            {
+              "id": "set-down-standing",
+              "name": "Set it down still standing",
+              "nameHe": "להניח אותה בעמידה",
+              "startIndex": 38,
+              "endIndex": 39,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 0,
+                "roomDepth": 77.01,
+                "alongWall": 110
+              }
+            }
+          ],
+          "path": [
+            {
+              "x": 0,
+              "y": -57,
+              "z": 0,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 2,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 10.715574274765817,
+              "yaw": 0,
+              "pitch": -0.08726646259971647,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 19.36481776669303,
+              "yaw": 0,
+              "pitch": -0.17453292519943295,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 27.881904510252074,
+              "yaw": 0,
+              "pitch": -0.2617993877991494,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 36.20201433256687,
+              "yaw": 0,
+              "pitch": -0.3490658503988659,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 44.261826174069945,
+              "yaw": 0,
+              "pitch": -0.4363323129985824,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 51.99999999999999,
+              "yaw": 0,
+              "pitch": -0.5235987755982988,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 59.35764363510461,
+              "yaw": 0,
+              "pitch": -0.6108652381980153,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 66.27876096865393,
+              "yaw": 0,
+              "pitch": -0.6981317007977318,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 72.71067811865474,
+              "yaw": 0,
+              "pitch": -0.7853981633974483,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 78.60444431189781,
+              "yaw": 0,
+              "pitch": -0.8726646259971648,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 83.91520442889917,
+              "yaw": 0,
+              "pitch": -0.9599310885968813,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 88.60254037844386,
+              "yaw": 0,
+              "pitch": -1.0471975511965976,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 92.93613502144126,
+              "yaw": 0,
+              "pitch": -1.1344640137963142,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 97.24752374926368,
+              "yaw": 0,
+              "pitch": -1.2217304763960306,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 100.83402130932697,
+              "yaw": 0,
+              "pitch": -1.3089969389957472,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 103.66833228961255,
+              "yaw": 0,
+              "pitch": -1.3962634015954636,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 105.72888587215671,
+              "yaw": 0,
+              "pitch": -1.4835298641951802,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 0,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 0.08726646259971647,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 0.17453292519943295,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 0.2617993877991494,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 0.3490658503988659,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 0.4363323129985824,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 0.5235987755982988,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 0.6108652381980153,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 0.6981317007977318,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 0.7853981633974483,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 0.8726646259971648,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 0.9599310885968813,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 1.0471975511965976,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 1.1344640137963142,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 1.2217304763960306,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 1.3089969389957472,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 1.3962634015954636,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 1.4835298641951802,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -57,
+              "z": 107,
+              "yaw": 1.5707963267948966,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 107,
+              "yaw": 1.5707963267948966,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 92,
+              "z": 105,
+              "yaw": 1.5707963267948966,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            }
+          ]
         }
       ],
       "modules": []
@@ -14221,7 +18547,8 @@ export const PRECOMPUTED: Precomputed = {
               "doorWidth": 100.01,
               "doorHeight": 105,
               "hallwayClearance": 182,
-              "roomDepth": 182
+              "roomDepth": 182,
+              "alongWall": 100.01
             },
             "stations": [
               {
@@ -14358,7 +18685,8 @@ export const PRECOMPUTED: Precomputed = {
               "doorWidth": 105.01,
               "doorHeight": 180,
               "hallwayClearance": 102,
-              "roomDepth": 102
+              "roomDepth": 102,
+              "alongWall": 285
             },
             "stations": [
               {
@@ -14490,9 +18818,273 @@ export const PRECOMPUTED: Precomputed = {
             "stages": 0,
             "valid": false,
             "reason": "the motion from waypoint 36 to 37 is blocked"
+          },
+          {
+            "templateId": "upright-through",
+            "name": "Stood on end, turned, and walked through",
+            "nameHe": "בעמידה על הקצה, מסובבת ומועברת",
+            "stages": 5,
+            "valid": true,
+            "requirement": {
+              "doorWidth": 100,
+              "doorHeight": 182,
+              "hallwayClearance": 157,
+              "roomDepth": 157,
+              "alongWall": 271.45
+            },
+            "stations": [
+              {
+                "t": 0.4973,
+                "station": 0,
+                "parts": [
+                  "the armrests",
+                  "the base"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "הבסיס"
+                ],
+                "width": 90,
+                "height": 182,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.4989,
+                "station": -20,
+                "parts": [
+                  "the armrests",
+                  "the base",
+                  "the seat",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "הבסיס",
+                  "המושב",
+                  "המשענת"
+                ],
+                "width": 90,
+                "height": 182,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5004,
+                "station": -40,
+                "parts": [
+                  "the armrests",
+                  "the seat",
+                  "the backrest",
+                  "the recliner housing"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "המושב",
+                  "המשענת",
+                  "בית המנגנון"
+                ],
+                "width": 100,
+                "height": 182,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5019,
+                "station": -60,
+                "parts": [
+                  "the armrests",
+                  "the seat",
+                  "the backrest",
+                  "the recliner housing"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "המושב",
+                  "המשענת",
+                  "בית המנגנון"
+                ],
+                "width": 100,
+                "height": 182,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5034,
+                "station": -80,
+                "parts": [
+                  "the armrests",
+                  "the backrest",
+                  "the recliner housing"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "המשענת",
+                  "בית המנגנון"
+                ],
+                "width": 100,
+                "height": 182,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.505,
+                "station": -90,
+                "parts": [
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענת"
+                ],
+                "width": 20,
+                "height": 178,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5065,
+                "station": -90,
+                "parts": [
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענת"
+                ],
+                "width": 20,
+                "height": 92,
+                "rollDeg": -90
+              }
+            ],
+            "turns": false
+          },
+          {
+            "templateId": "upright-left-standing",
+            "name": "Stood on end and left standing inside",
+            "nameHe": "בעמידה על הקצה, נשארת עומדת בפנים",
+            "stages": 4,
+            "valid": true,
+            "requirement": {
+              "doorWidth": 100,
+              "doorHeight": 182,
+              "hallwayClearance": 157,
+              "roomDepth": 107.01,
+              "alongWall": 271.45
+            },
+            "stations": [
+              {
+                "t": 0.9564,
+                "station": 0,
+                "parts": [
+                  "the armrests",
+                  "the base"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "הבסיס"
+                ],
+                "width": 90,
+                "height": 182,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9593,
+                "station": -20,
+                "parts": [
+                  "the armrests",
+                  "the base",
+                  "the seat",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "הבסיס",
+                  "המושב",
+                  "המשענת"
+                ],
+                "width": 90,
+                "height": 182,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9623,
+                "station": -40,
+                "parts": [
+                  "the armrests",
+                  "the seat",
+                  "the backrest",
+                  "the recliner housing"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "המושב",
+                  "המשענת",
+                  "בית המנגנון"
+                ],
+                "width": 100,
+                "height": 182,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9652,
+                "station": -60,
+                "parts": [
+                  "the armrests",
+                  "the seat",
+                  "the backrest",
+                  "the recliner housing"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "המושב",
+                  "המשענת",
+                  "בית המנגנון"
+                ],
+                "width": 100,
+                "height": 182,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9682,
+                "station": -80,
+                "parts": [
+                  "the armrests",
+                  "the backrest",
+                  "the recliner housing"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "המשענת",
+                  "בית המנגנון"
+                ],
+                "width": 100,
+                "height": 182,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9711,
+                "station": -90,
+                "parts": [
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענת"
+                ],
+                "width": 20,
+                "height": 178,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9741,
+                "station": -90,
+                "parts": [
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענת"
+                ],
+                "width": 20,
+                "height": 92,
+                "rollDeg": -90
+              }
+            ],
+            "turns": false
           }
         ],
-        "narrowest": 100.01,
+        "narrowest": 100,
         "floor": 100,
         "binding": {
           "travelAxis": "x",
@@ -14602,7 +19194,8 @@ export const PRECOMPUTED: Precomputed = {
             "doorWidth": 100.01,
             "doorHeight": 105,
             "hallwayClearance": 182,
-            "roomDepth": 182
+            "roomDepth": 182,
+            "alongWall": 100.01
           },
           "stages": [
             {
@@ -14615,7 +19208,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 100.01,
                 "doorHeight": 105,
                 "hallwayClearance": 182,
-                "roomDepth": 182
+                "roomDepth": 182,
+                "alongWall": 100.01
               }
             }
           ],
@@ -14646,7 +19240,8 @@ export const PRECOMPUTED: Precomputed = {
             "doorWidth": 105.01,
             "doorHeight": 180,
             "hallwayClearance": 102,
-            "roomDepth": 102
+            "roomDepth": 102,
+            "alongWall": 285
           },
           "stages": [
             {
@@ -14659,7 +19254,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 102,
-                "roomDepth": 0
+                "roomDepth": 0,
+                "alongWall": 285
               }
             },
             {
@@ -14672,7 +19268,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 105.01,
                 "doorHeight": 180,
                 "hallwayClearance": 102,
-                "roomDepth": 102
+                "roomDepth": 102,
+                "alongWall": 105.01
               }
             },
             {
@@ -14685,7 +19282,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 0,
-                "roomDepth": 102
+                "roomDepth": 102,
+                "alongWall": 285
               }
             }
           ],
@@ -15011,6 +19609,1092 @@ export const PRECOMPUTED: Precomputed = {
               "tiltAxis": "y"
             }
           ]
+        },
+        {
+          "templateId": "upright-through",
+          "name": "Stood on end, turned, and walked through",
+          "nameHe": "בעמידה על הקצה, מסובבת ומועברת",
+          "requirement": {
+            "doorWidth": 100,
+            "doorHeight": 182,
+            "hallwayClearance": 157,
+            "roomDepth": 157,
+            "alongWall": 271.45
+          },
+          "stages": [
+            {
+              "id": "stand-up",
+              "name": "Stand it on its end in the corridor",
+              "nameHe": "להעמיד אותה על הקצה במסדרון",
+              "startIndex": 0,
+              "endIndex": 19,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 102,
+                "roomDepth": 0,
+                "alongWall": 271.45
+              }
+            },
+            {
+              "id": "turn-to-face",
+              "name": "Turn it to face the doorway",
+              "nameHe": "לסובב אותה אל מול הפתח",
+              "startIndex": 19,
+              "endIndex": 37,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 157,
+                "roomDepth": 0,
+                "alongWall": 224.73
+              }
+            },
+            {
+              "id": "carry-through",
+              "name": "Walk it through standing up",
+              "nameHe": "להעביר אותה דרך הפתח בעמידה",
+              "startIndex": 37,
+              "endIndex": 38,
+              "requirement": {
+                "doorWidth": 100,
+                "doorHeight": 182,
+                "hallwayClearance": 157,
+                "roomDepth": 107.01,
+                "alongWall": 100
+              }
+            },
+            {
+              "id": "turn-in-room",
+              "name": "Turn it along the room’s wall",
+              "nameHe": "לסובב אותה לאורך קיר החדר",
+              "startIndex": 38,
+              "endIndex": 56,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 0,
+                "roomDepth": 157,
+                "alongWall": 224.73
+              }
+            },
+            {
+              "id": "lay-down",
+              "name": "Lay it down along the wall",
+              "nameHe": "להניח אותה לאורך הקיר",
+              "startIndex": 56,
+              "endIndex": 75,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 0,
+                "roomDepth": 157,
+                "alongWall": 271.45
+              }
+            }
+          ],
+          "path": [
+            {
+              "x": 0,
+              "y": -52,
+              "z": 0,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 2,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 9.844016847289236,
+              "yaw": 0,
+              "pitch": -0.08726646259971647,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 17.62833599002373,
+              "yaw": 0,
+              "pitch": -0.17453292519943295,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 25.293714059226865,
+              "yaw": 0,
+              "pitch": -0.2617993877991494,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 32.78181289931018,
+              "yaw": 0,
+              "pitch": -0.3490658503988659,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 40.03564355666295,
+              "yaw": 0,
+              "pitch": -0.4363323129985824,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 46.99999999999999,
+              "yaw": 0,
+              "pitch": -0.5235987755982988,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 53.621879271594146,
+              "yaw": 0,
+              "pitch": -0.6108652381980153,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 59.85088487178853,
+              "yaw": 0,
+              "pitch": -0.6981317007977318,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 65.63961030678927,
+              "yaw": 0,
+              "pitch": -0.7853981633974483,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 70.94399988070802,
+              "yaw": 0,
+              "pitch": -0.8726646259971648,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 75.72368398600926,
+              "yaw": 0,
+              "pitch": -0.9599310885968813,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 79.94228634059948,
+              "yaw": 0,
+              "pitch": -1.0471975511965976,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 83.5677008332985,
+              "yaw": 0,
+              "pitch": -1.1344640137963142,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 86.57233587073175,
+              "yaw": 0,
+              "pitch": -1.2217304763960306,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 88.93332436601614,
+              "yaw": 0,
+              "pitch": -1.3089969389957472,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 90.63269777109872,
+              "yaw": 0,
+              "pitch": -1.3962634015954636,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 91.65752282825709,
+              "yaw": 0,
+              "pitch": -1.4835298641951802,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 0,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 0.08726646259971647,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 0.17453292519943295,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 0.2617993877991494,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 0.3490658503988659,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 0.4363323129985824,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 0.5235987755982988,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 0.6108652381980153,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 0.6981317007977318,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 0.7853981633974483,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 0.8726646259971648,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 0.9599310885968813,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 1.0471975511965976,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 1.1344640137963142,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 1.2217304763960306,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 1.3089969389957472,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 1.3962634015954636,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 1.4835298641951802,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 1.5707963267948966,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 92,
+              "yaw": 1.5707963267948966,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 92,
+              "yaw": 1.4835298641951802,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 92,
+              "yaw": 1.3962634015954636,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 92,
+              "yaw": 1.3089969389957472,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 92,
+              "yaw": 1.2217304763960306,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 92,
+              "yaw": 1.1344640137963142,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 92,
+              "yaw": 1.0471975511965976,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 92,
+              "yaw": 0.9599310885968813,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 92,
+              "yaw": 0.8726646259971648,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 92,
+              "yaw": 0.7853981633974483,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 92,
+              "yaw": 0.6981317007977318,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 92,
+              "yaw": 0.6108652381980153,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 92,
+              "yaw": 0.5235987755982988,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 92,
+              "yaw": 0.4363323129985824,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 92,
+              "yaw": 0.3490658503988659,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 92,
+              "yaw": 0.2617993877991494,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 92,
+              "yaw": 0.17453292519943295,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 92,
+              "yaw": 0.08726646259971647,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 92,
+              "yaw": 0,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 91.65752282825709,
+              "yaw": 0,
+              "pitch": -1.4835298641951802,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 90.63269777109872,
+              "yaw": 0,
+              "pitch": -1.3962634015954636,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 88.93332436601614,
+              "yaw": 0,
+              "pitch": -1.3089969389957472,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 86.57233587073175,
+              "yaw": 0,
+              "pitch": -1.2217304763960306,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 83.5677008332985,
+              "yaw": 0,
+              "pitch": -1.1344640137963142,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 79.94228634059948,
+              "yaw": 0,
+              "pitch": -1.0471975511965976,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 75.72368398600926,
+              "yaw": 0,
+              "pitch": -0.9599310885968813,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 70.94399988070802,
+              "yaw": 0,
+              "pitch": -0.8726646259971648,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 65.63961030678927,
+              "yaw": 0,
+              "pitch": -0.7853981633974483,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 59.85088487178853,
+              "yaw": 0,
+              "pitch": -0.6981317007977318,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 53.621879271594146,
+              "yaw": 0,
+              "pitch": -0.6108652381980153,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 46.99999999999999,
+              "yaw": 0,
+              "pitch": -0.5235987755982988,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 40.03564355666295,
+              "yaw": 0,
+              "pitch": -0.4363323129985824,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 32.78181289931018,
+              "yaw": 0,
+              "pitch": -0.3490658503988659,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 25.293714059226865,
+              "yaw": 0,
+              "pitch": -0.2617993877991494,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 17.62833599002373,
+              "yaw": 0,
+              "pitch": -0.17453292519943295,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 9.844016847289236,
+              "yaw": 0,
+              "pitch": -0.08726646259971647,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 2,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 0,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            }
+          ]
+        },
+        {
+          "templateId": "upright-left-standing",
+          "name": "Stood on end and left standing inside",
+          "nameHe": "בעמידה על הקצה, נשארת עומדת בפנים",
+          "requirement": {
+            "doorWidth": 100,
+            "doorHeight": 182,
+            "hallwayClearance": 157,
+            "roomDepth": 107.01,
+            "alongWall": 271.45
+          },
+          "stages": [
+            {
+              "id": "stand-up",
+              "name": "Stand it on its end in the corridor",
+              "nameHe": "להעמיד אותה על הקצה במסדרון",
+              "startIndex": 0,
+              "endIndex": 19,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 102,
+                "roomDepth": 0,
+                "alongWall": 271.45
+              }
+            },
+            {
+              "id": "turn-to-face",
+              "name": "Turn it to face the doorway",
+              "nameHe": "לסובב אותה אל מול הפתח",
+              "startIndex": 19,
+              "endIndex": 37,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 157,
+                "roomDepth": 0,
+                "alongWall": 224.73
+              }
+            },
+            {
+              "id": "carry-through",
+              "name": "Walk it through standing up",
+              "nameHe": "להעביר אותה דרך הפתח בעמידה",
+              "startIndex": 37,
+              "endIndex": 38,
+              "requirement": {
+                "doorWidth": 100,
+                "doorHeight": 182,
+                "hallwayClearance": 157,
+                "roomDepth": 107.01,
+                "alongWall": 100
+              }
+            },
+            {
+              "id": "set-down-standing",
+              "name": "Set it down still standing",
+              "nameHe": "להניח אותה בעמידה",
+              "startIndex": 38,
+              "endIndex": 39,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 0,
+                "roomDepth": 107.01,
+                "alongWall": 100
+              }
+            }
+          ],
+          "path": [
+            {
+              "x": 0,
+              "y": -52,
+              "z": 0,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 2,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 9.844016847289236,
+              "yaw": 0,
+              "pitch": -0.08726646259971647,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 17.62833599002373,
+              "yaw": 0,
+              "pitch": -0.17453292519943295,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 25.293714059226865,
+              "yaw": 0,
+              "pitch": -0.2617993877991494,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 32.78181289931018,
+              "yaw": 0,
+              "pitch": -0.3490658503988659,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 40.03564355666295,
+              "yaw": 0,
+              "pitch": -0.4363323129985824,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 46.99999999999999,
+              "yaw": 0,
+              "pitch": -0.5235987755982988,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 53.621879271594146,
+              "yaw": 0,
+              "pitch": -0.6108652381980153,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 59.85088487178853,
+              "yaw": 0,
+              "pitch": -0.6981317007977318,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 65.63961030678927,
+              "yaw": 0,
+              "pitch": -0.7853981633974483,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 70.94399988070802,
+              "yaw": 0,
+              "pitch": -0.8726646259971648,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 75.72368398600926,
+              "yaw": 0,
+              "pitch": -0.9599310885968813,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 79.94228634059948,
+              "yaw": 0,
+              "pitch": -1.0471975511965976,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 83.5677008332985,
+              "yaw": 0,
+              "pitch": -1.1344640137963142,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 86.57233587073175,
+              "yaw": 0,
+              "pitch": -1.2217304763960306,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 88.93332436601614,
+              "yaw": 0,
+              "pitch": -1.3089969389957472,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 90.63269777109872,
+              "yaw": 0,
+              "pitch": -1.3962634015954636,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 91.65752282825709,
+              "yaw": 0,
+              "pitch": -1.4835298641951802,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 0,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 0.08726646259971647,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 0.17453292519943295,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 0.2617993877991494,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 0.3490658503988659,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 0.4363323129985824,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 0.5235987755982988,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 0.6108652381980153,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 0.6981317007977318,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 0.7853981633974483,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 0.8726646259971648,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 0.9599310885968813,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 1.0471975511965976,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 1.1344640137963142,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 1.2217304763960306,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 1.3089969389957472,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 1.3962634015954636,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 1.4835298641951802,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": -52,
+              "z": 92,
+              "yaw": 1.5707963267948966,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 92,
+              "yaw": 1.5707963267948966,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 0,
+              "y": 122,
+              "z": 90,
+              "yaw": 1.5707963267948966,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            }
+          ]
         }
       ],
       "modules": []
@@ -15094,7 +20778,8 @@ export const PRECOMPUTED: Precomputed = {
               "doorWidth": 100.01,
               "doorHeight": 90,
               "hallwayClearance": 202,
-              "roomDepth": 202
+              "roomDepth": 202,
+              "alongWall": 100.01
             },
             "stations": [
               {
@@ -15221,7 +20906,8 @@ export const PRECOMPUTED: Precomputed = {
               "doorWidth": 90.01,
               "doorHeight": 200,
               "hallwayClearance": 102,
-              "roomDepth": 102
+              "roomDepth": 102,
+              "alongWall": 290
             },
             "stations": [
               {
@@ -15358,7 +21044,8 @@ export const PRECOMPUTED: Precomputed = {
               "doorWidth": 90.01,
               "doorHeight": 118.53,
               "hallwayClearance": 202,
-              "roomDepth": 202
+              "roomDepth": 202,
+              "alongWall": 169.21
             },
             "stations": [
               {
@@ -15470,6 +21157,254 @@ export const PRECOMPUTED: Precomputed = {
               }
             ],
             "turns": true
+          },
+          {
+            "templateId": "upright-through",
+            "name": "Stood on end, turned, and walked through",
+            "nameHe": "בעמידה על הקצה, מסובבת ומועברת",
+            "stages": 5,
+            "valid": true,
+            "requirement": {
+              "doorWidth": 100,
+              "doorHeight": 202,
+              "hallwayClearance": 142,
+              "roomDepth": 142,
+              "alongWall": 263.19
+            },
+            "stations": [
+              {
+                "t": 0.4977,
+                "station": 0,
+                "parts": [
+                  "the armrests",
+                  "the folded bed frame"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "מנגנון המיטה"
+                ],
+                "width": 100,
+                "height": 202,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.4992,
+                "station": -18,
+                "parts": [
+                  "the armrests",
+                  "the folded bed frame"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "מנגנון המיטה"
+                ],
+                "width": 100,
+                "height": 202,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5006,
+                "station": -35,
+                "parts": [
+                  "the armrests",
+                  "the folded bed frame"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "מנגנון המיטה"
+                ],
+                "width": 100,
+                "height": 202,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5021,
+                "station": -53,
+                "parts": [
+                  "the armrests",
+                  "the folded bed frame",
+                  "the seat",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "מנגנון המיטה",
+                  "המושב",
+                  "המשענת"
+                ],
+                "width": 100,
+                "height": 202,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5036,
+                "station": -70,
+                "parts": [
+                  "the armrests",
+                  "the seat",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "המושב",
+                  "המשענת"
+                ],
+                "width": 100,
+                "height": 202,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5051,
+                "station": -88,
+                "parts": [
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענת"
+                ],
+                "width": 30,
+                "height": 198,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5065,
+                "station": -100,
+                "parts": [
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענת"
+                ],
+                "width": 30,
+                "height": 102,
+                "rollDeg": -90
+              }
+            ],
+            "turns": false
+          },
+          {
+            "templateId": "upright-left-standing",
+            "name": "Stood on end and left standing inside",
+            "nameHe": "בעמידה על הקצה, נשארת עומדת בפנים",
+            "stages": 4,
+            "valid": true,
+            "requirement": {
+              "doorWidth": 100,
+              "doorHeight": 202,
+              "hallwayClearance": 142,
+              "roomDepth": 92.01,
+              "alongWall": 263.19
+            },
+            "stations": [
+              {
+                "t": 0.9571,
+                "station": 0,
+                "parts": [
+                  "the armrests",
+                  "the folded bed frame"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "מנגנון המיטה"
+                ],
+                "width": 100,
+                "height": 202,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.96,
+                "station": -18,
+                "parts": [
+                  "the armrests",
+                  "the folded bed frame"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "מנגנון המיטה"
+                ],
+                "width": 100,
+                "height": 202,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9627,
+                "station": -35,
+                "parts": [
+                  "the armrests",
+                  "the folded bed frame"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "מנגנון המיטה"
+                ],
+                "width": 100,
+                "height": 202,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9657,
+                "station": -53,
+                "parts": [
+                  "the armrests",
+                  "the folded bed frame",
+                  "the seat",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "מנגנון המיטה",
+                  "המושב",
+                  "המשענת"
+                ],
+                "width": 100,
+                "height": 202,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9684,
+                "station": -70,
+                "parts": [
+                  "the armrests",
+                  "the seat",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "המושב",
+                  "המשענת"
+                ],
+                "width": 100,
+                "height": 202,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9713,
+                "station": -88,
+                "parts": [
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענת"
+                ],
+                "width": 30,
+                "height": 198,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.974,
+                "station": -100,
+                "parts": [
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענת"
+                ],
+                "width": 30,
+                "height": 102,
+                "rollDeg": -90
+              }
+            ],
+            "turns": false
           }
         ],
         "narrowest": 90.01,
@@ -15582,7 +21517,8 @@ export const PRECOMPUTED: Precomputed = {
             "doorWidth": 100.01,
             "doorHeight": 90,
             "hallwayClearance": 202,
-            "roomDepth": 202
+            "roomDepth": 202,
+            "alongWall": 100.01
           },
           "stages": [
             {
@@ -15595,7 +21531,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 100.01,
                 "doorHeight": 90,
                 "hallwayClearance": 202,
-                "roomDepth": 202
+                "roomDepth": 202,
+                "alongWall": 100.01
               }
             }
           ],
@@ -15626,7 +21563,8 @@ export const PRECOMPUTED: Precomputed = {
             "doorWidth": 90.01,
             "doorHeight": 200,
             "hallwayClearance": 102,
-            "roomDepth": 102
+            "roomDepth": 102,
+            "alongWall": 290
           },
           "stages": [
             {
@@ -15639,7 +21577,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 102,
-                "roomDepth": 0
+                "roomDepth": 0,
+                "alongWall": 290
               }
             },
             {
@@ -15652,7 +21591,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 90.01,
                 "doorHeight": 200,
                 "hallwayClearance": 102,
-                "roomDepth": 102
+                "roomDepth": 102,
+                "alongWall": 90.01
               }
             },
             {
@@ -15665,7 +21605,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 0,
-                "roomDepth": 102
+                "roomDepth": 102,
+                "alongWall": 290
               }
             }
           ],
@@ -16000,7 +21941,8 @@ export const PRECOMPUTED: Precomputed = {
             "doorWidth": 90.01,
             "doorHeight": 118.53,
             "hallwayClearance": 202,
-            "roomDepth": 202
+            "roomDepth": 202,
+            "alongWall": 169.21
           },
           "stages": [
             {
@@ -16013,7 +21955,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 202,
-                "roomDepth": 0
+                "roomDepth": 0,
+                "alongWall": 168
               }
             },
             {
@@ -16026,7 +21969,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 90.01,
                 "doorHeight": 118.53,
                 "hallwayClearance": 202,
-                "roomDepth": 202
+                "roomDepth": 202,
+                "alongWall": 112.01
               }
             },
             {
@@ -16039,7 +21983,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 0,
-                "roomDepth": 202
+                "roomDepth": 202,
+                "alongWall": 169.21
               }
             },
             {
@@ -16052,7 +21997,8 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 0,
-                "roomDepth": 202
+                "roomDepth": 202,
+                "alongWall": 169.21
               }
             }
           ],
@@ -18162,6 +24108,1092 @@ export const PRECOMPUTED: Precomputed = {
               "tiltAxis": "x"
             }
           ]
+        },
+        {
+          "templateId": "upright-through",
+          "name": "Stood on end, turned, and walked through",
+          "nameHe": "בעמידה על הקצה, מסובבת ומועברת",
+          "requirement": {
+            "doorWidth": 100,
+            "doorHeight": 202,
+            "hallwayClearance": 142,
+            "roomDepth": 142,
+            "alongWall": 263.19
+          },
+          "stages": [
+            {
+              "id": "stand-up",
+              "name": "Stand it on its end in the corridor",
+              "nameHe": "להעמיד אותה על הקצה במסדרון",
+              "startIndex": 0,
+              "endIndex": 19,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 102,
+                "roomDepth": 0,
+                "alongWall": 263.19
+              }
+            },
+            {
+              "id": "turn-to-face",
+              "name": "Turn it to face the doorway",
+              "nameHe": "לסובב אותה אל מול הפתח",
+              "startIndex": 19,
+              "endIndex": 37,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 142,
+                "roomDepth": 0,
+                "alongWall": 205.92
+              }
+            },
+            {
+              "id": "carry-through",
+              "name": "Walk it through standing up",
+              "nameHe": "להעביר אותה דרך הפתח בעמידה",
+              "startIndex": 37,
+              "endIndex": 38,
+              "requirement": {
+                "doorWidth": 100,
+                "doorHeight": 202,
+                "hallwayClearance": 142,
+                "roomDepth": 92.01,
+                "alongWall": 100
+              }
+            },
+            {
+              "id": "turn-in-room",
+              "name": "Turn it along the room’s wall",
+              "nameHe": "לסובב אותה לאורך קיר החדר",
+              "startIndex": 38,
+              "endIndex": 56,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 0,
+                "roomDepth": 142,
+                "alongWall": 205.92
+              }
+            },
+            {
+              "id": "lay-down",
+              "name": "Lay it down along the wall",
+              "nameHe": "להניח אותה לאורך הקיר",
+              "startIndex": 56,
+              "endIndex": 75,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 0,
+                "roomDepth": 142,
+                "alongWall": 263.19
+              }
+            }
+          ],
+          "path": [
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 0,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 2,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 10.715574274765817,
+              "yaw": 0,
+              "pitch": -0.08726646259971647,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 19.364817766693033,
+              "yaw": 0,
+              "pitch": -0.17453292519943295,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 27.88190451025207,
+              "yaw": 0,
+              "pitch": -0.2617993877991494,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 36.202014332566876,
+              "yaw": 0,
+              "pitch": -0.3490658503988659,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 44.26182617406995,
+              "yaw": 0,
+              "pitch": -0.4363323129985824,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 51.99999999999999,
+              "yaw": 0,
+              "pitch": -0.5235987755982988,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 59.35764363510461,
+              "yaw": 0,
+              "pitch": -0.6108652381980153,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 66.27876096865393,
+              "yaw": 0,
+              "pitch": -0.6981317007977318,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 72.71067811865474,
+              "yaw": 0,
+              "pitch": -0.7853981633974483,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 78.60444431189781,
+              "yaw": 0,
+              "pitch": -0.8726646259971648,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 83.91520442889917,
+              "yaw": 0,
+              "pitch": -0.9599310885968813,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 88.60254037844386,
+              "yaw": 0,
+              "pitch": -1.0471975511965976,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 92.63077870366499,
+              "yaw": 0,
+              "pitch": -1.1344640137963142,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 95.96926207859083,
+              "yaw": 0,
+              "pitch": -1.2217304763960306,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 98.59258262890683,
+              "yaw": 0,
+              "pitch": -1.3089969389957472,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 100.48077530122082,
+              "yaw": 0,
+              "pitch": -1.3962634015954636,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 101.61946980917456,
+              "yaw": 0,
+              "pitch": -1.4835298641951802,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 0,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 0.08726646259971647,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 0.17453292519943295,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 0.2617993877991494,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 0.3490658503988659,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 0.4363323129985824,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 0.5235987755982988,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 0.6108652381980153,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 0.6981317007977318,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 0.7853981633974483,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 0.8726646259971648,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 0.9599310885968813,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 1.0471975511965976,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 1.1344640137963142,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 1.2217304763960306,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 1.3089969389957472,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 1.3962634015954636,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 1.4835298641951802,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 1.5707963267948966,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 102,
+              "yaw": 1.5707963267948966,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 102,
+              "yaw": 1.4835298641951802,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 102,
+              "yaw": 1.3962634015954636,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 102,
+              "yaw": 1.3089969389957472,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 102,
+              "yaw": 1.2217304763960306,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 102,
+              "yaw": 1.1344640137963142,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 102,
+              "yaw": 1.0471975511965976,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 102,
+              "yaw": 0.9599310885968813,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 102,
+              "yaw": 0.8726646259971648,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 102,
+              "yaw": 0.7853981633974483,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 102,
+              "yaw": 0.6981317007977318,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 102,
+              "yaw": 0.6108652381980153,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 102,
+              "yaw": 0.5235987755982988,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 102,
+              "yaw": 0.4363323129985824,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 102,
+              "yaw": 0.3490658503988659,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 102,
+              "yaw": 0.2617993877991494,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 102,
+              "yaw": 0.17453292519943295,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 102,
+              "yaw": 0.08726646259971647,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 102,
+              "yaw": 0,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 101.61946980917456,
+              "yaw": 0,
+              "pitch": -1.4835298641951802,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 100.48077530122082,
+              "yaw": 0,
+              "pitch": -1.3962634015954636,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 98.59258262890683,
+              "yaw": 0,
+              "pitch": -1.3089969389957472,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 95.96926207859083,
+              "yaw": 0,
+              "pitch": -1.2217304763960306,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 92.63077870366499,
+              "yaw": 0,
+              "pitch": -1.1344640137963142,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 88.60254037844386,
+              "yaw": 0,
+              "pitch": -1.0471975511965976,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 83.91520442889917,
+              "yaw": 0,
+              "pitch": -0.9599310885968813,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 78.60444431189781,
+              "yaw": 0,
+              "pitch": -0.8726646259971648,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 72.71067811865474,
+              "yaw": 0,
+              "pitch": -0.7853981633974483,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 66.27876096865393,
+              "yaw": 0,
+              "pitch": -0.6981317007977318,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 59.35764363510461,
+              "yaw": 0,
+              "pitch": -0.6108652381980153,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 51.99999999999999,
+              "yaw": 0,
+              "pitch": -0.5235987755982988,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 44.26182617406995,
+              "yaw": 0,
+              "pitch": -0.4363323129985824,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 36.202014332566876,
+              "yaw": 0,
+              "pitch": -0.3490658503988659,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 27.88190451025207,
+              "yaw": 0,
+              "pitch": -0.2617993877991494,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 19.364817766693033,
+              "yaw": 0,
+              "pitch": -0.17453292519943295,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 10.715574274765817,
+              "yaw": 0,
+              "pitch": -0.08726646259971647,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 2,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 0,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            }
+          ]
+        },
+        {
+          "templateId": "upright-left-standing",
+          "name": "Stood on end and left standing inside",
+          "nameHe": "בעמידה על הקצה, נשארת עומדת בפנים",
+          "requirement": {
+            "doorWidth": 100,
+            "doorHeight": 202,
+            "hallwayClearance": 142,
+            "roomDepth": 92.01,
+            "alongWall": 263.19
+          },
+          "stages": [
+            {
+              "id": "stand-up",
+              "name": "Stand it on its end in the corridor",
+              "nameHe": "להעמיד אותה על הקצה במסדרון",
+              "startIndex": 0,
+              "endIndex": 19,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 102,
+                "roomDepth": 0,
+                "alongWall": 263.19
+              }
+            },
+            {
+              "id": "turn-to-face",
+              "name": "Turn it to face the doorway",
+              "nameHe": "לסובב אותה אל מול הפתח",
+              "startIndex": 19,
+              "endIndex": 37,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 142,
+                "roomDepth": 0,
+                "alongWall": 205.92
+              }
+            },
+            {
+              "id": "carry-through",
+              "name": "Walk it through standing up",
+              "nameHe": "להעביר אותה דרך הפתח בעמידה",
+              "startIndex": 37,
+              "endIndex": 38,
+              "requirement": {
+                "doorWidth": 100,
+                "doorHeight": 202,
+                "hallwayClearance": 142,
+                "roomDepth": 92.01,
+                "alongWall": 100
+              }
+            },
+            {
+              "id": "set-down-standing",
+              "name": "Set it down still standing",
+              "nameHe": "להניח אותה בעמידה",
+              "startIndex": 38,
+              "endIndex": 39,
+              "requirement": {
+                "doorWidth": 0,
+                "doorHeight": 0,
+                "hallwayClearance": 0,
+                "roomDepth": 92.01,
+                "alongWall": 100
+              }
+            }
+          ],
+          "path": [
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 0,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 2,
+              "yaw": 0,
+              "pitch": 0,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 10.715574274765817,
+              "yaw": 0,
+              "pitch": -0.08726646259971647,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 19.364817766693033,
+              "yaw": 0,
+              "pitch": -0.17453292519943295,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 27.88190451025207,
+              "yaw": 0,
+              "pitch": -0.2617993877991494,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 36.202014332566876,
+              "yaw": 0,
+              "pitch": -0.3490658503988659,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 44.26182617406995,
+              "yaw": 0,
+              "pitch": -0.4363323129985824,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 51.99999999999999,
+              "yaw": 0,
+              "pitch": -0.5235987755982988,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 59.35764363510461,
+              "yaw": 0,
+              "pitch": -0.6108652381980153,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 66.27876096865393,
+              "yaw": 0,
+              "pitch": -0.6981317007977318,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 72.71067811865474,
+              "yaw": 0,
+              "pitch": -0.7853981633974483,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 78.60444431189781,
+              "yaw": 0,
+              "pitch": -0.8726646259971648,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 83.91520442889917,
+              "yaw": 0,
+              "pitch": -0.9599310885968813,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 88.60254037844386,
+              "yaw": 0,
+              "pitch": -1.0471975511965976,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 92.63077870366499,
+              "yaw": 0,
+              "pitch": -1.1344640137963142,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 95.96926207859083,
+              "yaw": 0,
+              "pitch": -1.2217304763960306,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 98.59258262890683,
+              "yaw": 0,
+              "pitch": -1.3089969389957472,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 100.48077530122082,
+              "yaw": 0,
+              "pitch": -1.3962634015954636,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 101.61946980917456,
+              "yaw": 0,
+              "pitch": -1.4835298641951802,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 0,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 0.08726646259971647,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 0.17453292519943295,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 0.2617993877991494,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 0.3490658503988659,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 0.4363323129985824,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 0.5235987755982988,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 0.6108652381980153,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 0.6981317007977318,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 0.7853981633974483,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 0.8726646259971648,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 0.9599310885968813,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 1.0471975511965976,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 1.1344640137963142,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 1.2217304763960306,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 1.3089969389957472,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 1.3962634015954636,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 1.4835298641951802,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": -52,
+              "z": 102,
+              "yaw": 1.5707963267948966,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 102,
+              "yaw": 1.5707963267948966,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            },
+            {
+              "x": 3.552713678800501e-15,
+              "y": 107,
+              "z": 100,
+              "yaw": 1.5707963267948966,
+              "pitch": -1.5707963267948966,
+              "tiltAxis": "y"
+            }
+          ]
         }
       ],
       "modules": []
@@ -18187,7 +25219,8 @@ export const PRECOMPUTED: Precomputed = {
         "doorWidth": 85.01,
         "doorHeight": 95,
         "hallwayClearance": 222,
-        "roomDepth": 222
+        "roomDepth": 222,
+        "alongWall": 150.01
       },
       "stages": [
         {
@@ -18200,7 +25233,8 @@ export const PRECOMPUTED: Precomputed = {
             "doorWidth": 0,
             "doorHeight": 0,
             "hallwayClearance": 222,
-            "roomDepth": 0
+            "roomDepth": 0,
+            "alongWall": 150.01
           }
         },
         {
@@ -18213,7 +25247,8 @@ export const PRECOMPUTED: Precomputed = {
             "doorWidth": 85.01,
             "doorHeight": 95,
             "hallwayClearance": 222,
-            "roomDepth": 222
+            "roomDepth": 222,
+            "alongWall": 85.01
           }
         },
         {
@@ -18226,7 +25261,8 @@ export const PRECOMPUTED: Precomputed = {
             "doorWidth": 0,
             "doorHeight": 0,
             "hallwayClearance": 0,
-            "roomDepth": 222
+            "roomDepth": 222,
+            "alongWall": 150.01
           }
         }
       ],
@@ -18552,13 +25588,13 @@ export const PRECOMPUTED: Precomputed = {
           "tiltAxis": "x"
         }
       ],
-      "micros": 138
+      "micros": 70
     },
     "planner": {
       "feasible": false,
       "reason": "search-budget-exhausted",
       "nodes": 1200000,
-      "ms": 14319,
+      "ms": 10293,
       "budget": 1200000
     },
     "proof": {

@@ -77,8 +77,9 @@ export function suggestionList(
 export function measurementsStrip(params: EnvironmentParams): HTMLElement {
   const entries: [string, string][] = [
     ['Opening', `${cm(params.openingWidth)} × ${cm(params.openingHeight)} cm`],
-    ['Hallway clearance', `${cm(params.hallwayWidth)} cm`],
-    ['Room depth', `${cm(params.roomDepth)} cm`],
+    ['In front of the door', `${cm(params.hallwayWidth)} cm`],
+    ['Along the wall', `${cm(params.hallwayDepth)} cm`],
+    ['Behind the door', `${cm(params.roomDepth)} cm`],
     ['Ceiling', `${cm(params.ceilingHeight)} cm`],
   ];
   return el(

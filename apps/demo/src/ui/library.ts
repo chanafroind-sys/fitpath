@@ -63,13 +63,17 @@ export function sourceNote(source: Source): HTMLElement {
 export function clearanceCaveat(requirement: ManeuverRequirement): HTMLElement {
   return el('div', { class: 'caveat' }, [
     el('p', {}, [
-      el('strong', { text: `Needs ${requirement.hallwayClearance.toFixed(0)} cm of clear floor in front of the door.` }),
-      ' Every maneuver in the library starts with the sofa already square to the doorway, and holding it square takes its own length in front of the wall.',
+      el('strong', {
+        text:
+          `Needs ${requirement.hallwayClearance.toFixed(0)} cm in front of the door, ` +
+          `${requirement.alongWall.toFixed(0)} cm along the wall, and ` +
+          `${requirement.roomDepth.toFixed(0)} cm behind it.`,
+      }),
     ]),
     el('p', { class: 'muted' }, [
-      'Turning it square from along a corridor is ',
-      el('em', { text: 'not yet in the library' }),
-      '. If your hallway is narrower than that figure, this answer does not apply to you — the general planner below is the one to ask.',
+      'All three are measured from the motion itself. The maneuvers that stand an item on its end spend the length ',
+      el('em', { text: 'along' }),
+      ' the wall instead of the depth in front of it, which is usually the trade a real hallway wants.',
     ]),
   ]);
 }
@@ -99,6 +103,8 @@ export function reportPanel(report: ItemReport, modules: readonly { id: string; 
       el('td', { text: line.valid && line.requirement ? cm(line.requirement.doorWidth) : '—' }),
       el('td', { text: line.valid && line.requirement ? cm(line.requirement.doorHeight) : '—' }),
       el('td', { text: line.valid && line.requirement ? cm(line.requirement.hallwayClearance) : '—' }),
+      el('td', { text: line.valid && line.requirement ? cm(line.requirement.alongWall) : '—' }),
+      el('td', { text: line.valid && line.requirement ? cm(line.requirement.roomDepth) : '—' }),
       el('td', { class: 'cell-verdict' }, [
         line.valid
           ? el('span', { class: 'ok-tick', text: 'validated' })
@@ -126,7 +132,9 @@ export function reportPanel(report: ItemReport, modules: readonly { id: string; 
           el('th', { scope: 'col', text: 'Maneuver' }),
           el('th', { scope: 'col', text: 'Door width' }),
           el('th', { scope: 'col', text: 'Door height' }),
-          el('th', { scope: 'col', text: 'Hallway' }),
+          el('th', { scope: 'col', text: 'In front' }),
+          el('th', { scope: 'col', text: 'Along' }),
+          el('th', { scope: 'col', text: 'Behind' }),
           el('th', { scope: 'col', text: '' }),
         ]),
       ]),

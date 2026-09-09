@@ -12,8 +12,20 @@ import type { PreparedItem } from '../geometry/collide.ts';
 export interface ManeuverRequirement {
   doorWidth: number;
   doorHeight: number;
+  /** Depth in front of the door, toward the hallway. */
   hallwayClearance: number;
+  /** Depth behind the door, into the room. */
   roomDepth: number;
+  /**
+   * How far the motion needs along the wall, on either side of the doorway.
+   *
+   * The third corridor dimension, and the one that decides whether an item can
+   * be turned to face the door at all. It was left generous while every
+   * maneuver began with the item already square, because then it never bound.
+   * The approach maneuvers stand a sofa on end in the corridor and turn it
+   * there, and for those it is the number that matters most.
+   */
+  alongWall: number;
 }
 
 /** One movement within a maneuver, with the footprint it alone demands. */

@@ -31,7 +31,9 @@ describe('the catalogue', () => {
     [SLIM_ARM_2_SEAT, 77.79, 77.76, 'the armrests'],
     [CORNER_SOFA, 85.01, 85.0, 'the backrest'],
     [DEEP_SEAT_LOUNGE, 75.01, 75.0, 'the backrest'],
-    [RECLINER_2_SEAT, 100.01, 100.0, 'the recliner housing'],
+    // Stood on end it clears 100.00 rather than the 100.01 straight-in needs —
+    // a hundredth, but the approach maneuvers are why it moved at all.
+    [RECLINER_2_SEAT, 100.0, 100.0, 'the recliner housing'],
     [SOFA_BED, 90.01, 90.0, 'the backrest'],
   ] as const)('measures %#: narrowest doorway, floor, and what sets it', (item, narrowest, floor, part) => {
     const measured = report(item);
@@ -84,7 +86,12 @@ describe('the catalogue', () => {
    */
   it('reports the corner sofa assembled and in modules, and they differ', () => {
     const whole = report(CORNER_SOFA);
-    expect(whole.maneuvers.every((m) => m.valid)).toBe(true);
+    // The approach maneuvers do not apply to it: standing a 280 cm L on its
+    // end is not a thing that happens, and the template says so rather than
+    // producing a motion nobody would perform.
+    expect(
+      whole.maneuvers.filter((m) => m.valid).map((m) => m.templateId).sort(),
+    ).toEqual(['on-its-side', 'seat-first', 'straight-in']);
 
     const level = whole.maneuvers.find((m) => m.templateId === 'straight-in')!.requirement!;
     expect(level.doorWidth).toBeCloseTo(200, 1);
@@ -127,34 +134,55 @@ describe('the catalogue', () => {
   });
 
   /**
-   * Every maneuver needs the item square to the doorway before it starts, and
-   * holding a sofa square to a wall takes the length of whichever side is
-   * leading in front of that wall. That is a limitation of the library rather
-   * than a fact about the furniture — lining an item up from along a corridor
-   * is not a maneuver anyone has written — and it has to be visible in the
-   * numbers rather than buried in them.
+   * What each family of maneuver asks of the floor, and the trade between them.
    *
-   * Which side leads is not always the longest. The deep-seat lounge goes in on
-   * end, presenting its 110 cm depth to the corridor rather than its 210 cm
-   * length, so it asks for 112 cm of clearance where the three-seater asks 222.
-   * The invariant is therefore the shorter of the two, and the per-item figures
-   * are pinned above.
+   * The square-to-the-door maneuvers begin with the item already facing the
+   * opening, and holding a 220 cm sofa square to a wall takes its own length in
+   * front of that wall. That was the library's single biggest practical
+   * limitation: it turned a 120 cm hallway into a refusal.
+   *
+   * The approach maneuvers include getting the item into position, and they do
+   * it by standing it on its end — which trades depth in front of the wall for
+   * length ALONG the wall, and a person's hallway usually has far more of the
+   * second than the first. Both halves of that trade are pinned here, because
+   * an approach that quietly needed the same floor would be no approach at all.
    */
-  it('asks for the item to be square to the door first, and says so in the number', () => {
+  it('trades depth in front of the wall for length along it', () => {
+    const almedal = report(SOFA_3_SEAT);
+    const need = (id: string) =>
+      almedal.maneuvers.find((m) => m.templateId === id)?.requirement;
+
+    // Square to the door: its own length in front, and almost nothing along.
+    expect(need('straight-in')!.hallwayClearance).toBeCloseTo(222, 1);
+    expect(need('on-its-side')!.hallwayClearance).toBeCloseTo(222, 1);
+    expect(need('straight-in')!.alongWall).toBeLessThan(100);
+
+    // Stood on its end: a hundred centimetres less floor in front, bought with
+    // length along the wall and a doorway tall enough to take it standing.
+    const upright = need('upright-through')!;
+    expect(upright.hallwayClearance).toBeCloseTo(122.18, 1);
+    expect(upright.alongWall).toBeGreaterThan(250);
+    expect(upright.doorHeight).toBeCloseTo(222, 1);
+    expect(need('straight-in')!.hallwayClearance - upright.hallwayClearance).toBeGreaterThan(95);
+
+    // And left standing on the far side, the room needs its end rather than
+    // its length — which is what makes a shallow room possible at all.
+    expect(need('upright-left-standing')!.roomDepth).toBeCloseTo(87.01, 1);
+  });
+
+  it('never reports a requirement smaller than the item that has to pass', () => {
     for (const item of SOFAS) {
       const measured = report(item);
-      const shorter = Math.min(measured.dimensions.length, measured.dimensions.depth);
+      const shortest = Math.min(measured.dimensions.depth, measured.dimensions.height);
       for (const line of measured.maneuvers) {
         if (line.requirement === undefined) continue;
+        const r = line.requirement;
         expect(`${item.id}/${line.templateId}`).toBe(
-          line.requirement.hallwayClearance >= shorter ? `${item.id}/${line.templateId}` : 'too little clearance',
+          r.hallwayClearance >= shortest && r.roomDepth > 0 && r.alongWall > 0
+            ? `${item.id}/${line.templateId}`
+            : 'a requirement smaller than the item',
         );
       }
-    }
-    // And the headline case, exactly: a 220 cm sofa wants 222 cm in front.
-    const almedal = report(SOFA_3_SEAT);
-    for (const line of almedal.maneuvers) {
-      expect(line.requirement?.hallwayClearance).toBeCloseTo(222, 1);
     }
   });
 });

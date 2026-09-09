@@ -4,6 +4,7 @@ import type { ManeuverTemplate } from './types.ts';
 import type { TravelAxis } from './footprint.ts';
 import { degrees, radians } from '../math/rotation.ts';
 import { bandSection, itemLocalBoxes, orientedBounds, rolledExtent } from './footprint.ts';
+import { UPRIGHT_LEFT_STANDING, UPRIGHT_THROUGH } from './approach.ts';
 
 /** Clearance left between the item and the wall it starts or ends behind. */
 const MARGIN = 2;
@@ -475,6 +476,12 @@ export const SEAT_FIRST: ManeuverTemplate = {
 };
 
 /** The library, in a fixed order. */
-export const TEMPLATES: readonly ManeuverTemplate[] = [STRAIGHT_IN, ON_ITS_SIDE, SEAT_FIRST];
+export const TEMPLATES: readonly ManeuverTemplate[] = [
+  STRAIGHT_IN,
+  ON_ITS_SIDE,
+  SEAT_FIRST,
+  UPRIGHT_THROUGH,
+  UPRIGHT_LEFT_STANDING,
+];
 
 export { LINTEL, MARGIN, THREAD_STEP };

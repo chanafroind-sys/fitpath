@@ -33,6 +33,8 @@ describe('the maneuver library', () => {
       'straight-in',
       'on-its-side',
       'seat-first',
+      'upright-through',
+      'upright-left-standing',
     ]);
 
     const [straight, side, seat] = maneuvers as [
@@ -192,7 +194,7 @@ describe('choosing a maneuver at runtime', () => {
     expect(selection.found).toBe(false);
     if (selection.found) return;
 
-    expect(selection.rejected).toHaveLength(3);
+    expect(selection.rejected).toHaveLength(5);
     for (const rejection of selection.rejected) {
       expect(rejection.shortfall.doorWidth).toBeDefined();
       expect(rejection.shortfall.doorWidth!.has).toBe(80);

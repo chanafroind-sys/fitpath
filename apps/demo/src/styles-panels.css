@@ -173,3 +173,94 @@
     color: var(--accent);
   }
 }
+
+/* --- the corridor diagram, beside the fields it explains ----------------- */
+
+.measure-row {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+
+@media (min-width: 860px) {
+  .measure-row {
+    grid-template-columns: minmax(0, 1.4fr) minmax(220px, 0.8fr);
+  }
+}
+
+.corridor-figure {
+  margin: 0;
+  padding: 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface-2);
+}
+
+.corridor-figure figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.78rem;
+}
+
+.corridor-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  color: var(--accent);
+}
+
+.corridor-room,
+.corridor-hall {
+  fill: var(--surface);
+  stroke: var(--line);
+  stroke-width: 1;
+}
+
+.corridor-wall {
+  fill: var(--ink-soft);
+  stroke: none;
+}
+
+.corridor-arrow {
+  stroke: currentColor;
+  stroke-width: 1.4;
+  fill: none;
+}
+
+.corridor-opening {
+  stroke: var(--accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.corridor-zone {
+  fill: var(--ink-soft);
+  font-size: 11px;
+  text-anchor: middle;
+  font-style: italic;
+}
+
+.corridor-label {
+  fill: var(--ink);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.corridor-label-along,
+.corridor-label-opening {
+  text-anchor: middle;
+}
+
+.corridor-label-opening {
+  fill: var(--accent-ink);
+}
+
+:root[data-theme='dark'] .corridor-label-opening {
+  fill: var(--accent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .corridor-label-opening {
+    fill: var(--accent);
+  }
+}
