@@ -94,7 +94,17 @@ const scene = (id: string): EnvironmentParams =>
 
 const SOFA_DEFAULTS = scene('sofa-3-seat');
 const SLIM_DEFAULTS = scene('slim-arm-2-seat');
-const CORNER_DEFAULTS = scene('corner-sofa');
+// const CORNER_DEFAULTS = scene('corner-sofa');
+const CORNER_DEFAULTS: EnvironmentParams = {
+  openingWidth: 170,      // רוחב הפתח (Opening width)
+  openingHeight: 190,    // גובה הפתח (Opening height)
+  wallThickness: 15,     // עובי הקיר
+  hallwayWidth: 300,     // רוחב המסדרון לאורך הקיר
+  hallwayDepth: 360,     // עומק לפני הדלת
+  roomDepth: 400,        // עומק החדר מאחורי הדלת
+  roomWidth: 400,        // רוחב החדר
+  ceilingHeight: 250,    // גובה התקרה
+};
 const DEEP_DEFAULTS = scene('deep-seat-lounge');
 const RECLINER_DEFAULTS = scene('recliner-2-seat');
 const SOFA_BED_DEFAULTS = scene('sofa-bed');
