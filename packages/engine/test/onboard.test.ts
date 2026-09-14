@@ -2,6 +2,9 @@ import { describe, expect, it } from 'vitest';
 import type { FurnitureInput } from '../src/sourcing/types.ts';
 import type { ItemReport } from '../src/maneuvers/report.ts';
 import { onboardBatch, onboardItem } from '../src/sourcing/onboard.ts';
+import { measureLegsFromImages, withImageEvidence } from '../src/sourcing/imageEvidence.ts';
+import { buildFurnitureModel } from '../src/sourcing/furnitureModel.ts';
+import { renderElevation } from './support/rasterise.ts';
 import { reportOn } from '../src/maneuvers/report.ts';
 import { FURNITURE_PIPELINE_VERSION } from '../src/sourcing/furnitureModel.ts';
 import { SOFA_3_SEAT } from '../src/fixtures/items.ts';
@@ -279,5 +282,77 @@ describe('onboarding a list', () => {
   it('leaves the fixtures alone', () => {
     expect(SOFA_3_SEAT.boxes).toHaveLength(8);
     expect(CORNER_SOFA.boxes).toHaveLength(7);
+  });
+});
+
+describe('the chain: what the under-seat carve is worth', () => {
+  /**
+   * **A thread left open for three rounds, closed by a measurement.**
+   *
+   * The silhouette analyser extracts a leg inset accurately and had never been
+   * shown to change an answer — and it was validated on a catalogue where five
+   * of six sofas stand on a plinth. So: the one fixture with legs, modelled four
+   * ways, from a solid leg band up to the fixture's own four posts, and the
+   * narrowest doorway each needs.
+   *
+   *   A  listing, band solid, no inset            85.01   on-its-side
+   *   B  + image-measured inset (3.48 - 3 tol)    85.01   on-its-side
+   *   C  + operator inset 3.5, no tolerance       85.01   on-its-side
+   *   D  hand-authored fixture, real four posts   85.01   on-its-side
+   *
+   * Zero. Not on the image path, not on a tape-measured inset, and not on the
+   * real geometry either — D is the ceiling of what any leg measurement could
+   * ever deliver, and it is the same 85.01 by the same maneuver. The doorway is
+   * set by the sofa's 85 cm height, exactly as the corner sofa's was; it goes
+   * through on its side and the legs never enter that number.
+   *
+   * Two things did move, and neither changes the answer. `seat-first` alone
+   * needs 85.01 / 88.88 / 88.63 / 85.04 across A-D: the single-inset contract
+   * models legs as one centred slab, and a centred slab tilts differently from
+   * four corner posts, so it reads *worse* than either the solid band or the
+   * truth — never the binding maneuver, so harmless, but a limit of the
+   * contract worth knowing. And the real posts need 150 cm along the wall where
+   * every generated variant needs 180: the value of true leg geometry is in
+   * `alongWall`, and a single inset cannot carry it.
+   *
+   * The image path is parked on this. It is correct, measured, and changes
+   * nothing a shopper can feel.
+   */
+  it('changes the narrowest doorway by 0.00 cm, all the way up to the real leg geometry', () => {
+    const listing = LISTINGS[0]!.published;
+    const dims = { overallWidthCm: 220, overallDepthCm: 95, overallHeightCm: 85 };
+    const image = measureLegsFromImages(
+      [
+        {
+          bitmap: renderElevation(SOFA_3_SEAT, 'front', { pixelsAcross: 1200 }),
+          classification: { shot: 'front-elevation', legs: 'present', armrests: 'present', shape: 'straight' },
+        },
+        {
+          bitmap: renderElevation(SOFA_3_SEAT, 'side', { pixelsAcross: 1200 }),
+          classification: { shot: 'side-elevation', legs: 'present', armrests: 'present', shape: 'straight' },
+        },
+      ],
+      dims,
+    );
+
+    const solidBand = reportOn(buildFurnitureModel(listing).item, WALL);
+    const imageInset = reportOn(buildFurnitureModel(withImageEvidence(listing, image)).item, WALL);
+    const tapeInset = reportOn(
+      buildFurnitureModel({ ...listing, legs: { ...listing.legs!, insetCm: 3.5 } }).item,
+      WALL,
+    );
+    const realPosts = reportOn(SOFA_3_SEAT, WALL);
+
+    const validIds = (report: ItemReport) =>
+      report.maneuvers.filter((line) => line.valid).map((line) => line.templateId).sort();
+
+    for (const report of [solidBand, imageInset, tapeInset, realPosts]) {
+      expect(report.narrowest).toBeCloseTo(85.01, 2);
+      expect(validIds(report)).toEqual(validIds(realPosts));
+    }
+    // The carve really was made: this is not zero because nothing happened.
+    expect(buildFurnitureModel(withImageEvidence(listing, image)).carvedVolumeCm3).toBeGreaterThan(
+      buildFurnitureModel(listing).carvedVolumeCm3,
+    );
   });
 });
