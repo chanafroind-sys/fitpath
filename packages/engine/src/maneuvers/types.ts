@@ -49,6 +49,27 @@ export interface Maneuver {
   stages: ManeuverStage[];
   /** The motion itself, so animation and instructions come free. */
   path: Placement[];
+  /**
+   * The wall thickness this motion was measured and validated against, in
+   * centimetres. A doorway is a tunnel the depth of the wall, and the
+   * requirement above is what the item needs while it is inside that tunnel.
+   */
+  wallThickness: number;
+  /**
+   * The thickest wall the requirement is known to hold for.
+   *
+   * Thicker walls are strictly harder: the wall's solid grows and the
+   * clearances either side are measured from its faces, so a motion valid
+   * behind a thick wall is valid behind a thin one and not the other way
+   * round. The requirement is monotone in the thickness, which means two
+   * measurements settle it: built again behind a `THICK_WALL_BOUND` wall, a
+   * maneuver whose five numbers come out identical needs the same doorway for
+   * every thickness in between. Then this is that bound. Otherwise it equals
+   * `wallThickness`, and the requirement holds only for walls no thicker than
+   * that — which the result says, because an unstated assumption of 30 cm is
+   * unsafe for anyone whose wall is 40.
+   */
+  holdsForWallsUpTo: number;
 }
 
 /** A stage as a template emits it, before validation or measurement. */

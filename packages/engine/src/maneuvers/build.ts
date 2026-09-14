@@ -25,6 +25,25 @@ const MEASURE_STEP = 0.25;
 /** Requirements are rounded up to this many centimetres, never down. */
 const PRECISION = 0.01;
 
+/**
+ * The wall thickness assumed when a caller does not say.
+ *
+ * 30 cm rather than the 15 cm of a stud partition, because a library answer
+ * is only as safe as its thickest assumption: a shopper with a masonry wall
+ * measured against a 15 cm library would be handed a doorway number that is
+ * too small. Callers with a thinner wall lose nothing but a little margin;
+ * callers with a thicker one are told so — see `Maneuver.holdsForWallsUpTo`.
+ */
+export const DEFAULT_WALL_THICKNESS = 30;
+
+/**
+ * The wall every maneuver is also built behind, to find out whether its
+ * requirement depends on the thickness at all. Thicker than any wall in a
+ * house; a maneuver that needs the same doorway behind this holds for every
+ * wall a shopper will measure.
+ */
+export const THICK_WALL_BOUND = 100;
+
 function ceilTo(value: number): number {
   return Math.ceil(value / PRECISION) * PRECISION;
 }
@@ -274,8 +293,43 @@ export function buildManeuver(
       requirement,
       stages,
       path,
+      wallThickness,
+      // Until `buildLibrary` has measured it behind a thicker wall, the
+      // requirement is only known to hold for the wall it was measured at.
+      holdsForWallsUpTo: wallThickness,
     },
   };
+}
+
+const sameRequirement = (a: ManeuverRequirement, b: ManeuverRequirement): boolean =>
+  a.doorWidth === b.doorWidth &&
+  a.doorHeight === b.doorHeight &&
+  a.hallwayClearance === b.hallwayClearance &&
+  a.roomDepth === b.roomDepth &&
+  a.alongWall === b.alongWall;
+
+/**
+ * How thick a wall a maneuver's requirement is known to hold behind.
+ *
+ * The requirement is monotone non-decreasing in the thickness — see
+ * `Maneuver.holdsForWallsUpTo` — so if the motion rebuilt behind a
+ * `THICK_WALL_BOUND` wall validates with the same five numbers, those numbers
+ * hold for every thickness between. Two measurements, and the answer covers
+ * the whole interval. A maneuver whose numbers grow, or that no longer
+ * validates, holds only for the thickness it was built at.
+ */
+export function wallThicknessBound(
+  item: PreparedItem,
+  template: ManeuverTemplate,
+  maneuver: Maneuver,
+  thick = THICK_WALL_BOUND,
+): number {
+  if (thick <= maneuver.wallThickness) return maneuver.wallThickness;
+  const behindThick = buildManeuver(item, template, thick);
+  if (!behindThick.ok) return maneuver.wallThickness;
+  return sameRequirement(behindThick.maneuver.requirement, maneuver.requirement)
+    ? thick
+    : maneuver.wallThickness;
 }
 
 export interface Library {
@@ -283,18 +337,30 @@ export interface Library {
   rejected: { templateId: string; name: string; reason: string }[];
 }
 
-/** Build every template for one item, keeping only the ones that validate. */
+/**
+ * Build every template for one item, keeping only the ones that validate.
+ *
+ * Each survivor is built a second time behind a `THICK_WALL_BOUND` wall, so
+ * that it can say how thick a wall its numbers hold for. That doubles the
+ * cost of a build, and it is the cheaper of the two honest options; the other
+ * is to publish a number with an assumption nobody can see.
+ */
 export function buildLibrary(
   item: PreparedItem,
-  wallThickness = 15,
+  wallThickness = DEFAULT_WALL_THICKNESS,
   templates: readonly ManeuverTemplate[] = TEMPLATES,
 ): Library {
   const maneuvers: Maneuver[] = [];
   const rejected: Library['rejected'] = [];
   for (const template of templates) {
     const outcome = buildManeuver(item, template, wallThickness);
-    if (outcome.ok) maneuvers.push(outcome.maneuver);
-    else rejected.push({ templateId: outcome.templateId, name: outcome.name, reason: outcome.reason });
+    if (outcome.ok) {
+      const maneuver = outcome.maneuver;
+      maneuver.holdsForWallsUpTo = wallThicknessBound(item, template, maneuver);
+      maneuvers.push(maneuver);
+    } else {
+      rejected.push({ templateId: outcome.templateId, name: outcome.name, reason: outcome.reason });
+    }
   }
   return { maneuvers, rejected };
 }

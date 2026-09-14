@@ -29,12 +29,17 @@ import type { FurnitureInput, FurnitureModelResult, ImprovementRequest } from '.
 import type { ItemReport } from '../maneuvers/report.ts';
 import { reportOn } from '../maneuvers/report.ts';
 import { buildFurnitureModel, FURNITURE_PIPELINE_VERSION } from './furnitureModel.ts';
+import { DEFAULT_WALL_THICKNESS } from '../maneuvers/build.ts';
 
 /** The doorway an item needs, and what it needs it for. */
 export interface DoorwayNeed {
   /** Narrowest doorway any validated maneuver clears, in centimetres. Absent when none does. */
   narrowestCm?: number;
-  /** Narrowest any roll schedule could reach, valid maneuver or not: the geometric floor. */
+  /**
+   * Narrowest any roll schedule could reach, valid maneuver or not. A floor on
+   * rolling along the travel axis — not on motions that lean or turn the item
+   * while it is inside the wall, which it does not describe.
+   */
   floorCm?: number;
   /** The maneuvers that validated, by template id, in library order. */
   maneuvers: readonly string[];
@@ -65,6 +70,8 @@ export interface OnboardedItem {
   id: string;
   name: string;
   pipelineVersion: string;
+  /** The wall thickness every figure was measured against. */
+  wallThicknessCm: number;
   model: FurnitureModelResult;
   /** The assembled body's report and requirement: what it needs as one piece. */
   assembled: { need: DoorwayNeed; report: ItemReport };
@@ -88,7 +95,11 @@ export interface OnboardedItem {
 }
 
 export interface OnboardOptions {
-  /** Wall thickness the maneuvers are validated against, in centimetres. Default 15. */
+  /**
+   * Wall thickness the maneuvers are validated against, in centimetres.
+   * Default `DEFAULT_WALL_THICKNESS`, 30. Every report produced says which
+   * figures hold for thicker walls and which do not.
+   */
   wallThicknessCm?: number;
 }
 
@@ -96,7 +107,7 @@ export interface OnboardOptions {
  * Run one listing all the way through: dimensions, model, maneuver library.
  */
 export function onboardItem(input: FurnitureInput, options: OnboardOptions = {}): OnboardedItem {
-  const wall = options.wallThicknessCm ?? 15;
+  const wall = options.wallThicknessCm ?? DEFAULT_WALL_THICKNESS;
   const model = buildFurnitureModel(input);
 
   const report = reportOn(model.item, wall);
@@ -133,6 +144,7 @@ export function onboardItem(input: FurnitureInput, options: OnboardOptions = {})
     id: model.item.id,
     name: model.item.name,
     pipelineVersion: FURNITURE_PIPELINE_VERSION,
+    wallThicknessCm: wall,
     model,
     assembled,
     ...(perPart === undefined ? {} : { perPart }),

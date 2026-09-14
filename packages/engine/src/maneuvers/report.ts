@@ -6,7 +6,7 @@ import { prepareItem } from '../geometry/collide.ts';
 import { radians } from '../math/rotation.ts';
 import { bandSection, itemLocalBoxes, orientedBounds, rolledExtent } from './footprint.ts';
 import { LINTEL, TEMPLATES, bestRollSchedule } from './templates.ts';
-import { buildManeuver } from './build.ts';
+import { DEFAULT_WALL_THICKNESS, buildManeuver, wallThicknessBound } from './build.ts';
 import { crossingStations, partBreakdown, turnsInTheOpening } from './parts.ts';
 import type { CrossingStation, PartLine } from './parts.ts';
 
@@ -259,6 +259,8 @@ export interface ManeuverLine {
   stations?: CrossingStation[];
   /** True when the item's angle changes while it is inside the opening. */
   turns?: boolean;
+  /** The thickest wall the requirement is known to hold for. See `Maneuver.holdsForWallsUpTo`. */
+  holdsForWallsUpTo?: number;
 }
 
 export interface RemovablePartLine {
@@ -273,6 +275,15 @@ export interface ItemReport {
   nameHe: string;
   /** Length, depth and height as the author drew them, in centimetres. */
   dimensions: { length: number; depth: number; height: number };
+  /** The wall thickness every figure below was measured against. */
+  wallThickness: number;
+  /**
+   * The assumption, in words, so that a page publishing the figures publishes
+   * it with them: which maneuvers hold for any wall, and which only for one no
+   * thicker than `wallThickness`.
+   */
+  wallStatement: string;
+  wallStatementHe: string;
   boxCount: number;
   /** The model itself: what the item is made of, part by part. */
   parts: PartLine[];
@@ -296,7 +307,7 @@ export interface ItemReport {
  * one to watch: it says whether the maneuvers in the library reach what the
  * item's geometry allows, or whether there is a maneuver nobody has written yet.
  */
-export function reportOn(item: Item, wallThickness = 15): ItemReport {
+export function reportOn(item: Item, wallThickness = DEFAULT_WALL_THICKNESS): ItemReport {
   const prepared = prepareItem(item);
   const bounds = orientedBounds(prepared, 0, 0, 'y');
 
@@ -318,6 +329,7 @@ export function reportOn(item: Item, wallThickness = 15): ItemReport {
         requirement,
         stations,
         turns: turnsInTheOpening(stations),
+        holdsForWallsUpTo: wallThicknessBound(prepared, template, outcome.maneuver),
       });
       if (narrowest === undefined || requirement.doorWidth < narrowest) {
         narrowest = requirement.doorWidth;
@@ -345,6 +357,7 @@ export function reportOn(item: Item, wallThickness = 15): ItemReport {
 
   const binding = bindingStation(prepared, wallThickness, 'turned');
   const upright = bindingStation(prepared, wallThickness, 'upright');
+  const { wallStatement, wallStatementHe } = wallStatements(maneuvers, wallThickness);
 
   return {
     id: item.id,
@@ -355,6 +368,9 @@ export function reportOn(item: Item, wallThickness = 15): ItemReport {
       depth: bounds.maxY - bounds.minY,
       height: bounds.maxZ - bounds.minZ,
     },
+    wallThickness,
+    wallStatement,
+    wallStatementHe,
     boxCount: item.boxes.length,
     parts: partBreakdown(
       prepared,
@@ -368,6 +384,46 @@ export function reportOn(item: Item, wallThickness = 15): ItemReport {
     ...(binding !== undefined ? { floor: binding.floor, binding } : {}),
     ...(upright !== undefined ? { upright } : {}),
   };
+}
+
+/**
+ * The wall assumption, said out loud.
+ *
+ * Which maneuvers need the same doorway behind any wall, and which were
+ * measured behind this one and are not known to hold behind a thicker one.
+ * A page that publishes the figures should publish this beside them.
+ */
+function wallStatements(
+  maneuvers: readonly ManeuverLine[],
+  wallThickness: number,
+): { wallStatement: string; wallStatementHe: string } {
+  const valid = maneuvers.filter((m) => m.valid);
+  const anyWall = valid.filter((m) => (m.holdsForWallsUpTo ?? 0) > wallThickness);
+  const thisWall = valid.filter((m) => (m.holdsForWallsUpTo ?? 0) <= wallThickness);
+  const bound = anyWall.reduce((least, m) => Math.min(least, m.holdsForWallsUpTo ?? Infinity), Infinity);
+  const list = (lines: ManeuverLine[], he: boolean): string =>
+    lines.map((m) => `“${he ? m.nameHe : m.name}”`).join(', ');
+
+  let en = `Measured against a wall ${wallThickness} cm thick. `;
+  let he = `נמדד מול קיר בעובי ${wallThickness} ס״מ. `;
+  if (valid.length === 0) {
+    en += 'No maneuver validated.';
+    he += 'אף תמרון לא אומת.';
+  } else if (thisWall.length === 0) {
+    en += `Every maneuver needs the same doorway behind any wall up to ${bound} cm thick.`;
+    he += `כל תמרון דורש את אותו פתח מאחורי כל קיר בעובי של עד ${bound} ס״מ.`;
+  } else if (anyWall.length === 0) {
+    en += `Every figure holds only for a wall no thicker than ${wallThickness} cm; a thicker wall is strictly harder and has not been measured.`;
+    he += `כל הנתונים תקפים רק לקיר שעוביו אינו עולה על ${wallThickness} ס״מ; קיר עבה יותר קשה יותר ולא נמדד.`;
+  } else {
+    en +=
+      `${list(anyWall, false)} ${anyWall.length === 1 ? 'needs' : 'need'} the same doorway behind any wall up to ${bound} cm thick; ` +
+      `${list(thisWall, false)} ${thisWall.length === 1 ? 'holds' : 'hold'} only for a wall no thicker than ${wallThickness} cm — a thicker wall is strictly harder and has not been measured.`;
+    he +=
+      `${list(anyWall, true)} — אותו פתח מאחורי כל קיר בעובי של עד ${bound} ס״מ; ` +
+      `${list(thisWall, true)} — רק לקיר שעוביו אינו עולה על ${wallThickness} ס״מ; קיר עבה יותר קשה יותר ולא נמדד.`;
+  }
+  return { wallStatement: en, wallStatementHe: he };
 }
 
 export { WORTH_MENTIONING };

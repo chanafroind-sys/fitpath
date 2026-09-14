@@ -119,8 +119,11 @@ export {
 } from './fixtures/scenarios.ts';
 
 export {
+  DEFAULT_WALL_THICKNESS,
+  THICK_WALL_BOUND,
   buildLibrary,
   buildManeuver,
+  wallThicknessBound,
   type Library,
   type ManeuverOutcome,
 } from './maneuvers/build.ts';
