@@ -1,4 +1,5 @@
-# Build the investor demo and publish it to GitHub Pages.
+# Build the investor demo, the embeddable widget and the fictional store that
+# embeds it, and publish them to GitHub Pages as one site.
 #
 # The engine's tests run first and the job stops if they fail. The demo's only
 # claim is that its numbers come from the engine, so shipping a demo built on an
@@ -41,8 +42,24 @@ jobs:
       - name: Test the engine
         run: npm --workspace @fitpath/engine test
 
+      - name: Test the illustrator and the widget
+        run: |
+          npm --workspace @fitpath/illustrate test
+          npm --workspace @fitpath/widget test
+
       - name: Typecheck and build the demo
         run: npm --workspace @fitpath/demo run build
+
+      # The embeddable widget and the fictional store that embeds it are
+      # published beside the demo, so one Pages site shows all three: the
+      # engine demo at /, the store at /store/, and the widget's files at
+      # /store/widget/ — which is also where the store's script tag points.
+      - name: Build the widget and the store that embeds it
+        run: |
+          npm --workspace @fitpath/widget run build
+          npm --workspace @fitpath/store run build
+          rm -rf apps/demo/dist/store
+          cp -r apps/store/dist apps/demo/dist/store
 
       # Requires Pages to be switched on for the repository first:
       # Settings > Pages > Build and deployment > Source: "GitHub Actions".

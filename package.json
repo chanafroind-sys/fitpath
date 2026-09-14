@@ -3,15 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Can this piece of furniture get through that doorway — and if so, how?",
+  "description": "Can this piece of furniture get through that doorway \u2014 and if so, how?",
   "license": "MIT",
   "workspaces": [
     "packages/*",
     "apps/*"
   ],
   "scripts": {
-    "test": "npm --workspace @fitpath/engine run test",
-    "typecheck": "npm --workspace @fitpath/engine run typecheck",
+    "test": "npm run test --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "build": "npm --workspace @fitpath/widget run build && npm --workspace @fitpath/store run build && npm --workspace @fitpath/demo run build",
     "bench": "npm --workspace @fitpath/engine run bench"
   },
   "devDependencies": {

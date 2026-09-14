@@ -4,8 +4,32 @@
     {
       "name": "demo",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["--workspace", "@fitpath/demo", "run", "dev", "--", "--port", "5178", "--strictPort"],
+      "runtimeArgs": [
+        "--workspace",
+        "@fitpath/demo",
+        "run",
+        "dev",
+        "--",
+        "--port",
+        "5178",
+        "--strictPort"
+      ],
       "port": 5178
+    },
+    {
+      "name": "store",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "--workspace",
+        "@fitpath/store",
+        "run",
+        "preview",
+        "--",
+        "--port",
+        "5179",
+        "--strictPort"
+      ],
+      "port": 5179
     }
   ]
 }

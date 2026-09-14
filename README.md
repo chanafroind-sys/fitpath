@@ -6,19 +6,27 @@ in the way.
 
 ```
 fitpath/
-  packages/engine/   the geometry engine
-  apps/demo/         a mock retailer storefront that runs it in the browser
+  packages/engine/       the geometry engine
+  packages/viewer/       the engine's scenes drawn in Three.js, shared by the apps
+  packages/illustrate/   a product picture drawn from an item's box model, at build time
+  apps/widget/           the fit check as a store adds it: one script tag
+  apps/store/            a fictional shop that embeds it, exactly as a real one would
+  apps/demo/             the engine demo: the planner running in the browser
 ```
 
 The interesting part is [`packages/engine`](packages/engine) — start with its
 [README](packages/engine/README.md).
 
-[`apps/demo`](apps/demo) is a consumer of it, never a copy: a demonstration
-furniture shop whose "will it fit through my door?" button runs the real planner
-in a Web Worker while you watch, animates the path it returns, and says in as
-many words which of its answers are proofs and which are only the absence of a
-result. Its [README](apps/demo/README.md) sets out what on the page is computed
-and what is illustrated.
+Everything else is a consumer of it, never a copy. [`apps/widget`](apps/widget)
+is the product: a 1.6 KB script a store adds to a product page, which asks for
+one number — the doorway width — and answers from a maneuver library validated
+offline, escalating to the next number only while the answer is open, and
+showing what taking the sofa apart changes. [`apps/store`](apps/store) is a
+fictional shop with that script tag on every product page.
+[`apps/demo`](apps/demo) is the engine demo, whose "will it fit through my
+door?" button runs the real planner in a Web Worker while you watch and says
+in as many words which of its answers are proofs and which are only the
+absence of a result.
 
 A taste of what it is for. A 220 cm sofa passes a 110 cm doorway comfortably;
 its cross-section is only 95 × 85 cm. But if it arrives down a corridor with
@@ -41,7 +49,8 @@ anywhere, and zero runtime dependencies.
 
 ```bash
 npm install
-npm test
+npm test          # every workspace with tests: the engine, the illustrator, the widget
+npm run build     # the widget, the store that embeds it, and the demo
 npm run bench
 ```
 
