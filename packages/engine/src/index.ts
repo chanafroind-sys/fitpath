@@ -187,6 +187,16 @@ export {
   type PartLine,
 } from './maneuvers/parts.ts';
 export { UPRIGHT_LEFT_STANDING, UPRIGHT_THROUGH } from './maneuvers/approach.ts';
+export { arrangeParts, assemble, translateBoxes } from './sourcing/parts.ts';
+export {
+  onboardBatch,
+  onboardItem,
+  type BatchResult,
+  type DoorwayNeed,
+  type OnboardedItem,
+  type OnboardOptions,
+  type PartCarry,
+} from './sourcing/onboard.ts';
 
 // Sourcing: published retailer dimensions in, an Item out.
 export {
@@ -239,6 +249,11 @@ export type {
   MeasurementProvenance,
   ModelFlag,
   Provenance,
-  SeparablePartInput,
+  PartInput,
+  PartModel,
+  SinglePartModel,
+  Separates,
+  PartAttachment,
+  AttachmentSide,
   ToleranceReport,
 } from './sourcing/types.ts';

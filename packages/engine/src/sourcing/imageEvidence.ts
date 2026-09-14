@@ -129,7 +129,7 @@ const USABLE: ReadonlySet<ShotType> = new Set<ShotType>(['front-elevation', 'sid
  */
 export function measureLegsFromImages(
   images: readonly ClassifiedImage[],
-  published: Pick<FurnitureInput, 'overallWidthCm' | 'overallDepthCm' | 'overallHeightCm'>,
+  published: { overallWidthCm: number; overallDepthCm: number; overallHeightCm: number },
 ): ImageEvidenceResult {
   const rejections: { reason: RejectionReason; en: string; he: string }[] = [];
   const readings: { elevation: 'front' | 'side'; band: LegBandReading }[] = [];

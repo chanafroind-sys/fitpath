@@ -95,7 +95,14 @@ function sweepWith(overrides: Partial<FurnitureInput>): SweepResult {
 }
 
 const CARVE_ONLY = new Map([0, 1, 2, 3, 4, 5, 6].map((t) => [t, sweep(t, 0)]));
-/** The shipped configuration: measured default slack, roundness-aware skin growth. */
+/**
+ * The shipped configuration — which is the mechanism parked.
+ *
+ * This file is now a **diagnostic** rather than a defence of a default. It says
+ * what turning the tolerance on would buy and what it would cost, so the
+ * decision to leave it off stays a measured one; it no longer justifies a
+ * number that ships.
+ */
 const SHIPPED = sweepWith({ toleranceCm: DEFAULT_INPUT_TOLERANCE_CM });
 
 describe('input tolerance: what error in a listing does', () => {
@@ -108,14 +115,29 @@ describe('input tolerance: what error in a listing does', () => {
    * something that does not, which is the single outcome this subsystem exists
    * to prevent.
    */
-  it('breaks containment in 217 of 572 cases when the numbers are taken literally', () => {
+  it('breaks containment in 261 of 572 cases when the numbers are taken literally', () => {
     const baseline = CARVE_ONLY.get(0)!;
 
     expect(baseline.cases).toBe(572);
-    expect(baseline.carveBreaks + baseline.boundingBoxBreaks).toBe(217);
-    expect(baseline.carveBreaks).toBe(92);
-    expect(baseline.boundingBoxBreaks).toBe(125);
-    expect(Math.round(baseline.worstLeakCm3)).toBe(75680);
+    expect(baseline.carveBreaks + baseline.boundingBoxBreaks).toBe(261);
+    expect(baseline.carveBreaks).toBe(126);
+    expect(baseline.boundingBoxBreaks).toBe(135);
+    expect(Math.round(baseline.worstLeakCm3)).toBe(90325);
+  });
+
+  /**
+   * That figure went **up** when the tolerance was parked, and the rise is a
+   * correction rather than a regression.
+   *
+   * The old zero row was not really zero: the roundness floor lifted every value
+   * sitting on a multiple of five even when the caller had asked for no slack at
+   * all, so the baseline was quietly measuring a partly-defended pipeline
+   * against itself. Zero now means zero, and the honest count of what taking
+   * published numbers literally costs is 261 of 572 rather than 217.
+   */
+  it('counts a true zero, with the roundness floor parked alongside the tolerance', () => {
+    expect(DEFAULT_INPUT_TOLERANCE_CM).toBe(0);
+    expect(CARVE_ONLY.get(0)!.carveBreaks).toBeGreaterThan(CARVE_ONLY.get(1)!.carveBreaks);
   });
 
   /**
@@ -127,7 +149,7 @@ describe('input tolerance: what error in a listing does', () => {
    * number rather than by what was convenient to test.
    */
   it.each([
-    [0, 92],
+    [0, 126],
     [1, 74],
     [2, 56],
     [3, 35],
@@ -138,45 +160,41 @@ describe('input tolerance: what error in a listing does', () => {
     expect(CARVE_ONLY.get(tolerance)!.carveBreaks).toBe(expected);
   });
 
-  it('uses that measured value as the default', () => {
-    expect(DEFAULT_INPUT_TOLERANCE_CM).toBe(5);
-    expect(CARVE_ONLY.get(DEFAULT_INPUT_TOLERANCE_CM)!.carveBreaks).toBe(0);
+  /** Five is still where the cliff is. It is simply not switched on. */
+  it('still finds the cliff at five, for whoever turns it on', () => {
+    expect(CARVE_ONLY.get(5)!.carveBreaks).toBe(0);
+    expect(CARVE_ONLY.get(4)!.carveBreaks).toBeGreaterThan(0);
   });
 
   /**
    * **A KNOWN, ACCEPTED RISK — not desired behaviour. Read this before touching
-   * the number below.**
+   * the numbers below.**
    *
-   * Sixteen of five hundred and seventy-two perturbed listings still produce a
-   * model with a hole in it at the shipped defaults. Every one is an overall
-   * *height* under-reported by three centimetres or more, and every one is a
-   * case where this pipeline could answer "it fits" about a sofa that will not
-   * go through the door. That is the outcome the rest of this subsystem exists
-   * to prevent, and here it is not prevented.
+   * With the margins parked, 261 of 572 perturbed listings produce a model with
+   * a hole in it, and the worst is 90 litres of real sofa outside its own model.
+   * Each one is a case where this pipeline could answer "it fits" about a sofa
+   * that will not go through the door.
    *
-   * Why these sixteen and no others: roundness-aware growth covers the failures
-   * that *rounding* causes, and it covers all of them — every width and depth
-   * case is gone. What is left is the blunder population, a shop publishing 82
-   * for an 85 cm sofa, where the number looks precise and simply is not. No
-   * inference from the number can catch that; only a flat margin can.
+   * It is accepted, deliberately, on a claim about the *direction* of retail
+   * error rather than its size: a shop's commercial incentive on an overall
+   * dimension is to round up, and a listing that flatters a sofa produces a
+   * model larger than reality, which is the safe direction. This sweep is
+   * symmetric — it moves every field both ways with equal weight — so it counts
+   * a population of under-reports that the incentive argument says is rare. How
+   * rare is not measured here, and cannot be without real listings paired with
+   * real tape measurements.
    *
-   * The flat margin is priced, and the price is bad in both directions:
-   * `overallToleranceCm: 5` takes the sweep to zero for three more points of
-   * catalogue inflation (21% over exact becomes 24%). Three points to close
-   * sixteen unsound cases is arguably the trade this subsystem's own asymmetry
-   * says to take. It has not been taken because the per-face rule was asked for
-   * explicitly; the one-line change is `overallToleranceCm: 5`.
-   *
-   * This test is green when the risk is *exactly as large as we agreed it was*.
-   * If the number falls, something got safer and the figure should be lowered
-   * deliberately. If it rises, the risk grew without anyone deciding to let it,
-   * and that is a regression whatever else is passing.
+   * That is the shape of the bet: the mechanism that closes all of this is
+   * built, tested and one assignment away, and it was priced at 21% catalogue
+   * inflation charged on every sofa to insure against the rarer half of an
+   * asymmetric error. If the incentive argument is ever shown wrong — a source
+   * that under-reports — `toleranceCm: 5` and `overallToleranceCm: 5` take this
+   * to zero, and the rows above say what each step costs.
    */
-  it('characterises the 16 still-unsound cases the shipped defaults knowingly accept', () => {
-    expect(SHIPPED.carveBreaks).toBe(0);
-    expect(SHIPPED.boundingBoxBreaks).toBe(16);
-    // All height, now that roundness-aware growth has closed width and depth.
-    expect([...SHIPPED.byField.keys()]).toEqual(['overallHeightCm']);
+  it('characterises the still-unsound cases the parked margins knowingly accept', () => {
+    expect(SHIPPED.carveBreaks).toBe(126);
+    expect(SHIPPED.boundingBoxBreaks).toBe(135);
+    expect(Math.round(SHIPPED.worstLeakCm3)).toBe(90325);
   });
 
   it('closes every case in the sweep once the skin is grown by the full five', () => {

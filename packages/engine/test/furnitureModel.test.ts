@@ -60,12 +60,38 @@ const KOALA_BARE: FurnitureInput = {
   seatHeightCm: 44,
   seatDepthCm: 70,
   shape: 'straight',
-  separableParts: [
+};
+
+/**
+ * The same sofa with its ottoman, in the `parts` form.
+ *
+ * An ottoman is a part of the order and not of the body: it has no `attachment`,
+ * so it ships alongside rather than being fused in. Fusing it would invent
+ * material between the two that does not exist, and hide that the awkward piece
+ * goes through the door on its own.
+ */
+const KOALA_WITH_OTTOMAN: FurnitureInput = {
+  id: 'koala-3-seater',
+  name: 'Koala 3-seater',
+  ...EXACT_INPUT,
+  parts: [
+    {
+      ...EXACT_INPUT,
+      id: 'koala-body',
+      name: 'Koala 3-seater',
+      separates: false,
+      overallWidthCm: 300,
+      overallDepthCm: 100,
+      overallHeightCm: 70,
+      seatHeightCm: 44,
+      seatDepthCm: 70,
+      shape: 'straight',
+    },
     {
       ...EXACT_INPUT,
       id: 'koala-ottoman',
       name: 'Koala ottoman',
-      nameHe: 'הדום קואלה',
+      separates: true,
       overallWidthCm: 100,
       overallDepthCm: 100,
       overallHeightCm: 44,
@@ -114,10 +140,10 @@ describe('buildFurnitureModel: the Koala worked example', () => {
 
   /** The ottoman is carried in on its own, so it is its own item. */
   it('keeps the ottoman a separate item rather than folding it into the sofa', () => {
-    const result = buildFurnitureModel(KOALA_BARE);
+    const result = buildFurnitureModel(KOALA_WITH_OTTOMAN);
 
-    expect(result.separableParts).toHaveLength(1);
-    const ottoman = result.separableParts[0]!;
+    expect(result.shipsAlongside).toHaveLength(1);
+    const ottoman = result.shipsAlongside[0]!;
     expect(ottoman.item.id).toBe('koala-ottoman');
     expect(ottoman.item.boxes).toHaveLength(1);
     expect(dims(ottoman.item.boxes[0]!)).toEqual({ widthCm: 100, depthCm: 100, heightCm: 44 });
@@ -485,37 +511,41 @@ describe('buildFurnitureModel: the derivation rules', () => {
   });
 
   /** Rule: separable parts become separate items, never merged into one body. */
-  it('models each separable part in full, as its own item', () => {
+  it('models each piece that ships alongside in full, as its own item', () => {
     const result = buildFurnitureModel({
       ...base,
-      separableParts: [
-        { ...EXACT_INPUT, id: 'chaise', overallWidthCm: 95, overallDepthCm: 160, overallHeightCm: 85, seatHeightCm: 45, seatDepthCm: 60, armrests: 'none' },
+      parts: [
+        { ...EXACT_INPUT, id: 'body', separates: false, overallWidthCm: 200, overallDepthCm: 95, overallHeightCm: 85 },
+        { ...EXACT_INPUT, id: 'chaise', separates: true, overallWidthCm: 95, overallDepthCm: 160, overallHeightCm: 85, seatHeightCm: 45, seatDepthCm: 60, armrests: 'none' },
       ],
     });
 
-    expect(result.separableParts).toHaveLength(1);
-    const chaise = result.separableParts[0]!;
+    expect(result.shipsAlongside).toHaveLength(1);
+    const chaise = result.shipsAlongside[0]!;
     expect(chaise.item.id).toBe('chaise');
     expect(chaise.carvedVolumeCm3).toBeGreaterThan(0);
     expect(chaise.pipelineVersion).toBe(FURNITURE_PIPELINE_VERSION);
     expect(extentsOf(result.item)).toEqual({ widthCm: 200, depthCm: 95, heightCm: 85 });
   });
 
-  it('refuses a separable part that has separable parts of its own', () => {
+  it('refuses a part that has parts of its own', () => {
     expect(() =>
       buildFurnitureModel({
         ...base,
-        separableParts: [
+        parts: [
+          { ...EXACT_INPUT, id: 'body', separates: false, overallWidthCm: 200, overallDepthCm: 95, overallHeightCm: 85 },
           {
+            id: 'chaise',
+            separates: true,
             overallWidthCm: 95,
             overallDepthCm: 160,
             overallHeightCm: 85,
             // A nested catalogue, not a piece of furniture.
-            separableParts: [{ overallWidthCm: 10, overallDepthCm: 10, overallHeightCm: 10 }],
+            parts: [{ id: 'x', separates: false, overallWidthCm: 10, overallDepthCm: 10, overallHeightCm: 10 }],
           } as never,
         ],
       }),
-    ).toThrow(/may not nest/);
+    ).toThrow(/parts of its own/);
   });
 });
 
@@ -624,18 +654,21 @@ describe('buildFurnitureModel: provenance, versioning and the image seam', () =>
    * rule.
    */
   it('pins the pipeline version string', () => {
-    expect(FURNITURE_PIPELINE_VERSION).toBe('furniture-model/3.0.0');
-    expect(buildFurnitureModel(input).pipelineVersion).toBe('furniture-model/3.0.0');
+    expect(FURNITURE_PIPELINE_VERSION).toBe('furniture-model/4.0.0');
+    expect(buildFurnitureModel(input).pipelineVersion).toBe('furniture-model/4.0.0');
   });
 
   it('stamps the pipeline version on the model and on every separable part', () => {
     const result = buildFurnitureModel({
       ...input,
-      separableParts: [{ ...EXACT_INPUT, overallWidthCm: 90, overallDepthCm: 90, overallHeightCm: 42 }],
+      parts: [
+        { ...EXACT_INPUT, id: 'body', separates: false, overallWidthCm: 200, overallDepthCm: 95, overallHeightCm: 85 },
+        { ...EXACT_INPUT, id: 'ottoman', separates: true, overallWidthCm: 90, overallDepthCm: 90, overallHeightCm: 42 },
+      ],
     });
 
     expect(result.pipelineVersion).toBe(FURNITURE_PIPELINE_VERSION);
-    expect(result.separableParts[0]!.pipelineVersion).toBe(FURNITURE_PIPELINE_VERSION);
+    expect(result.shipsAlongside[0]!.pipelineVersion).toBe(FURNITURE_PIPELINE_VERSION);
   });
 
   /**
@@ -790,10 +823,34 @@ describe('buildFurnitureModel: input tolerance', () => {
    * the numbers in the catalogue's own listings sit on a multiple of five, where
    * rounding alone is worth up to that much.
    */
-  it('defaults to five centimetres of slack, and at least two on the overall dimensions', () => {
-    expect(DEFAULT_INPUT_TOLERANCE_CM).toBe(5);
-    expect(DEFAULT_OVERALL_TOLERANCE_CM).toBe(2);
-    expect(buildFurnitureModel(koalaL).tolerance.defaultCm).toBe(5);
+  /**
+   * **The mechanism is parked, not removed.**
+   *
+   * Both defaults are zero: published numbers are taken literally. The reasoning
+   * lives beside the constants — a shop's commercial incentive on an overall
+   * dimension is to round *up*, which already errs toward a model larger than
+   * reality, and defending against a five-centimetre error in both directions
+   * charged 21% of catalogue inflation to insure against the rarer half.
+   *
+   * Everything below this line still works, and the sweep still measures where
+   * the cliff would be. One assignment turns it all back on.
+   */
+  it('parks both margins at zero by default', () => {
+    expect(DEFAULT_INPUT_TOLERANCE_CM).toBe(0);
+    expect(DEFAULT_OVERALL_TOLERANCE_CM).toBe(0);
+
+    const parked = buildFurnitureModel(koalaL);
+    expect(parked.tolerance.defaultCm).toBe(0);
+    expect(parked.tolerance.overallCm).toEqual({ width: 0, depth: 0, height: 0 });
+    expect(parked.carves.every((carve) => carve.toleranceCm === 0)).toBe(true);
+  });
+
+  /** Parked means the roundness floor is parked with it: zero is a claim, not a small number. */
+  it('leaves the roundness floor dormant while the tolerance is zero', () => {
+    // 300, 100 and 70 are all multiples of ten, and none of them earns anything.
+    expect(buildFurnitureModel(koalaL).tolerance.byField).toEqual({});
+    // Ask for any slack at all and the floor comes back.
+    expect(buildFurnitureModel({ ...koalaL, toleranceCm: 0.5 }).tolerance.byField.seatDepthCm).toBe(5);
   });
 
   /**
@@ -805,8 +862,9 @@ describe('buildFurnitureModel: input tolerance', () => {
    * of the pipeline is reading it.
    */
   it('grows each face by what that dimension\'s own roundness earns', () => {
-    // 300, 100 and 70 are all multiples of ten, so every face earns the full five.
-    const rounded = buildFurnitureModel({ ...koalaL, overallToleranceCm: undefined });
+    // 300, 100 and 70 are all multiples of ten, so every face earns the full five
+    // — once any slack is asked for at all.
+    const rounded = buildFurnitureModel({ ...koalaL, toleranceCm: 2, overallToleranceCm: undefined });
     expect(rounded.tolerance.overallCm).toEqual({ width: 5, depth: 5, height: 5 });
     // Five on each end and each side, five at the top, nothing below the floor.
     expect(extentsOf(rounded.item)).toEqual({ widthCm: 310, depthCm: 110, heightCm: 75 });
@@ -814,20 +872,23 @@ describe('buildFurnitureModel: input tolerance', () => {
     // A height that is only a multiple of five earns half as much.
     const halfRounded = buildFurnitureModel({
       ...koalaL,
+      toleranceCm: 2,
       overallToleranceCm: undefined,
       overallHeightCm: 75,
     });
     expect(halfRounded.tolerance.overallCm).toEqual({ width: 5, depth: 5, height: 2.5 });
 
-    // 301, 99 and 71 look like nobody rounded them, so they get the base.
+    // 301, 99 and 71 look like nobody rounded them, so they earn nothing — and
+    // the base they fall back on is itself parked at zero.
     const unround = buildFurnitureModel({
       ...koalaL,
+      toleranceCm: 2,
       overallToleranceCm: undefined,
       overallWidthCm: 301,
       overallDepthCm: 99,
       overallHeightCm: 71,
     });
-    expect(unround.tolerance.overallCm).toEqual({ width: 2, depth: 2, height: 2 });
+    expect(unround.tolerance.overallCm).toEqual({ width: 0, depth: 0, height: 0 });
   });
 
   it('lets an explicit overall tolerance win over the roundness of a dimension', () => {

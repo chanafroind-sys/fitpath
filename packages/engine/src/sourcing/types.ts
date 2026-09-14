@@ -7,6 +7,9 @@
  */
 
 import type { Item } from '../types.ts';
+import type { PartAttachment, Separates } from './parts.ts';
+
+export type { AttachmentSide, PartAttachment, PartPlacement, Separates } from './parts.ts';
 
 /**
  * Where a number came from, as far as the produced model is concerned.
@@ -91,9 +94,16 @@ export interface FurnitureInput {
   name?: string;
   nameHe?: string;
 
-  overallWidthCm: number;
-  overallDepthCm: number;
-  overallHeightCm: number;
+  /**
+   * The three dimensions every listing has.
+   *
+   * Required for a single-part item, which is the shorthand form. When `parts`
+   * is given they live on each part instead, and the assembled item's own bounds
+   * are derived from how the parts sit against each other rather than stated.
+   */
+  overallWidthCm?: number;
+  overallDepthCm?: number;
+  overallHeightCm?: number;
 
   /** Floor to the top of the seat cushion. */
   seatHeightCm?: number;
@@ -110,7 +120,19 @@ export interface FurnitureInput {
   legs?: LegSpec;
   shape?: FurnitureShape;
 
-  separableParts?: readonly SeparablePartInput[];
+  /**
+   * The pieces this item is made of.
+   *
+   * Uniform: an ordinary sofa is one entry, a corner sofa is two, and there is
+   * no privileged "main item". The first entry is the anchor — everything else
+   * either attaches to it, joining the assembled body, or does not, and ships
+   * alongside like an ottoman.
+   *
+   * Absent is shorthand for "one part, described by the fields above". The two
+   * forms are the same contract; the short one just saves writing `parts` for
+   * the overwhelmingly common case.
+   */
+  parts?: readonly PartInput[];
 
   /** Per-field upstream source. Absent means `retailer-published`. See `FieldSource`. */
   fieldSources?: Partial<Record<FurnitureField, FieldSource>>;
@@ -167,16 +189,33 @@ export interface FurnitureInput {
 }
 
 /**
- * A piece that ships and is carried separately: an ottoman, a chaise module.
+ * One rigid piece of an item, modelled by exactly the same rules as a whole one.
  *
- * It is its own item with its own dimensions, and it is modelled by the same
- * function. Merging it into the parent's body would invent material between the
- * two pieces that does not exist, and it would hide the fact that the awkward
- * piece can go through the door on its own. Nesting is refused: a part with
- * parts of its own is a catalogue structure, not a piece of furniture.
+ * Nesting is refused: a part with parts of its own is a catalogue structure, not
+ * a piece of furniture.
  */
-export interface SeparablePartInput extends Omit<FurnitureInput, 'separableParts'> {
-  separableParts?: undefined;
+export interface PartInput extends Omit<FurnitureInput, 'parts'> {
+  parts?: undefined;
+  /** Required, because it is the field that changes the answer most. */
+  id: string;
+  overallWidthCm: number;
+  overallDepthCm: number;
+  overallHeightCm: number;
+  /**
+   * Whether this piece can be unbolted and carried in on its own.
+   *
+   * `'unknown'` is treated as rigid throughout. Assuming a body comes apart when
+   * it does not would report a doorway passable that a solid corner sofa will
+   * never get through, which is the fatal direction.
+   */
+  separates: Separates;
+  /**
+   * Which part this one bolts to, and at which end.
+   *
+   * Absent on the anchor. Absent on a piece that merely ships alongside — an
+   * ottoman is a part of the order, not of the body.
+   */
+  attachment?: PartAttachment;
 }
 
 /** One number in the produced model, and where it came from. */
@@ -274,7 +313,8 @@ export type FlagCode =
   | 'l-shape-not-modelled'
   | 'seat-body-implausibly-thin'
   | 'field-ignored-implausible'
-  | 'bounding-box-grown';
+  | 'bounding-box-grown'
+  | 'assembled-rigid';
 
 export interface ModelFlag {
   code: FlagCode;
@@ -311,14 +351,52 @@ export interface ToleranceReport {
   costCm3: number;
 }
 
+/**
+ * What modelling one rigid piece produces: everything a whole item's result
+ * carries except the fields that only mean something once there is more than one
+ * piece.
+ */
+export type SinglePartModel = Omit<FurnitureModelResult, 'parts' | 'shipsAlongside' | 'separable'>;
+
+/** One piece of an assembled item, modelled and placed. */
+export interface PartModel {
+  id: string;
+  name: string;
+  /** The piece on its own, at its own origin: what a single-module carry moves. */
+  item: Item;
+  separates: Separates;
+  attachment?: PartAttachment;
+  /** Where this piece's origin sits inside the assembled body. */
+  offsetXCm: number;
+  offsetYCm: number;
+  /** The full paperwork for this piece, since it went through the same pipeline. */
+  model: SinglePartModel;
+}
+
 export interface FurnitureModelResult {
   /** Bump this when a rule changes, so a catalogue knows what to re-run. */
   pipelineVersion: string;
   /** The slack every carve in this model was built with. */
   tolerance: ToleranceReport;
+  /** The assembled body: every attached part fused into one rigid item. */
   item: Item;
-  /** Separable pieces, each modelled in full by the same pipeline. Never merged in. */
-  separableParts: readonly FurnitureModelResult[];
+  /** Each piece of that body, placed, with its own model and its own `separates`. */
+  parts: readonly PartModel[];
+  /**
+   * Pieces that ship with the order but are not part of the body — an ottoman.
+   *
+   * Never merged in: fusing one would invent material between the two that does
+   * not exist, and would hide that the awkward piece goes through the door on
+   * its own.
+   */
+  shipsAlongside: readonly FurnitureModelResult[];
+  /**
+   * True when every piece of the body can be unbolted.
+   *
+   * The condition for a per-part carry to be offered at all. One `false` or one
+   * `'unknown'` anywhere and the body has to cross the doorway whole.
+   */
+  separable: boolean;
   boundingBox: { widthCm: number; depthCm: number; heightCm: number };
   boundingVolumeCm3: number;
   /** Volume of the bounding box that published facts proved was air. */

@@ -39,7 +39,8 @@ import {
  */
 export interface GroundTruthCase {
   fixture: Item;
-  published: FurnitureInput;
+  /** Always the single-part shorthand, so the three dimensions are always there. */
+  published: FurnitureInput & { overallWidthCm: number; overallDepthCm: number; overallHeightCm: number };
   /** Why this listing looks the way it does, in one line, for the failure message. */
   note: string;
 }

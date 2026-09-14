@@ -57,6 +57,8 @@
 
 import type { Box, Item, RemovablePart } from '../types.ts';
 import type {
+  PartInput,
+  PartModel,
   ArmrestPresence,
   BoxProvenance,
   Carve,
@@ -69,9 +71,10 @@ import type {
   ImprovementRequest,
   MeasurementProvenance,
   ModelFlag,
-  SeparablePartInput,
+  SinglePartModel,
   ToleranceReport,
 } from './types.ts';
+import { arrangeParts, assemble, type PartPlacement } from './parts.ts';
 
 /**
  * Bump on any change to the carving rules.
@@ -82,6 +85,16 @@ import type {
  * merely different from what this one would produce, but **unsound** — a model
  * with air in it where the furniture has material. Such a model cannot be left
  * in a catalogue to be compared against a doorway; it has to be rebuilt.
+ *
+ * ## 4.0.0
+ *
+ * The input contract changed shape: `separableParts` became a uniform `parts`
+ * array, so an L-shape is describable directly and no longer falls back to its
+ * bounding box. And both input-tolerance margins were parked at zero — see
+ * `DEFAULT_INPUT_TOLERANCE_CM`. A 3.0.0 model is not unsound under these rules,
+ * it is over-conservative: it carried up to five centimetres of slack per carve
+ * and up to five of skin growth that this version does not add. The major bump
+ * is for the contract, not for a hazard.
  *
  * ## 3.0.0
  *
@@ -109,7 +122,7 @@ import type {
  * Nothing has been built with 1.0.0 yet, which is exactly why the discipline is
  * cheap to establish now.
  */
-export const FURNITURE_PIPELINE_VERSION = 'furniture-model/3.0.0';
+export const FURNITURE_PIPELINE_VERSION = 'furniture-model/4.0.0';
 
 /**
  * The thinnest a seat body can plausibly be: seat height minus leg height.
@@ -125,49 +138,52 @@ export const MIN_PLAUSIBLE_SEAT_BODY_CM = 10;
  * How wrong a published number is assumed to be, in centimetres, unless the
  * caller says otherwise.
  *
- * **Chosen by measurement, not by taste.** `test/furnitureModelTolerance.test.ts`
- * moves every published field of every catalogue listing by up to five
- * centimetres in either direction and re-runs exact containment. Five is the
- * smallest value at which every carve-derived break disappears; four still
- * leaves fourteen.
+ * **Zero: the input-tolerance mechanism is parked.** It is built, tested and one
+ * assignment away from working; it is off because the error it defends against
+ * mostly does not run in the dangerous direction.
  *
- * It was two, until the sweep was widened. Two was validated against errors of
- * at most two, which is close to circular — and the reason to widen is in the
- * data: more than two thirds of the numbers in this repository's own six
- * listings sit on a multiple of five, and a value rounded to the nearest ten
- * carries up to five centimetres of error on that account alone. A default that
- * covered only the unrounded population would have been a default for the rare
- * case.
+ * A retailer's commercial incentive on an overall dimension is to round *up*. A
+ * sofa listed as 220 that measures 218 has been flattered, and a shopper who
+ * reads 220 is not disappointed by it. That bias makes the published number
+ * larger than reality, which makes the model larger than reality, which is the
+ * safe direction — the same direction every other rule in this file is written
+ * to fail in. Defending against a five-centimetre error in *both* directions
+ * therefore bought a little safety against the rare case and charged a measured
+ * 21% of catalogue inflation for it, paid on every sofa.
  *
- * It costs about a seventh of the carved volume. Every fixture still comes out
- * substantially tighter than its own bounding box, which is the test of whether
- * the carving rules are still earning their keep.
+ * What the mechanism is still for: a source that is known to round the other
+ * way, or a seat depth measured to a reference the rules do not assume. Those
+ * are real, and a caller who has one says so with `toleranceCm` or
+ * `fieldToleranceCm` and gets the whole apparatus back — the roundness floor,
+ * the per-face growth, the provenance. Nothing has been removed.
+ *
+ * The sweep in `test/furnitureModelTolerance.test.ts` still runs, still
+ * enumerates every field of every listing at +/-5 cm, and still measures where
+ * the cliff is. It is now a diagnostic that says what turning the mechanism on
+ * would buy, rather than a defence of a shipped default.
+ *
+ * Zero here means "the numbers are exact", which is a statement rather than a
+ * small quantity: it switches the roundness floor off with it. A floor under
+ * nothing is nothing.
  */
-export const DEFAULT_INPUT_TOLERANCE_CM = 5;
+export const DEFAULT_INPUT_TOLERANCE_CM = 0;
 
 /**
- * The FLOOR under how far an overall dimension may under-state the item, per face.
+ * The floor under how far an overall dimension may under-state the item, per face.
  *
- * Two centimetres is the base; a dimension that looks rounded earns more, on the
- * same roundness rule the carve tolerances use — see `overallGrowthFor`. The two
- * were briefly inconsistent, with the carve logic allowing five centimetres of
- * doubt about a published 300 while the skin allowed two, and one number cannot
- * be wrong by different amounts depending on which part of the pipeline reads it.
+ * **Zero, for the same reason as `DEFAULT_INPUT_TOLERANCE_CM`, and more so.**
+ * The overall dimensions are exactly the numbers a shop has the strongest reason
+ * to round up: they are what a shopper compares against a doorway, and a listing
+ * that under-states them generates returns. Growing a published 300 to 310 to
+ * defend against a shop that under-measured meant answering a question about a
+ * 310 cm sofa on every listing, including the great majority that were already
+ * generous.
  *
- * On by default. The argument for leaving it off was that a
- * model grown to 304 cm answers a question about a different sofa than the 300
- * cm one the caller asked about — true, and the wrong side of this subsystem's
- * trade. A sofa published as 300 that is really 302 is precisely the case where
- * the answer comes back "it fits" about something that does not, and that is the
- * one outcome this whole file is built to prevent. Two centimetres on a three
- * metre sofa is seven tenths of one per cent, against forty-two of two hundred
- * and sixty sweep cases that fail without it.
- *
- * The growth is never silent: it raises `bounding-box-grown`, and the boxes it
- * touched carry it in their provenance. A caller who genuinely knows a listing
- * is exact sets it to 0.
+ * Set it and the per-face roundness-aware growth comes back exactly as measured:
+ * a dimension that looks rounded to ten grows by five, one rounded to five by
+ * 2.5, anything else by the value given.
  */
-export const DEFAULT_OVERALL_TOLERANCE_CM = 2;
+export const DEFAULT_OVERALL_TOLERANCE_CM = 0;
 
 /**
  * The slack a published value's own roundness earns it, at minimum.
@@ -291,10 +307,241 @@ function requirePositive(value: number, field: string): number {
  * Turn published retailer dimensions into an engine `Item`, plus the paperwork
  * that says how much of it was measured and what to ask for next.
  */
+/**
+ * Model one item, however many pieces it comes in.
+ *
+ * A single-part item — an ordinary sofa, which is nearly all of them — goes
+ * straight through `buildOnePart`. Anything with a `parts` array is modelled
+ * piece by piece by exactly the same rules, then laid out against its stated
+ * arrangement and fused into one rigid body.
+ *
+ * The fusing is what removed the L-shape's bounding-box fallback: a corner sofa
+ * described as a 280 cm run plus a 105 cm right-facing chaise is two boxes at
+ * right angles, not a 280 x 200 slab, and none of that needed an image or an
+ * inference. It needed a contract that could hold what the shop already prints.
+ */
 export function buildFurnitureModel(input: FurnitureInput): FurnitureModelResult {
-  const width = requirePositive(input.overallWidthCm, 'overallWidthCm');
-  const depth = requirePositive(input.overallDepthCm, 'overallDepthCm');
-  const height = requirePositive(input.overallHeightCm, 'overallHeightCm');
+  if (input.parts === undefined) {
+    const single = buildOnePart(input);
+    return {
+      ...single,
+      parts: [
+        {
+          id: input.id ?? 'furniture',
+          name: input.name ?? 'furniture',
+          item: single.item,
+          separates: false,
+          offsetXCm: 0,
+          offsetYCm: 0,
+          model: single,
+        },
+      ],
+      shipsAlongside: [],
+      // One rigid piece is not separable into anything.
+      separable: false,
+    };
+  }
+  return buildFromParts(input, input.parts);
+}
+
+/**
+ * Assemble an item from its stated parts.
+ *
+ * Everything about a single piece — the carving, the provenance, the improvement
+ * list — is the same function applied per part. What is new here is only where
+ * the pieces sit and what it means that they come apart.
+ */
+function buildFromParts(input: FurnitureInput, declared: readonly PartInput[]): FurnitureModelResult {
+  if (declared.length === 0) throw new RangeError('parts, when given, must not be empty');
+  for (const part of declared) {
+    if (part.parts !== undefined) {
+      throw new RangeError(
+        `part "${part.id}" has parts of its own: that is a catalogue structure, not a piece of furniture`,
+      );
+    }
+  }
+
+  // Shared settings flow down: a tolerance or a source stated for the item is
+  // stated for every piece of it, unless the piece says otherwise.
+  const inherit = (part: PartInput): PartInput => ({
+    toleranceCm: input.toleranceCm,
+    overallToleranceCm: input.overallToleranceCm,
+    fieldToleranceCm: input.fieldToleranceCm,
+    fieldSources: input.fieldSources,
+    ...part,
+  });
+
+  const modelled = declared.map((part) => ({ part, model: buildOnePart(inherit(part)) }));
+
+  const attached = modelled.filter(({ part }, index) => index === 0 || part.attachment !== undefined);
+  const alongside = modelled.filter(({ part }, index) => index > 0 && part.attachment === undefined);
+
+  const placements: Map<string, PartPlacement> = arrangeParts(
+    attached.map(({ part, model }) => ({
+      id: part.id,
+      widthCm: model.boundingBox.widthCm,
+      depthCm: model.boundingBox.depthCm,
+      ...(part.attachment === undefined ? {} : { attachment: part.attachment }),
+    })),
+  );
+
+  const item = assemble(
+    input.id ?? 'furniture',
+    input.name ?? 'furniture',
+    input.nameHe ?? 'רהיט',
+    attached.map(({ part, model }) => ({
+      id: part.id,
+      name: part.name ?? part.id,
+      boxes: model.item.boxes,
+      placement: placements.get(part.id)!,
+    })),
+  );
+
+  const parts: PartModel[] = attached.map(({ part, model }) => {
+    const placement = placements.get(part.id)!;
+    return {
+      id: part.id,
+      name: part.name ?? part.id,
+      item: model.item,
+      separates: part.separates,
+      ...(part.attachment === undefined ? {} : { attachment: part.attachment }),
+      offsetXCm: placement.offsetX,
+      offsetYCm: placement.offsetY,
+      model,
+    };
+  });
+
+  // Anything but `true` on any piece and the body crosses the doorway whole.
+  // `'unknown'` counts as rigid: assuming a body comes apart when it does not is
+  // the one error here that sends someone out with a van.
+  const separable = parts.length > 1 && parts.every((part) => part.separates === true);
+
+  const anchor = modelled[0]!.model;
+  const bounds = boundsOfItem(item);
+  const flags = dedupeFlags(modelled.flatMap(({ part, model }) => prefixFlags(part.id, model.flags)));
+  if (parts.length > 1 && !separable) {
+    flags.push({
+      code: 'assembled-rigid',
+      severity: 'warning',
+      en:
+        `This body is ${parts.length} pieces and at least one of them is not known to come apart, ` +
+        'so it has to cross the doorway whole. If the pieces do unbolt, saying so changes the ' +
+        'answer completely — two ordinary carries instead of one awkward one.',
+      he:
+        `הגוף מורכב מ-${parts.length} חלקים ולפחות אחד מהם אינו ידוע כמתפרק, ולכן עליו לעבור בפתח ` +
+        'כשהוא שלם. אם החלקים כן מתפרקים, ציון העובדה משנה את התשובה לחלוטין.',
+    });
+  }
+
+  return {
+    pipelineVersion: FURNITURE_PIPELINE_VERSION,
+    tolerance: anchor.tolerance,
+    item,
+    parts,
+    shipsAlongside: alongside.map(({ part, model }) => ({
+      ...model,
+      parts: [
+        {
+          id: part.id,
+          name: part.name ?? part.id,
+          item: model.item,
+          separates: part.separates,
+          offsetXCm: 0,
+          offsetYCm: 0,
+          model,
+        },
+      ],
+      shipsAlongside: [],
+      separable: false,
+    })),
+    separable,
+    boundingBox: bounds,
+    boundingVolumeCm3: bounds.widthCm * bounds.depthCm * bounds.heightCm,
+    carvedVolumeCm3: modelled.reduce((sum, { model }) => sum + model.carvedVolumeCm3, 0),
+    carves: modelled.flatMap(({ model }) => model.carves),
+    measurements: modelled.flatMap(({ part, model }) =>
+      model.measurements.map((entry) => ({ ...entry, field: `${part.id}.${entry.field}` })),
+    ),
+    boxProvenance: modelled.flatMap(({ model }) => model.boxProvenance),
+    confidence: weakestTier(modelled.map(({ model }) => model.confidence)),
+    improvements: mergeImprovements(modelled.map(({ part, model }) => ({ id: part.id, model }))),
+    flags,
+  };
+}
+
+function boundsOfItem(item: Item): { widthCm: number; depthCm: number; heightCm: number } {
+  let minX = Infinity;
+  let maxX = -Infinity;
+  let minY = Infinity;
+  let maxY = -Infinity;
+  let maxZ = -Infinity;
+  for (const box of item.boxes) {
+    minX = Math.min(minX, box.center.x - box.halfExtents.x);
+    maxX = Math.max(maxX, box.center.x + box.halfExtents.x);
+    minY = Math.min(minY, box.center.y - box.halfExtents.y);
+    maxY = Math.max(maxY, box.center.y + box.halfExtents.y);
+    maxZ = Math.max(maxZ, box.center.z + box.halfExtents.z);
+  }
+  return { widthCm: maxX - minX, depthCm: maxY - minY, heightCm: maxZ };
+}
+
+const TIER_ORDER: readonly ConfidenceTier[] = ['bounding-box-only', 'low', 'medium', 'high'];
+
+/** An assembly is only as well known as its worst-known piece. */
+function weakestTier(tiers: readonly ConfidenceTier[]): ConfidenceTier {
+  let worst = TIER_ORDER.length - 1;
+  for (const tier of tiers) worst = Math.min(worst, TIER_ORDER.indexOf(tier));
+  return TIER_ORDER[worst]!;
+}
+
+function prefixFlags(partId: string, flags: readonly ModelFlag[]): ModelFlag[] {
+  return flags.map((flag) => ({ ...flag, en: `[${partId}] ${flag.en}`, he: `[${partId}] ${flag.he}` }));
+}
+
+function dedupeFlags(flags: readonly ModelFlag[]): ModelFlag[] {
+  const seen = new Set<string>();
+  const out: ModelFlag[] = [];
+  for (const flag of flags) {
+    if (seen.has(flag.en)) continue;
+    seen.add(flag.en);
+    out.push(flag);
+  }
+  return out;
+}
+
+/**
+ * One improvement list for the whole item, worst gap first.
+ *
+ * Ranked across parts by the same estimate each part ranked its own by, so a
+ * chaise with no armrest information outranks a main run that only wants a leg
+ * inset. The part is named, because "publish the armrest width" is not
+ * actionable until someone knows which piece.
+ */
+function mergeImprovements(
+  parts: readonly { id: string; model: SinglePartModel }[],
+): readonly ImprovementRequest[] {
+  const all = parts.flatMap(({ id, model }) =>
+    model.improvements.map((improvement) => ({
+      ...improvement,
+      en: `${improvement.en} (${id})`,
+      he: `${improvement.he} (${id})`,
+    })),
+  );
+  all.sort(
+    (a, b) =>
+      b.estimatedCarveCm3 - a.estimatedCarveCm3 ||
+      IMPROVEMENT_ORDER.indexOf(a.field) - IMPROVEMENT_ORDER.indexOf(b.field),
+  );
+  return all.map((improvement, index) => ({ ...improvement, rank: index + 1 }));
+}
+
+/** Model one rigid piece: the carving rules, unchanged, applied to one dimension set. */
+function buildOnePart(input: FurnitureInput): SinglePartModel {
+  // Optional on the type because a multi-part item carries them per part; still
+  // mandatory here, because this is the function that models one piece.
+  const width = requirePositive(input.overallWidthCm!, 'overallWidthCm');
+  const depth = requirePositive(input.overallDepthCm!, 'overallDepthCm');
+  const height = requirePositive(input.overallHeightCm!, 'overallHeightCm');
 
   const flags: ModelFlag[] = [];
   const measurements: MeasurementProvenance[] = [];
@@ -313,8 +560,17 @@ export function buildFurnitureModel(input: FurnitureInput): FurnitureModelResult
     return typeof value === 'number' && Number.isFinite(value) ? value : undefined;
   };
 
-  /** The floor a value's own roundness puts under its tolerance. Never a ceiling. */
+  /**
+   * The floor a value's own roundness puts under its tolerance. Never a ceiling.
+   *
+   * A floor needs something to sit on. When the caller has said the numbers are
+   * exact — `toleranceCm: 0`, which is the shipped default — there is no
+   * tolerance for roundness to raise, and inferring one from the digits would be
+   * the pipeline overruling a statement about the source with a guess about the
+   * source. Zero is a claim, not a small number.
+   */
   const roundingFloor = (field: FurnitureField): number => {
+    if (defaultTolerance === 0) return 0;
     const value = publishedValue(field);
     // Zero is not evidence of rounding, it is evidence of nothing.
     if (value === undefined || value === 0) return 0;
@@ -412,9 +668,6 @@ export function buildFurnitureModel(input: FurnitureInput): FurnitureModelResult
 
   const shape = input.shape ?? 'unknown';
 
-  // -- separable parts, first, because they are separate items ---------------
-  const separableParts = (input.separableParts ?? []).map((part) => buildSeparablePart(part));
-
   // -- the L-shape escape hatch ---------------------------------------------
   //
   // A corner or chaise sofa is not a box with pieces missing, it is two limbs at
@@ -425,13 +678,18 @@ export function buildFurnitureModel(input: FurnitureInput): FurnitureModelResult
   // 280 x 200 slab has to cross the doorway when the real item is two limbs
   // under a metre wide. Say so loudly rather than let a caller mistake it for a
   // model.
+  // An L-shape is only unmodelled when nobody described its limbs. With a
+  // `parts` array this branch is never reached: the caller has said what the
+  // return leg is, so there is a shape to build rather than a slab to apologise
+  // for.
   const lShapeUnmodelled = shape === 'corner' || shape === 'chaise';
   if (lShapeUnmodelled) {
     flags.push({
       code: 'l-shape-not-modelled',
       severity: 'loud',
       en:
-        `Shape is "${shape}" and nothing published describes the return leg, so this is the ` +
+        `Shape is "${shape}" and this piece was described on its own, so nothing says what the ` +
+        'return leg is. Describe the item as two parts and this goes away. Until then it is the ' +
         `bounding box and nothing more: a ${width} x ${depth} cm slab standing in for two limbs. ` +
         `It is sound — it can never claim something fits that does not — and it is near-useless ` +
         `in practice. Supply the return leg's own width and depth before trusting any answer ` +
@@ -796,7 +1054,6 @@ export function buildFurnitureModel(input: FurnitureInput): FurnitureModelResult
     pipelineVersion: FURNITURE_PIPELINE_VERSION,
     tolerance,
     item,
-    separableParts,
     boundingBox: { widthCm: modelledWidth, depthCm: modelledDepth, heightCm: modelledHeight },
     boundingVolumeCm3: modelledWidth * modelledDepth * modelledHeight,
     carvedVolumeCm3,
@@ -1094,7 +1351,7 @@ function resolveLegs(
 
   let inset: number | undefined;
   if (measured(spec.insetCm) && spec.insetCm > 0) {
-    const smallestHalfSpan = Math.min(input.overallWidthCm, input.overallDepthCm) / 2;
+    const smallestHalfSpan = Math.min(input.overallWidthCm!, input.overallDepthCm!) / 2;
     if (spec.insetCm >= smallestHalfSpan) {
       ignore('legs.insetCm', 'it would meet in the middle', 'הוא היה נפגש באמצע');
     } else {
@@ -1109,13 +1366,6 @@ function resolveLegs(
 function legsAreSettled(input: FurnitureInput, legs: ResolvedLegs): boolean {
   if (input.legs?.present === false) return true;
   return legs.bandTop !== undefined && legs.insetCm !== undefined;
-}
-
-function buildSeparablePart(part: SeparablePartInput): FurnitureModelResult {
-  if (part.separableParts !== undefined) {
-    throw new RangeError('separableParts may not nest: a part with parts of its own is a catalogue, not an item');
-  }
-  return buildFurnitureModel({ ...part, separableParts: undefined });
 }
 
 // ---------------------------------------------------------------------------

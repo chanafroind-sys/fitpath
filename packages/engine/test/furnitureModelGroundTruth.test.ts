@@ -42,7 +42,7 @@ interface Row {
 function regionNamer(published: FurnitureInput, fixture: Item): (p: { x: number; y: number; z: number }) => string {
   const bounds = itemAabb(fixture);
   const legTop = bounds.min.z + (published.legs?.present === true ? (published.legs.heightCm ?? 0) : 0);
-  const seatTop = bounds.min.z + (published.seatHeightCm ?? published.overallHeightCm);
+  const seatTop = bounds.min.z + (published.seatHeightCm ?? published.overallHeightCm ?? 0);
   const backFaceY =
     published.seatDepthCm === undefined ? bounds.max.y : bounds.min.y + published.seatDepthCm;
 
@@ -186,12 +186,12 @@ describe('buildFurnitureModel against the six hand-authored fixtures', () => {
    */
   it.each([
     // id,          tightness at defaults, at zero slack, bounding box, ask for, largest residual
-    ['sofa-3-seat', 0.552, 0.661, 0.445, 'legs.insetCm', 'under the seat, between the legs'],
-    ['slim-arm-2-seat', 0.585, 0.820, 0.422, 'none', 'around the armrests'],
-    ['corner-sofa', 0.350, 0.389, 0.350, 'returnLegDimensions', 'the backrest band'],
-    ['deep-seat-lounge', 0.767, 0.976, 0.619, 'none', 'around the armrests'],
-    ['recliner-2-seat', 0.672, 0.889, 0.478, 'none', 'around the armrests'],
-    ['sofa-bed', 0.780, 0.996, 0.639, 'none', 'around the armrests'],
+    ['sofa-3-seat', 0.661, 0.661, 0.500, 'legs.insetCm', 'under the seat, between the legs'],
+    ['slim-arm-2-seat', 0.820, 0.820, 0.536, 'none', 'the rear underside'],
+    ['corner-sofa', 0.389, 0.389, 0.389, 'returnLegDimensions', 'the backrest band'],
+    ['deep-seat-lounge', 0.976, 0.976, 0.726, 'none', 'inside the seat body'],
+    ['recliner-2-seat', 0.889, 0.889, 0.565, 'none', 'the backrest band'],
+    ['sofa-bed', 0.996, 0.996, 0.781, 'none', 'the backrest band'],
   ] as const)(
     'lands %s at the pinned tightness',
     (id, tightness, exactTightness, boundingTightness, gapField, residual) => {
@@ -224,22 +224,21 @@ describe('buildFurnitureModel against the six hand-authored fixtures', () => {
    * better input rather than a smaller margin, and this is the assertion that
    * would have said so.
    */
-  it('keeps most of the carve while surviving listings that are wrong', () => {
-    const carvedAtDefault = ROWS.reduce((sum, row) => sum + row.comparison.carvedCm3, 0);
+  /**
+   * With the margins parked, the shipped model IS the exact one.
+   *
+   * The two columns of this table have collapsed onto each other, and that is
+   * the whole of what parking the tolerance did: no slack is added, so no carve
+   * is given back. The rows are kept as two because the mechanism is one
+   * assignment away from separating them again, and when it does the gap between
+   * the columns is the price.
+   */
+  it('carves exactly what the exact configuration carves, the margins being parked', () => {
+    const carvedShipped = ROWS.reduce((sum, row) => sum + row.comparison.carvedCm3, 0);
     const carvedExact = EXACT.reduce((sum, row) => sum + row.comparison.carvedCm3, 0);
-    const modelAtDefault = ROWS.reduce((sum, row) => sum + row.comparison.candidateCm3, 0);
-    const modelExact = EXACT.reduce((sum, row) => sum + row.comparison.candidateCm3, 0);
 
-    expect(carvedAtDefault).toBeLessThan(carvedExact);
-    // At least six sevenths of the carve survives the margins.
-    expect(carvedAtDefault / carvedExact).toBeGreaterThan(0.85);
-    // And the catalogue is no more than a fifth fatter for it. It was an eighth
-    // when the skin grew a flat two centimetres; making that growth honour the
-    // same roundness rule the carves use is most of the difference, and is
-    // measured in the sweep rather than argued about.
-    expect(modelAtDefault / modelExact).toBeLessThan(1.22);
-    // Still far more carved than the bounding box would manage, which is none.
-    expect(carvedAtDefault).toBeGreaterThan(2_000_000);
+    expect(carvedShipped).toBeCloseTo(carvedExact, 6);
+    expect(carvedShipped).toBeGreaterThan(2_000_000);
   });
 
   /**
