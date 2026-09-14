@@ -198,6 +198,29 @@ export {
   ROUNDED_TO_FIVE_TOLERANCE_CM,
   ROUNDED_TO_TEN_TOLERANCE_CM,
 } from './sourcing/furnitureModel.ts';
+export {
+  DEFAULT_BACKGROUND_MARGIN,
+  DEFAULT_BAND_FILL_CEILING,
+  legBandOf,
+  rowProfile,
+  silhouetteOf,
+  type Bitmap,
+  type LegBandOptions,
+  type LegBandReading,
+  type RowProfile,
+  type Silhouette,
+  type ThresholdOptions,
+} from './sourcing/silhouette.ts';
+export {
+  IMAGE_MEASUREMENT_TOLERANCE_CM,
+  measureLegsFromImages,
+  withImageEvidence,
+  type ClassifiedImage,
+  type ImageClassification,
+  type ImageEvidenceResult,
+  type RejectionReason,
+  type ShotType,
+} from './sourcing/imageEvidence.ts';
 export type {
   ArmrestPresence,
   BoxProvenance,
