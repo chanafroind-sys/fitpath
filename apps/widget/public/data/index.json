@@ -1,0 +1,35 @@
+{
+  "dataVersion": 2,
+  "products": [
+    {
+      "id": "sofa-3-seat",
+      "name": "3-seat sofa",
+      "nameHe": "ספה תלת-מושבית"
+    },
+    {
+      "id": "slim-arm-2-seat",
+      "name": "Vetle slim-arm 2-seat",
+      "nameHe": "ספה דו-מושבית ווטלה"
+    },
+    {
+      "id": "corner-sofa",
+      "name": "Rosendal corner sofa",
+      "nameHe": "ספה פינתית רוזנדל"
+    },
+    {
+      "id": "deep-seat-lounge",
+      "name": "Havsta deep-seat lounge",
+      "nameHe": "ספת לאונג עמוקה הבסטה"
+    },
+    {
+      "id": "recliner-2-seat",
+      "name": "Brekke 2-seat recliner",
+      "nameHe": "ספת ריקליינר דו-מושבית ברקה"
+    },
+    {
+      "id": "sofa-bed",
+      "name": "Lindholm sofa bed",
+      "nameHe": "ספה נפתחת לינדהולם"
+    }
+  ]
+}

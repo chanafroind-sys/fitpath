@@ -1,0 +1,26 @@
+{
+  "name": "@fitpath/widget",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "The embeddable fit check: one script tag on a product page, a button by the buy control, and a modal that answers from the precomputed maneuver library.",
+  "license": "MIT",
+  "scripts": {
+    "precompute": "node scripts/precompute.ts",
+    "build": "npm run precompute && tsc --noEmit && vite build --mode loader && vite build --mode modal && node scripts/report-sizes.ts",
+    "build:only": "vite build --mode loader && vite build --mode modal && node scripts/report-sizes.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "sizes": "node scripts/report-sizes.ts"
+  },
+  "dependencies": {
+    "@fitpath/engine": "*",
+    "@fitpath/viewer": "*",
+    "three": "^0.169.0"
+  },
+  "devDependencies": {
+    "@fitpath/illustrate": "*",
+    "@types/three": "^0.169.0",
+    "vite": "^5.4.11"
+  }
+}
