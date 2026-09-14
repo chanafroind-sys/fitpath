@@ -296,8 +296,15 @@ export type ConfidenceTier = 'bounding-box-only' | 'low' | 'medium' | 'high';
 export interface ToleranceReport {
   /** What an unlisted field got. */
   defaultCm: number;
-  /** Per-face growth of the outer skin. Zero unless the caller asked for it. */
-  overallCm: number;
+  /**
+   * Growth of the outer skin, per axis, in centimetres.
+   *
+   * Per axis rather than one number because each overall dimension earns its own
+   * slack from its own roundness, exactly as the carve tolerances do. `width`
+   * and `depth` are applied to both opposing faces; `height` only to the top,
+   * because the item stands on the floor.
+   */
+  overallCm: { width: number; depth: number; height: number };
   /** Only the fields that were overridden, so the common case is an empty object. */
   byField: Readonly<Partial<Record<FurnitureField, number>>>;
   /** Total volume that tolerance handed back to the model rather than carving away. */

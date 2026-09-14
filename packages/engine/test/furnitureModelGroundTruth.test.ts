@@ -186,12 +186,12 @@ describe('buildFurnitureModel against the six hand-authored fixtures', () => {
    */
   it.each([
     // id,          tightness at defaults, at zero slack, bounding box, ask for, largest residual
-    ['sofa-3-seat', 0.574, 0.661, 0.460, 'legs.insetCm', 'under the seat, between the legs'],
-    ['slim-arm-2-seat', 0.660, 0.820, 0.488, 'none', 'around the armrests'],
-    ['corner-sofa', 0.368, 0.389, 0.368, 'returnLegDimensions', 'the backrest band'],
-    ['deep-seat-lounge', 0.837, 0.976, 0.670, 'none', 'around the armrests'],
-    ['recliner-2-seat', 0.746, 0.889, 0.522, 'none', 'around the armrests'],
-    ['sofa-bed', 0.864, 0.996, 0.720, 'none', 'around the armrests'],
+    ['sofa-3-seat', 0.552, 0.661, 0.445, 'legs.insetCm', 'under the seat, between the legs'],
+    ['slim-arm-2-seat', 0.585, 0.820, 0.422, 'none', 'around the armrests'],
+    ['corner-sofa', 0.350, 0.389, 0.350, 'returnLegDimensions', 'the backrest band'],
+    ['deep-seat-lounge', 0.767, 0.976, 0.619, 'none', 'around the armrests'],
+    ['recliner-2-seat', 0.672, 0.889, 0.478, 'none', 'around the armrests'],
+    ['sofa-bed', 0.780, 0.996, 0.639, 'none', 'around the armrests'],
   ] as const)(
     'lands %s at the pinned tightness',
     (id, tightness, exactTightness, boundingTightness, gapField, residual) => {
@@ -233,8 +233,11 @@ describe('buildFurnitureModel against the six hand-authored fixtures', () => {
     expect(carvedAtDefault).toBeLessThan(carvedExact);
     // At least six sevenths of the carve survives the margins.
     expect(carvedAtDefault / carvedExact).toBeGreaterThan(0.85);
-    // And the catalogue is no more than an eighth fatter for it.
-    expect(modelAtDefault / modelExact).toBeLessThan(1.13);
+    // And the catalogue is no more than a fifth fatter for it. It was an eighth
+    // when the skin grew a flat two centimetres; making that growth honour the
+    // same roundness rule the carves use is most of the difference, and is
+    // measured in the sweep rather than argued about.
+    expect(modelAtDefault / modelExact).toBeLessThan(1.22);
     // Still far more carved than the bounding box would manage, which is none.
     expect(carvedAtDefault).toBeGreaterThan(2_000_000);
   });

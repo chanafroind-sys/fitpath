@@ -83,6 +83,14 @@ import type {
  * with air in it where the furniture has material. Such a model cannot be left
  * in a catalogue to be compared against a doorway; it has to be rebuilt.
  *
+ * ## 3.0.0
+ *
+ * Outer-skin growth became per-face and roundness-aware, on the same rule the
+ * carve tolerances use. A 2.0.0 model grew every face by two centimetres; this
+ * one grows a face whose dimension looks rounded to ten by five. A 2.0.0 model
+ * of a 220 cm sofa is therefore up to three centimetres too small, which is the
+ * unsound direction — rebuild rather than keep.
+ *
  * ## 2.0.0
  *
  * Everything that moved between 1.0.0 and 2.0.0 moved in that direction, so a
@@ -101,7 +109,7 @@ import type {
  * Nothing has been built with 1.0.0 yet, which is exactly why the discipline is
  * cheap to establish now.
  */
-export const FURNITURE_PIPELINE_VERSION = 'furniture-model/2.0.0';
+export const FURNITURE_PIPELINE_VERSION = 'furniture-model/3.0.0';
 
 /**
  * The thinnest a seat body can plausibly be: seat height minus leg height.
@@ -138,9 +146,15 @@ export const MIN_PLAUSIBLE_SEAT_BODY_CM = 10;
 export const DEFAULT_INPUT_TOLERANCE_CM = 5;
 
 /**
- * How far the overall dimensions are assumed to under-state the item, per face.
+ * The FLOOR under how far an overall dimension may under-state the item, per face.
  *
- * On by default, at two centimetres. The argument for leaving it off was that a
+ * Two centimetres is the base; a dimension that looks rounded earns more, on the
+ * same roundness rule the carve tolerances use — see `overallGrowthFor`. The two
+ * were briefly inconsistent, with the carve logic allowing five centimetres of
+ * doubt about a published 300 while the skin allowed two, and one number cannot
+ * be wrong by different amounts depending on which part of the pipeline reads it.
+ *
+ * On by default. The argument for leaving it off was that a
  * model grown to 304 cm answers a question about a different sofa than the 300
  * cm one the caller asked about — true, and the wrong side of this subsystem's
  * trade. A sofa published as 300 that is really 302 is precisely the case where
@@ -238,15 +252,19 @@ function measured(value: number | undefined): value is number {
  * the overall depth is entitled to make. The floor is never moved: an item
  * stands on it.
  */
-function grown(box: Box, half: { x: number; y: number; z: number }, by: number): Box {
-  if (by === 0) return box;
+function grown(
+  box: Box,
+  half: { x: number; y: number; z: number },
+  by: { x: number; y: number; z: number },
+): Box {
+  if (by.x === 0 && by.y === 0 && by.z === 0) return box;
   const lo = { x: box.center.x - box.halfExtents.x, y: box.center.y - box.halfExtents.y, z: box.center.z - box.halfExtents.z };
   const hi = { x: box.center.x + box.halfExtents.x, y: box.center.y + box.halfExtents.y, z: box.center.z + box.halfExtents.z };
   const at = (value: number, surface: number): boolean => Math.abs(value - surface) < 1e-9;
 
-  const x: [number, number] = [at(lo.x, -half.x) ? -half.x - by : lo.x, at(hi.x, half.x) ? half.x + by : hi.x];
-  const y: [number, number] = [at(lo.y, -half.y) ? -half.y - by : lo.y, at(hi.y, half.y) ? half.y + by : hi.y];
-  const z: [number, number] = [lo.z, at(hi.z, half.z * 2) ? half.z * 2 + by : hi.z];
+  const x: [number, number] = [at(lo.x, -half.x) ? -half.x - by.x : lo.x, at(hi.x, half.x) ? half.x + by.x : hi.x];
+  const y: [number, number] = [at(lo.y, -half.y) ? -half.y - by.y : lo.y, at(hi.y, half.y) ? half.y + by.y : hi.y];
+  const z: [number, number] = [lo.z, at(hi.z, half.z * 2) ? half.z * 2 + by.z : hi.z];
 
   return spanBox(box.label!, box.labelHe!, x, y, z);
 }
@@ -283,10 +301,10 @@ export function buildFurnitureModel(input: FurnitureInput): FurnitureModelResult
   const carves: Carve[] = [];
 
   const defaultTolerance = requireTolerance(input.toleranceCm ?? DEFAULT_INPUT_TOLERANCE_CM, 'toleranceCm');
-  const overallTolerance = requireTolerance(
-    input.overallToleranceCm ?? DEFAULT_OVERALL_TOLERANCE_CM,
-    'overallToleranceCm',
-  );
+  const explicitOverall =
+    input.overallToleranceCm === undefined
+      ? undefined
+      : requireTolerance(input.overallToleranceCm, 'overallToleranceCm');
   /** What the listing actually says for a field, so its roundness can be read. */
   const publishedValue = (field: FurnitureField): number | undefined => {
     if (field === 'legs.heightCm') return input.legs?.heightCm;
@@ -319,6 +337,21 @@ export function buildFurnitureModel(input: FurnitureInput): FurnitureModelResult
     if (override !== undefined) return requireTolerance(override, `fieldToleranceCm.${field}`);
     return Math.max(defaultTolerance, roundingFloor(field));
   };
+  /**
+   * How far one overall dimension may under-state the item, on the same rule the
+   * carve tolerances use.
+   *
+   * It was a flat two centimetres, and that was incoherent: the carve logic was
+   * told a published 300 might be five centimetres wrong while the skin was told
+   * it might be two. One number cannot be wrong by different amounts depending
+   * on which part of the pipeline is reading it. Now a dimension that looks
+   * rounded to ten grows by five, one rounded to five by 2.5, and anything else
+   * by the base two — so the five-centimetre price is charged only to the
+   * numbers that actually look rounded to ten, rather than to every sofa.
+   */
+  const overallGrowthFor = (field: FurnitureField): number =>
+    explicitOverall ?? Math.max(DEFAULT_OVERALL_TOLERANCE_CM, roundingFloor(field));
+
   const usedTolerances = new Map<FurnitureField, number>();
   /** Read a tolerance and remember that this field's number was used loosely. */
   const slackFor = (...fields: readonly FurnitureField[]): number => {
@@ -665,40 +698,49 @@ export function buildFurnitureModel(input: FurnitureInput): FurnitureModelResult
 
   // Growth of the outer skin, last, so that nothing above had to reason about
   // two coordinate systems. Default zero, so by default this changes nothing.
-  if (overallTolerance > 0) {
+  const overallGrowth = {
+    x: overallGrowthFor('overallWidthCm'),
+    y: overallGrowthFor('overallDepthCm'),
+    z: overallGrowthFor('overallHeightCm'),
+  };
+  const widestGrowth = Math.max(overallGrowth.x, overallGrowth.y, overallGrowth.z);
+
+  if (widestGrowth > 0) {
     const half = { x: halfW, y: halfD, z: height / 2 };
-    finalBoxes = finalBoxes.map((box) => grown(box, half, overallTolerance));
+    finalBoxes = finalBoxes.map((box) => grown(box, half, overallGrowth));
     finalProvenance = finalProvenance.map((prov, index) => ({
       ...prov,
       widthCm: finalBoxes[index]!.halfExtents.x * 2,
       depthCm: finalBoxes[index]!.halfExtents.y * 2,
       heightCm: finalBoxes[index]!.halfExtents.z * 2,
-      toleranceCm: Math.max(prov.toleranceCm, overallTolerance),
+      toleranceCm: Math.max(prov.toleranceCm, widestGrowth),
     }));
     flags.push({
       code: 'bounding-box-grown',
       severity: 'note',
       en:
-        `The outer skin was pushed out ${overallTolerance} cm on each side and at the top, ` +
-        `so this model stands in for an item up to ${width + 2 * overallTolerance} x ` +
-        `${depth + 2 * overallTolerance} x ${height + overallTolerance} cm rather than the ` +
-        'published size. Internal partitions did not move.',
+        `The outer skin was pushed out ${overallGrowth.x} cm on each end, ${overallGrowth.y} cm ` +
+        `front and back and ${overallGrowth.z} cm at the top, so this model stands in for an item ` +
+        `up to ${width + 2 * overallGrowth.x} x ${depth + 2 * overallGrowth.y} x ` +
+        `${height + overallGrowth.z} cm rather than the published size. Internal partitions did ` +
+        'not move.',
       he:
-        `המעטפת החיצונית הורחבה ב-${overallTolerance} ס"מ בכל צד ובחלק העליון, ולכן המודל ` +
-        `מייצג פריט של עד ${width + 2 * overallTolerance} על ${depth + 2 * overallTolerance} על ` +
-        `${height + overallTolerance} ס"מ ולא את המידות שפורסמו. החלוקות הפנימיות לא זזו.`,
+        `המעטפת החיצונית הורחבה ב-${overallGrowth.x} ס"מ בכל קצה, ${overallGrowth.y} ס"מ מלפנים ומאחור ` +
+        `ו-${overallGrowth.z} ס"מ בחלק העליון, ולכן המודל מייצג פריט של עד ` +
+        `${width + 2 * overallGrowth.x} על ${depth + 2 * overallGrowth.y} על ${height + overallGrowth.z} ` +
+        `ס"מ ולא את המידות שפורסמו. החלוקות הפנימיות לא זזו.`,
     });
   }
 
-  const modelledWidth = width + 2 * overallTolerance;
-  const modelledDepth = depth + 2 * overallTolerance;
-  const modelledHeight = height + overallTolerance;
+  const modelledWidth = width + 2 * overallGrowth.x;
+  const modelledDepth = depth + 2 * overallGrowth.y;
+  const modelledHeight = height + overallGrowth.z;
 
   // What tolerance handed back to the model rather than carving away.
   const untolerancedCarve = carves.reduce((sum, carve) => sum + carve.untoleranced, 0);
   const tolerance: ToleranceReport = {
     defaultCm: defaultTolerance,
-    overallCm: overallTolerance,
+    overallCm: { width: overallGrowth.x, depth: overallGrowth.y, height: overallGrowth.z },
     // Every field whose slack is not simply the default: an explicit override,
     // or a floor its own roundness earned it.
     byField: Object.fromEntries(

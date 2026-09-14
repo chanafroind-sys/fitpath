@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { FurnitureField } from '../src/sourcing/types.ts';
+import type { FurnitureField, FurnitureInput } from '../src/sourcing/types.ts';
 import {
   buildFurnitureModel,
   DEFAULT_INPUT_TOLERANCE_CM,
@@ -60,6 +60,10 @@ interface SweepResult {
 }
 
 function sweep(toleranceCm: number, overallToleranceCm: number): SweepResult {
+  return sweepWith({ toleranceCm, overallToleranceCm });
+}
+
+function sweepWith(overrides: Partial<FurnitureInput>): SweepResult {
   let cases = 0;
   let carveBreaks = 0;
   let boundingBoxBreaks = 0;
@@ -72,8 +76,7 @@ function sweep(toleranceCm: number, overallToleranceCm: number): SweepResult {
         cases += 1;
         const model = buildFurnitureModel({
           ...perturbed(published, field, deltaCm),
-          toleranceCm,
-          overallToleranceCm,
+          ...overrides,
         });
         const leaks = uncontainedRegions(fixture, alignedTo(model.item, fixture));
         if (leaks.length === 0) continue;
@@ -92,7 +95,8 @@ function sweep(toleranceCm: number, overallToleranceCm: number): SweepResult {
 }
 
 const CARVE_ONLY = new Map([0, 1, 2, 3, 4, 5, 6].map((t) => [t, sweep(t, 0)]));
-const SHIPPED = sweep(DEFAULT_INPUT_TOLERANCE_CM, DEFAULT_OVERALL_TOLERANCE_CM);
+/** The shipped configuration: measured default slack, roundness-aware skin growth. */
+const SHIPPED = sweepWith({ toleranceCm: DEFAULT_INPUT_TOLERANCE_CM });
 
 describe('input tolerance: what error in a listing does', () => {
   /**
@@ -143,29 +147,36 @@ describe('input tolerance: what error in a listing does', () => {
    * **A KNOWN, ACCEPTED RISK — not desired behaviour. Read this before touching
    * the number below.**
    *
-   * Thirty-five of five hundred and seventy-two perturbed listings still produce
-   * a model with a hole in it at the shipped defaults. Each one is an overall
-   * dimension under-reported by three centimetres or more, and each one is a
+   * Sixteen of five hundred and seventy-two perturbed listings still produce a
+   * model with a hole in it at the shipped defaults. Every one is an overall
+   * *height* under-reported by three centimetres or more, and every one is a
    * case where this pipeline could answer "it fits" about a sofa that will not
    * go through the door. That is the outcome the rest of this subsystem exists
    * to prevent, and here it is not prevented.
    *
-   * It is accepted rather than fixed because the fix is priced and the price is
-   * worse: `overallToleranceCm: 5` takes the sweep to zero, and costs about
-   * eight points of tightness across the whole catalogue — a model that fat
-   * answers "no path found" for a great many sofas that would have fitted.
-   * Two centimetres closes the two-centimetre population completely and two
-   * thirds of the whole, which is where the trade was struck.
+   * Why these sixteen and no others: roundness-aware growth covers the failures
+   * that *rounding* causes, and it covers all of them — every width and depth
+   * case is gone. What is left is the blunder population, a shop publishing 82
+   * for an 85 cm sofa, where the number looks precise and simply is not. No
+   * inference from the number can catch that; only a flat margin can.
+   *
+   * The flat margin is priced, and the price is bad in both directions:
+   * `overallToleranceCm: 5` takes the sweep to zero for three more points of
+   * catalogue inflation (21% over exact becomes 24%). Three points to close
+   * sixteen unsound cases is arguably the trade this subsystem's own asymmetry
+   * says to take. It has not been taken because the per-face rule was asked for
+   * explicitly; the one-line change is `overallToleranceCm: 5`.
    *
    * This test is green when the risk is *exactly as large as we agreed it was*.
    * If the number falls, something got safer and the figure should be lowered
    * deliberately. If it rises, the risk grew without anyone deciding to let it,
    * and that is a regression whatever else is passing.
    */
-  it('characterises the 35 still-unsound cases the shipped defaults knowingly accept', () => {
+  it('characterises the 16 still-unsound cases the shipped defaults knowingly accept', () => {
     expect(SHIPPED.carveBreaks).toBe(0);
-    expect(SHIPPED.boundingBoxBreaks).toBe(35);
-    expect([...SHIPPED.byField.keys()].every((field) => BOUNDING_BOX_FIELDS.has(field))).toBe(true);
+    expect(SHIPPED.boundingBoxBreaks).toBe(16);
+    // All height, now that roundness-aware growth has closed width and depth.
+    expect([...SHIPPED.byField.keys()]).toEqual(['overallHeightCm']);
   });
 
   it('closes every case in the sweep once the skin is grown by the full five', () => {

@@ -624,8 +624,8 @@ describe('buildFurnitureModel: provenance, versioning and the image seam', () =>
    * rule.
    */
   it('pins the pipeline version string', () => {
-    expect(FURNITURE_PIPELINE_VERSION).toBe('furniture-model/2.0.0');
-    expect(buildFurnitureModel(input).pipelineVersion).toBe('furniture-model/2.0.0');
+    expect(FURNITURE_PIPELINE_VERSION).toBe('furniture-model/3.0.0');
+    expect(buildFurnitureModel(input).pipelineVersion).toBe('furniture-model/3.0.0');
   });
 
   it('stamps the pipeline version on the model and on every separable part', () => {
@@ -790,10 +790,50 @@ describe('buildFurnitureModel: input tolerance', () => {
    * the numbers in the catalogue's own listings sit on a multiple of five, where
    * rounding alone is worth up to that much.
    */
-  it('defaults to five centimetres of slack, and two on the overall dimensions', () => {
+  it('defaults to five centimetres of slack, and at least two on the overall dimensions', () => {
     expect(DEFAULT_INPUT_TOLERANCE_CM).toBe(5);
     expect(DEFAULT_OVERALL_TOLERANCE_CM).toBe(2);
     expect(buildFurnitureModel(koalaL).tolerance.defaultCm).toBe(5);
+  });
+
+  /**
+   * The skin grows on the same roundness rule the carves use.
+   *
+   * They were briefly inconsistent — the carve logic was told a published 300
+   * might be five centimetres wrong while the skin was told it might be two —
+   * and one number cannot be wrong by different amounts depending on which part
+   * of the pipeline is reading it.
+   */
+  it('grows each face by what that dimension\'s own roundness earns', () => {
+    // 300, 100 and 70 are all multiples of ten, so every face earns the full five.
+    const rounded = buildFurnitureModel({ ...koalaL, overallToleranceCm: undefined });
+    expect(rounded.tolerance.overallCm).toEqual({ width: 5, depth: 5, height: 5 });
+    // Five on each end and each side, five at the top, nothing below the floor.
+    expect(extentsOf(rounded.item)).toEqual({ widthCm: 310, depthCm: 110, heightCm: 75 });
+
+    // A height that is only a multiple of five earns half as much.
+    const halfRounded = buildFurnitureModel({
+      ...koalaL,
+      overallToleranceCm: undefined,
+      overallHeightCm: 75,
+    });
+    expect(halfRounded.tolerance.overallCm).toEqual({ width: 5, depth: 5, height: 2.5 });
+
+    // 301, 99 and 71 look like nobody rounded them, so they get the base.
+    const unround = buildFurnitureModel({
+      ...koalaL,
+      overallToleranceCm: undefined,
+      overallWidthCm: 301,
+      overallDepthCm: 99,
+      overallHeightCm: 71,
+    });
+    expect(unround.tolerance.overallCm).toEqual({ width: 2, depth: 2, height: 2 });
+  });
+
+  it('lets an explicit overall tolerance win over the roundness of a dimension', () => {
+    const stated = buildFurnitureModel({ ...koalaL, overallToleranceCm: 1 });
+
+    expect(stated.tolerance.overallCm).toEqual({ width: 1, depth: 1, height: 1 });
   });
 
   /**
@@ -955,7 +995,7 @@ describe('buildFurnitureModel: input tolerance', () => {
     // back face has: that one is the skin.
     expect(span(boxOf(grownModel, 'the backrest')).y).toEqual([20, 52]);
     expect(grownModel.flags.map((flag) => flag.code)).toContain('bounding-box-grown');
-    expect(grownModel.tolerance.overallCm).toBe(2);
+    expect(grownModel.tolerance.overallCm).toEqual({ width: 2, depth: 2, height: 2 });
   });
 
   it.each([
