@@ -9,8 +9,11 @@
  * The limitations listed are the engine README's own "Not supported yet",
  * copied deliberately rather than softened.
  */
-import { PRODUCTS } from '../catalog.ts';
 import { el } from './dom.ts';
+// The one hand-drawn picture left: this figure is about drawing boxes over a
+// photograph, and the product pictures are now drawn FROM the boxes, which
+// would make the overlay a picture of itself.
+import handDrawnSofa from '../assets/sofa.svg';
 
 function roadmapBadge(): HTMLElement {
   return el('span', { class: 'badge badge-roadmap', text: 'Roadmap — not implemented' });
@@ -83,8 +86,6 @@ const LIMITS: { title: string; body: string }[] = [
 ];
 
 export function createRoadmap(): HTMLElement {
-  const sofa = PRODUCTS[0]!;
-
   return el('section', { class: 'roadmap', id: 'roadmap' }, [
     el('div', { class: 'section-head' }, [
       el('p', { class: 'eyebrow', text: 'Honestly' }),
@@ -98,7 +99,7 @@ export function createRoadmap(): HTMLElement {
     el('div', { class: 'roadmap-feature' }, [
       el('div', { class: 'roadmap-figure' }, [
         el('div', { class: 'overlay-frame' }, [
-          el('img', { src: sofa.image, alt: 'Sofa illustration with a box model drawn over it' }),
+          el('img', { src: handDrawnSofa, alt: 'Sofa illustration with a box model drawn over it' }),
           boxOverlay(),
         ]),
       ]),

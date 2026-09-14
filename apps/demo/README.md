@@ -58,11 +58,12 @@ plainly as it is stated on the page itself.
 | The thresholds — "about 195 cm of clearance" | `diagnose()`, which re-plans the counterfactual rather than estimating it |
 | Where the blocked maneuver stops | `firstContactAlongPath()`, replaying the same path in the narrower corridor |
 | Product dimensions in the shop | `unionAabb(itemWorldBoxes(item, origin))` on the engine's own fixtures |
+| The product pictures | `illustrate(item)` on the same fixtures, at build time |
 | The scene geometry drawn in 3D | `buildEnvironment()` — the same call the planner searched |
 | Timings and node counts | `PlanResult.stats` |
 | Every maneuver's four requirement numbers | `buildManeuver()`, measured from the motion and then validated in exactly the environment it asks for |
 | "The widest part of this sofa is its legs" | `bindingStation()` — the run of the item that forces the widest opening, and whichever part is concentrated in it |
-| The theoretical floor beside each maneuver | `bestRollSchedule().bound`, a minimax over every roll at every station: no schedule can do better |
+| The floor beside each maneuver | `bestRollSchedule().bound`, a minimax over every roll at every station: no roll schedule can do better. It bounds nothing that leans or turns the item inside the wall |
 | The catalogue table, sorted by narrowest doorway | `reportOn()` for each of the six sofas |
 
 The library and the hero's planner figures are computed by `scripts/precompute.ts`
@@ -73,8 +74,13 @@ without a build step, and `npm run build` regenerates it first.
 
 ### Illustrated, and labelled as such on the page
 
-- **Product images are illustrations**, hand-drawn SVG. There are no
-  photographs anywhere in this demo.
+- **Product images are drawn from each sofa's box model** at build time, by
+  [`@fitpath/illustrate`](../../packages/illustrate) from
+  `scripts/precompute.ts`, into `src/assets/generated/`. They are pictures of
+  the geometry the engine measured, not of a sofa; there are no photographs
+  anywhere in this demo. The one hand-drawn picture left is the sofa under the
+  box-model overlay in the roadmap figure, which is about drawing boxes over a
+  photograph and would otherwise be a picture of itself.
 - **The box-model overlay** in the "What is real" section is a static overlay
   drawn by hand over one of those illustrations. No image was analysed. It
   carries a *Roadmap — not implemented* badge and a paragraph saying so.
@@ -93,8 +99,9 @@ which local axis a shopper calls "width". That last one is metadata, never a
 re-assignment: the wardrobe's local Y carries its 60 cm depth because local Y
 is the axis pitch tips it over, and changing that would change the answer.
 
-**The fit checker** — four measurements with defaults, plus the rest of the
-scene under *Advanced*. One-click presets load the engine's five named scenario
+**The fit checker** — five measurements with defaults, in two groups (the
+doorway; the corridor either side of it) under a plan diagram that says which
+way each one points, plus the rest of the scene under *Advanced*. One-click presets load the engine's five named scenario
 fixtures, so the trivially-fitting case, the tilt case, the proven-impossible
 case, the narrow-hallway case and the legs-come-off case are all one tap away.
 
@@ -145,10 +152,14 @@ these cases and shown verbatim for `'full-resolution'` ones.
 ```
 src/
   engine/     the Web Worker, its message contract, and a two-worker pool
-  viewer/     Three.js scene built from engine geometry; path → scrubbable timeline
   ui/         screens, and the formatting rules above
   catalog.ts  retail dressing over the engine's fixtures
 ```
+
+The Three.js scene — engine geometry drawn verbatim, and a path turned into a
+scrubbable timeline — lives in [`packages/viewer`](../../packages/viewer),
+because the embeddable widget draws the same scenes and one drawing of the
+geometry is one place for it to be wrong.
 
 **The planner runs in a Web Worker.** A plan takes between 20 ms and about
 three seconds. Run on the main thread, the three-second case freezes the page

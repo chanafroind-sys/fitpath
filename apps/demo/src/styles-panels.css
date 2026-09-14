@@ -174,32 +174,57 @@
   }
 }
 
-/* --- the corridor diagram, beside the fields it explains ----------------- */
+/* --- the corridor diagram, above the fields it explains ------------------ */
 
+/*
+ * One column. The diagram used to sit BESIDE the fields, in a 340 px input
+ * column, which left the fields 190 px wide with every label wrapping and the
+ * diagram too small to read. It explains the numbers, so it comes first, at
+ * full width; the fields follow in two groups with a heading each.
+ */
 .measure-row {
   display: grid;
-  gap: 1.25rem;
-  grid-template-columns: 1fr;
+  gap: 1.1rem;
+  grid-template-columns: minmax(0, 1fr);
   align-items: start;
 }
 
-@media (min-width: 860px) {
-  .measure-row {
-    grid-template-columns: minmax(0, 1.4fr) minmax(220px, 0.8fr);
-  }
+.field-group {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.field-group legend {
+  padding: 0;
+  margin-bottom: 0.15rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.field-grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
 }
 
 .corridor-figure {
   margin: 0;
-  padding: 0.75rem;
+  padding: 0.6rem 0.75rem 0.5rem;
   border: 1px solid var(--line);
   border-radius: 12px;
   background: var(--surface-2);
 }
 
 .corridor-figure figcaption {
-  margin-top: 0.5rem;
-  font-size: 0.78rem;
+  margin-top: 0.4rem;
+  font-size: 0.74rem;
+  line-height: 1.4;
 }
 
 .corridor-svg {

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-label="Havsta deep-seat lounge, drawn from its box model">
+<defs><filter id="fp-shadow" x="-20%" y="-40%" width="140%" height="180%"><feGaussianBlur stdDeviation="9"/></filter></defs>
+<polygon points="100.9,322.51 525.59,468 699.1,370.3 274.41,224.81" fill="#000" opacity="0.13" filter="url(#fp-shadow)"/>
+<polygon points="306.77,109.17 133.26,206.87 133.26,310.56 306.77,212.85" fill="#676159" stroke="#4a4640" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="306.77,109.17 274.41,98.08 100.9,195.78 133.26,206.87" fill="#b4aa9b" stroke="#827a70" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="133.26,206.87 133.26,310.56 100.9,299.47 100.9,195.78" fill="#898176" stroke="#625d55" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="651.78,224.13 651.78,373.9 227.09,228.42 227.09,78.65" fill="#928c82" stroke="#69645e" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="681.1,348.23 276.64,209.68 118.9,298.49 523.36,437.05" fill="#574635" stroke="#3f3326" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="699.1,197.49 274.41,52 227.09,78.65 651.78,224.13" fill="#c0b8ac" stroke="#8b847c" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="619.42,275.26 259.45,151.94 133.26,223 493.23,346.32" fill="#b4aa9b" stroke="#827a70" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="523.36,437.05 523.36,460.1 118.9,321.54 118.9,298.49" fill="#423528" stroke="#30261d" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="699.1,197.49 651.78,224.13 651.78,373.9 699.1,347.26" fill="#6e6962" stroke="#4f4b46" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="493.23,346.32 493.23,433.87 133.26,310.56 133.26,223" fill="#898176" stroke="#625d55" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="681.1,348.23 523.36,437.05 523.36,460.1 681.1,371.28" fill="#32281e" stroke="#241d16" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="699.1,243.57 525.59,341.27 525.59,444.96 699.1,347.26" fill="#676159" stroke="#4a4640" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="619.42,275.26 493.23,346.32 493.23,433.87 619.42,362.82" fill="#676159" stroke="#4a4640" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="699.1,243.57 666.74,232.49 493.23,330.19 525.59,341.27" fill="#b4aa9b" stroke="#827a70" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="525.59,341.27 525.59,444.96 493.23,433.87 493.23,330.19" fill="#898176" stroke="#625d55" stroke-width="0.8" stroke-linejoin="round"/>
+</svg>

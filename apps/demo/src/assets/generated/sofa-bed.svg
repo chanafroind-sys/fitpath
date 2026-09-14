@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-label="Lindholm sofa bed, drawn from its box model">
+<defs><filter id="fp-shadow" x="-20%" y="-40%" width="140%" height="180%"><feGaussianBlur stdDeviation="9"/></filter></defs>
+<polygon points="129.3,334.57 518.8,468 670.7,382.47 281.2,249.03" fill="#000" opacity="0.13" filter="url(#fp-shadow)"/>
+<polygon points="288.99,100.82 137.09,186.35 137.09,337.24 288.99,251.7" fill="#676159" stroke="#4a4640" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="288.99,100.82 281.2,98.15 129.3,183.68 137.09,186.35" fill="#b4aa9b" stroke="#827a70" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="137.09,186.35 137.09,337.24 129.3,334.57 129.3,183.68" fill="#898176" stroke="#625d55" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="662.91,180.1 288.99,52 243.42,77.66 617.34,205.76" fill="#c0b8ac" stroke="#8b847c" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="617.34,205.76 617.34,312.26 243.42,184.17 243.42,77.66" fill="#928c82" stroke="#69645e" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="662.91,286.6 288.99,158.51 137.09,244.04 511.01,372.14" fill="#574635" stroke="#3f3326" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="632.53,259.33 258.61,131.24 137.09,199.66 511.01,327.76" fill="#b4aa9b" stroke="#827a70" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="511.01,372.14 511.01,465.33 137.09,337.24 137.09,244.04" fill="#423528" stroke="#30261d" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="662.91,180.1 617.34,205.76 617.34,312.26 662.91,286.6" fill="#6e6962" stroke="#4f4b46" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="511.01,327.76 511.01,372.14 137.09,244.04 137.09,199.66" fill="#898176" stroke="#625d55" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="662.91,286.6 511.01,372.14 511.01,465.33 662.91,379.8" fill="#32281e" stroke="#241d16" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="670.7,231.58 518.8,317.11 518.8,468 670.7,382.47" fill="#676159" stroke="#4a4640" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="632.53,259.33 511.01,327.76 511.01,372.14 632.53,303.71" fill="#676159" stroke="#4a4640" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="670.7,231.58 662.91,228.91 511.01,314.45 518.8,317.11" fill="#b4aa9b" stroke="#827a70" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="518.8,317.11 518.8,468 511.01,465.33 511.01,314.45" fill="#898176" stroke="#625d55" stroke-width="0.8" stroke-linejoin="round"/>
+</svg>

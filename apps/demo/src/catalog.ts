@@ -23,7 +23,23 @@ import {
 import type { AxisBox, EnvironmentParams, Item, Placement, Scenario } from '@fitpath/engine';
 import type { ItemId } from './engine/protocol.ts';
 import { PRECOMPUTED } from './precomputed.ts';
-import sofaImage from './assets/sofa.svg';
+
+/**
+ * The product pictures, one per sofa, drawn from its box model by
+ * `scripts/precompute.ts` at build time. Picked up by id so that adding a sofa
+ * to the engine's catalogue adds its picture without anyone editing a list.
+ */
+const ILLUSTRATIONS = import.meta.glob('./assets/generated/*.svg', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+}) as Record<string, string>;
+
+function illustrationOf(id: string): string {
+  const url = ILLUSTRATIONS[`./assets/generated/${id}.svg`];
+  if (url === undefined) throw new Error(`no illustration for ${id}: run npm run precompute`);
+  return url;
+}
 
 /** The item at its own origin, unrotated: the pose its declared box list describes. */
 const ORIGIN: Placement = { x: 0, y: 0, z: 0, yaw: 0, pitch: 0 };
@@ -84,7 +100,7 @@ const scene = (id: string): EnvironmentParams =>
   PRECOMPUTED.scenes[id] ?? {
     openingWidth: 110,
     openingHeight: 210,
-    wallThickness: 15,
+    wallThickness: 30,
     hallwayWidth: 240,
     hallwayDepth: 360,
     roomDepth: 400,
@@ -98,7 +114,7 @@ const SLIM_DEFAULTS = scene('slim-arm-2-seat');
 const CORNER_DEFAULTS: EnvironmentParams = {
   openingWidth: 170,      // רוחב הפתח (Opening width)
   openingHeight: 190,    // גובה הפתח (Opening height)
-  wallThickness: 15,     // עובי הקיר
+  wallThickness: 30,     // עובי הקיר
   hallwayWidth: 300,     // רוחב המסדרון לאורך הקיר
   hallwayDepth: 360,     // עומק לפני הדלת
   roomDepth: 400,        // עומק החדר מאחורי הדלת
@@ -120,7 +136,7 @@ export const PRODUCTS: readonly Product[] = [
     blurb:
       'A generous three-seater with a 12° reclined back and a removable leg set. The legs unscrew in about a minute, and they are exactly what decides the answer.',
     material: 'Wool-blend upholstery · solid beech legs',
-    image: sofaImage,
+    image: illustrationOf('sofa-3-seat'),
     widthAxis: 'x',
     defaults: SOFA_DEFAULTS,
     scenarios: [TRIVIAL_FIT, NARROW_HALLWAY, LEGS_MUST_COME_OFF],
@@ -135,7 +151,7 @@ export const PRODUCTS: readonly Product[] = [
     blurb:
       'Slim arms that stop well below the back, and a plinth instead of legs. That combination is why this is the one sofa here that gains from being turned as it goes rather than simply laid on its side.',
     material: 'Bouclé upholstery · powder-coated plinth',
-    image: sofaImage,
+    image: illustrationOf('slim-arm-2-seat'),
     widthAxis: 'x',
     defaults: SLIM_DEFAULTS,
     scenarios: [],
@@ -150,7 +166,7 @@ export const PRODUCTS: readonly Product[] = [
     blurb:
       'An L, which a rectangular doorway does not forgive. Delivered as two modules that bolt together, and the difference between the assembled figure and the module figure is the difference between impossible and ordinary.',
     material: 'Linen-blend upholstery · steel connectors',
-    image: sofaImage,
+    image: illustrationOf('corner-sofa'),
     widthAxis: 'x',
     defaults: CORNER_DEFAULTS,
     scenarios: [],
@@ -165,7 +181,7 @@ export const PRODUCTS: readonly Product[] = [
     blurb:
       'Low and very deep, so depth rather than height is what a doorway sees. It is the narrowest-clearing sofa in the catalogue, and it goes in on end.',
     material: 'Cotton-velvet upholstery · hardwood frame',
-    image: sofaImage,
+    image: illustrationOf('deep-seat-lounge'),
     widthAxis: 'x',
     defaults: DEEP_DEFAULTS,
     scenarios: [],
@@ -180,7 +196,7 @@ export const PRODUCTS: readonly Product[] = [
     blurb:
       'The reclining mechanism lives in a housing across the back and is bolted to the frame. It adds ten centimetres of depth that cannot be taken off, and those ten centimetres are the whole answer.',
     material: 'Leather upholstery · steel mechanism',
-    image: sofaImage,
+    image: illustrationOf('recliner-2-seat'),
     widthAxis: 'x',
     defaults: RECLINER_DEFAULTS,
     scenarios: [],
@@ -195,7 +211,7 @@ export const PRODUCTS: readonly Product[] = [
     blurb:
       'The folded bed fills the body, so there is no hollow to turn into clearance and nothing that comes off. The hardest case here, and it is in the catalogue for that reason.',
     material: 'Heavy-weave upholstery · sprung steel frame',
-    image: sofaImage,
+    image: illustrationOf('sofa-bed'),
     widthAxis: 'x',
     defaults: SOFA_BED_DEFAULTS,
     scenarios: [],
@@ -236,7 +252,7 @@ export function retailDimensions(product: Product): RetailDimensions {
 const COMPARE_SHARED: Omit<EnvironmentParams, 'hallwayWidth'> = {
   openingWidth: 110,
   openingHeight: 210,
-  wallThickness: 15,
+  wallThickness: 30,
   hallwayDepth: 320,
   roomDepth: 400,
   roomWidth: 400,

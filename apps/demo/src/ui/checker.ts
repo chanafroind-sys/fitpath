@@ -51,10 +51,17 @@ interface Field {
   max: number;
 }
 
-/** The four a person can actually measure. */
+interface FieldGroup {
+  legend: string;
+  /** How many fields sit side by side. */
+  columns: 1 | 2;
+  fields: Field[];
+}
+
 /**
- * The four a shopper measures, and the three corridor numbers named so that
- * they cannot be confused with each other.
+ * The five a shopper measures, in two groups: the doorway, and the corridor
+ * either side of it. The three corridor numbers are named so that they cannot
+ * be confused with each other.
  *
  * "Hallway clearance" and "free depth behind" were two of the three, and the
  * third — how far the corridor runs ALONG the wall — sat in Advanced under
@@ -63,41 +70,53 @@ interface Field {
  * face the door at all, so it is on the main form now with the other two, and
  * all three say which way they point.
  */
-const PRIMARY: Field[] = [
+const PRIMARY: FieldGroup[] = [
   {
-    key: 'openingWidth',
-    label: 'Opening width',
-    hint: 'Clear width of the doorway, jamb to jamb',
-    min: 40,
-    max: 320,
+    legend: 'The doorway',
+    columns: 2,
+    fields: [
+      {
+        key: 'openingWidth',
+        label: 'Width',
+        hint: 'Clear, jamb to jamb',
+        min: 40,
+        max: 320,
+      },
+      {
+        key: 'openingHeight',
+        label: 'Height',
+        hint: 'Floor to the lintel',
+        min: 60,
+        max: 320,
+      },
+    ],
   },
   {
-    key: 'openingHeight',
-    label: 'Opening height',
-    hint: 'Floor to the underside of the lintel',
-    min: 60,
-    max: 320,
-  },
-  {
-    key: 'hallwayWidth',
-    label: 'Depth in front of the door',
-    hint: 'From the door back into the hallway',
-    min: 60,
-    max: 400,
-  },
-  {
-    key: 'hallwayDepth',
-    label: 'Width of the hallway along the wall',
-    hint: 'Left to right past the door — what you need to turn the item',
-    min: 100,
-    max: 800,
-  },
-  {
-    key: 'roomDepth',
-    label: 'Depth behind the door',
-    hint: 'From the door into the room',
-    min: 100,
-    max: 600,
+    legend: 'The corridor',
+    columns: 1,
+    fields: [
+      {
+        key: 'hallwayWidth',
+        label: 'Depth in front of the door',
+        hint: 'From the door back into the hallway',
+        min: 60,
+        max: 400,
+      },
+      {
+        key: 'hallwayDepth',
+        label: 'Width along the wall',
+        hint: 'Left to right past the door — the room to turn the item',
+        min: 100,
+        max: 800,
+      },
+      {
+        key: 'roomDepth',
+        label: 'Depth behind the door',
+        hint: 'From the door into the room',
+        min: 100,
+        max: 600,
+      },
+    ],
   },
 ];
 
@@ -142,8 +161,17 @@ export function createChecker(product: Product, onBack: () => void): CheckerView
 
   form.append(
     el('div', { class: 'measure-row' }, [
-      el('div', { class: 'field-grid' }, PRIMARY.map((f) => numberField(f, product.defaults[f.key]))),
       corridorDiagram(),
+      ...PRIMARY.map((group) =>
+        el('fieldset', { class: 'field-group' }, [
+          el('legend', { text: group.legend }),
+          el(
+            'div',
+            { class: `field-grid${group.columns === 2 ? ' field-grid-2' : ''}` },
+            group.fields.map((f) => numberField(f, product.defaults[f.key])),
+          ),
+        ]),
+      ),
     ]),
     el('details', { class: 'advanced' }, [
       el('summary', { text: 'Advanced' }),
