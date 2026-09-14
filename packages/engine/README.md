@@ -988,6 +988,10 @@ fails in one a centimetre tighter.
 
 ### The three templates, measured on the sofa
 
+Behind a 15 cm wall, which is what the library assumed when these were taken;
+the default is 30 cm now and the numbers below did not move (see *The wall is
+a tunnel* below).
+
 | maneuver | stages | door it needs | valid? |
 | --- | ---: | --- | --- |
 | Straight in | 1 | **95.01** x 85.00 | yes |
@@ -1005,8 +1009,16 @@ implementation.** `rollSchedule` returns the minimax value over the whole
 crossing — the narrowest doorway *any* roll schedule could get the item through,
 computed station by station at one degree over the full circle — and for this
 sofa it is **85.00 cm**, the same width the item shows lying flat on its side.
-The maneuver achieves it to within 0.04 cm. A claim of anything narrower would
-have to be wrong.
+The maneuver achieves it to within 0.04 cm. A claim of anything narrower *by
+rolling* would have to be wrong.
+
+That qualifier is the whole claim. The minimax runs over roll — rotation about
+the travel axis — and over nothing else. It bounds no motion that changes the
+item's yaw or pitch while it is inside the wall: a sofa leaning into the
+direction of travel moves points *along* the travel axis, so what is inside
+the slab is no longer a function of the station, and the recurrence does not
+describe it. Whether such a lean-and-straighten beats 85 is a different
+measurement, recorded under *The pitch-and-straighten question* below.
 
 The reason is worth stating, because the geometry that motivates threading is
 real and the sofa has it. The middle of the item is an **L** — a seat 95 cm deep
@@ -1063,6 +1075,167 @@ maneuver was ruled out and which measurement fell short; it carries no
 known to work, so its silence is a statement about the list. The caller falls
 back to the planner, and the closed-form `provableNoFit` remains the only thing
 allowed to report a definite no.
+
+### The wall is a tunnel, and every figure says how thick
+
+A doorway is a tunnel the depth of the wall, not a plane. The environment has
+always modelled it that way — the wall occupies `y ∈ [0, wallThickness]` as
+four solids around the opening — and both engines respect it: the planner
+tests every sampled placement against those solids, and `buildManeuver`
+measures each requirement with `slabSection`, the item clipped to the *whole*
+slab, at samples a quarter of a centimetre apart, before validating every
+waypoint and edge behind that wall. Only the closed-form proof treats the wall
+as a plane, which is the sound direction for a proof of impossibility.
+
+What was wrong was the number: **15 cm, everywhere, by default, and never
+stated.** Every figure this file quoted was for a stud partition. Thicker walls
+are strictly harder — the wall's solid grows and the clearances either side
+are measured from its faces — so a shopper with a 30 cm masonry wall measured
+against a 15 cm library was being handed a doorway number that could be too
+small, with nothing on the page to say so.
+
+Now:
+
+- `DEFAULT_WALL_THICKNESS` is **30 cm**, and `reportOn`, `buildLibrary` and
+  `onboardItem` all take an override.
+- Every `Maneuver` carries `wallThickness` (what it was measured behind) and
+  `holdsForWallsUpTo`. The requirement is monotone in the thickness, so two
+  measurements settle it: `buildLibrary` rebuilds each maneuver behind a
+  `THICK_WALL_BOUND` wall of 100 cm, and one whose five numbers come out
+  identical and still validate holds for every thickness between. Otherwise
+  the bound equals the thickness it was built at, and the result says so.
+- `ItemReport.wallStatement` puts it in a sentence, so a page that publishes
+  the figures publishes the assumption with them.
+
+Measured on the catalogue behind 30 cm: *Straight in*, *On its side* and
+*Seat first* need the same doorway behind a metre of wall on every sofa. The
+two *Stood on end* approaches, which turn near the wall, hold only to the
+30 cm they were measured at on three of the six, and the report says which.
+The doorway widths themselves did not move between 15 and 30 cm — 85.01,
+77.79, 85.01, 75.01, 100.00, 90.01 — because every one of them is a
+constant-orientation crossing, and a constant orientation presents the same
+section to any slab.
+
+### What the floor bounds, and what it does not
+
+`rollSchedule` is a minimax over **roll** — rotation about the travel axis —
+station by station. It is a floor on every roll schedule and on nothing else.
+It bounds no motion that changes the item's yaw or its pitch while it is
+inside the wall, because a lean moves points *along* the travel axis, so what
+is inside the slab stops being a function of the station and the recurrence
+does not describe it. For three rounds the three-seater's 85.00 was reported
+as though it bounded every way of turning the sofa. It does not, and the next
+section is the measurement that shows it.
+
+### The pitch-and-straighten question
+
+The hypothesis: approach the opening leaning into the direction of travel, so
+that the leading legs enter the tunnel at an angle and the sofa straightens
+inside the wall's thickness. A pitch-and-straighten sequence, not a roll
+schedule and not one of the five templates.
+
+**The free planner, as asked.** The three-seater with its real legs, a 30 cm
+wall, a 210 cm lintel, 300 cm of hallway, against a narrowing doorway. The
+planner's node table is a JavaScript `Map`, and V8 caps a `Map` at 2²⁴
+entries, so **16 million nodes is the largest budget this engine can run**;
+above that it throws rather than searching. The runs (`bench/free-planner-width.ts`):
+
+| doorway | sofa as authored | authored flat on its side (roll 270) | authored rolled 280 |
+| ---: | --- | --- | --- |
+| 96 cm | feasible, 56 K nodes, 0.2 s | — | — |
+| 94 cm | budget exhausted at 16 M | — | — |
+| 90 cm | budget exhausted at 16 M | **feasible**, 1.9 M nodes, 55 s | **feasible**, 214 K nodes, 5 s |
+| 86 cm | budget exhausted at 16 M | **feasible**, 3.8 M nodes, 128 s | — |
+| 85 cm | — | budget exhausted at 16 M, 7 min | — |
+| 84 cm | — | budget exhausted at 16 M, 7 min | budget exhausted at 16 M |
+
+None of the exhausted rows is a negative. Two things stop the planner short
+of the answer, and neither is the geometry:
+
+1. **The motion is outside its state space for the sofa as authored.** It
+   needs a roll of about 280° *and* a pitch about the axis across the doorway
+   at the same time. A `Placement` has yaw and one pitch, about local Y or
+   local X, and the two families meet only at level. Authoring the roll into
+   the item is what makes the lean expressible, which is why the third column
+   exists at all.
+2. **The plateau.** Even with the roll authored in, the doorways below 86 cm
+   exhaust the budget for the reason the orientation-aware heuristic section
+   already sets out: the corridor of valid poses is a needle in the position
+   dimensions and nothing prices it.
+
+**So the question was answered directly instead.** With the sofa authored
+rolled by ρ about its length, the engine's own `pitch` at yaw 90 *is* the
+lean, and `slabSection` gives the exact section behind the wall at any
+instant. `bench/lean-minimax.ts` runs a minimax over lean schedules together
+with a sideways slide, at a fixed ρ, with the lean limited to 60° and 3° per
+centimetre of travel and the slide to 2 cm per centimetre; every transition is
+costed by the half-width the opening needs along the *whole* straight
+interpolation between its ends, sampled so no material point moves more than
+0.25 cm — the same rule `buildManeuver` measures with. Two cheaper versions of
+this measurement were wrong in ways worth recording: sampling only at the
+stations missed the moment, between samples, when a leg and the backrest's
+top were inside the slab together (it claimed 82.65 and the collider refused
+the path); costing each edge by its own union of sections fixed that and still
+overclaimed, because adjacent edges wanted the item at different sideways
+positions and a sofa cannot jump across a doorway between one centimetre and
+the next (the constructed path needed 96.56). The sideways position had to be
+a state.
+
+Behind a 30 cm wall, under a 210 cm lintel, every row a path the collider
+cleared end to end:
+
+| roll off flat | lean-and-slide floor | witness |
+| ---: | ---: | --- |
+| 270 — flat on its side | 85.00, level throughout | 85.01 |
+| 277 | 84.00 | 84.01 |
+| 279 | 83.37 | 83.38 |
+| **280** | **83.04** | **83.05** |
+| 281 | 83.84 | 83.85 |
+| 283 | 93.45 | 93.46 |
+| 90 — flat on its *other* side | 85.00, level | 85.01 |
+| 85 / 95 | 86.26 / 90.65 | 86.27 / 90.66 |
+
+**83.05 cm, with the real legs on — 1.96 cm under the library's 85.01.** It
+only works on one side: rolled the other way, so the backrest's top leads the
+legs into the tunnel instead of trailing them, no lean helps. The sofa lies
+ten degrees short of flat on its side, leans up to 58° into the
+doorway while the leading leg station crosses so that the leg is through
+before the backrest's top arrives, levels for the middle, and leans the other
+way for the trailing end. Put through `buildManeuver` as a one-stage template
+it measures **83.01 × 147.96 cm** of doorway, 236 cm in front, 177 cm along the
+wall, 236 cm behind, and needs **243 cm of ceiling** to lean under; it
+validates in exactly that environment. The same in a 15 cm wall; a 40 cm wall
+takes it away again (95.98) — the tunnel has to be short enough for the leg to
+clear before the backrest's top arrives. `test/leanWitness.test.ts` carries
+the path and re-validates it on every run, at 84 and at 83.05, and checks that
+82 refuses it.
+
+**The planner could not have found this, and the reason is architectural,
+not a matter of budget.** A `Placement` is `{ x, y, z, yaw, pitch, tiltAxis }`:
+one tilt, about the item's local Y or its local X, and the two families meet
+only at level. The lean needs the sofa rolled ten degrees short of its side
+*and* pitched about the axis across the doorway at the same time — two
+rotations besides yaw — and no placement in the planner's state space holds
+both. The motion is not hard to find; it is not there to be found. That is
+the difference between the exhausted rows in the table above and a negative,
+and it is the difference between a search limit and a model limit. Every
+placement the planner can search is one the engine can also validate; the
+converse is not true, and this is the first maneuver to live in the gap.
+
+So the library is missing a maneuver, and the earlier conclusion that the
+legs' void is worth nothing was a conclusion about roll schedules. In that
+family it is worth 0.00 cm; in this one about 2 of the 15 cm the legs cost
+(with them off, the body goes through 70). 83.05 is a witness, not a floor:
+the family it was found in is one roll, one travel axis, a 2° lean grid and a
+0.5 cm slide grid, and the schedule that also changes the roll as it goes has
+not been measured soundly — a coarser version suggested lower and did not
+survive construction, so no number from it is claimed.
+
+Adding it to the library is the next piece of work, and it is not a template:
+a `Placement` cannot hold a roll and a pitch at once, so the maneuver either
+needs a roll on placements — which the planner would validate and animate
+without ever searching — or an item authored pre-rolled, which is the trick
+these measurements used and the README has always allowed.
 
 ---
 
@@ -1216,6 +1389,10 @@ firstContactAlongPath(item, path, environment) -> PathContact | undefined
 
 convexHullMinimumWidth(boxes, resolution?) -> number                // a measurement
 passageOutlook(item, openingWidth, openingHeight) -> PassageOutlook // never a verdict
+
+buildLibrary(item, wallThickness = DEFAULT_WALL_THICKNESS) -> Library   // every Maneuver says holdsForWallsUpTo
+reportOn(item, wallThickness = DEFAULT_WALL_THICKNESS) -> ItemReport   // carries wallStatement
+wallThicknessBound(item, template, maneuver) -> number
 ```
 
 `PlanOptions` covers lattice resolution (`positionStep`, `yawStepDeg`,
