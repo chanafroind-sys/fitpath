@@ -30,10 +30,9 @@ import {
   type Animated,
 } from './panels.ts';
 import type { Verdict } from '../engine/protocol.ts';
-import { buildTimeline, stepRanges } from '../viewer/timeline.ts';
+import { Playback, buildTimeline, stepRanges } from '@fitpath/viewer';
 import { clear, el, hebrew } from './dom.ts';
 import { cm, degrees, seconds } from './format.ts';
-import { Playback } from './playback.ts';
 import { Stage, createTransport, type Transport } from './stage.ts';
 import {
   highlightStep,

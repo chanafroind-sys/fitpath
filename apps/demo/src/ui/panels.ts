@@ -15,9 +15,8 @@ import type {
   Placement,
 } from '@fitpath/engine';
 import { prepareItem, verifyPathIn } from '@fitpath/engine';
-import { buildTimeline } from '../viewer/timeline.ts';
+import { Playback, buildTimeline } from '@fitpath/viewer';
 import { el } from './dom.ts';
-import { Playback } from './playback.ts';
 import { Stage, createTransport, type Transport } from './stage.ts';
 
 const cm = (value: number): string => `${value.toFixed(value % 1 === 0 ? 0 : 2)} cm`;

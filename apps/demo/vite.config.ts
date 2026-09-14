@@ -11,13 +11,14 @@ import { defineConfig } from 'vite';
  * stale copy of the geometry.
  */
 const engineSource = fileURLToPath(new URL('../../packages/engine/src/index.ts', import.meta.url));
+const viewerSource = fileURLToPath(new URL('../../packages/viewer/src/index.ts', import.meta.url));
 
 export default defineConfig({
   // Relative, so the same build works on a project-scoped GitHub Pages URL
   // (/fitpath/) and from a local `vite preview` without a rebuild.
   base: './',
   resolve: {
-    alias: { '@fitpath/engine': engineSource },
+    alias: { '@fitpath/engine': engineSource, '@fitpath/viewer': viewerSource },
   },
   worker: { format: 'es' },
   build: {

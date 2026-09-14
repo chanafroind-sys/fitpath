@@ -2,10 +2,10 @@
  * Light and dark, with the viewer's palette kept in step.
  *
  * The 3D scene cannot read CSS variables, so the two palettes are declared in
- * `viewer/scene.ts` and selected here. One source of truth for "which theme are
+ * `@fitpath/viewer` and selected here. One source of truth for "which theme are
  * we in", two consumers.
  */
-import { DARK_PALETTE, LIGHT_PALETTE, type Palette } from '../viewer/scene.ts';
+import { DARK_PALETTE, LIGHT_PALETTE, type Palette } from '@fitpath/viewer';
 
 export type Theme = 'light' | 'dark';
 

@@ -19,9 +19,8 @@
 import { buildEnvironment } from '@fitpath/engine';
 import { PRECOMPUTED } from '../precomputed.ts';
 import { productById } from '../catalog.ts';
-import { buildTimeline } from '../viewer/timeline.ts';
+import { Playback, buildTimeline } from '@fitpath/viewer';
 import { clear, el } from './dom.ts';
-import { Playback } from './playback.ts';
 import { Stage, createTransport, type Transport } from './stage.ts';
 import { clearanceCaveat, entryFor, sourceBadge } from './library.ts';
 import { maneuverChoices, maneuverStage, tradeLine, turningAlternative, validHere, type Animated } from './panels.ts';

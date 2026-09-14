@@ -7,11 +7,9 @@
  * instant of the same timeline.
  */
 import type { Step } from '@fitpath/engine';
-import { Viewer, type SceneSetup } from '../viewer/viewer.ts';
+import { Viewer, type Playback, type SceneSetup, type StepRange } from '@fitpath/viewer';
 import { onThemeChange, palette } from './theme.ts';
 import { clear, el, hebrew } from './dom.ts';
-import type { Playback } from './playback.ts';
-import type { StepRange } from '../viewer/timeline.ts';
 
 export interface StageOptions {
   label?: string;
