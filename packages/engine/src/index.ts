@@ -187,3 +187,35 @@ export {
   type PartLine,
 } from './maneuvers/parts.ts';
 export { UPRIGHT_LEFT_STANDING, UPRIGHT_THROUGH } from './maneuvers/approach.ts';
+
+// Sourcing: published retailer dimensions in, an Item out.
+export {
+  buildFurnitureModel,
+  DEFAULT_INPUT_TOLERANCE_CM,
+  DEFAULT_OVERALL_TOLERANCE_CM,
+  FURNITURE_PIPELINE_VERSION,
+  MIN_PLAUSIBLE_SEAT_BODY_CM,
+  ROUNDED_TO_FIVE_TOLERANCE_CM,
+  ROUNDED_TO_TEN_TOLERANCE_CM,
+} from './sourcing/furnitureModel.ts';
+export type {
+  ArmrestPresence,
+  BoxProvenance,
+  Carve,
+  ConfidenceTier,
+  FieldSource,
+  FlagCode,
+  FlagSeverity,
+  FurnitureField,
+  FurnitureInput,
+  FurnitureModelResult,
+  FurnitureShape,
+  ImprovementField,
+  ImprovementRequest,
+  LegSpec,
+  MeasurementProvenance,
+  ModelFlag,
+  Provenance,
+  SeparablePartInput,
+  ToleranceReport,
+} from './sourcing/types.ts';
