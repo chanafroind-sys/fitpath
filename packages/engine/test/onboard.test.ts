@@ -300,11 +300,23 @@ describe('the chain: what the under-seat carve is worth', () => {
    *   C  + operator inset 3.5, no tolerance       85.01   on-its-side
    *   D  hand-authored fixture, real four posts   85.01   on-its-side
    *
-   * Zero. Not on the image path, not on a tape-measured inset, and not on the
-   * real geometry either — D is the ceiling of what any leg measurement could
-   * ever deliver, and it is the same 85.01 by the same maneuver. The doorway is
-   * set by the sofa's 85 cm height, exactly as the corner sofa's was; it goes
-   * through on its side and the legs never enter that number.
+   * And the floor — the minimax over every ROLL schedule, independent of the
+   * templates — is 85.00 on all four. So among the maneuvers the library can
+   * express, the 85.01 is optimal, void or no void.
+   *
+   * That was once written here as "nothing narrower is achievable by any
+   * schedule", and repeated as a proof. It is not one. The roll minimax bounds
+   * rotation about the travel axis and nothing else; a lean into the direction
+   * of travel is outside it, and `test/leanWitness.test.ts` carries a
+   * collider-validated path that leans the sofa through 83.05 cm with these
+   * same legs on. So: zero on the roll family, measured; about two centimetres
+   * on the lean family, measured; and a maneuver the library does not have.
+   *
+   * On the roll family: not on the image path, not on a tape-measured inset,
+   * and not on the real geometry either — D is the ceiling of what any leg
+   * measurement could ever deliver, and it is the same 85.01 by the same
+   * maneuver. The doorway is set by the sofa's 85 cm height; it goes through
+   * on its side and the legs never enter that number.
    *
    * Two things did move, and neither changes the answer. `seat-first` alone
    * needs 85.01 / 88.88 / 88.63 / 85.04 across A-D: the single-inset contract
@@ -349,6 +361,16 @@ describe('the chain: what the under-seat carve is worth', () => {
     for (const report of [solidBand, imageInset, tapeInset, realPosts]) {
       expect(report.narrowest).toBeCloseTo(85.01, 2);
       expect(validIds(report)).toEqual(validIds(realPosts));
+      // 85.01 is the best of five templates, which on its own is not a proof
+      // that nothing narrower exists — a maneuver exploiting the void could
+      // simply be absent from the library. The floor is the independent
+      // minimax over every ROLL schedule, and it is 85.00 with the void and
+      // without it: the templates are optimal among roll schedules to the
+      // carry margin. That closes the thread for rolling only. Leaning is a
+      // different family, it is not bounded by this figure, and it does
+      // better — see test/leanWitness.test.ts.
+      expect(report.floor).toBeCloseTo(85.0, 2);
+      expect(report.narrowest! - report.floor!).toBeLessThan(0.02);
     }
     // The carve really was made: this is not zero because nothing happened.
     expect(buildFurnitureModel(withImageEvidence(listing, image)).carvedVolumeCm3).toBeGreaterThan(

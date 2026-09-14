@@ -242,10 +242,17 @@ export interface RollSchedule {
  * a sum — so the recurrence carries `max(width here, best cost of getting
  * here)` and takes the smallest at the end.
  *
- * The value it returns is therefore a **floor on every schedule**, not the
- * score of one: no way of turning this item as it goes can do better. That is
- * what makes it worth publishing beside a maneuver — one that matches it is
- * optimal, and a claim of anything narrower would have to be wrong.
+ * The value it returns is therefore a **floor on every roll schedule**, not
+ * the score of one: no way of rolling this item as it goes, along this travel
+ * axis, can do better. That is what makes it worth publishing beside a
+ * maneuver — one that matches it is optimal *among roll schedules*.
+ *
+ * What it does not bound, and this has been overclaimed once: any motion that
+ * changes the item's yaw or its pitch while it is inside the wall. Leaning
+ * into the direction of travel moves points along the travel axis, so the
+ * band inside the slab is no longer a function of the station alone, and
+ * nothing in this recurrence describes it. A claim that nothing narrower is
+ * possible has to be made about roll schedules, and only about them.
  *
  * Deterministic: fixed step sizes, fixed candidate order, ties broken by the
  * lowest roll index.

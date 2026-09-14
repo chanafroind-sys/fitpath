@@ -117,7 +117,7 @@ describe('the catalogue', () => {
     expect(bestRollSchedule(prepareItem(CORNER_MAIN), WALL)?.travelAxis).toBe('x');
   });
 
-  it('leaves nothing on the table: every maneuver reaches the geometric floor', () => {
+  it('leaves nothing on the table: every maneuver reaches the roll-schedule floor', () => {
     for (const item of SOFAS) {
       const measured = report(item);
       if (measured.narrowest === undefined || measured.floor === undefined) continue;

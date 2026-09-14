@@ -64,8 +64,9 @@ describe('the maneuver library', () => {
    * `rollSchedule` returns the minimax value over the whole crossing: the
    * narrowest doorway any roll schedule could get this item through, station by
    * station, at one degree of resolution over the full circle. It is a floor on
-   * every schedule, not the score of one — so a maneuver matching it is optimal
-   * and a claim of anything narrower would have to be wrong.
+   * every ROLL schedule, not the score of one — so a maneuver matching it is
+   * optimal among roll schedules, and a claim of anything narrower by rolling
+   * would have to be wrong. It says nothing about yaw or pitch sequences.
    *
    * For this sofa it is 85 cm, the same width the item shows lying flat on its
    * side, and the reason is in the next test.
