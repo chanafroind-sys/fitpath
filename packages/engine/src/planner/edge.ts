@@ -61,7 +61,10 @@ export function interpolate(from: Placement, to: Placement, t: number): Placemen
  */
 export function sameTiltFrame(from: Placement, to: Placement): boolean {
   if ((from.tiltAxis ?? 'y') === (to.tiltAxis ?? 'y')) return true;
-  return from.pitch === 0 && to.pitch === 0;
+  // Across families the two ends describe the same orientation only when
+  // both are level — and, now that a placement may roll, only when they
+  // roll alike, or the interpolation would snap from one roll to the other.
+  return from.pitch === 0 && to.pitch === 0 && (from.roll ?? 0) === (to.roll ?? 0);
 }
 
 /** The same, into a caller-owned object, for the sampling loops. */
@@ -80,6 +83,13 @@ export function interpolateInto(
   // ends agree, or they are both level and the families describe the same
   // orientation anyway. `sameTiltFrame` rules out the rest.
   out.tiltAxis = to.tiltAxis ?? 'y';
+  // A roll is carried only where one of the ends has it, so a path that never
+  // rolls interpolates to placements without the field, exactly as before.
+  if (from.roll !== undefined || to.roll !== undefined) {
+    out.roll = (from.roll ?? 0) + ((to.roll ?? 0) - (from.roll ?? 0)) * t;
+  } else if (out.roll !== undefined) {
+    delete out.roll;
+  }
   return out;
 }
 
@@ -123,7 +133,8 @@ export function createEdgeValidator(
       const translation = Math.sqrt(dx * dx + dy * dy + dz * dz);
       const sweptByYaw = Math.abs(angleDelta(from.yaw, to.yaw)) * item.reach;
       const sweptByPitch = Math.abs(to.pitch - from.pitch) * item.reach;
-      const worstCase = translation + sweptByYaw + sweptByPitch;
+      const sweptByRoll = Math.abs((to.roll ?? 0) - (from.roll ?? 0)) * item.reach;
+      const worstCase = translation + sweptByYaw + sweptByPitch + sweptByRoll;
       return Math.max(1, Math.ceil(worstCase / maxStepDistance));
     },
 

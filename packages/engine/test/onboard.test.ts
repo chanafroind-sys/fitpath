@@ -47,7 +47,11 @@ describe('the chain: published dimensions to maneuver library', () => {
    * in six rather than the 21% of volume the earlier tables implied.
    */
   it.each([
-    ['sofa-3-seat', 0],
+    // The lean. The fixture's four posts lean through 82.72; the listing's
+    // legs are a solid band, every station of which binds on its side, so
+    // there is nothing to lead with and the model lies flat at 85.01. This is
+    // the second thing a single leg inset cannot carry, after alongWall.
+    ['sofa-3-seat', 2.29],
     ['slim-arm-2-seat', 2.21],
     ['corner-sofa', 0],
     ['deep-seat-lounge', 0],
@@ -72,12 +76,17 @@ describe('the chain: published dimensions to maneuver library', () => {
    * the same three on every fixture.
    */
   it.each(LISTINGS.map((entry) => [entry.published.id!, entry] as const))(
-    'validates the same maneuvers as the hand-authored %s',
-    (_id, entry) => {
+    'validates the same maneuvers as the hand-authored %s, except the lean',
+    (id, entry) => {
       const hand = reportOn(entry.fixture, WALL).maneuvers.filter((line) => line.valid).map((line) => line.templateId);
       const generated = onboardItem(entry.published, { wallThicknessCm: WALL }).assembled.need.maneuvers;
 
-      expect([...generated].sort()).toEqual([...hand].sort());
+      // The one maneuver sourcing loses: the lean needs the posts, and a
+      // listing has no posts. Everything else validates on both.
+      const lean = 'lean-and-straighten';
+      expect(generated).not.toContain(lean);
+      expect(hand.includes(lean)).toBe(id === 'sofa-3-seat');
+      expect([...generated].sort()).toEqual(hand.filter((m) => m !== lean).sort());
     },
   );
 });
@@ -330,7 +339,7 @@ describe('the chain: what the under-seat carve is worth', () => {
    * The image path is parked on this. It is correct, measured, and changes
    * nothing a shopper can feel.
    */
-  it('changes the narrowest doorway by 0.00 cm, all the way up to the real leg geometry', () => {
+  it('is worth 0.00 cm by rolling and 2.29 cm by leaning, which only the real posts can do', () => {
     const listing = LISTINGS[0]!.published;
     const dims = { overallWidthCm: 220, overallDepthCm: 95, overallHeightCm: 85 };
     const image = measureLegsFromImages(
@@ -358,20 +367,24 @@ describe('the chain: what the under-seat carve is worth', () => {
     const validIds = (report: ItemReport) =>
       report.maneuvers.filter((line) => line.valid).map((line) => line.templateId).sort();
 
+    // On the roll family the carve is worth nothing, up to and including the
+    // real posts: 85.00 is the floor over every roll schedule on all four, and
+    // the on-its-side maneuver reaches it on all four.
     for (const report of [solidBand, imageInset, tapeInset, realPosts]) {
-      expect(report.narrowest).toBeCloseTo(85.01, 2);
-      expect(validIds(report)).toEqual(validIds(realPosts));
-      // 85.01 is the best of five templates, which on its own is not a proof
-      // that nothing narrower exists — a maneuver exploiting the void could
-      // simply be absent from the library. The floor is the independent
-      // minimax over every ROLL schedule, and it is 85.00 with the void and
-      // without it: the templates are optimal among roll schedules to the
-      // carry margin. That closes the thread for rolling only. Leaning is a
-      // different family, it is not bounded by this figure, and it does
-      // better — see test/leanWitness.test.ts.
       expect(report.floor).toBeCloseTo(85.0, 2);
-      expect(report.narrowest! - report.floor!).toBeLessThan(0.02);
+      expect(report.maneuvers.find((m) => m.templateId === 'on-its-side')?.requirement?.doorWidth).toBeCloseTo(85.01, 2);
     }
+    // On the lean family the real posts are worth 2.29 cm, and no version of
+    // the single-inset contract gets any of it: a band, an image-measured
+    // inset and a tape-measured inset all present every station equally wide
+    // on their side, so there is nothing to lead with. The lean needs the
+    // posts, and the posts are what a listing does not describe.
+    for (const report of [solidBand, imageInset, tapeInset]) {
+      expect(report.narrowest).toBeCloseTo(85.01, 2);
+      expect(validIds(report)).toEqual(validIds(realPosts).filter((id) => id !== 'lean-and-straighten'));
+    }
+    expect(realPosts.narrowest).toBeCloseTo(82.72, 2);
+    expect(validIds(realPosts)).toContain('lean-and-straighten');
     // The carve really was made: this is not zero because nothing happened.
     expect(buildFurnitureModel(withImageEvidence(listing, image)).carvedVolumeCm3).toBeGreaterThan(
       buildFurnitureModel(listing).carvedVolumeCm3,

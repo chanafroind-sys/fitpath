@@ -83,7 +83,7 @@ describe('the crossing, station by station', () => {
   it('holds one angle throughout for the maneuvers that do not turn', () => {
     for (const item of SOFAS) {
       for (const line of report(item).maneuvers) {
-        if (!line.valid || line.templateId === 'seat-first') continue;
+        if (!line.valid || line.templateId === 'seat-first' || line.templateId === 'lean-and-straighten') continue;
         const angles = (line.stations ?? []).map((s) => Math.round(s.rollDeg));
         expect(`${item.id}/${line.templateId}: ${new Set(angles).size}`).toBe(
           `${item.id}/${line.templateId}: 1`,
@@ -93,13 +93,15 @@ describe('the crossing, station by station', () => {
     }
   });
 
-  it('changes the angle mid-crossing for the one that threads', () => {
+  it('changes the angle mid-crossing for the ones that thread or lean', () => {
     for (const item of SOFAS) {
-      const seat = report(item).maneuvers.find((m) => m.templateId === 'seat-first');
-      if (seat === undefined || !seat.valid) continue;
-      expect(`${item.id}: ${seat.turns}`).toBe(`${item.id}: true`);
-      const angles = (seat.stations ?? []).map((s) => s.rollDeg);
-      expect(Math.max(...angles) - Math.min(...angles)).toBeGreaterThan(5);
+      for (const id of ['seat-first', 'lean-and-straighten']) {
+        const line = report(item).maneuvers.find((m) => m.templateId === id);
+        if (line === undefined || !line.valid) continue;
+        expect(`${item.id}/${id}: ${line.turns}`).toBe(`${item.id}/${id}: true`);
+        const angles = (line.stations ?? []).map((s) => s.rollDeg);
+        expect(Math.max(...angles) - Math.min(...angles)).toBeGreaterThan(5);
+      }
     }
   });
 

@@ -112,6 +112,23 @@ export interface Placement {
    * written down without this field still means exactly what it used to.
    */
   tiltAxis?: TiltAxis;
+  /**
+   * A rotation about the item's own local X, applied before the tilt and the
+   * yaw: `R = Rz(yaw) · R_tilt(pitch) · Rx(roll)`. Absent means 0, so every
+   * placement ever written down without it still means what it used to.
+   *
+   * **Validated and animated, never searched.** The planner's lattice has no
+   * roll dimension, generates no placement with one, and `plan` refuses a
+   * start that carries one. The field exists because one maneuver needed it:
+   * the three-seater leaning into a doorway *while* lying ten degrees short
+   * of its side, which is a roll and a pitch at once — a pose the engine can
+   * check with `collides` and draw, and that no searchable placement holds.
+   * The maneuver library authors such poses; the collider judges them.
+   *
+   * With `tiltAxis: 'x'` the tilt is itself about local X, so a roll there is
+   * only more of the same angle.
+   */
+  roll?: number;
 }
 
 /** A box transformed into world space, with the derived quantities the broad phase needs. */

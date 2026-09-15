@@ -50,6 +50,9 @@ const EDGES: readonly (readonly [number, number])[] = (() => {
   return out;
 })();
 
+/** The same twelve edges as corner-index pairs in one flat array, for loops that must not allocate. */
+export const EDGE_PAIRS: Int8Array = Int8Array.from(EDGES.flat());
+
 export function boxCorners(box: WorldBox): Vec3[] {
   const [ax, ay, az] = box.axes;
   const h = box.halfExtents;
@@ -77,37 +80,84 @@ export function slabSection(
   minY: number,
   maxY: number,
 ): Section | undefined {
+  return sectionOfCorners(itemWorldBoxes(item, placement).map(boxCorners), 0, 0, 0, minY, maxY);
+}
+
+/**
+ * The corners of every box, for the item held at an orientation with its
+ * origin at the world origin.
+ *
+ * A schedule search asks for the section at one orientation across hundreds
+ * of positions; the rotation is the expensive part and it does not change
+ * between them. Take the corners once, then `sectionOfCorners` slides them.
+ */
+export function cornersAt(item: PreparedItem, orientation: Omit<Placement, 'x' | 'y' | 'z'>): Vec3[][] {
+  return itemWorldBoxes(item, { x: 0, y: 0, z: 0, ...orientation }).map(boxCorners);
+}
+
+/**
+ * The section of a slab through corner sets taken by `cornersAt`, with the
+ * item's origin moved to `(dx, dy, dz)`. Exact: a convex set attains its
+ * extremes at its vertices, and the clipped box's vertices are its own
+ * corners inside the slab plus where its edges cross the slab's faces.
+ */
+export function sectionOfCorners(
+  cornerSets: readonly (readonly Vec3[])[],
+  dx: number,
+  dy: number,
+  dz: number,
+  minY: number,
+  maxY: number,
+): Section | undefined {
   let minX = Infinity;
   let maxX = -Infinity;
   let minZ = Infinity;
   let maxZ = -Infinity;
   let any = false;
 
-  const take = (x: number, z: number): void => {
-    any = true;
-    if (x < minX) minX = x;
-    if (x > maxX) maxX = x;
-    if (z < minZ) minZ = z;
-    if (z > maxZ) maxZ = z;
-  };
-
-  for (const box of itemWorldBoxes(item, placement)) {
-    if (box.aabbMax.y < minY || box.aabbMin.y > maxY) continue;
-    const corners = boxCorners(box);
+  for (const corners of cornerSets) {
+    // Whole box outside the slab: nothing to clip.
+    let boxMinY = Infinity;
+    let boxMaxY = -Infinity;
     for (const c of corners) {
-      if (c.y >= minY && c.y <= maxY) take(c.x, c.z);
+      const y = c.y + dy;
+      if (y < boxMinY) boxMinY = y;
+      if (y > boxMaxY) boxMaxY = y;
+    }
+    if (boxMaxY < minY || boxMinY > maxY) continue;
+
+    for (const c of corners) {
+      const y = c.y + dy;
+      if (y >= minY && y <= maxY) {
+        any = true;
+        const x = c.x + dx;
+        const z = c.z + dz;
+        if (x < minX) minX = x;
+        if (x > maxX) maxX = x;
+        if (z < minZ) minZ = z;
+        if (z > maxZ) maxZ = z;
+      }
     }
     for (const [i, j] of EDGES) {
       const a = corners[i]!;
       const b = corners[j]!;
-      for (const plane of [minY, maxY]) {
-        const da = a.y - plane;
-        const db = b.y - plane;
+      const ay = a.y + dy;
+      const by = b.y + dy;
+      for (let p = 0; p < 2; p++) {
+        const plane = p === 0 ? minY : maxY;
+        const da = ay - plane;
+        const db = by - plane;
         if ((da > 0 && db > 0) || (da < 0 && db < 0)) continue;
         if (da === db) continue;
         const t = da / (da - db);
         if (t < 0 || t > 1) continue;
-        take(a.x + t * (b.x - a.x), a.z + t * (b.z - a.z));
+        any = true;
+        const x = a.x + t * (b.x - a.x) + dx;
+        const z = a.z + t * (b.z - a.z) + dz;
+        if (x < minX) minX = x;
+        if (x > maxX) maxX = x;
+        if (z < minZ) minZ = z;
+        if (z > maxZ) maxZ = z;
       }
     }
   }
@@ -282,6 +332,7 @@ export function orientedBounds(
   yaw: number,
   pitch: number,
   tiltAxis: TravelAxis,
+  roll = 0,
 ): Section & { minY: number; maxY: number } {
   let minX = Infinity;
   let maxX = -Infinity;
@@ -289,7 +340,7 @@ export function orientedBounds(
   let maxY = -Infinity;
   let minZ = Infinity;
   let maxZ = -Infinity;
-  for (const box of itemWorldBoxes(item, { x: 0, y: 0, z: 0, yaw, pitch, tiltAxis })) {
+  for (const box of itemWorldBoxes(item, { x: 0, y: 0, z: 0, yaw, pitch, tiltAxis, ...(roll !== 0 ? { roll } : {}) })) {
     if (box.aabbMin.x < minX) minX = box.aabbMin.x;
     if (box.aabbMax.x > maxX) maxX = box.aabbMax.x;
     if (box.aabbMin.y < minY) minY = box.aabbMin.y;

@@ -997,9 +997,11 @@ a tunnel* below).
 | Straight in | 1 | **95.01** x 85.00 | yes |
 | On its side | 3 | **85.01** x 95.00 | yes |
 | Seat first, turning as it goes | 4 | **85.04** x 117.81 | yes |
+| Lean into the doorway and straighten inside it | 5 | **82.72** x 116.83 | yes — see *The lean, in the library* |
 
-All three need 222 cm of hallway clearance, which is the sofa's own length plus
-a margin: the maneuvers begin with the item already square to the doorway, and
+The first three need 222 cm of hallway clearance, which is the sofa's own
+length plus a margin (the lean needs 236, and its own section below says
+why): the maneuvers begin with the item already square to the doorway, and
 holding a 220 cm sofa square to a wall takes 220 cm of depth in front of it.
 Getting it square from along a corridor is the planner's business, not the
 library's.
@@ -1231,11 +1233,63 @@ the family it was found in is one roll, one travel axis, a 2° lean grid and a
 not been measured soundly — a coarser version suggested lower and did not
 survive construction, so no number from it is claimed.
 
-Adding it to the library is the next piece of work, and it is not a template:
-a `Placement` cannot hold a roll and a pitch at once, so the maneuver either
-needs a roll on placements — which the planner would validate and animate
-without ever searching — or an item authored pre-rolled, which is the trick
-these measurements used and the README has always allowed.
+### The lean, in the library
+
+It is a template now — `LEAN_AND_STRAIGHTEN`, the sixth — and the route
+chosen was a roll on `Placement` rather than pre-rolled items in the data.
+The reasons: the maneuver is then a maneuver *of the sofa*, validated by the
+same `collides` and `EdgeValidator` and drawn by the same `placementRotation`
+as every other, instead of a path for a re-authored copy that every consumer
+would have to know to swap in; a pre-rolled item breaks the library's
+contract, which is that `build(item)` returns placements of *that* item; and
+the planner's guarantee stays exact, because a placement without the field
+means what it always did, the lattice never generates one, and `plan`
+refuses a start that carries one. **Validated and animated, never
+searched** is enforced, not promised.
+
+`Placement.roll` is a rotation about the item's local X applied innermost:
+`R = Rz(yaw) · Ry(pitch) · Rx(roll)` in tilt family `y`; in family `x`, whose
+tilt is already about local X, it simply adds to the tilt. Every place that
+composes or samples a rotation carries it — `placementRotation`,
+`interpolate`, both swept-distance bounds, the viewer's timeline — and one
+place had to be caught: the collider builds its rotation inline for speed and
+silently dropped the roll, so a rolled placement was validated as a different
+pose from the one drawn. It routes rolled placements through
+`placementRotation` now, and `test/roll.test.ts` sweeps 600 poses to check
+that a rolled placement of the sofa and the same placement of a sofa
+*authored* pre-rolled put every corner in the same place and get the same
+verdict from the collider.
+
+The template runs the measurement above for any item, fast enough to live
+in a library build: the roll is scanned coarsely on both sides of flat (2.4
+seconds for fourteen candidates) and the best refined on a 2° lean grid with
+a 0.5 cm slide grid, sampled at the engine's own 0.25 cm, in 2.7 seconds
+altogether for the three-seater. It applies only where a short stretch of
+the item sets the width — under half of the stations at the roll floor —
+because where every station binds there is nothing to lead with; on this
+catalogue that is the three-seater alone, and a plinth sofa gets a plain "does
+not apply". Its five stages are the motion's own phases: tip ten degrees
+short of the side, lean the leading end in and straighten as it clears,
+carry the middle level, lean the trailing end through, stand it up.
+
+| item | wall | door it needs | in front | along | behind | ceiling |
+| --- | ---: | --- | ---: | ---: | ---: | ---: |
+| 3-seat sofa | 30 cm | **82.72** x 147.96 | 236 | 197.5 | 236 | 244 |
+| 3-seat sofa | 15 cm | **82.72** x 116.83 | 236 | 198.5 | 236 | 244 |
+
+The width is the same behind either wall; the height it needs is the one
+number that depends on the tunnel's depth. It is flagged `wallSensitive`, so
+`buildLibrary` does not rebuild it behind a thicker wall and it claims its
+requirement only for the thickness it was built at — the report's wall
+statement lists it with the two stood-on-end approaches. And `selectManeuver`
+offers it last: five separate motions and a doorway half again as tall are
+the price of a width nobody needs above 85, so at 110 cm it is an alternative
+and at 84 cm it is the answer.
+
+What is claimed is exactly what is measured: one roll, one travel axis, a
+lean up to 60° at 4° per centimetre and a slide at 2, a witness and not a
+floor. The floor beside it is still the roll floor, 85.00, and the library
+now goes 2.28 cm under it on the one sofa whose legs let it.
 
 ---
 
@@ -1319,8 +1373,12 @@ Every one of these has a named test.
 
 Named honestly, because each is a real limit rather than an oversight.
 
-- **Roll.** Two angles, not three. Rolling an item onto its side is a real
-  maneuver this engine will not find.
+- **Roll, as a search dimension.** The planner searches yaw and one tilt, and
+  still cannot find a motion that needs a roll and a pitch at once. A
+  `Placement` may now *carry* a roll — the lean maneuver authors one — and
+  everything that validates or draws a placement honours it, but nothing
+  searches it, and `plan` refuses a start that has one. See *The lean, in
+  the library*.
 
 - **A single tilt family, chosen by the fixture author.** This one deserves more
   than a line, because it is the limitation most likely to produce a wrong

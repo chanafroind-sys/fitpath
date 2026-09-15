@@ -329,7 +329,9 @@ export function reportOn(item: Item, wallThickness = DEFAULT_WALL_THICKNESS): It
         requirement,
         stations,
         turns: turnsInTheOpening(stations),
-        holdsForWallsUpTo: wallThicknessBound(prepared, template, outcome.maneuver),
+        holdsForWallsUpTo: template.wallSensitive
+          ? wallThickness
+          : wallThicknessBound(prepared, template, outcome.maneuver),
       });
       if (narrowest === undefined || requirement.doorWidth < narrowest) {
         narrowest = requirement.doorWidth;

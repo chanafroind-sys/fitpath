@@ -100,5 +100,13 @@ export interface ManeuverTemplate {
   id: string;
   name: string;
   nameHe: string;
+  /**
+   * True for a motion known to depend on the wall's thickness — one that
+   * turns while it is inside the tunnel. `buildLibrary` then does not rebuild
+   * it behind a thicker wall to find out, and the maneuver claims its
+   * requirement only for the thickness it was built at, which is the
+   * conservative statement and the true one.
+   */
+  wallSensitive?: boolean;
   build(item: PreparedItem, wallThickness: number): StageDraft[] | undefined;
 }

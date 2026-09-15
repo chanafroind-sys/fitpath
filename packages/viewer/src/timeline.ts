@@ -28,7 +28,8 @@ function sweptDistance(from: Placement, to: Placement, reach: number): number {
   const translation = Math.hypot(to.x - from.x, to.y - from.y, to.z - from.z);
   const yaw = Math.abs(angleDelta(from.yaw, to.yaw)) * reach;
   const pitch = Math.abs(to.pitch - from.pitch) * reach;
-  return translation + yaw + pitch;
+  const roll = Math.abs((to.roll ?? 0) - (from.roll ?? 0)) * reach;
+  return translation + yaw + pitch + roll;
 }
 
 export function buildTimeline(item: Item, path: readonly Placement[]): Timeline {
@@ -74,7 +75,12 @@ export interface StepRange {
 }
 
 const samePlacement = (a: Placement, b: Placement): boolean =>
-  a.x === b.x && a.y === b.y && a.z === b.z && a.yaw === b.yaw && a.pitch === b.pitch;
+  a.x === b.x &&
+  a.y === b.y &&
+  a.z === b.z &&
+  a.yaw === b.yaw &&
+  a.pitch === b.pitch &&
+  (a.roll ?? 0) === (b.roll ?? 0);
 
 /**
  * Line the engine's steps up against the timeline.

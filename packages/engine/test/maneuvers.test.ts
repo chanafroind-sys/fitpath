@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import type { Item } from '../src/types.ts';
 import { buildEnvironment } from '../src/environment/build.ts';
-import { collides, prepareItem } from '../src/geometry/collide.ts';
+import { collides, itemWorldBoxes, prepareItem } from '../src/geometry/collide.ts';
+import { unionAabb } from '../src/geometry/worldBox.ts';
 import { createEdgeValidator } from '../src/planner/edge.ts';
 import { buildLibrary, buildManeuver } from '../src/maneuvers/build.ts';
 import { ON_ITS_SIDE, SEAT_FIRST, STRAIGHT_IN, TEMPLATES, bestRollSchedule } from '../src/maneuvers/templates.ts';
@@ -26,7 +27,7 @@ function requirementOf(item = sofa, template = ON_ITS_SIDE) {
 }
 
 describe('the maneuver library', () => {
-  it('validates all three templates for the sofa, and measures what each needs', () => {
+  it('validates every template for the sofa, and measures what each needs', () => {
     const { maneuvers, rejected } = buildLibrary(sofa, WALL);
     expect(rejected).toEqual([]);
     expect(maneuvers.map((m) => m.templateId)).toEqual([
@@ -35,6 +36,7 @@ describe('the maneuver library', () => {
       'seat-first',
       'upright-through',
       'upright-left-standing',
+      'lean-and-straighten',
     ]);
 
     const [straight, side, seat] = maneuvers as [
@@ -53,9 +55,26 @@ describe('the maneuver library', () => {
     expect(side.requirement.doorHeight).toBeCloseTo(95.0, 2);
 
     // And threading gets to the same width by a longer road, needing a much
-    // taller opening on the way. See the test below for why it can do no better.
+    // taller opening on the way. See the test below for why it can do no better
+    // by rolling.
     expect(seat.requirement.doorWidth).toBeCloseTo(85.04, 2);
     expect(seat.requirement.doorHeight).toBeCloseTo(117.81, 2);
+
+    // Leaning is not rolling. Ten degrees short of its side and leaning into
+    // the doorway as each leg station crosses, the sofa needs 82.72 cm — under
+    // the 85.00 no roll schedule can beat — and pays for it in height, in
+    // hallway, and in a wall it holds for only up to the thickness it was
+    // built behind. The height it needs is the one number here that depends
+    // on the wall: 116.83 behind this file's 15 cm, 147.96 behind the 30 cm
+    // default, because a leaning section is taller the deeper the tunnel it
+    // has to be inside at once. The width is 82.72 behind both.
+    const lean = maneuvers.find((m) => m.templateId === 'lean-and-straighten')!;
+    expect(lean.requirement.doorWidth).toBeCloseTo(82.72, 2);
+    expect(lean.requirement.doorHeight).toBeCloseTo(116.83, 2);
+    expect(lean.requirement.hallwayClearance).toBeCloseTo(236, 2);
+    expect(lean.stages.map((s) => s.id)).toEqual(['tip', 'lean-in', 'carry', 'lean-out', 'set-down']);
+    expect(lean.holdsForWallsUpTo).toBe(WALL);
+    expect(lean.path.some((p) => (p.roll ?? 0) !== 0 && p.pitch !== 0)).toBe(true);
   });
 
   /**
@@ -119,6 +138,13 @@ describe('the maneuver library', () => {
       if (!outcome.ok) return;
       const { requirement, path } = outcome.maneuver;
 
+      // The ceiling is not one of the five numbers. A maneuver that leans in
+      // the corridor reaches higher there than at the doorway, so the scene's
+      // ceiling is taken from the motion rather than from the door.
+      let top = 0;
+      for (const placement of path) {
+        top = Math.max(top, unionAabb(itemWorldBoxes(sofa, placement)).maxZ);
+      }
       const scene = (doorWidth: number) =>
         buildEnvironment({
           openingWidth: doorWidth,
@@ -128,7 +154,7 @@ describe('the maneuver library', () => {
           hallwayDepth: 400,
           roomDepth: requirement.roomDepth,
           roomWidth: 400,
-          ceilingHeight: requirement.doorHeight + 40,
+          ceilingHeight: Math.max(requirement.doorHeight, top) + 40,
         });
 
       const runs = (doorWidth: number): boolean => {
@@ -166,10 +192,24 @@ describe('choosing a maneuver at runtime', () => {
     expect(selection.found).toBe(true);
     if (!selection.found) return;
     expect(selection.maneuver.templateId).toBe('straight-in');
+    // The lean fits here too, and comes last: five separate motions and a
+    // doorway half again as tall are the price of a width nobody needs at 110.
     expect(selection.alternatives.map((m) => m.templateId)).toEqual([
       'on-its-side',
       'seat-first',
+      'lean-and-straighten',
     ]);
+  });
+
+  it('offers the lean only where lying flat has stopped working', () => {
+    const at84 = selectManeuver(library, { doorWidth: 84, ...roomy });
+    expect(at84.found).toBe(true);
+    if (!at84.found) return;
+    expect(at84.maneuver.templateId).toBe('lean-and-straighten');
+    expect(at84.alternatives).toEqual([]);
+    // And below what it needs, the library is honest about having nothing.
+    const at82 = selectManeuver(library, { doorWidth: 82, ...roomy });
+    expect(at82.found).toBe(false);
   });
 
   it('falls to turning the item over once straight in stops working', () => {
@@ -195,7 +235,7 @@ describe('choosing a maneuver at runtime', () => {
     expect(selection.found).toBe(false);
     if (selection.found) return;
 
-    expect(selection.rejected).toHaveLength(5);
+    expect(selection.rejected).toHaveLength(6);
     for (const rejection of selection.rejected) {
       expect(rejection.shortfall.doorWidth).toBeDefined();
       expect(rejection.shortfall.doorWidth!.has).toBe(80);

@@ -127,10 +127,13 @@ describe('the lean-and-straighten witness', () => {
     if (!outcome.ok) return;
     const r = outcome.maneuver.requirement;
     expect(r.doorWidth).toBeCloseTo(83.01, 2);
-    // The library's best for this sofa, for comparison, measured the same way.
+    // The library, measured the same way: its floor is still the roll floor,
+    // 85.00, and its narrowest is now the lean template's own schedule, which
+    // centres a little better than this bench path and lands at 82.72.
     const library = reportOn(SOFA_3_SEAT, WALL);
-    expect(library.narrowest!).toBeCloseTo(85.01, 2);
     expect(library.floor!).toBeCloseTo(85.0, 2);
+    expect(library.narrowest!).toBeCloseTo(82.72, 2);
+    expect(library.narrowest!).toBeLessThanOrEqual(r.doorWidth);
     expect(r.doorWidth).toBeLessThan(library.floor! - 1.9);
     // What the lean costs: a doorway half again as tall, and a ceiling to lean under.
     expect(r.doorHeight).toBeGreaterThan(147);

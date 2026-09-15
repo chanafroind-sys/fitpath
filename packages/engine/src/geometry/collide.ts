@@ -293,7 +293,24 @@ export function collides(
   let p21: number;
   let p22: number;
 
-  if (placement.tiltAxis === 'x') {
+  if (placement.roll !== undefined && placement.roll !== 0) {
+    // A rolled placement is a library pose, never a search node, so it may
+    // pay for the general matrix. It MUST go through `placementRotation`: the
+    // two inline forms below silently drop the roll, and a collider that
+    // judged a different pose from the one drawn is the worst bug this engine
+    // could have. The lean maneuver was refused for exactly that until this
+    // branch existed.
+    const m = placementRotation(placement);
+    p00 = m[0].x;
+    p01 = m[0].y;
+    p02 = m[0].z;
+    p10 = m[1].x;
+    p11 = m[1].y;
+    p12 = m[1].z;
+    p20 = m[2].x;
+    p21 = m[2].y;
+    p22 = m[2].z;
+  } else if (placement.tiltAxis === 'x') {
     // Columns of Rz(yaw) * Rx(pitch).
     p00 = ca;
     p01 = sa;

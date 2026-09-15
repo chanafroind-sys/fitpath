@@ -109,18 +109,26 @@ export function angleDelta(from: number, to: number): number {
  * already-tilted item about the world vertical — and differ only in which body
  * axis the tilt turns about. Family 'y' is `Rz(yaw) * Ry(pitch)`, which tips
  * the item over its local Y; family 'x' is `Rz(yaw) * Rx(pitch)`, which tips it
- * over its local X. Roll stays structurally zero in both: this is a choice of
- * axis, not a third angle.
+ * over its local X. The planner searches those two angles and nothing else.
  *
- * At `pitch === 0` the two coincide, which is what lets a path cross between
- * families without any special case in the interpolation.
+ * A placement may also carry a `roll`, innermost, about local X: family 'y'
+ * becomes `Rz(yaw) * Ry(pitch) * Rx(roll)`, and in family 'x' the roll is
+ * about the tilt's own axis and simply adds to it. The planner never
+ * generates a roll; the maneuver library authors one where a pose needs it,
+ * and everything that validates or draws a placement comes through here, so
+ * it is honoured everywhere or nowhere.
+ *
+ * At `pitch === 0` with no roll the two families coincide, which is what lets
+ * a path cross between them without any special case in the interpolation.
  */
 export function placementRotation(placement: {
   yaw: number;
   pitch: number;
   tiltAxis?: 'x' | 'y';
+  roll?: number;
 }): Mat3 {
+  const roll = placement.roll ?? 0;
   return placement.tiltAxis === 'x'
-    ? rotationMatrix(placement.yaw, 0, placement.pitch)
-    : rotationMatrix(placement.yaw, placement.pitch, 0);
+    ? rotationMatrix(placement.yaw, 0, placement.pitch + roll)
+    : rotationMatrix(placement.yaw, placement.pitch, roll);
 }

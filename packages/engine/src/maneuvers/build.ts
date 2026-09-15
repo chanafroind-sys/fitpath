@@ -1,10 +1,10 @@
-import type { EnvironmentParams, Placement } from '../types.ts';
+import type { Environment, EnvironmentParams, Placement } from '../types.ts';
 import type { PreparedItem } from '../geometry/collide.ts';
 import type { Maneuver, ManeuverRequirement, ManeuverStage, ManeuverTemplate } from './types.ts';
 import { buildEnvironment } from '../environment/build.ts';
 import { collides, itemWorldBoxes } from '../geometry/collide.ts';
 import { contains, unionAabb } from '../geometry/worldBox.ts';
-import { EPSILON } from '../geometry/sat.ts';
+import { EPSILON, satOverlap } from '../geometry/sat.ts';
 import { createEdgeValidator, interpolate } from '../planner/edge.ts';
 import { angleDelta } from '../math/rotation.ts';
 import { slabSection } from './footprint.ts';
@@ -50,7 +50,10 @@ function ceilTo(value: number): number {
 
 function samplesBetween(item: PreparedItem, from: Placement, to: Placement): number {
   const translation = Math.hypot(to.x - from.x, to.y - from.y, to.z - from.z);
-  const turn = Math.abs(angleDelta(from.yaw, to.yaw)) + Math.abs(to.pitch - from.pitch);
+  const turn =
+    Math.abs(angleDelta(from.yaw, to.yaw)) +
+    Math.abs(to.pitch - from.pitch) +
+    Math.abs((to.roll ?? 0) - (from.roll ?? 0));
   return Math.max(1, Math.ceil((translation + turn * item.reach) / MEASURE_STEP));
 }
 
@@ -61,7 +64,8 @@ function samePlacement(a: Placement, b: Placement): boolean {
     a.z === b.z &&
     a.yaw === b.yaw &&
     a.pitch === b.pitch &&
-    (a.tiltAxis ?? 'y') === (b.tiltAxis ?? 'y')
+    (a.tiltAxis ?? 'y') === (b.tiltAxis ?? 'y') &&
+    (a.roll ?? 0) === (b.roll ?? 0)
   );
 }
 
@@ -260,7 +264,7 @@ export function buildManeuver(
 
   for (let i = 0; i < path.length; i++) {
     if (collides(item, path[i]!, environment)) {
-      return fail(`waypoint ${i} collides in the environment it says it needs`);
+      return fail(`waypoint ${i} collides in the environment it says it needs: ${describeContact(item, path[i]!, environment)}`);
     }
   }
   for (let i = 0; i + 1 < path.length; i++) {
@@ -299,6 +303,26 @@ export function buildManeuver(
       holdsForWallsUpTo: wallThickness,
     },
   };
+}
+
+/** Which box hit which solid, for a template author reading a refusal. */
+function describeContact(item: PreparedItem, placement: Placement, environment: Environment): string {
+  const boxes = itemWorldBoxes(item, placement);
+  for (let b = 0; b < boxes.length; b++) {
+    for (let s = 0; s < environment.solids.length; s++) {
+      if (satOverlap(boxes[b]!, environment.solids[s]!)) {
+        const solid = environment.solids[s]!;
+        const label = item.item.boxes[b]?.label ?? `box ${b}`;
+        return (
+          `${label} against solid ${s} ` +
+          `(x ${solid.aabbMin.x.toFixed(0)}..${solid.aabbMax.x.toFixed(0)}, y ${solid.aabbMin.y.toFixed(0)}..${solid.aabbMax.y.toFixed(0)}, ` +
+          `z ${solid.aabbMin.z.toFixed(0)}..${solid.aabbMax.z.toFixed(0)}) at ` +
+          `x ${placement.x.toFixed(1)} y ${placement.y.toFixed(1)} z ${placement.z.toFixed(1)}`
+        );
+      }
+    }
+  }
+  return 'no single box-solid pair overlaps; the contact is in the broad phase only';
 }
 
 const sameRequirement = (a: ManeuverRequirement, b: ManeuverRequirement): boolean =>
@@ -356,7 +380,9 @@ export function buildLibrary(
     const outcome = buildManeuver(item, template, wallThickness);
     if (outcome.ok) {
       const maneuver = outcome.maneuver;
-      maneuver.holdsForWallsUpTo = wallThicknessBound(item, template, maneuver);
+      maneuver.holdsForWallsUpTo = template.wallSensitive
+        ? wallThickness
+        : wallThicknessBound(item, template, maneuver);
       maneuvers.push(maneuver);
     } else {
       rejected.push({ templateId: outcome.templateId, name: outcome.name, reason: outcome.reason });

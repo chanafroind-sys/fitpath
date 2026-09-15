@@ -104,6 +104,12 @@ export function plan(
   options: PlanOptions = {},
 ): PlanResult {
   const startedAt = performance.now();
+  // Roll is validated and animated, never searched. The lattice has no roll
+  // dimension, so a start with one would be snapped onto a lattice that
+  // cannot represent it and searched as though it were level.
+  if (options.start?.roll !== undefined && options.start.roll !== 0) {
+    throw new Error('plan: a start placement with a roll cannot be searched; roll is not a planner dimension');
+  }
   const levels = resolveLattices(options);
   const fine = levels[levels.length - 1]!;
   const maxNodes = options.maxNodes ?? DEFAULTS.maxNodes;

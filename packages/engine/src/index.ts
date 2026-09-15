@@ -136,6 +136,7 @@ export {
   rollSchedule,
   type RollSchedule,
 } from './maneuvers/templates.ts';
+export { LEAN_AND_STRAIGHTEN } from './maneuvers/lean.ts';
 export {
   selectManeuver,
   type Measurements,
@@ -151,10 +152,13 @@ export type {
   StageDraft,
 } from './maneuvers/types.ts';
 export {
+  EDGE_PAIRS,
   bandSection,
+  cornersAt,
   itemLocalBoxes,
   orientedBounds,
   rolledExtent,
+  sectionOfCorners,
   slabSection,
   slabSectionsByBox,
   type Section,

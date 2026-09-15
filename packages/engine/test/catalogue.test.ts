@@ -27,7 +27,9 @@ describe('the catalogue', () => {
    * unnoticed. The spread is the point: six sofas, six different reasons.
    */
   it.each([
-    [SOFA_3_SEAT, 85.01, 85.0, 'the legs'],
+    // 82.72 by the lean; the floor stays 85.00 because it is a floor over
+    // rolling, and the lean is not a roll.
+    [SOFA_3_SEAT, 82.72, 85.0, 'the legs'],
     [SLIM_ARM_2_SEAT, 77.79, 77.76, 'the armrests'],
     [CORNER_SOFA, 85.01, 85.0, 'the backrest'],
     [DEEP_SEAT_LOUNGE, 75.01, 75.0, 'the backrest'],
@@ -117,13 +119,28 @@ describe('the catalogue', () => {
     expect(bestRollSchedule(prepareItem(CORNER_MAIN), WALL)?.travelAxis).toBe('x');
   });
 
-  it('leaves nothing on the table: every maneuver reaches the roll-schedule floor', () => {
+  it('leaves nothing on the table: every maneuver reaches the roll-schedule floor, and one goes under it', () => {
     for (const item of SOFAS) {
       const measured = report(item);
       if (measured.narrowest === undefined || measured.floor === undefined) continue;
       // Within the straight interpolation between waypoints. A larger gap would
-      // mean the library was missing a maneuver its own geometry allows.
+      // mean the library was missing a roll maneuver its own geometry allows.
       expect(`${item.id}: ${measured.narrowest - measured.floor < 0.1}`).toBe(`${item.id}: true`);
+    }
+    // The floor bounds roll schedules and nothing else, and the three-seater's
+    // lean is the proof: 2.28 cm under it, by a motion that is not a roll.
+    const sofa = report(SOFA_3_SEAT);
+    expect(sofa.floor! - sofa.narrowest!).toBeCloseTo(2.28, 2);
+    expect(sofa.maneuvers.find((m) => m.templateId === 'lean-and-straighten')?.valid).toBe(true);
+  });
+
+  it('applies the lean only where a short stretch of the item sets the width', () => {
+    // Every station of a plinth sofa binds equally on its side; there is
+    // nothing to lead with, and the template says so rather than building a
+    // schedule that would only tie lying flat.
+    for (const item of SOFAS) {
+      const line = report(item).maneuvers.find((m) => m.templateId === 'lean-and-straighten')!;
+      expect(`${item.id}: ${line.valid}`).toBe(`${item.id}: ${item === SOFA_3_SEAT}`);
     }
   });
 
