@@ -698,7 +698,13 @@ function finePrint(answer: Answer): HTMLElement {
     el('p', { text: product.assembled.wallStatement }),
     el('p', {}, [
       narrowest !== undefined && floor !== undefined
-        ? `The narrowest doorway any of them clears is ${need(narrowest)} cm; the narrowest any way of rolling it as it goes could manage is ${need(floor)} cm${narrowest - floor < 0.1 ? ' — the library reaches that floor. It bounds nothing that leans or turns the sofa inside the doorway.' : ' — there is a roll maneuver nobody has written yet.'}`
+        ? `The narrowest doorway any of them clears is ${need(narrowest)} cm; the narrowest any way of rolling it as it goes could manage is ${need(floor)} cm${
+            narrowest < floor - 0.1
+              ? ' — the lean-and-straighten maneuver goes under that floor, because it is not a roll. A witness, not a floor of its own.'
+              : narrowest - floor < 0.1
+                ? ' — the library reaches that floor. It bounds nothing that leans or turns the sofa inside the doorway.'
+                : ' — there is a roll maneuver nobody has written yet.'
+          }`
         : '',
     ]),
     el('p', { text: 'Not a substitute for the delivery team’s judgement on the day: doors, handles, skirting boards and stairs are not modelled.' }),

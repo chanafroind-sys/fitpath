@@ -32,7 +32,7 @@ Measured by `scripts/report-sizes.ts` at the end of every build and written to
 | loaded | when | raw | gzip |
 | --- | --- | ---: | ---: |
 | `fitpath.js` — the button | with the page | 3.2 KB | **1.6 KB** |
-| `modal.js` — the fit check, with the engine functions it calls | on first press | 52.5 KB | 18.4 KB |
+| `modal.js` — the fit check, with the engine functions it calls | on first press | 53.3 KB | 18.8 KB |
 | `data/<product>.json` — one product's library | on first press | 7–13 KB | 1.9–2.4 KB |
 | `chunks/scene-*.js` + `chunks/three-*.js` — the 3D view | when a maneuver is drawn | 474.8 KB | 120.3 KB |
 | `data/<product>.paths.json` — the motions to animate | with the 3D view | 14–115 KB | 1.0–6.9 KB |

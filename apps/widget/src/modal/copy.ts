@@ -104,7 +104,8 @@ export function headline(answer: Answer): Headline {
     case 'not-in-library': {
       const narrowest = a.carry.narrowestCm;
       const floor = a.carry.floorCm;
-      const atFloor = narrowest !== undefined && floor !== undefined && narrowest - floor < 0.1;
+      const atFloor = narrowest !== undefined && floor !== undefined && Math.abs(narrowest - floor) < 0.1;
+      const underFloor = narrowest !== undefined && floor !== undefined && narrowest < floor - 0.1;
       const shortOn = shortfallSummary(a);
       return {
         title: 'No known maneuver fits these numbers',
@@ -112,6 +113,7 @@ export function headline(answer: Answer): Headline {
           'That is a statement about our list of validated maneuvers, not a proof about the sofa. ' +
           (narrowest !== undefined ? `The narrowest doorway any of them clears is ${need(narrowest)} cm` : 'None of them clears any doorway') +
           (atFloor ? ', and no way of rolling it as it goes does better than that' : '') +
+          (underFloor ? ` — already under the ${need(floor!)} cm that rolling alone could manage, by leaning` : '') +
           (shortOn !== undefined ? `. ${shortOn}` : '.'),
       };
     }

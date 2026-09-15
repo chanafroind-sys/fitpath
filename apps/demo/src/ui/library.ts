@@ -154,9 +154,13 @@ export function reportPanel(report: ItemReport, modules: readonly { id: string; 
     // The assumption, published beside the figures it qualifies.
     el('p', { class: 'muted', text: report.wallStatement }),
     el('p', { class: 'muted' }, [
-      report.narrowest !== undefined && report.floor !== undefined && report.narrowest - report.floor < 0.1
-        ? 'The library reaches the floor: no way of rolling this sofa as it goes gets it through anything narrower. Leaning or turning it while it is in the doorway is not bounded by this figure.'
-        : 'The library leaves room against the floor, which means there is a roll maneuver nobody has written yet.',
+      report.narrowest === undefined || report.floor === undefined
+        ? ''
+        : report.narrowest < report.floor - 0.1
+          ? `The library goes under the roll floor: “Lean into the doorway and straighten inside it” is not a roll schedule, and it gets this sofa through ${cm(report.narrowest)} where no way of rolling it does better than ${cm(report.floor)}. A witness, not a floor of its own.`
+          : report.narrowest - report.floor < 0.1
+            ? 'The library reaches the floor: no way of rolling this sofa as it goes gets it through anything narrower. Leaning or turning it while it is in the doorway is not bounded by this figure.'
+            : 'The library leaves room against the floor, which means there is a roll maneuver nobody has written yet.',
     ]),
 
     binding !== undefined
