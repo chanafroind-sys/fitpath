@@ -2,9 +2,9 @@
  * Measure once per store.
  *
  * The shopper's numbers are kept in `localStorage`, so every other product on
- * the same store answers immediately with the fields already filled. Storage is
- * per origin, which makes this per store, and that is the extent of it: there
- * is no attempt to carry numbers from one shop to another, because there is no
+ * the same store opens with the fields already filled. Storage is per origin,
+ * which makes this per store, and that is the extent of it: there is no
+ * attempt to carry numbers from one shop to another, because there is no
  * honest way to do that from inside a page.
  *
  * Every read and write is wrapped, because storage is allowed to be absent
@@ -12,43 +12,43 @@
  * full, or holding something another script wrote. None of those is a reason
  * for the fit check to stop working; they are reasons for it to forget.
  */
-import { ASK_ORDER, type Have, type Known } from './modal/assess.ts';
+import { KEYS } from './types.ts';
+import type { Have } from './modal/verdict.ts';
 
 export const STORAGE_KEY = 'fitpath:measurements';
 
 /** The stored shape. Versioned so a future change can refuse an old record. */
 interface Stored {
-  version: 1;
+  version: 2;
   have: Have;
   savedAt: string;
 }
 
-/** Only this shape is trusted back out of storage. Anything else is forgotten. */
-function isKnown(value: unknown): value is Known {
-  if (typeof value !== 'object' || value === null) return false;
-  const candidate = value as Record<string, unknown>;
-  return (
-    typeof candidate['value'] === 'number' &&
-    Number.isFinite(candidate['value']) &&
-    candidate['value'] > 0 &&
-    typeof candidate['exact'] === 'boolean'
-  );
+function isCm(value: unknown): value is number {
+  return typeof value === 'number' && Number.isFinite(value) && value > 0;
 }
 
+/** Only this shape is trusted back out of storage. Anything else is forgotten. */
 function sanitise(raw: unknown): Have | undefined {
   if (typeof raw !== 'object' || raw === null) return undefined;
   const record = raw as Record<string, unknown>;
-  if (record['version'] !== 1 || typeof record['have'] !== 'object' || record['have'] === null) {
+  if (record['version'] !== 2 || typeof record['have'] !== 'object' || record['have'] === null) {
     return undefined;
   }
   const have: Have = {};
   const stored = record['have'] as Record<string, unknown>;
-  for (const key of ASK_ORDER) {
+  for (const key of KEYS) {
     const value = stored[key];
-    if (isKnown(value)) have[key] = { value: value.value, exact: value.exact };
+    if (isCm(value)) have[key] = value;
   }
   const wall = stored['wallThickness'];
-  if (typeof wall === 'number' && Number.isFinite(wall) && wall > 0) have.wallThickness = wall;
+  if (isCm(wall)) have.wallThickness = wall;
+  for (const field of ['partsOff', 'partsOn'] as const) {
+    const parts = stored[field];
+    if (!Array.isArray(parts)) continue;
+    const names = parts.filter((p): p is string => typeof p === 'string' && p.length > 0 && p.length < 40);
+    if (names.length > 0) have[field] = names;
+  }
   return have;
 }
 
@@ -106,7 +106,7 @@ export function createStorage(backing: () => globalThis.Storage | undefined = de
     },
     save(have: Have): void {
       memory = { ...have };
-      const record: Stored = { version: 1, have: memory, savedAt: new Date().toISOString() };
+      const record: Stored = { version: 2, have: memory, savedAt: new Date().toISOString() };
       attempt((store) => store.setItem(STORAGE_KEY, JSON.stringify(record)));
     },
     clear(): void {

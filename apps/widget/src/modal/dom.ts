@@ -33,20 +33,3 @@ export function el<K extends keyof HTMLElementTagNameMap>(
 export function clear(node: Element): void {
   while (node.firstChild) node.firstChild.remove();
 }
-
-/** A Hebrew run inside an otherwise left-to-right panel. */
-export function hebrew(text: string, className = 'he'): HTMLElement {
-  return el('span', { class: className, dir: 'rtl', lang: 'he', text });
-}
-
-/** Rounded to the centimetre for display, with one decimal only when it matters. */
-export function cm(value: number): string {
-  const rounded = Math.round(value * 10) / 10;
-  return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
-}
-
-/** A requirement, shown to the hundredth it was measured to, without trailing noise. */
-export function need(value: number): string {
-  const rounded = Math.round(value * 100) / 100;
-  return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(2).replace(/0$/, '');
-}

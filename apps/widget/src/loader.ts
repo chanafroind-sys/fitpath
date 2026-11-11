@@ -45,6 +45,8 @@ declare global {
   }
 }
 
+import { BUTTON_LABEL } from './modal/copy.ts';
+
 type ModalModule = typeof import('./modal/index.ts');
 
 const VERSION = '0.1.0';
@@ -121,7 +123,7 @@ svg{width:1.1em;height:1.1em;flex:none}`;
   button.innerHTML =
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
     '<rect x="5" y="3" width="14" height="18" rx="1.5"/><circle cx="15" cy="12" r="1" fill="currentColor"/>' +
-    '<path d="M2 12h3M19 12h3"/></svg><span>Will it fit through my door?</span>';
+    `<path d="M2 12h3M19 12h3"/></svg><span>${BUTTON_LABEL}</span>`;
   button.addEventListener('click', onPress);
   button.addEventListener('pointerenter', () => void loadModal().catch(() => undefined), { once: true });
   button.addEventListener('focus', () => void loadModal().catch(() => undefined), { once: true });

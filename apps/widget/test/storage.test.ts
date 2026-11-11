@@ -31,12 +31,9 @@ describe('storage', () => {
   it('round-trips measurements, and only the fields it knows', () => {
     const backing = fakeStorage();
     const storage = createStorage(() => backing);
-    storage.save({ doorWidth: { value: 90, exact: true }, alongWall: { value: 150, exact: false } });
+    storage.save({ doorWidth: 90, doorHeight: 200, alongWall: 150, wallThickness: 25, partsOff: ['legs'] });
     const loaded = createStorage(() => backing).load();
-    expect(loaded).toEqual({
-      doorWidth: { value: 90, exact: true },
-      alongWall: { value: 150, exact: false },
-    });
+    expect(loaded).toEqual({ doorWidth: 90, doorHeight: 200, alongWall: 150, wallThickness: 25, partsOff: ['legs'] });
     expect(storage.available).toBe(true);
   });
 
@@ -47,23 +44,23 @@ describe('storage', () => {
 
   it('keeps working in memory when storage is missing entirely', () => {
     const storage = createStorage(() => undefined);
-    storage.save({ doorWidth: { value: 85, exact: true } });
-    expect(storage.load()).toEqual({ doorWidth: { value: 85, exact: true } });
+    storage.save({ doorWidth: 85 });
+    expect(storage.load()).toEqual({ doorWidth: 85 });
     expect(storage.available).toBe(false);
   });
 
   it('keeps working in memory when every access throws', () => {
     const storage = createStorage(() => fakeStorage({ throwOn: 'all' }));
     expect(storage.load()).toEqual({});
-    storage.save({ doorWidth: { value: 85, exact: true } });
-    expect(storage.load()).toEqual({ doorWidth: { value: 85, exact: true } });
+    storage.save({ doorWidth: 85 });
+    expect(storage.load()).toEqual({ doorWidth: 85 });
     expect(storage.available).toBe(false);
   });
 
   it('a full storage loses the save but not the session', () => {
     const storage = createStorage(() => fakeStorage({ throwOn: 'set' }));
-    storage.save({ doorWidth: { value: 85, exact: true } });
-    expect(storage.load()).toEqual({ doorWidth: { value: 85, exact: true } });
+    storage.save({ doorWidth: 85 });
+    expect(storage.load()).toEqual({ doorWidth: 85 });
   });
 
   it('forgets a record it does not recognise rather than trusting it', () => {
@@ -71,29 +68,33 @@ describe('storage', () => {
     backing.setItem(STORAGE_KEY, 'not json');
     expect(createStorage(() => backing).load()).toEqual({});
 
-    backing.setItem(STORAGE_KEY, JSON.stringify({ version: 99, have: { doorWidth: { value: 90, exact: true } } }));
+    // The previous shape, from before the form asked for both numbers at once.
+    backing.setItem(STORAGE_KEY, JSON.stringify({ version: 1, have: { doorWidth: { value: 90, exact: true } } }));
     expect(createStorage(() => backing).load()).toEqual({});
 
     backing.setItem(
       STORAGE_KEY,
       JSON.stringify({
-        version: 1,
+        version: 2,
         have: {
-          doorWidth: { value: 'ninety', exact: true },
-          doorHeight: { value: -5, exact: true },
-          roomDepth: { value: 300, exact: 'yes' },
-          alongWall: { value: 200, exact: false },
-          somethingElse: { value: 1, exact: true },
+          doorWidth: 'ninety',
+          doorHeight: -5,
+          roomDepth: { value: 300, exact: true },
+          alongWall: 200,
+          wallThickness: 'thick',
+          partsOff: ['legs', 7, ''],
+          partsOn: 'legs',
+          somethingElse: 1,
         },
       }),
     );
-    expect(createStorage(() => backing).load()).toEqual({ alongWall: { value: 200, exact: false } });
+    expect(createStorage(() => backing).load()).toEqual({ alongWall: 200, partsOff: ['legs'] });
   });
 
   it('clear forgets everywhere', () => {
     const backing = fakeStorage();
     const storage = createStorage(() => backing);
-    storage.save({ doorWidth: { value: 90, exact: true } });
+    storage.save({ doorWidth: 90 });
     storage.clear();
     expect(storage.load()).toEqual({});
     expect(backing.getItem(STORAGE_KEY)).toBeNull();

@@ -1,306 +1,403 @@
 /**
- * Where the modal's integrity lives: every sentence that states what was
- * established, in one place, so the honesty distinctions cannot drift apart
- * across a dozen render functions.
+ * Every word the shopper reads, in one place.
  *
- *  - **Fits** means a validated maneuver whose every requirement the shopper's
- *    numbers meet. Nothing else is called that.
- *  - **No known maneuver fits** means the library has nothing for these
- *    numbers. It is a statement about the list, never about the sofa.
- *  - **Proven** means the closed-form proof fired. It is the only negative
- *    allowed to read as a verdict.
- *  - **Open** means the answer is not settled and one more number would move
- *    it. The copy says which number, and why it is being asked for.
+ * Nothing in here decides anything. `verdict.ts` establishes what the numbers
+ * say; this file puts it into words, and it can be rewritten without a
+ * comparison changing. The rules the words follow:
+ *
+ * - One verdict line and one supporting line. The supporting line always
+ *   puts the threshold and the shopper's own number side by side.
+ * - The honesty stays, in one small line: a way in not found is not a way in
+ *   that does not exist, and only the proof says otherwise.
+ * - Everything else — the other ways in, the wall, the floor, the fine
+ *   print — is behind a disclosure.
+ * - A wall thickness a house does not have is never printed.
+ *
+ * Numbers: a requirement is shown to a tenth, rounded up, so it never reads
+ * smaller than it is; the shopper's own number is shown as they gave it.
  */
-import type { Carry, MeasurementKey, WidgetManeuver, WidgetProduct } from '../types.ts';
-import type { Answer, CarryAssessment, Have, Question, Verdict } from './assess.ts';
-import { cm, need } from './dom.ts';
+import type { Key } from '../types.ts';
+import type { Condition, Kind, Nearest, Proof, Verdict } from './verdict.ts';
 
-export const KEY_LABEL: Record<MeasurementKey, string> = {
+/* ------------------------------------------------------------------------ */
+/* Numbers                                                                   */
+
+/** A shopper's number, as given, to a tenth. */
+export function cm(value: number): string {
+  const rounded = Math.round(value * 10) / 10;
+  return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
+}
+
+/** A requirement: to a tenth, rounded up, never smaller than the measurement. */
+export function need(value: number): string {
+  const rounded = Math.ceil(value * 10 - 1e-6) / 10;
+  return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
+}
+
+/* ------------------------------------------------------------------------ */
+/* The button (also imported by the loader, on its own, to keep it small)    */
+
+export const BUTTON_LABEL = 'Will it fit through my door?';
+
+/* ------------------------------------------------------------------------ */
+/* Measurements                                                              */
+
+export const KEY_LABEL: Record<Key, string> = {
   doorWidth: 'Doorway width',
   doorHeight: 'Doorway height',
   hallwayClearance: 'In front of the door',
   alongWall: 'Along the wall',
   roomDepth: 'Behind the door',
-};
-
-export const KEY_SHORT: Record<MeasurementKey, string> = {
-  doorWidth: 'door width',
-  doorHeight: 'door height',
-  hallwayClearance: 'in front',
-  alongWall: 'along the wall',
-  roomDepth: 'behind',
+  ceilingHeight: 'Ceiling',
 };
 
 /** How to take the measurement, in one line each. */
-export const KEY_HINT: Record<MeasurementKey, string> = {
-  doorWidth: 'The clear width of the doorway, jamb to jamb — or the narrowest point on the way in, if there is one.',
+export const KEY_HINT: Record<Key, string> = {
+  doorWidth: 'The clear width of the doorway, jamb to jamb — at the narrowest doorway on the way in.',
   doorHeight: 'Floor to the underside of the door frame.',
   hallwayClearance: 'Clear floor straight back from the door, on the side the sofa arrives from.',
   alongWall: 'How far the hallway runs along the wall past the door, left to right, in total.',
   roomDepth: 'Clear floor straight in from the door, on the far side.',
+  ceilingHeight: 'Floor to ceiling, on the way in and just inside.',
 };
 
-export type Tone = 'fits' | 'open' | 'not-found' | 'proven';
-
-export const TONE: Record<Verdict, Tone> = {
-  fits: 'fits',
-  open: 'open',
-  'not-in-library': 'not-found',
-  proven: 'proven',
-};
-
-export const PILL: Record<Verdict, string> = {
-  fits: 'Fits',
-  open: 'Not settled yet',
-  'not-in-library': 'No known maneuver',
-  proven: "Won't fit — proven",
-};
-
-/** The name a shopper reads for a body: the product's, or the module's. */
-export function carryName(product: WidgetProduct, carry: Carry): string {
-  return carry.id === product.assembled.id ? product.name : carry.name;
+/** A requirement in a sentence: "222 cm of clear floor in front of the door". */
+export function needPhrase(key: Key, value: number): string {
+  const n = need(value);
+  switch (key) {
+    case 'doorWidth':
+      return `a doorway ${n} cm wide`;
+    case 'doorHeight':
+      return `a doorway ${n} cm tall`;
+    case 'hallwayClearance':
+      return `${n} cm of clear floor in front of the door`;
+    case 'alongWall':
+      return `${n} cm along the wall`;
+    case 'roomDepth':
+      return `${n} cm of clear floor behind the door`;
+    case 'ceilingHeight':
+      return `a ceiling of ${n} cm`;
+  }
 }
 
-/** The part named in a proof, from the box the engine pointed at. */
-export function provenPart(assessment: CarryAssessment): string {
-  const index = assessment.proof?.boxIndex;
-  const label = index === undefined ? undefined : assessment.carry.item.boxes[index]?.label;
-  return label ?? 'one of its parts';
+/** A condition in the supporting line, with how it grows behind a thicker wall where it does. */
+export function conditionPhrase(c: Condition): string {
+  const base = needPhrase(c.key, c.need);
+  if (c.behindThicker === undefined) return base;
+  return `${base} (${need(c.behindThicker.need)} behind a ${cm(c.behindThicker.wall)} cm wall)`;
 }
+
+/** The same, shorter, for the trade-off line and the table: "222 cm in front". */
+export function needShort(key: Key, value: number): string {
+  const n = need(value);
+  switch (key) {
+    case 'doorWidth':
+      return `a ${n} cm door`;
+    case 'doorHeight':
+      return `a ${n} cm tall door`;
+    case 'hallwayClearance':
+      return `${n} cm in front`;
+    case 'alongWall':
+      return `${n} cm along the wall`;
+    case 'roomDepth':
+      return `${n} cm behind`;
+    case 'ceilingHeight':
+      return `a ${n} cm ceiling`;
+  }
+}
+
+function list(parts: string[]): string {
+  if (parts.length <= 1) return parts[0] ?? '';
+  return `${parts.slice(0, -1).join(', ')} and ${parts[parts.length - 1]}`;
+}
+
+/* ------------------------------------------------------------------------ */
+/* The modal                                                                 */
+
+export const MODAL = {
+  eyebrow: 'Fit check',
+  close: 'Close',
+  closeGlyph: '×',
+  dims: (length: number, depth: number, height: number): string => `${cm(length)} × ${cm(depth)} × ${cm(height)} cm`,
+  loading: 'Loading…',
+  couldNotLoad: 'The fit check could not load for this product.',
+  nothingComputed: 'Nothing was computed. This is a loading problem, not an answer.',
+};
+
+export const FORM = {
+  lead: 'Measure the narrowest doorway on the way in.',
+  width: KEY_LABEL.doorWidth,
+  height: KEY_LABEL.doorHeight,
+  unit: 'cm',
+  check: 'Check',
+  saved: 'Saved for this store',
+  kept: 'Kept for this visit only',
+  startOver: 'Start over',
+  invalid: (label: string, min: number, max: number): string => `${label}: a number in centimetres, ${min}–${max}.`,
+  missing: 'Both numbers, in centimetres.',
+};
+
+/* ------------------------------------------------------------------------ */
+/* The verdict                                                               */
 
 export interface Headline {
   title: string;
-  /** One line under it. Never overstates what was established. */
-  note: string;
+  /** The threshold and the shopper's number, side by side. */
+  line: string;
+  /** The one small line that keeps the honesty. Absent where there is nothing to keep. */
+  honesty?: string;
 }
 
-export function headline(answer: Answer): Headline {
-  const a = answer.assembled;
-  const chosen = a.chosen;
-  const width = answer.have.doorWidth;
+function wayIn(verdict: Verdict): string {
+  const route = verdict.route!;
+  const parts: string[] = [];
+  if (route.partOff !== undefined) parts.push(`with the ${route.partOff} off`);
+  if (route.id === 'modules') parts.push(route.carries.length === 2 ? 'in two pieces' : `in ${route.carries.length} pieces`);
+  return parts.length === 0 ? '' : ` — ${parts.join(', ')}`;
+}
 
-  switch (a.verdict) {
-    case 'fits': {
-      const m = chosen!.maneuver;
-      return {
-        title: 'Fits',
-        note:
-          `By the “${m.name}” maneuver, in ${m.stages.length} stage${m.stages.length === 1 ? '' : 's'}. ` +
-          'Every one of its requirements is met by what you entered — validated offline, placement by placement, against the collision test.',
-      };
-    }
-    case 'proven': {
-      const proof = a.proof!;
-      const [p, q] = proof.crossSection ?? [0, 0];
-      const opening = width?.exact ? `${cm(width.value)} cm` : 'this';
-      return {
-        title: 'Won’t fit — proven',
-        note:
-          `Established in closed form, with no search: ${provenPart(a)} is ${cm(p)} × ${cm(q)} cm at its smallest face, ` +
-          `and no angle whatsoever gets that through a ${opening} opening.`,
-      };
-    }
-    case 'not-in-library': {
-      const narrowest = a.carry.narrowestCm;
-      const floor = a.carry.floorCm;
-      const atFloor = narrowest !== undefined && floor !== undefined && Math.abs(narrowest - floor) < 0.1;
-      const underFloor = narrowest !== undefined && floor !== undefined && narrowest < floor - 0.1;
-      const shortOn = shortfallSummary(a);
-      return {
-        title: 'No known maneuver fits these numbers',
-        note:
-          'That is a statement about our list of validated maneuvers, not a proof about the sofa. ' +
-          (narrowest !== undefined ? `The narrowest doorway any of them clears is ${need(narrowest)} cm` : 'None of them clears any doorway') +
-          (atFloor ? ', and no way of rolling it as it goes does better than that' : '') +
-          (underFloor ? ` — already under the ${need(floor!)} cm that rolling alone could manage, by leaning` : '') +
-          (shortOn !== undefined ? `. ${shortOn}` : '.'),
-      };
-    }
-    case 'open': {
-      if (width === undefined) {
-        return {
-          title: 'Start with one number',
-          note: 'The doorway width decides the answer for most sofas on its own. Everything else is asked for only if it matters.',
-        };
-      }
-      const m = chosen!.maneuver;
-      if (chosen!.wallUnknown && answer.have.wallThickness !== undefined) {
-        const left = chosen!.unknown.length;
-        return {
-          title: 'Not measured for a wall this thick',
-          note:
-            `${left === 0 ? 'Every number you gave meets' : 'Nothing you gave rules out'} what the “${m.name}” maneuver needs — but those needs were established behind a wall ` +
-            `${m.holdsForWallsUpTo} cm thick, and yours is ${cm(answer.have.wallThickness)}. A thicker wall is strictly harder. ` +
-            'Nothing here says it fails, and nothing here says it fits; the library would have to be built for a thicker wall to say either' +
-            (left > 0 ? ', so the remaining numbers are not asked for' : '') +
-            '.',
-        };
-      }
-      const margin = chosen!.margins.doorWidth;
-      const just = a.marginal.includes('doorWidth');
-      return {
-        title: just ? 'The doorway is wide enough — just' : 'The doorway is wide enough',
-        note:
-          `For the “${m.name}” maneuver, which needs ${need(m.requirement.doorWidth)} cm; ` +
-          `you have ${cm(width.value)}${width.exact ? '' : ' or more'}` +
-          (just && margin !== undefined ? `, a margin of ${cm(margin)} cm — worth measuring again` : '') +
-          '. Not settled yet: the rest of the corridor has to be checked too.',
-      };
-    }
+function opening(verdict: Verdict): string {
+  const have = verdict.have;
+  const route = verdict.route!;
+  return `Needs ${need(route.need!.doorWidth)} × ${need(route.need!.doorHeight)} cm; yours is ${cm(have.doorWidth!)} × ${cm(have.doorHeight!)}.`;
+}
+
+function mannerOf(verdict: Verdict): string {
+  const route = verdict.route!;
+  if (route.carries.length === 1) {
+    const m = route.carries[0]!.presented!.maneuver;
+    return `${m.name}, in ${m.stages.length} ${m.stages.length === 1 ? 'step' : 'steps'}.`;
   }
+  return route.carries
+    .map((c) => `${c.carry.name}: ${c.presented!.maneuver.name.toLowerCase()}`)
+    .join('; ') + '.';
 }
 
-/**
- * What the library's maneuvers fell short on, in the fewest words.
- *
- * Only the closest misses count: a maneuver two numbers short says less
- * about what would change the answer than one a single number short, and
- * quoting the former's door width beside the latter's hallway would read as
- * though both had to change.
- */
-function shortfallSummary(assessment: CarryAssessment): string | undefined {
-  const misses = assessment.maneuvers.filter((m) => m.status === 'ruled-out');
-  if (misses.length === 0) return undefined;
-  const fewest = Math.min(...misses.map((m) => m.unmet.length));
-  const seen = new Set<string>();
-  const lines: string[] = [];
-  const closest = misses
-    .filter((m) => m.unmet.length === fewest)
-    .sort((a, b) => {
-      const total = (m: typeof a): number => m.unmet.reduce((sum, key) => sum + m.maneuver.requirement[key], 0);
-      return total(a) - total(b);
-    });
-  for (const m of closest) {
-    const what = m.unmet.map((key) => `${need(m.maneuver.requirement[key])} cm ${KEY_SHORT[key]}`).join(' and ');
-    if (seen.has(what)) continue;
-    seen.add(what);
-    lines.push(`“${m.maneuver.name}” needs ${what}`);
+const NO_WAY_TITLE: Record<Key, string> = {
+  doorWidth: 'Not through this door',
+  doorHeight: 'Not through this door',
+  hallwayClearance: 'Not with this much room in front of the door',
+  alongWall: 'Not with this much wall beside the door',
+  roomDepth: 'Not with this much room behind the door',
+  ceilingHeight: 'Not under this ceiling',
+};
+
+function noWayTitle(nearest: Nearest | undefined): string {
+  if (nearest === undefined || nearest.short.length === 0) return 'Not through this door';
+  const keys = nearest.short.map((s) => s.key);
+  if (keys.every((k) => k === 'doorWidth' || k === 'doorHeight')) return 'Not through this door';
+  if (keys.length === 1) return NO_WAY_TITLE[keys[0]!];
+  return 'Not with these numbers';
+}
+
+/** What the no-way line calls the product. One word to change when the catalogue is not sofas. */
+export const SUBJECT = 'This sofa';
+
+function noWayLine(verdict: Verdict): string {
+  const nearest = verdict.nearest;
+  const name = SUBJECT;
+  if (nearest === undefined) return `${name} has no known way in.`;
+  const short = nearest.short;
+  const modifier = nearest.route.partOff !== undefined ? ` with the ${nearest.route.partOff} off` : '';
+  if (short.length === 1 && short[0]!.key === 'doorWidth') {
+    return `${name} needs ${need(short[0]!.need)} cm${modifier}. Yours is ${cm(short[0]!.have)}.`;
   }
-  if (lines.length === 0) return undefined;
-  return `Closest: ${lines.slice(0, 3).join('; ')}.`;
-}
-
-export interface QuestionCopy {
-  /** Why this is being asked, given what is already known. */
-  lead: string;
-  /** The question itself. */
-  ask: string;
-  /** What the maneuver being pursued needs, for the confirm button. */
-  confirm: string;
-}
-
-export function questionCopy(answer: Answer, question: Question): QuestionCopy {
-  const { key, needsCm, maneuver, carry } = question;
-  const product = answer.product;
-  const body = carryName(product, carry);
-  const pursuing =
-    carry.id === product.assembled.id
-      ? ''
-      : product.modules?.some((m) => m.id === carry.id)
-        ? ` for the ${carry.name}, the module that decides it`
-        : ` with the ${carry.name.replace(/^.*without the /, '')} off`;
-
-  const established =
-    answer.have.doorWidth === undefined
-      ? ''
-      : answer.assembled.verdict === 'open'
-        ? `Your door is wide enough${answer.assembled.marginal.includes('doorWidth') ? ', just' : ''}. `
-        : `As one piece, nothing in the library fits your door; ${body} can still go in${pursuing}. `;
-
-  const because = `The “${maneuver.name}” maneuver needs ${need(needsCm)} cm ${KEY_SHORT[key] === 'in front' ? 'of clear floor in front of the door' : KEY_SHORT[key]}`;
-
-  switch (key) {
-    case 'doorWidth':
-      return {
-        lead: 'One number to start.',
-        ask: 'How wide is the doorway?',
-        confirm: `At least ${need(needsCm)} cm`,
-      };
-    case 'hallwayClearance':
-      return {
-        lead: `${established}Now I need to know whether there is room to line it up.`,
-        ask: `How much clear floor is there in front of the door? ${because}${maneuver.requirement.hallwayClearance >= carry.dimensions.length - 1 ? ' — that is the sofa’s own length, held square to the doorway' : ''}.`,
-        confirm: `At least ${need(needsCm)} cm`,
-      };
-    case 'alongWall':
-      return {
-        lead: `${established}Now I need to know whether there is room to turn it.`,
-        ask: `How far does the hallway run along the wall past the door? ${because}, left to right in total.`,
-        confirm: `At least ${need(needsCm)} cm`,
-      };
-    case 'roomDepth':
-      return {
-        lead: `${established}Now the far side.`,
-        ask: `How deep is the room behind the door? ${because} straight in from it.`,
-        confirm: `At least ${need(needsCm)} cm`,
-      };
-    case 'doorHeight':
-      return {
-        lead: `${established}One more: the height.`,
-        ask: `How tall is the doorway? ${because}${needsCm > 200 ? ' — taller than a standard door, because this maneuver takes it through on end' : ''}.`,
-        confirm: `At least ${need(needsCm)} cm`,
-      };
+  if (short.length === 2 && short[0]!.key === 'doorWidth' && short[1]!.key === 'doorHeight') {
+    return `${name} needs ${need(short[0]!.need)} × ${need(short[1]!.need)} cm${modifier}. Yours is ${cm(short[0]!.have)} × ${cm(short[1]!.have)}.`;
   }
+  if (short.length === 1) return `Needs ${needPhrase(short[0]!.key, short[0]!.need)}${modifier}. Yours is ${cm(short[0]!.have)}.`;
+  return `Needs ${list(short.map((s) => needShort(s.key, s.need)))}${modifier}. Yours: ${list(short.map((s) => cm(s.have)))}.`;
 }
 
-/** The one-card version, when everything left is ordinary. */
-export function bundleCopy(answer: Answer, question: Question): { lead: string; ask: string } {
-  const { maneuver, carry } = question;
-  const product = answer.product;
-  const count = question.bundle?.length ?? 0;
-  const pursuing =
-    carry.id === product.assembled.id
-      ? ''
-      : product.modules?.some((m) => m.id === carry.id)
-        ? ` for the ${carry.name}`
-        : ` with the ${carry.name.replace(/^.*without the /, '')} off`;
-  return {
-    lead: `${answer.have.doorWidth !== undefined && answer.assembled.verdict === 'open' ? 'Your door is wide enough. ' : ''}${count === 2 ? 'Two' : count === 3 ? 'Three' : count === 4 ? 'Four' : String(count)} ordinary things it also needs.`,
-    ask: `Does your home have all of these? The “${maneuver.name}” maneuver${pursuing} needs nothing else.`,
-  };
-}
-
-/**
- * The wall assumption for the maneuver in hand, in one line.
- *
- * Every figure was measured behind a wall of a stated thickness, and thicker
- * is strictly harder. A maneuver rebuilt behind a 100 cm wall that needed the
- * same doorway holds for any wall a house has; one that was not is stated as
- * holding only up to the thickness it was measured at.
- */
-export function wallLine(maneuver: WidgetManeuver, have: Have): string {
-  const measured = maneuver.wallThickness;
-  const holds = maneuver.holdsForWallsUpTo;
-  const yours = have.wallThickness;
-  const own = yours === undefined ? '' : ` Your wall: ${cm(yours)} cm.`;
-  if (holds > measured) {
-    return `Holds for any wall up to ${holds} cm thick (measured behind ${measured} cm, and again behind ${holds}: the same doorway).${own}`;
+function noWayHonesty(verdict: Verdict): string {
+  const short = verdict.nearest?.short[0];
+  const at = short === undefined ? '' : ` at ${cm(short.have)} cm`;
+  let line = `We haven’t found a way in${at} — that doesn’t prove there isn’t one.`;
+  const u = verdict.wallGiven ? verdict.unmeasured.find((entry) => entry.openingPasses) : undefined;
+  if (u !== undefined) {
+    line += ` “${u.maneuver.name}” would, behind a wall up to ${cm(u.holdsUpTo)} cm; it is not measured behind ${cm(verdict.wall)}.`;
   }
-  return `Assumes a wall no thicker than ${measured} cm — a thicker wall is strictly harder and has not been measured for this maneuver.${own}`;
+  return line;
 }
 
-/** A carry's verdict in one line, for the routes section. */
-export function carryLine(assessment: CarryAssessment): string {
-  switch (assessment.verdict) {
+function provenLine(proof: Proof, name: string): string {
+  const [p, q] = proof.crossSection;
+  const [w, h] = proof.opening;
+  const part = proof.boxLabel === undefined ? `Part of the ${name}` : `The ${proof.boxLabel.replace(/^the /, '')} of the ${name}`;
+  return `${part} is ${need(p)} × ${need(q)} cm at its thinnest; no angle gets that through ${cm(w)} × ${cm(h)}.`;
+}
+
+export function headline(verdict: Verdict, productName: string): Headline {
+  switch (verdict.kind) {
+    case 'needs-opening':
+      return { title: 'Two numbers', line: FORM.lead };
     case 'fits':
-      return `Fits — by “${assessment.chosen!.maneuver.name}”.`;
-    case 'open': {
-      const q = assessment.next!;
-      return `Open — needs ${need(q.needsCm)} cm ${KEY_SHORT[q.key]} for “${q.maneuver.name}”; not checked yet.`;
+      return {
+        title: `Fits through this door${wayIn(verdict)}`,
+        line: `${opening(verdict)} ${mannerOf(verdict)}`,
+      };
+    case 'conditions': {
+      const then = verdict.conditions.map((c) => conditionPhrase(c));
+      return {
+        title: `There is a way in${wayIn(verdict)}`,
+        line: `${opening(verdict)} Then ${list(then)}.`,
+      };
     }
-    case 'not-in-library':
-      return 'No known maneuver fits your numbers.';
+    case 'no-way':
+      return {
+        title: noWayTitle(verdict.nearest),
+        line: noWayLine(verdict),
+        honesty: noWayHonesty(verdict),
+      };
     case 'proven':
-      return 'Proven impossible, in closed form.';
+      return {
+        title: 'Not through this door',
+        line: provenLine(verdict.proof!, productName),
+        honesty: 'This one is certain: it follows from the shape, with no search in it.',
+      };
   }
 }
 
-export const WALL_LABEL = 'Wall thickness';
+/** The way in's own steps, as instructions. */
+export const STEPS = {
+  title: 'How it goes in',
+  drawn: (wall: number, measured: Key[], fromNeed: Key[]): string =>
+    (measured.length > 0 && fromNeed.length === 0
+      ? 'Drawn in a room from your numbers'
+      : `Drawn in a room from your numbers (${measured.map((k) => KEY_LABEL[k].toLowerCase()).join(', ')}) and, for the rest, from what this way in needs`) +
+    `, with a ${cm(wall)} cm wall. Re-checked against the collision test in this scene before it was drawn.`,
+  loading: 'Loading the 3D view…',
+  noMotion: 'No motion is recorded for this way in, so nothing is drawn.',
+  notFetched: 'The motion could not be fetched, so nothing is drawn. The answer does not depend on it.',
+  notVerified: (fault: string): string => `The motion could not be re-verified in this scene (${fault}), so it is not drawn.`,
+  notLoaded: 'The 3D view could not be loaded. The answer does not depend on it.',
+  cannotBuild: (reason: string): string => `This scene cannot be built: ${reason}`,
+  orbit: 'Drag to orbit · scroll to zoom',
+  pause: 'Pause',
+  play: 'Play',
+  topDown: 'Top-down',
+  scrub: 'Scrub the maneuver',
+  animated: (name: string): string => `${name}, animated`,
+};
 
-export const LEGEND: [string, string][] = [
-  ['Fits', 'a maneuver validated offline against the collision test, whose every requirement your numbers meet.'],
-  ['No known maneuver', 'our list has nothing for these numbers. That is a fact about the list, not a proof about the sofa.'],
-  ['Proven', 'a closed-form geometric argument, with no search in it — the only negative that is a verdict.'],
-  ['Not settled yet', 'a number is still missing, and the answer could go either way until it is given.'],
-];
+/** Requirements the shopper may enter. */
+export const CONDITIONS = {
+  lead: 'Have those? Enter them and the answer settles.',
+  given: 'You entered:',
+  forget: 'forget',
+  placeholder: (value: number): string => `≥ ${need(value)}`,
+  update: 'Update',
+  close: (items: { key: Key; margin: number }[]): string =>
+    `Close: ${list(items.map((i) => `${cm(i.margin)} cm to spare on the ${KEY_LABEL[i.key].toLowerCase()}`))}. Worth measuring again.`,
+};
+
+export function tradeoffLine(verdict: Verdict): string | undefined {
+  const t = verdict.tradeoff;
+  if (t === undefined) return undefined;
+  const dropped = t.less.filter((c) => c.dropped);
+  const eased = t.less.filter((c) => !c.dropped);
+  const parts: string[] = [];
+  if (dropped.length > 0) parts.push(`no need for ${list(dropped.map((c) => needShort(c.key, c.was)))}`);
+  for (const c of eased) parts.push(`${needShort(c.key, c.need)} instead of ${need(c.was)}`);
+  const more = list(t.more.map((c) => needShort(c.key, c.need)));
+  return `Or ${t.maneuver.name.toLowerCase()}: ${list(parts)}, but ${more}.`;
+}
+
+/* ------------------------------------------------------------------------ */
+/* The part, and the wall                                                    */
+
+export const PART = {
+  /** Under a headline that already says "with the legs off". */
+  withOn: (part: string, doorNeed: number): string => `With the ${part} on it needs ${need(doorNeed)} cm.`,
+  question: (part: string, doorNeed: number): string => `Do the ${part} come off? Without them it needs ${need(doorNeed)} cm.`,
+  yes: (part: string): string => `Yes, the ${part} come off`,
+  no: 'No',
+  undo: (part: string): string => `Keep the ${part} on`,
+};
+
+function summarize(verdict: Verdict): string {
+  switch (verdict.kind) {
+    case 'fits':
+    case 'conditions': {
+      const route = verdict.route!;
+      const size = `${need(route.need!.doorWidth)} × ${need(route.need!.doorHeight)} cm`;
+      if (route.partOff !== undefined) return `the way in is with the ${route.partOff} off, needing ${size}`;
+      if (route.id === 'modules') return `the way in is in pieces, needing ${size}`;
+      const way = route.carries.length === 1 ? ` — ${route.carries[0]!.presented!.maneuver.name.toLowerCase()}` : '';
+      return `it needs ${size}${way}`;
+    }
+    case 'no-way':
+    case 'proven':
+      return 'it is not through this door';
+    case 'needs-opening':
+      return '';
+  }
+}
+
+export const WALL = {
+  label: 'Wall thickness',
+  note: (holdsUpTo: number, then: Verdict | undefined): string =>
+    then === undefined
+      ? 'The same behind any wall a home has; the figure in brackets is for a thicker one.'
+      : `For a wall up to ${cm(holdsUpTo)} cm thick. Thicker than that, ${summarize(then)}.`,
+  given: (wall: number): string => `For your ${cm(wall)} cm wall.`,
+  ask: 'My wall is thicker',
+  use: 'Use this wall',
+  forget: 'Back to an ordinary wall',
+  invalid: 'Wall thickness: a number in centimetres, 3–200.',
+};
+
+/* ------------------------------------------------------------------------ */
+/* Behind the disclosure                                                     */
+
+export const DETAILS = {
+  summary: 'See all the ways in',
+  none: '—',
+  columns: {
+    maneuver: 'Way in',
+    opening: 'Door w × h',
+    front: 'In front',
+    along: 'Along',
+    behind: 'Behind',
+    ceiling: 'Ceiling',
+    yours: 'Against yours',
+  },
+  steps: (count: number): string => `${count} ${count === 1 ? 'step' : 'steps'}`,
+  turns: 'turns in the opening',
+  status: {
+    fits: 'fits',
+    open: (keys: Key[]): string => `open: ${keys.map((k) => KEY_LABEL[k].toLowerCase()).join(', ')} not given`,
+    ruledOut: (keys: Key[]): string => `short on ${keys.map((k) => KEY_LABEL[k].toLowerCase()).join(', ')}`,
+    unmeasured: (wall: number, holdsUpTo: number): string => `not measured for a ${cm(wall)} cm wall; holds to ${cm(holdsUpTo)}`,
+  },
+  route: {
+    assembled: 'As one piece',
+    modules: 'Taken apart',
+    withoutPart: (part: string): string => `With the ${part} off`,
+    body: (name: string, length: number, depth: number, height: number): string => `${name}, ${MODAL.dims(length, depth, height)}`,
+  },
+  separatesUnknown: (name: string): string =>
+    `Whether the ${name} comes apart is not in the listing. If it does, it is carried in as smaller pieces; ask the retailer.`,
+  floor: (narrowest: number, floor: number): string => {
+    if (narrowest < floor - 0.1) {
+      return `The narrowest doorway any way in here clears is ${need(narrowest)} cm, under the ${need(floor)} cm that any way of rolling it as it goes could manage — by leaning it, which is not a roll. A measured way in, not a limit.`;
+    }
+    if (narrowest - floor < 0.1) {
+      return `The narrowest doorway any way in here clears is ${need(narrowest)} cm, which is as narrow as any way of rolling it as it goes could manage. That limit says nothing about leaning or turning it inside the doorway.`;
+    }
+    return `The narrowest doorway any way in here clears is ${need(narrowest)} cm; rolling it as it goes could in principle manage ${need(floor)}, by a maneuver nobody has written yet.`;
+  },
+  wall: (wall: number, anyWall: string[], thisWall: string[]): string => {
+    if (thisWall.length === 0) return `Measured behind a ${cm(wall)} cm wall; every way in needs the same doorway behind any wall.`;
+    if (anyWall.length === 0) return `Measured behind a ${cm(wall)} cm wall, and not behind a thicker one.`;
+    return `Measured behind a ${cm(wall)} cm wall. ${list(anyWall.map((n) => `“${n}”`))} need${anyWall.length === 1 ? 's' : ''} the same doorway behind any wall; ${list(thisWall.map((n) => `“${n}”`))} ${thisWall.length === 1 ? 'is' : 'are'} measured for this one and thicker ones as listed.`;
+  },
+  meaning: [
+    ['Fits', 'a way in validated against the collision test, whose every requirement your numbers meet.'],
+    ['There is a way in', 'the doorway is enough; the rest of what that way in needs is listed, not assumed.'],
+    ['Not through this door', 'nothing on our list of validated ways in works for these numbers — a fact about the list, unless the line under it says it is a proof.'],
+  ] as [string, string][],
+  disclaimer: 'Not a substitute for the delivery team’s judgement on the day: doors, handles, skirting boards and stairs are not modelled.',
+};
+
+export type { Condition, Kind };

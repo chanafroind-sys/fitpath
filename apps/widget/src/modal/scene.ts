@@ -13,6 +13,7 @@
  */
 import { LIGHT_PALETTE, Playback, Viewer, buildTimeline } from '@fitpath/viewer';
 import type { Environment, Item, Placement } from '@fitpath/engine';
+import { STEPS } from './copy.ts';
 import { el } from './dom.ts';
 
 export interface SceneHandle {
@@ -21,8 +22,8 @@ export interface SceneHandle {
 }
 
 export function mountScene(environment: Environment, item: Item, path: readonly Placement[], label: string): SceneHandle {
-  const canvas = el('canvas', { 'aria-label': `${label}, animated` });
-  const stage = el('div', { class: 'stage' }, [canvas, el('span', { class: 'label', text: 'Drag to orbit · scroll to zoom' })]);
+  const canvas = el('canvas', { 'aria-label': STEPS.animated(label) });
+  const stage = el('div', { class: 'stage' }, [canvas, el('span', { class: 'label', text: STEPS.orbit })]);
 
   const viewer = new Viewer(canvas, LIGHT_PALETTE);
   viewer.setScene({ environment, item, path });
@@ -34,14 +35,14 @@ export function mountScene(environment: Environment, item: Item, path: readonly 
   // to play than a short slide — which is also what it takes to perform.
   playback.setDuration(Math.min(16000, Math.max(5000, (timeline.sweep / 85) * 1000)));
 
-  const play = el('button', { class: 'btn btn-ghost', type: 'button', text: 'Pause', onclick: () => playback.toggle() });
+  const play = el('button', { class: 'btn btn-ghost', type: 'button', text: STEPS.pause, onclick: () => playback.toggle() });
   const scrubber = el('input', {
     type: 'range',
     min: '0',
     max: '1000',
     value: '0',
     step: '1',
-    'aria-label': 'Scrub the maneuver',
+    'aria-label': STEPS.scrub,
     oninput: (event: Event) => {
       playback.pause();
       playback.seek(Number((event.target as HTMLInputElement).value) / 1000);
@@ -50,7 +51,7 @@ export function mountScene(environment: Environment, item: Item, path: readonly 
   const topDown = el('button', {
     class: 'btn btn-ghost',
     type: 'button',
-    text: 'Top-down',
+    text: STEPS.topDown,
     'aria-pressed': 'false',
     onclick: () => {
       const on = topDown.getAttribute('aria-pressed') !== 'true';
@@ -62,7 +63,7 @@ export function mountScene(environment: Environment, item: Item, path: readonly 
   const unsubscribe = playback.subscribe((fraction, playing) => {
     viewer.setFraction(fraction);
     scrubber.value = String(Math.round(fraction * 1000));
-    play.textContent = playing ? 'Pause' : 'Play';
+    play.textContent = playing ? STEPS.pause : STEPS.play;
   });
   playback.play();
 

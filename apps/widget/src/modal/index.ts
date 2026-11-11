@@ -3,23 +3,24 @@
  *
  * Renders inside a shadow root on a host appended to `<body>`, so the store's
  * stylesheet cannot reach it and it cannot reach the store's. Fetches the
- * product's library from beside the script, asks for one number, and answers.
+ * product's library from beside the script, asks for the doorway, and answers.
  *
  * The engine is a dependency of this chunk — `provableNoFit` for the proof,
- * `selectManeuver` for the choice among maneuvers that fit, `buildEnvironment`
+ * `selectManeuver` for the choice among ways in that fit, `buildEnvironment`
  * and `verifyPathIn` to re-check a motion in the shopper's own room before it
  * is drawn. None of that is geometry the widget does itself; it is geometry
  * the widget asks the engine to do. The 3D view is a further chunk, loaded
- * only when there is a maneuver to show.
+ * only when there is a way in to show.
  */
 import { buildEnvironment, prepareItem, verifyPathIn } from '@fitpath/engine';
 import type { EnvironmentParams } from '@fitpath/engine';
-import { DATA_VERSION, type Carry, type MeasurementKey, type WidgetManeuver, type WidgetPaths, type WidgetProduct } from '../types.ts';
+import { DATA_VERSION, OPTIONAL_KEYS, type Carry, type Key, type WallVariant, type WidgetManeuver, type WidgetPaths, type WidgetProduct } from '../types.ts';
 import { createStorage } from '../storage.ts';
-import { assess, type Have, type Known } from './assess.ts';
+import { FORM, MODAL, STEPS } from './copy.ts';
+import { decide, type Have } from './verdict.ts';
 import { el, clear } from './dom.ts';
 import { STYLES } from './styles.ts';
-import { renderBody, renderHeader } from './view.ts';
+import { renderBody, renderHeader, type ViewHandlers } from './view.ts';
 import type { SceneHandle } from './scene.ts';
 
 export interface OpenOptions {
@@ -32,7 +33,7 @@ export interface OpenOptions {
 
 let current: { close(): void } | undefined;
 
-const FOCUSABLE = 'button:not([disabled]), input:not([disabled]), select, textarea, a[href], [tabindex]:not([tabindex="-1"])';
+const FOCUSABLE = 'button:not([disabled]), input:not([disabled]), select, textarea, a[href], summary, [tabindex]:not([tabindex="-1"])';
 
 async function fetchJson<T>(url: string): Promise<T> {
   const response = await fetch(url, { credentials: 'omit' });
@@ -46,7 +47,7 @@ export async function open(options: OpenOptions): Promise<void> {
   const host = el('div', { 'data-fitpath-modal': '' });
   const root = host.attachShadow({ mode: 'open' });
   const style = el('style', { text: STYLES });
-  const body = el('div', { class: 'body' }, [el('div', { class: 'skeleton' })]);
+  const body = el('div', { class: 'body' }, [el('div', { class: 'skeleton', 'aria-label': MODAL.loading })]);
   const dialog = el('div', { class: 'dialog', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'fp-title', tabindex: '-1' }, [body]);
   const backdrop = el('div', { class: 'backdrop' });
   root.append(style, backdrop, dialog);
@@ -109,11 +110,11 @@ export async function open(options: OpenOptions): Promise<void> {
     clear(body);
     body.append(
       el('div', { class: 'card tone-not-found' }, [
-        el('h3', { text: 'The fit check could not load for this product' }),
+        el('h3', { text: MODAL.couldNotLoad }),
         el('p', { class: 'muted small', text: error instanceof Error ? error.message : String(error) }),
-        el('p', { class: 'muted small', text: 'Nothing was computed. This is a loading problem, not an answer.' }),
+        el('p', { class: 'muted small', text: MODAL.nothingComputed }),
       ]),
-      el('div', { class: 'row' }, [el('button', { class: 'btn btn-ghost', type: 'button', text: 'Close', onclick: close })]),
+      el('div', { class: 'row' }, [el('button', { class: 'btn btn-ghost', type: 'button', text: MODAL.close, onclick: close })]),
     );
     return;
   }
@@ -136,9 +137,9 @@ export async function open(options: OpenOptions): Promise<void> {
   /** Bumped on every render, so a 3D view still loading for a stale answer is dropped. */
   let generation = 0;
 
-  const mountStage = (slot: HTMLElement, carry: Carry, maneuver: WidgetManeuver, params: EnvironmentParams): void => {
+  const mountStage = (slot: HTMLElement, carry: Carry, maneuver: WidgetManeuver, variant: WallVariant, params: EnvironmentParams): void => {
     const mine = generation;
-    const placeholder = el('div', { class: 'stage' }, [el('div', { class: 'note', text: 'Loading the 3D view…' })]);
+    const placeholder = el('div', { class: 'stage' }, [el('div', { class: 'note', text: STEPS.loading })]);
     slot.append(placeholder);
 
     const note = (text: string): void => {
@@ -151,27 +152,27 @@ export async function open(options: OpenOptions): Promise<void> {
       try {
         environment = buildEnvironment(params);
       } catch (error) {
-        note(`This scene cannot be built: ${error instanceof Error ? error.message : String(error)}`);
+        note(STEPS.cannotBuild(error instanceof Error ? error.message : String(error)));
         return;
       }
       let path;
       try {
         const all = await loadPaths();
-        path = all[carry.id]?.[maneuver.templateId];
+        path = all[carry.id]?.[variant.pathKey];
       } catch {
-        note('The motion could not be fetched, so nothing is drawn. The answer above does not depend on it.');
+        note(STEPS.notFetched);
         return;
       }
       if (mine !== generation) return;
       if (path === undefined || path.length === 0) {
-        note('No motion is recorded for this maneuver, so nothing is drawn.');
+        note(STEPS.noMotion);
         return;
       }
       // Nothing is drawn that the collider has not cleared IN THIS SCENE. The
       // requirement says it will pass; this is the check that it does.
       const fault = verifyPathIn(prepareItem(carry.item), path, environment);
       if (fault !== undefined) {
-        note(`The motion could not be re-verified in this scene (${fault.kind} ${fault.index}), so it is not drawn. Treat the answer above with that in mind.`);
+        note(STEPS.notVerified(`${fault.kind} ${fault.index}`));
         return;
       }
       try {
@@ -181,54 +182,66 @@ export async function open(options: OpenOptions): Promise<void> {
         scenes.push(scene);
         placeholder.replaceWith(scene.element);
       } catch {
-        note('The 3D view could not be loaded. The answer above does not depend on it.');
+        note(STEPS.notLoaded);
       }
     })();
   };
 
-  const update = (focusQuestion: boolean): void => {
+  const update = (focusVerdict: boolean): void => {
     generation++;
     disposeScenes();
-    const answer = assess(product, have);
-    renderBody(body, answer, handlers, storage.available ? 'Saved for this store' : 'Kept for this visit only');
+    const verdict = decide(product, have);
+    renderBody(body, product, verdict, handlers, storage.available ? FORM.saved : FORM.kept);
     body.scrollTop = 0;
-    if (focusQuestion) {
-      const input = body.querySelector<HTMLInputElement>('.tone-ask input');
-      if (input !== null) input.focus();
-      else body.querySelector<HTMLElement>('.verdict-title')?.focus?.();
-    }
+    if (focusVerdict) body.querySelector<HTMLElement>('.verdict-title')?.focus();
   };
 
-  const handlers = {
-    onKnown(key: MeasurementKey, known: Known): void {
-      have = { ...have, [key]: known };
-      storage.save(have);
-      update(true);
+  const set = (next: Have, focusVerdict: boolean): void => {
+    have = next;
+    storage.save(have);
+    update(focusVerdict);
+  };
+
+  const handlers: ViewHandlers = {
+    onOpening(width: number, height: number): void {
+      set({ ...have, doorWidth: width, doorHeight: height }, true);
     },
-    onForget(key: MeasurementKey): void {
+    onOptional(values: Partial<Record<Key, number | undefined>>): void {
       const next = { ...have };
-      delete next[key];
-      // A number given later may have been asked because of this one; they are
-      // all kept, since each was measured on its own terms.
-      have = next;
-      storage.save(have);
-      update(true);
+      for (const key of OPTIONAL_KEYS) {
+        if (!(key in values)) continue;
+        const value = values[key];
+        if (value === undefined) delete next[key];
+        else next[key] = value;
+      }
+      set(next, true);
     },
     onWall(thickness: number | undefined): void {
       const next = { ...have };
       if (thickness === undefined) delete next.wallThickness;
       else next.wallThickness = thickness;
-      have = next;
-      storage.save(have);
-      update(false);
+      set(next, false);
+    },
+    onPartOff(part: string, off: boolean): void {
+      const next = { ...have };
+      const offList = (have.partsOff ?? []).filter((p) => p !== part);
+      const onList = (have.partsOn ?? []).filter((p) => p !== part);
+      (off ? offList : onList).push(part);
+      if (offList.length === 0) delete next.partsOff;
+      else next.partsOff = offList;
+      if (onList.length === 0) delete next.partsOn;
+      else next.partsOn = onList;
+      set(next, true);
     },
     onReset(): void {
       have = {};
       storage.clear();
-      update(true);
+      update(false);
+      body.querySelector<HTMLInputElement>('#fp-doorWidth')?.focus();
     },
     mountStage,
   };
 
-  update(true);
+  update(false);
+  if (have.doorWidth === undefined) body.querySelector<HTMLInputElement>('#fp-doorWidth')?.focus();
 }
