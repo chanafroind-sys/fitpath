@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 533 519" width="533" height="519" role="img"
+  aria-label="A doorway 82.74 cm wide with the three-seat sofa's section through the wall drawn inside it, and the 95 cm it presents carried level drawn dashed and overflowing the opening.">
+  <style>
+    .wall { fill: #e8e4da; }
+    .open { fill: #fbfaf7; }
+    .jamb { fill: none; stroke: #c3bdaf; stroke-width: 2; }
+    .sofa { fill: #d4692b; fill-opacity: .92; }
+    .level { fill: #b4513a; fill-opacity: .07; stroke: #b4513a; stroke-width: 2.5; stroke-dasharray: 9 7; }
+    .dim { stroke: #5c635f; stroke-width: 1.5; }
+    .tick { stroke: #5c635f; stroke-width: 1.5; }
+    text { font-family: "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif; fill: #1d211f; }
+    .n { font-size: 26px; font-weight: 700; }
+    .k { font-size: 16px; fill: #5c635f; }
+    .tag { font-size: 16px; font-weight: 700; }
+  </style>
+
+  <rect x="0" y="0" width="533" height="519" rx="16" fill="#faf9f6" />
+  <rect x="26" y="94" width="481" height="312.79" rx="10" class="wall" />
+  <rect x="165.14" y="128" width="202.71" height="278.79" class="open" />
+  <rect x="165.14" y="128" width="202.71" height="278.79" class="jamb" />
+
+  <!-- carried in level: the section it presents when nobody tilts it -->
+  <rect x="150.13" y="198.54" width="232.75" height="208.25" class="level" />
+  <line class="dim" x1="150.13" y1="74" x2="382.88" y2="74" stroke="#b4513a" />
+  <line class="tick" x1="150.13" y1="66" x2="150.13" y2="82" stroke="#b4513a" />
+  <line class="tick" x1="382.88" y1="66" x2="382.88" y2="82" stroke="#b4513a" />
+  <text class="k" x="266.5" y="54" text-anchor="middle" fill="#b4513a">carried level it is 95 cm across — wider than the opening</text>
+
+  <!-- the measured section of the lean, at the instant it is widest -->
+  <g class="sofa">
+    <polygon points="236.42,353.73 332.93,369.16 337.01,348.2 366.97,160.83 366.97,147.16 270.46,128.4 236.42,341.26" />
+    <polygon points="165.15,333.92 165.6,348.2 166.69,376.42 313.6,371.77 313.6,363.19 312.06,314.59 165.15,320.25" />
+    <polygon points="193.85,380.76 326.55,401.98 337.01,348.2 346.3,290.08 209.48,290.08 197.18,353.32 193.85,374.13" />
+    <polygon points="330.29,376.57 367.61,376.57 367.64,376.41 367.64,376.38 331.45,369.34" />
+  </g>
+
+  <!-- the opening, measured -->
+  <line class="dim" x1="165.14" y1="440.79" x2="367.86" y2="440.79" />
+  <line class="tick" x1="165.14" y1="432.79" x2="165.14" y2="448.79" />
+  <line class="tick" x1="367.86" y1="432.79" x2="367.86" y2="448.79" />
+  <text class="n" x="266.5" y="476.79" text-anchor="middle">82.74 cm</text>
+
+  <line class="dim" x1="397.86" y1="128" x2="397.86" y2="406.79" />
+  <line class="tick" x1="389.86" y1="128" x2="405.86" y2="128" />
+  <line class="tick" x1="389.86" y1="406.79" x2="405.86" y2="406.79" />
+  <text class="k" x="413.86" y="267.39">113.79 cm</text>
+
+  <text class="tag" x="26" y="34" fill="#1f6f5c">the lean, measured · 3-seat sofa, 220 × 95 × 85 cm</text>
+  <text class="k" x="26" y="499">the section the sofa presents while it crosses a 12 cm wall, at the widest instant of the motion the widget ships</text>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-label="Brekke 2-seat recliner, drawn from its box model">
+<defs><filter id="fp-shadow" x="-20%" y="-40%" width="140%" height="180%"><feGaussianBlur stdDeviation="9"/></filter></defs>
+<polygon points="155.47,351.11 496.68,468 644.53,384.75 303.32,267.86" fill="#000" opacity="0.13" filter="url(#fp-shadow)"/>
+<polygon points="296.12,127.59 163.05,202.52 163.05,353.71 296.12,278.78" fill="#676159" stroke="#4a4640" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="296.12,127.59 288.54,125 155.47,199.92 163.05,202.52" fill="#b4aa9b" stroke="#827a70" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="591.84,228.9 591.84,326.09 326.45,235.17 326.45,137.98" fill="#423528" stroke="#30261d" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="606.62,220.57 341.24,129.66 326.45,137.98 591.84,228.9" fill="#574635" stroke="#3f3326" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="163.05,202.52 163.05,353.71 155.47,351.11 155.47,199.92" fill="#898176" stroke="#625d55" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="622.17,364.56 296.12,252.86 163.05,327.79 489.09,439.48" fill="#574635" stroke="#3f3326" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="592.59,180.35 592.59,381.21 266.55,269.51 266.55,68.65" fill="#928c82" stroke="#69645e" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="622.17,163.69 296.12,52 266.55,68.65 592.59,180.35" fill="#c0b8ac" stroke="#8b847c" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="606.62,220.57 591.84,228.9 591.84,326.09 606.62,317.76" fill="#32281e" stroke="#241d16" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="592.59,299.13 266.55,187.44 163.05,245.72 489.09,357.41" fill="#b4aa9b" stroke="#827a70" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="489.09,439.48 489.09,465.4 163.05,353.71 163.05,327.79" fill="#423528" stroke="#30261d" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="489.09,357.41 489.09,439.48 163.05,327.79 163.05,245.72" fill="#898176" stroke="#625d55" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="622.17,163.69 592.59,180.35 592.59,381.21 622.17,364.56" fill="#6e6962" stroke="#4f4b46" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="622.17,364.56 489.09,439.48 489.09,465.4 622.17,390.47" fill="#32281e" stroke="#241d16" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="629.75,241.89 496.68,316.81 496.68,468 629.75,393.07" fill="#676159" stroke="#4a4640" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="592.59,299.13 489.09,357.41 489.09,439.48 592.59,381.21" fill="#676159" stroke="#4a4640" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="629.75,241.89 622.17,239.29 489.09,314.22 496.68,316.81" fill="#b4aa9b" stroke="#827a70" stroke-width="0.8" stroke-linejoin="round"/>
+<polygon points="496.68,316.81 496.68,468 489.09,465.4 489.09,314.22" fill="#898176" stroke="#625d55" stroke-width="0.8" stroke-linejoin="round"/>
+</svg>
