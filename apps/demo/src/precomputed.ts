@@ -54,12 +54,12 @@ export interface Precomputed {
 }
 
 export const PRECOMPUTED: Precomputed = {
-  "wallThickness": 30,
+  "wallThickness": 12,
   "scenes": {
     "sofa-3-seat": {
       "openingWidth": 110,
       "openingHeight": 210,
-      "wallThickness": 30,
+      "wallThickness": 12,
       "hallwayWidth": 240,
       "hallwayDepth": 360,
       "roomDepth": 400,
@@ -69,7 +69,7 @@ export const PRECOMPUTED: Precomputed = {
     "slim-arm-2-seat": {
       "openingWidth": 80,
       "openingHeight": 210,
-      "wallThickness": 30,
+      "wallThickness": 12,
       "hallwayWidth": 240,
       "hallwayDepth": 360,
       "roomDepth": 400,
@@ -79,7 +79,7 @@ export const PRECOMPUTED: Precomputed = {
     "corner-sofa": {
       "openingWidth": 90,
       "openingHeight": 210,
-      "wallThickness": 30,
+      "wallThickness": 12,
       "hallwayWidth": 300,
       "hallwayDepth": 360,
       "roomDepth": 400,
@@ -89,7 +89,7 @@ export const PRECOMPUTED: Precomputed = {
     "deep-seat-lounge": {
       "openingWidth": 80,
       "openingHeight": 210,
-      "wallThickness": 30,
+      "wallThickness": 12,
       "hallwayWidth": 240,
       "hallwayDepth": 360,
       "roomDepth": 400,
@@ -99,7 +99,7 @@ export const PRECOMPUTED: Precomputed = {
     "recliner-2-seat": {
       "openingWidth": 105,
       "openingHeight": 210,
-      "wallThickness": 30,
+      "wallThickness": 12,
       "hallwayWidth": 240,
       "hallwayDepth": 360,
       "roomDepth": 400,
@@ -109,7 +109,7 @@ export const PRECOMPUTED: Precomputed = {
     "sofa-bed": {
       "openingWidth": 95,
       "openingHeight": 210,
-      "wallThickness": 30,
+      "wallThickness": 12,
       "hallwayWidth": 240,
       "hallwayDepth": 360,
       "roomDepth": 400,
@@ -129,9 +129,9 @@ export const PRECOMPUTED: Precomputed = {
           "depth": 95,
           "height": 85
         },
-        "wallThickness": 30,
-        "wallStatement": "Measured against a wall 30 cm thick. “Straight in”, “On its side”, “Seat first, turning as it goes” need the same doorway behind any wall up to 100 cm thick; “Stood on end, turned, and walked through”, “Stood on end and left standing inside”, “Lean into the doorway and straighten inside it” hold only for a wall no thicker than 30 cm — a thicker wall is strictly harder and has not been measured.",
-        "wallStatementHe": "נמדד מול קיר בעובי 30 ס״מ. “ישר פנימה”, “על הצד”, “המושב ראשון, תוך סיבוב תוך כדי” — אותו פתח מאחורי כל קיר בעובי של עד 100 ס״מ; “בעמידה על הקצה, מסובבת ומועברת”, “בעמידה על הקצה, נשארת עומדת בפנים”, “להטות לתוך הפתח וליישר בתוכו” — רק לקיר שעוביו אינו עולה על 30 ס״מ; קיר עבה יותר קשה יותר ולא נמדד.",
+        "wallThickness": 12,
+        "wallStatement": "Measured behind a wall 12 cm thick. “Straight in”, “On its side”, “Seat first, turning as it goes” need the same doorway behind any wall; “Stood on end, turned, and walked through”, “Stood on end and left standing inside”, “Lean into the doorway and straighten inside it” hold for a wall no thicker than 12 cm — a thicker wall is strictly harder and has not been measured.",
+        "wallStatementHe": "נמדד מאחורי קיר בעובי 12 ס״מ. “ישר פנימה”, “על הצד”, “המושב ראשון, תוך סיבוב תוך כדי” — אותו פתח מאחורי כל קיר; “בעמידה על הקצה, מסובבת ומועברת”, “בעמידה על הקצה, נשארת עומדת בפנים”, “להטות לתוך הפתח וליישר בתוכו” — לקיר שעוביו אינו עולה על 12 ס״מ; קיר עבה יותר קשה יותר ולא נמדד.",
         "boxCount": 8,
         "parts": [
           {
@@ -212,7 +212,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             "stations": [
               {
-                "t": 0.0079,
+                "t": 0.0085,
                 "station": 110,
                 "parts": [
                   "the backrest",
@@ -229,25 +229,23 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.1732,
-                "station": 68,
+                "t": 0.1737,
+                "station": 71,
                 "parts": [
                   "the backrest",
-                  "the seat",
-                  "the legs"
+                  "the seat"
                 ],
                 "partsHe": [
                   "המשענת",
-                  "המושב",
-                  "הרגליים"
+                  "המושב"
                 ],
                 "width": 95,
                 "height": 85,
                 "rollDeg": 0
               },
               {
-                "t": 0.3346,
-                "station": 27,
+                "t": 0.3347,
+                "station": 33,
                 "parts": [
                   "the backrest",
                   "the seat"
@@ -262,7 +260,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.5,
-                "station": -15,
+                "station": -6,
                 "parts": [
                   "the backrest",
                   "the seat"
@@ -276,8 +274,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.6654,
-                "station": -57,
+                "t": 0.6653,
+                "station": -45,
                 "parts": [
                   "the backrest",
                   "the seat"
@@ -291,24 +289,22 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.8268,
-                "station": -98,
+                "t": 0.8263,
+                "station": -83,
                 "parts": [
                   "the backrest",
-                  "the seat",
-                  "the legs"
+                  "the seat"
                 ],
                 "partsHe": [
                   "המשענת",
-                  "המושב",
-                  "הרגליים"
+                  "המושב"
                 ],
                 "width": 95,
                 "height": 85,
                 "rollDeg": 0
               },
               {
-                "t": 0.9921,
+                "t": 0.9915,
                 "station": -110,
                 "parts": [
                   "the backrest",
@@ -361,24 +357,22 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.4916,
-                "station": 68,
+                "station": 71,
                 "parts": [
                   "the seat",
-                  "the legs",
                   "the backrest"
                 ],
                 "partsHe": [
                   "המושב",
-                  "הרגליים",
                   "המשענת"
                 ],
-                "width": 85,
+                "width": 70,
                 "height": 95,
                 "rollDeg": -90
               },
               {
                 "t": 0.4958,
-                "station": 27,
+                "station": 33,
                 "parts": [
                   "the seat",
                   "the backrest"
@@ -393,7 +387,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.5,
-                "station": -15,
+                "station": -6,
                 "parts": [
                   "the seat",
                   "the backrest"
@@ -408,7 +402,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.5042,
-                "station": -57,
+                "station": -45,
                 "parts": [
                   "the seat",
                   "the backrest"
@@ -423,18 +417,16 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.5084,
-                "station": -98,
+                "station": -83,
                 "parts": [
                   "the seat",
-                  "the legs",
                   "the backrest"
                 ],
                 "partsHe": [
                   "המושב",
-                  "הרגליים",
                   "המשענת"
                 ],
-                "width": 85,
+                "width": 70,
                 "height": 95,
                 "rollDeg": -90
               },
@@ -451,7 +443,7 @@ export const PRECOMPUTED: Precomputed = {
                   "המשענות",
                   "המשענת"
                 ],
-                "width": 55,
+                "width": 40.6556,
                 "height": 95,
                 "rollDeg": -90
               }
@@ -474,7 +466,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             "stations": [
               {
-                "t": 0.0738,
+                "t": 0.0786,
                 "station": 110,
                 "parts": [
                   "the seat",
@@ -491,8 +483,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.2361,
-                "station": 61.6364,
+                "t": 0.1921,
+                "station": 78.2,
                 "parts": [
                   "the seat",
                   "the backrest"
@@ -501,28 +493,13 @@ export const PRECOMPUTED: Precomputed = {
                   "המושב",
                   "המשענת"
                 ],
-                "width": 68.7712,
-                "height": 109.5187,
-                "rollDeg": -103.0909
+                "width": 67.5763,
+                "height": 112.4524,
+                "rollDeg": -107.4
               },
               {
-                "t": 0.2692,
-                "station": 51.7778,
-                "parts": [
-                  "the seat",
-                  "the backrest"
-                ],
-                "partsHe": [
-                  "המושב",
-                  "המשענת"
-                ],
-                "width": 83.6309,
-                "height": 116.7403,
-                "rollDeg": -132.6667
-              },
-              {
-                "t": 0.5805,
-                "station": -41,
+                "t": 0.2429,
+                "station": 64,
                 "parts": [
                   "the seat",
                   "the backrest"
@@ -536,8 +513,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -135
               },
               {
-                "t": 0.7359,
-                "station": -87.3,
+                "t": 0.5857,
+                "station": -32,
                 "parts": [
                   "the seat",
                   "the backrest"
@@ -546,31 +523,42 @@ export const PRECOMPUTED: Precomputed = {
                   "המושב",
                   "המשענת"
                 ],
-                "width": 71.1162,
-                "height": 116.4413,
-                "rollDeg": -116.1
+                "width": 84.8528,
+                "height": 116.0263,
+                "rollDeg": -135
               },
               {
-                "t": 0.7785,
-                "station": -100,
+                "t": 0.7789,
+                "station": -86.1,
                 "parts": [
                   "the seat",
-                  "the armrests",
-                  "the legs",
                   "the backrest"
                 ],
                 "partsHe": [
                   "המושב",
-                  "המשענות",
-                  "הרגליים",
                   "המשענת"
                 ],
-                "width": 85,
-                "height": 97,
-                "rollDeg": -90
+                "width": 74.382,
+                "height": 117.3388,
+                "rollDeg": -119.7
               },
               {
-                "t": 0.9128,
+                "t": 0.811,
+                "station": -95.0833,
+                "parts": [
+                  "the seat",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "המשענת"
+                ],
+                "width": 70.0444,
+                "height": 100.0643,
+                "rollDeg": -92.75
+              },
+              {
+                "t": 0.9071,
                 "station": -110,
                 "parts": [
                   "the seat",
@@ -582,7 +570,7 @@ export const PRECOMPUTED: Precomputed = {
                   "המשענות",
                   "המשענת"
                 ],
-                "width": 81.6647,
+                "width": 52.3081,
                 "height": 112.8251,
                 "rollDeg": -108
               }
@@ -605,8 +593,8 @@ export const PRECOMPUTED: Precomputed = {
             },
             "stations": [
               {
-                "t": 0.4964,
-                "station": 14.6151,
+                "t": 0.4968,
+                "station": 14.6306,
                 "parts": [
                   "the legs"
                 ],
@@ -618,17 +606,15 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.4986,
-                "station": -10.3026,
+                "t": 0.499,
+                "station": -7.2873,
                 "parts": [
                   "the seat",
-                  "the backrest",
                   "the armrests",
                   "the legs"
                 ],
                 "partsHe": [
                   "המושב",
-                  "המשענת",
                   "המשענות",
                   "הרגליים"
                 ],
@@ -637,8 +623,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.5008,
-                "station": -35.2204,
+                "t": 0.5012,
+                "station": -29.2052,
                 "parts": [
                   "the seat",
                   "the backrest",
@@ -654,15 +640,13 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.5031,
-                "station": -61.1349,
+                "t": 0.5035,
+                "station": -52.1194,
                 "parts": [
-                  "the seat",
                   "the backrest",
                   "the armrests"
                 ],
                 "partsHe": [
-                  "המושב",
                   "המשענת",
                   "המשענות"
                 ],
@@ -671,34 +655,34 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.5053,
-                "station": -86.0526,
+                "t": 0.5057,
+                "station": -74.0373,
                 "parts": [
                   "the backrest"
                 ],
                 "partsHe": [
                   "המשענת"
                 ],
-                "width": 20.5713,
+                "width": 19.2992,
                 "height": 222,
                 "rollDeg": -90
               },
               {
-                "t": 0.6078,
-                "station": -102,
+                "t": 0.6111,
+                "station": -84,
                 "parts": [
                   "the armrests"
                 ],
                 "partsHe": [
                   "המשענות"
                 ],
-                "width": 1.1948,
+                "width": 1.3114,
                 "height": 222,
                 "rollDeg": -90
               },
               {
                 "t": 0.6356,
-                "station": -102,
+                "station": -84,
                 "parts": [
                   "the armrests"
                 ],
@@ -711,7 +695,7 @@ export const PRECOMPUTED: Precomputed = {
               }
             ],
             "turns": false,
-            "holdsForWallsUpTo": 30
+            "holdsForWallsUpTo": 12
           },
           {
             "templateId": "upright-left-standing",
@@ -728,8 +712,8 @@ export const PRECOMPUTED: Precomputed = {
             },
             "stations": [
               {
-                "t": 0.9546,
-                "station": 14.6151,
+                "t": 0.9554,
+                "station": 14.6306,
                 "parts": [
                   "the legs"
                 ],
@@ -741,8 +725,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.9578,
-                "station": -4.3224,
+                "t": 0.9585,
+                "station": -1.3097,
                 "parts": [
                   "the seat",
                   "the armrests",
@@ -758,27 +742,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.961,
-                "station": -23.2599,
-                "parts": [
-                  "the seat",
-                  "the backrest",
-                  "the armrests",
-                  "the legs"
-                ],
-                "partsHe": [
-                  "המושב",
-                  "המשענת",
-                  "המשענות",
-                  "הרגליים"
-                ],
-                "width": 95,
-                "height": 222,
-                "rollDeg": -90
-              },
-              {
-                "t": 0.9642,
-                "station": -42.1974,
+                "t": 0.9615,
+                "station": -17.25,
                 "parts": [
                   "the seat",
                   "the backrest",
@@ -794,8 +759,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.9674,
-                "station": -61.1349,
+                "t": 0.9646,
+                "station": -33.1903,
                 "parts": [
                   "the seat",
                   "the backrest",
@@ -811,8 +776,25 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.9706,
-                "station": -80.0724,
+                "t": 0.9677,
+                "station": -49.1306,
+                "parts": [
+                  "the seat",
+                  "the backrest",
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "המשענת",
+                  "המשענות"
+                ],
+                "width": 95,
+                "height": 222,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9707,
+                "station": -65.0709,
                 "parts": [
                   "the backrest",
                   "the armrests"
@@ -826,21 +808,21 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.9739,
-                "station": -99.0099,
+                "t": 0.9738,
+                "station": -81.0112,
                 "parts": [
                   "the backrest"
                 ],
                 "partsHe": [
                   "המשענת"
                 ],
-                "width": 4.8687,
+                "width": 4.8621,
                 "height": 222,
                 "rollDeg": -90
               }
             ],
             "turns": false,
-            "holdsForWallsUpTo": 30
+            "holdsForWallsUpTo": 12
           },
           {
             "templateId": "lean-and-straighten",
@@ -849,15 +831,15 @@ export const PRECOMPUTED: Precomputed = {
             "stages": 5,
             "valid": true,
             "requirement": {
-              "doorWidth": 82.72,
-              "doorHeight": 147.96,
+              "doorWidth": 82.74,
+              "doorHeight": 113.79,
               "hallwayClearance": 236,
               "roomDepth": 236,
-              "alongWall": 197.54
+              "alongWall": 198.52
             },
             "stations": [
               {
-                "t": 0.1,
+                "t": 0.1061,
                 "station": 110,
                 "parts": [
                   "the armrests",
@@ -872,25 +854,25 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0.8
               },
               {
-                "t": 0.2002,
-                "station": 79.1429,
+                "t": 0.1714,
+                "station": 91.2667,
                 "parts": [
                   "the seat",
-                  "the armrests",
-                  "the legs"
+                  "the legs",
+                  "the armrests"
                 ],
                 "partsHe": [
                   "המושב",
-                  "המשענות",
-                  "הרגליים"
+                  "הרגליים",
+                  "המשענות"
                 ],
-                "width": 79.0479,
-                "height": 111.5283,
-                "rollDeg": 41.7143
+                "width": 79.3154,
+                "height": 106.5623,
+                "rollDeg": 30.9333
               },
               {
-                "t": 0.3239,
-                "station": 40.2857,
+                "t": 0.2238,
+                "station": 75.7647,
                 "parts": [
                   "the seat",
                   "the backrest",
@@ -904,12 +886,12 @@ export const PRECOMPUTED: Precomputed = {
                   "הרגליים"
                 ],
                 "width": 82.6482,
-                "height": 140.8605,
-                "rollDeg": 35.1429
+                "height": 110.9697,
+                "rollDeg": 15.0588
               },
               {
-                "t": 0.4809,
-                "station": -9,
+                "t": 0.4764,
+                "station": 1,
                 "parts": [
                   "the seat",
                   "the backrest"
@@ -923,27 +905,25 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.6735,
-                "station": -69.4667,
+                "t": 0.7734,
+                "station": -86.9412,
                 "parts": [
                   "the seat",
                   "the backrest",
-                  "the armrests",
                   "the legs"
                 ],
                 "partsHe": [
                   "המושב",
                   "המשענת",
-                  "המשענות",
                   "הרגליים"
                 ],
                 "width": 82.6482,
-                "height": 138.4671,
-                "rollDeg": -31.8667
+                "height": 109.4842,
+                "rollDeg": -11.7647
               },
               {
-                "t": 0.7866,
-                "station": -105,
+                "t": 0.8214,
+                "station": -101.125,
                 "parts": [
                   "the seat",
                   "the legs",
@@ -954,12 +934,12 @@ export const PRECOMPUTED: Precomputed = {
                   "הרגליים",
                   "המשענות"
                 ],
-                "width": 80.8026,
-                "height": 115.7406,
-                "rollDeg": -40
+                "width": 79.6631,
+                "height": 108.1315,
+                "rollDeg": -29.75
               },
               {
-                "t": 0.9,
+                "t": 0.8939,
                 "station": -110,
                 "parts": [
                   "the armrests",
@@ -975,24 +955,24 @@ export const PRECOMPUTED: Precomputed = {
               }
             ],
             "turns": true,
-            "holdsForWallsUpTo": 30
+            "holdsForWallsUpTo": 12
           }
         ],
-        "narrowest": 82.72,
+        "narrowest": 82.74,
         "floor": 85,
         "binding": {
           "travelAxis": "x",
           "runs": [
             [
               -110,
-              -70
+              -88
             ],
             [
-              70,
+              88,
               110
             ]
           ],
-          "coverage": 0.3636,
+          "coverage": 0.2,
           "floor": 85,
           "rollDeg": -90,
           "parts": [
@@ -1013,14 +993,14 @@ export const PRECOMPUTED: Precomputed = {
             {
               "label": "the backrest",
               "labelHe": "המשענת",
-              "share": 0.3636,
+              "share": 0.2,
               "span": 220,
               "floorWithout": 70
             },
             {
               "label": "the seat",
               "labelHe": "המושב",
-              "share": 0.3636,
+              "share": 0.2,
               "span": 220,
               "floorWithout": 85
             }
@@ -1122,14 +1102,14 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 142,
+              "y": 124,
               "z": 15,
               "yaw": 1.5707963267948966,
               "pitch": 0,
               "tiltAxis": "x"
             }
           ],
-          "wallThickness": 30,
+          "wallThickness": 12,
           "holdsForWallsUpTo": 100
         },
         {
@@ -1350,7 +1330,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.500000000000004,
-              "y": 142,
+              "y": 124,
               "z": 47.5,
               "yaw": 1.5707963267948966,
               "pitch": -1.5707963267948966,
@@ -1358,7 +1338,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.500000000000004,
-              "y": 142,
+              "y": 124,
               "z": 49.5,
               "yaw": 1.5707963267948966,
               "pitch": -1.5707963267948966,
@@ -1366,7 +1346,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.500000000000004,
-              "y": 142,
+              "y": 124,
               "z": 49.31924815935791,
               "yaw": 1.5707963267948966,
               "pitch": -1.4835298641951802,
@@ -1374,7 +1354,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.500000000000004,
-              "y": 142,
+              "y": 124,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
               "pitch": -1.3962634015954636,
@@ -1382,7 +1362,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.500000000000004,
-              "y": 142,
+              "y": 124,
               "z": 48.383022033256815,
               "yaw": 1.5707963267948966,
               "pitch": -1.3089969389957472,
@@ -1390,7 +1370,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.500000000000004,
-              "y": 142,
+              "y": 124,
               "z": 48.476777464464995,
               "yaw": 1.5707963267948966,
               "pitch": -1.2217304763960306,
@@ -1398,7 +1378,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.500000000000004,
-              "y": 142,
+              "y": 124,
               "z": 48.216816555723085,
               "yaw": 1.5707963267948966,
               "pitch": -1.1344640137963142,
@@ -1406,7 +1386,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.500000000000004,
-              "y": 142,
+              "y": 124,
               "z": 47.605117766515306,
               "yaw": 1.5707963267948966,
               "pitch": -1.0471975511965979,
@@ -1414,7 +1394,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.500000000000004,
-              "y": 142,
+              "y": 124,
               "z": 46.64633649398132,
               "yaw": 1.5707963267948966,
               "pitch": -0.9599310885968813,
@@ -1422,7 +1402,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.500000000000004,
-              "y": 142,
+              "y": 124,
               "z": 45.34776964253312,
               "yaw": 1.5707963267948966,
               "pitch": -0.8726646259971648,
@@ -1430,7 +1410,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.500000000000004,
-              "y": 142,
+              "y": 124,
               "z": 43.71930009000631,
               "yaw": 1.5707963267948966,
               "pitch": -0.7853981633974483,
@@ -1438,7 +1418,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.500000000000004,
-              "y": 142,
+              "y": 124,
               "z": 41.77332147299239,
               "yaw": 1.5707963267948966,
               "pitch": -0.6981317007977318,
@@ -1446,7 +1426,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.500000000000004,
-              "y": 142,
+              "y": 124,
               "z": 39.52464386378091,
               "yaw": 1.5707963267948966,
               "pitch": -0.6108652381980154,
@@ -1454,7 +1434,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.500000000000004,
-              "y": 142,
+              "y": 124,
               "z": 36.99038105676658,
               "yaw": 1.5707963267948966,
               "pitch": -0.5235987755982989,
@@ -1462,7 +1442,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.500000000000004,
-              "y": 142,
+              "y": 124,
               "z": 34.18982032214052,
               "yaw": 1.5707963267948966,
               "pitch": -0.43633231299858233,
@@ -1470,7 +1450,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.500000000000004,
-              "y": 142,
+              "y": 124,
               "z": 31.14427561811805,
               "yaw": 1.5707963267948966,
               "pitch": -0.34906585039886595,
@@ -1478,7 +1458,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.500000000000004,
-              "y": 142,
+              "y": 124,
               "z": 27.876925378846945,
               "yaw": 1.5707963267948966,
               "pitch": -0.2617993877991496,
@@ -1486,7 +1466,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.500000000000004,
-              "y": 142,
+              "y": 124,
               "z": 24.412636112528055,
               "yaw": 1.5707963267948966,
               "pitch": -0.17453292519943298,
@@ -1494,7 +1474,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.500000000000004,
-              "y": 142,
+              "y": 124,
               "z": 20.777773152273138,
               "yaw": 1.5707963267948966,
               "pitch": -0.08726646259971638,
@@ -1502,14 +1482,14 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.500000000000004,
-              "y": 142,
+              "y": 124,
               "z": 17,
               "yaw": 1.5707963267948966,
               "pitch": 0,
               "tiltAxis": "x"
             }
           ],
-          "wallThickness": 30,
+          "wallThickness": 12,
           "holdsForWallsUpTo": 100
         },
         {
@@ -1543,7 +1523,7 @@ export const PRECOMPUTED: Precomputed = {
               "name": "Thread it through, turning as it goes",
               "nameHe": "להשחיל אותה דרך הפתח תוך סיבוב",
               "startIndex": 20,
-              "endIndex": 274,
+              "endIndex": 256,
               "requirement": {
                 "doorWidth": 85.04,
                 "doorHeight": 117.81,
@@ -1556,8 +1536,8 @@ export const PRECOMPUTED: Precomputed = {
               "id": "straighten",
               "name": "Straighten it up in the room",
               "nameHe": "ליישר אותה בחדר",
-              "startIndex": 274,
-              "endIndex": 297,
+              "startIndex": 256,
+              "endIndex": 279,
               "requirement": {
                 "doorWidth": 0,
                 "doorHeight": 0,
@@ -1570,8 +1550,8 @@ export const PRECOMPUTED: Precomputed = {
               "id": "set-down",
               "name": "Set it down",
               "nameHe": "להניח אותה",
-              "startIndex": 297,
-              "endIndex": 298,
+              "startIndex": 279,
+              "endIndex": 280,
               "requirement": {
                 "doorWidth": 0,
                 "doorHeight": 0,
@@ -1977,150 +1957,6 @@ export const PRECOMPUTED: Precomputed = {
             {
               "x": 27.508017558723704,
               "y": -83,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.508017558723704,
-              "y": -82,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.508017558723704,
-              "y": -81,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.508017558723704,
-              "y": -80,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.508017558723704,
-              "y": -79,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.508017558723704,
-              "y": -78,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.508017558723704,
-              "y": -77,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.508017558723704,
-              "y": -76,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.508017558723704,
-              "y": -75,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.508017558723704,
-              "y": -74,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.508017558723704,
-              "y": -73,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.508017558723704,
-              "y": -72,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.508017558723704,
-              "y": -71,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.508017558723704,
-              "y": -70,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.508017558723704,
-              "y": -69,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.508017558723704,
-              "y": -68,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.508017558723704,
-              "y": -67,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.508017558723704,
-              "y": -66,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.508017558723704,
-              "y": -65,
               "z": 52.902557209093686,
               "yaw": 1.5707963267948966,
               "pitch": -1.6231562043547263,
@@ -2128,7 +1964,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.508017558723704,
-              "y": -64,
+              "y": -82,
               "z": 56.165594047070634,
               "yaw": 1.5707963267948966,
               "pitch": -1.6755160819145563,
@@ -2136,7 +1972,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.508017558723704,
-              "y": -63,
+              "y": -81,
               "z": 59.280166756768864,
               "yaw": 1.5707963267948966,
               "pitch": -1.7278759594743864,
@@ -2144,7 +1980,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.508017558723704,
-              "y": -62,
+              "y": -80,
               "z": 62.23773851088232,
               "yaw": 1.5707963267948966,
               "pitch": -1.780235837034216,
@@ -2152,7 +1988,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.508017558723704,
-              "y": -61,
+              "y": -79,
               "z": 65.03020281081135,
               "yaw": 1.5707963267948966,
               "pitch": -1.8325957145940461,
@@ -2160,7 +1996,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.508017558723704,
-              "y": -60,
+              "y": -78,
               "z": 67.6499057060116,
               "yaw": 1.5707963267948966,
               "pitch": -1.8849555921538759,
@@ -2168,7 +2004,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.508017558723704,
-              "y": -59,
+              "y": -77,
               "z": 70.08966677294067,
               "yaw": 1.5707963267948966,
               "pitch": -1.9373154697137058,
@@ -2176,7 +2012,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.508017558723704,
-              "y": -58,
+              "y": -76,
               "z": 72.34279879609983,
               "yaw": 1.5707963267948966,
               "pitch": -1.9896753472735356,
@@ -2184,7 +2020,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.508017558723704,
-              "y": -57,
+              "y": -75,
               "z": 74.40312609722687,
               "yaw": 1.5707963267948966,
               "pitch": -2.0420352248333655,
@@ -2192,7 +2028,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 26.25801755872371,
-              "y": -56,
+              "y": -74,
               "z": 76.26500146240099,
               "yaw": 1.5707963267948966,
               "pitch": -2.0943951023931953,
@@ -2200,7 +2036,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 24.807248920735326,
-              "y": -55,
+              "y": -73,
               "z": 77.92332162066364,
               "yaw": 1.5707963267948966,
               "pitch": -2.1467549799530254,
@@ -2208,7 +2044,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 23.404996859218333,
-              "y": -54,
+              "y": -72,
               "z": 79.37354123172943,
               "yaw": 1.5707963267948966,
               "pitch": -2.199114857512855,
@@ -2216,7 +2052,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 22.055104849603993,
-              "y": -53,
+              "y": -71,
               "z": 80.61168534444796,
               "yaw": 1.5707963267948966,
               "pitch": -2.251474735072685,
@@ -2224,10 +2060,154 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 20.761272852060813,
-              "y": -52,
+              "y": -70,
               "z": 81.63436029186862,
               "yaw": 1.5707963267948966,
               "pitch": -2.303834612632515,
+              "tiltAxis": "x"
+            },
+            {
+              "x": 19.527047170160913,
+              "y": -69,
+              "z": 82.43876299304577,
+              "yaw": 1.5707963267948966,
+              "pitch": -2.356194490192345,
+              "tiltAxis": "x"
+            },
+            {
+              "x": 19.527047170160913,
+              "y": -68,
+              "z": 82.43876299304577,
+              "yaw": 1.5707963267948966,
+              "pitch": -2.356194490192345,
+              "tiltAxis": "x"
+            },
+            {
+              "x": 19.527047170160913,
+              "y": -67,
+              "z": 82.43876299304577,
+              "yaw": 1.5707963267948966,
+              "pitch": -2.356194490192345,
+              "tiltAxis": "x"
+            },
+            {
+              "x": 19.527047170160913,
+              "y": -66,
+              "z": 82.43876299304577,
+              "yaw": 1.5707963267948966,
+              "pitch": -2.356194490192345,
+              "tiltAxis": "x"
+            },
+            {
+              "x": 19.527047170160913,
+              "y": -65,
+              "z": 82.43876299304577,
+              "yaw": 1.5707963267948966,
+              "pitch": -2.356194490192345,
+              "tiltAxis": "x"
+            },
+            {
+              "x": 19.527047170160913,
+              "y": -64,
+              "z": 82.43876299304577,
+              "yaw": 1.5707963267948966,
+              "pitch": -2.356194490192345,
+              "tiltAxis": "x"
+            },
+            {
+              "x": 19.527047170160913,
+              "y": -63,
+              "z": 82.43876299304577,
+              "yaw": 1.5707963267948966,
+              "pitch": -2.356194490192345,
+              "tiltAxis": "x"
+            },
+            {
+              "x": 19.527047170160913,
+              "y": -62,
+              "z": 82.43876299304577,
+              "yaw": 1.5707963267948966,
+              "pitch": -2.356194490192345,
+              "tiltAxis": "x"
+            },
+            {
+              "x": 19.527047170160913,
+              "y": -61,
+              "z": 82.43876299304577,
+              "yaw": 1.5707963267948966,
+              "pitch": -2.356194490192345,
+              "tiltAxis": "x"
+            },
+            {
+              "x": 19.527047170160913,
+              "y": -60,
+              "z": 82.43876299304577,
+              "yaw": 1.5707963267948966,
+              "pitch": -2.356194490192345,
+              "tiltAxis": "x"
+            },
+            {
+              "x": 19.527047170160913,
+              "y": -59,
+              "z": 82.43876299304577,
+              "yaw": 1.5707963267948966,
+              "pitch": -2.356194490192345,
+              "tiltAxis": "x"
+            },
+            {
+              "x": 19.527047170160913,
+              "y": -58,
+              "z": 82.43876299304577,
+              "yaw": 1.5707963267948966,
+              "pitch": -2.356194490192345,
+              "tiltAxis": "x"
+            },
+            {
+              "x": 19.527047170160913,
+              "y": -57,
+              "z": 82.43876299304577,
+              "yaw": 1.5707963267948966,
+              "pitch": -2.356194490192345,
+              "tiltAxis": "x"
+            },
+            {
+              "x": 19.527047170160913,
+              "y": -56,
+              "z": 82.43876299304577,
+              "yaw": 1.5707963267948966,
+              "pitch": -2.356194490192345,
+              "tiltAxis": "x"
+            },
+            {
+              "x": 19.527047170160913,
+              "y": -55,
+              "z": 82.43876299304577,
+              "yaw": 1.5707963267948966,
+              "pitch": -2.356194490192345,
+              "tiltAxis": "x"
+            },
+            {
+              "x": 19.527047170160913,
+              "y": -54,
+              "z": 82.43876299304577,
+              "yaw": 1.5707963267948966,
+              "pitch": -2.356194490192345,
+              "tiltAxis": "x"
+            },
+            {
+              "x": 19.527047170160913,
+              "y": -53,
+              "z": 82.43876299304577,
+              "yaw": 1.5707963267948966,
+              "pitch": -2.356194490192345,
+              "tiltAxis": "x"
+            },
+            {
+              "x": 19.527047170160913,
+              "y": -52,
+              "z": 82.43876299304577,
+              "yaw": 1.5707963267948966,
+              "pitch": -2.356194490192345,
               "tiltAxis": "x"
             },
             {
@@ -3577,150 +3557,6 @@ export const PRECOMPUTED: Precomputed = {
             {
               "x": 27.5080175587237,
               "y": 117,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.5080175587237,
-              "y": 118,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.5080175587237,
-              "y": 119,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.5080175587237,
-              "y": 120,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.5080175587237,
-              "y": 121,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.5080175587237,
-              "y": 122,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.5080175587237,
-              "y": 123,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.5080175587237,
-              "y": 124,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.5080175587237,
-              "y": 125,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.5080175587237,
-              "y": 126,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.5080175587237,
-              "y": 127,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.5080175587237,
-              "y": 128,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.5080175587237,
-              "y": 129,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.5080175587237,
-              "y": 130,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.5080175587237,
-              "y": 131,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.5080175587237,
-              "y": 132,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.5080175587237,
-              "y": 133,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.5080175587237,
-              "y": 134,
-              "z": 49.5,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 27.5080175587237,
-              "y": 135,
               "z": 52.902557209093686,
               "yaw": 1.5707963267948966,
               "pitch": -1.6231562043547263,
@@ -3728,7 +3564,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 136,
+              "y": 118,
               "z": 56.165594047070634,
               "yaw": 1.5707963267948966,
               "pitch": -1.6755160819145563,
@@ -3736,7 +3572,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 137,
+              "y": 119,
               "z": 59.280166756768864,
               "yaw": 1.5707963267948966,
               "pitch": -1.7278759594743864,
@@ -3744,7 +3580,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 138,
+              "y": 120,
               "z": 62.23773851088232,
               "yaw": 1.5707963267948966,
               "pitch": -1.780235837034216,
@@ -3752,7 +3588,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 139,
+              "y": 121,
               "z": 65.03020281081135,
               "yaw": 1.5707963267948966,
               "pitch": -1.8325957145940461,
@@ -3760,7 +3596,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 140,
+              "y": 122,
               "z": 67.6499057060116,
               "yaw": 1.5707963267948966,
               "pitch": -1.8849555921538759,
@@ -3768,7 +3604,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 141,
+              "y": 123,
               "z": 70.08966677294067,
               "yaw": 1.5707963267948966,
               "pitch": -1.9373154697137058,
@@ -3776,7 +3612,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 142,
+              "y": 124,
               "z": 72.34279879609983,
               "yaw": 1.5707963267948966,
               "pitch": -1.9896753472735356,
@@ -3784,7 +3620,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 142,
+              "y": 124,
               "z": 68.51927886400188,
               "yaw": 1.5707963267948966,
               "pitch": -1.903167723479034,
@@ -3792,7 +3628,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 142,
+              "y": 124,
               "z": 64.19826768734701,
               "yaw": 1.5707963267948966,
               "pitch": -1.8166600996845326,
@@ -3800,7 +3636,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 142,
+              "y": 124,
               "z": 59.41208169025661,
               "yaw": 1.5707963267948966,
               "pitch": -1.7301524758900308,
@@ -3808,7 +3644,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 142,
+              "y": 124,
               "z": 54.196516294284244,
               "yaw": 1.5707963267948966,
               "pitch": -1.6436448520955294,
@@ -3816,7 +3652,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 142,
+              "y": 124,
               "z": 49.495569008314796,
               "yaw": 1.5707963267948966,
               "pitch": -1.5571372283010279,
@@ -3824,7 +3660,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 142,
+              "y": 124,
               "z": 49.26190658220055,
               "yaw": 1.5707963267948966,
               "pitch": -1.4706296045065264,
@@ -3832,7 +3668,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 142,
+              "y": 124,
               "z": 48.67477693384264,
               "yaw": 1.5707963267948966,
               "pitch": -1.3841219807120249,
@@ -3840,7 +3676,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 142,
+              "y": 124,
               "z": 48.41531221065854,
               "yaw": 1.5707963267948966,
               "pitch": -1.2976143569175234,
@@ -3848,7 +3684,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 142,
+              "y": 124,
               "z": 48.46402519672364,
               "yaw": 1.5707963267948966,
               "pitch": -1.2111067331230219,
@@ -3856,7 +3692,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 142,
+              "y": 124,
               "z": 48.165238238156135,
               "yaw": 1.5707963267948966,
               "pitch": -1.1245991093285201,
@@ -3864,7 +3700,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 142,
+              "y": 124,
               "z": 47.521185933683086,
               "yaw": 1.5707963267948966,
               "pitch": -1.0380914855340184,
@@ -3872,7 +3708,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 142,
+              "y": 124,
               "z": 46.536685088116336,
               "yaw": 1.5707963267948966,
               "pitch": -0.9515838617395169,
@@ -3880,7 +3716,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 142,
+              "y": 124,
               "z": 45.219098687935784,
               "yaw": 1.5707963267948966,
               "pitch": -0.8650762379450154,
@@ -3888,7 +3724,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 142,
+              "y": 124,
               "z": 43.578280834226575,
               "yaw": 1.5707963267948966,
               "pitch": -0.7785686141505139,
@@ -3896,7 +3732,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 142,
+              "y": 124,
               "z": 41.62650304481142,
               "yaw": 1.5707963267948966,
               "pitch": -0.6920609903560124,
@@ -3904,7 +3740,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 142,
+              "y": 124,
               "z": 39.37836247675721,
               "yaw": 1.5707963267948966,
               "pitch": -0.6055533665615109,
@@ -3912,7 +3748,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 142,
+              "y": 124,
               "z": 36.850672755651,
               "yaw": 1.5707963267948966,
               "pitch": -0.5190457427670092,
@@ -3920,7 +3756,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 142,
+              "y": 124,
               "z": 34.06233822812256,
               "yaw": 1.5707963267948966,
               "pitch": -0.43253811897250793,
@@ -3928,7 +3764,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 142,
+              "y": 124,
               "z": 31.034212578066683,
               "yaw": 1.5707963267948966,
               "pitch": -0.346030495178006,
@@ -3936,7 +3772,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 142,
+              "y": 124,
               "z": 27.78894286396101,
               "yaw": 1.5707963267948966,
               "pitch": -0.2595228713835047,
@@ -3944,7 +3780,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 142,
+              "y": 124,
               "z": 24.3508001437088,
               "yaw": 1.5707963267948966,
               "pitch": -0.173015247589003,
@@ -3952,7 +3788,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 142,
+              "y": 124,
               "z": 20.745497953747524,
               "yaw": 1.5707963267948966,
               "pitch": -0.0865076237945015,
@@ -3960,7 +3796,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 142,
+              "y": 124,
               "z": 17,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -3968,14 +3804,14 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 27.5080175587237,
-              "y": 142,
+              "y": 124,
               "z": 15,
               "yaw": 1.5707963267948966,
               "pitch": 0,
               "tiltAxis": "x"
             }
           ],
-          "wallThickness": 30,
+          "wallThickness": 12,
           "holdsForWallsUpTo": 100
         },
         {
@@ -4368,7 +4204,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 112,
               "yaw": 1.5707963267948966,
               "pitch": -1.5707963267948966,
@@ -4376,7 +4212,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 112,
               "yaw": 1.4835298641951802,
               "pitch": -1.5707963267948966,
@@ -4384,7 +4220,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 112,
               "yaw": 1.3962634015954636,
               "pitch": -1.5707963267948966,
@@ -4392,7 +4228,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 112,
               "yaw": 1.3089969389957472,
               "pitch": -1.5707963267948966,
@@ -4400,7 +4236,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 112,
               "yaw": 1.2217304763960306,
               "pitch": -1.5707963267948966,
@@ -4408,7 +4244,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 112,
               "yaw": 1.1344640137963142,
               "pitch": -1.5707963267948966,
@@ -4416,7 +4252,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 112,
               "yaw": 1.0471975511965976,
               "pitch": -1.5707963267948966,
@@ -4424,7 +4260,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 112,
               "yaw": 0.9599310885968813,
               "pitch": -1.5707963267948966,
@@ -4432,7 +4268,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 112,
               "yaw": 0.8726646259971648,
               "pitch": -1.5707963267948966,
@@ -4440,7 +4276,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 112,
               "yaw": 0.7853981633974483,
               "pitch": -1.5707963267948966,
@@ -4448,7 +4284,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 112,
               "yaw": 0.6981317007977318,
               "pitch": -1.5707963267948966,
@@ -4456,7 +4292,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 112,
               "yaw": 0.6108652381980153,
               "pitch": -1.5707963267948966,
@@ -4464,7 +4300,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 112,
               "yaw": 0.5235987755982988,
               "pitch": -1.5707963267948966,
@@ -4472,7 +4308,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 112,
               "yaw": 0.4363323129985824,
               "pitch": -1.5707963267948966,
@@ -4480,7 +4316,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 112,
               "yaw": 0.3490658503988659,
               "pitch": -1.5707963267948966,
@@ -4488,7 +4324,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 112,
               "yaw": 0.2617993877991494,
               "pitch": -1.5707963267948966,
@@ -4496,7 +4332,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 112,
               "yaw": 0.17453292519943295,
               "pitch": -1.5707963267948966,
@@ -4504,7 +4340,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 112,
               "yaw": 0.08726646259971647,
               "pitch": -1.5707963267948966,
@@ -4512,7 +4348,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 112,
               "yaw": 0,
               "pitch": -1.5707963267948966,
@@ -4520,7 +4356,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 111.581416790092,
               "yaw": 0,
               "pitch": -1.4835298641951802,
@@ -4528,7 +4364,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 110.32885283134289,
               "yaw": 0,
               "pitch": -1.3962634015954636,
@@ -4536,7 +4372,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 108.25184089179751,
               "yaw": 0,
               "pitch": -1.3089969389957472,
@@ -4544,7 +4380,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 105.36618828644991,
               "yaw": 0,
               "pitch": -1.2217304763960306,
@@ -4552,7 +4388,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 102.59528377792208,
               "yaw": 0,
               "pitch": -1.1344640137963142,
@@ -4560,7 +4396,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 99.56664199358161,
               "yaw": 0,
               "pitch": -1.0471975511965976,
@@ -4568,7 +4404,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 95.79545915132083,
               "yaw": 0,
               "pitch": -0.9599310885968813,
@@ -4576,7 +4412,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 91.31043622967181,
               "yaw": 0,
               "pitch": -0.8726646259971648,
@@ -4584,7 +4420,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 86.14570696119914,
               "yaw": 0,
               "pitch": -0.7853981633974483,
@@ -4592,7 +4428,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 80.34057805418475,
               "yaw": 0,
               "pitch": -0.6981317007977318,
@@ -4600,7 +4436,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 73.93923004484367,
               "yaw": 0,
               "pitch": -0.6108652381980153,
@@ -4608,7 +4444,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 66.99038105676658,
               "yaw": 0,
               "pitch": -0.5235987755982988,
@@ -4616,7 +4452,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 59.546916026582494,
               "yaw": 0,
               "pitch": -0.4363323129985824,
@@ -4624,7 +4460,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 51.66548421765817,
               "yaw": 0,
               "pitch": -0.3490658503988659,
@@ -4632,7 +4468,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 43.40606808499818,
               "yaw": 0,
               "pitch": -0.2617993877991494,
@@ -4640,7 +4476,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 34.831526772543874,
               "yaw": 0,
               "pitch": -0.17453292519943295,
@@ -4648,7 +4484,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 26.007117717132633,
               "yaw": 0,
               "pitch": -0.08726646259971647,
@@ -4656,7 +4492,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 17,
               "yaw": 0,
               "pitch": 0,
@@ -4664,15 +4500,15 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 15,
               "yaw": 0,
               "pitch": 0,
               "tiltAxis": "y"
             }
           ],
-          "wallThickness": 30,
-          "holdsForWallsUpTo": 30
+          "wallThickness": 12,
+          "holdsForWallsUpTo": 12
         },
         {
           "templateId": "upright-left-standing",
@@ -5050,7 +4886,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 112,
               "yaw": 1.5707963267948966,
               "pitch": -1.5707963267948966,
@@ -5058,26 +4894,26 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 102.00000000000001,
+              "y": 84.00000000000001,
               "z": 110,
               "yaw": 1.5707963267948966,
               "pitch": -1.5707963267948966,
               "tiltAxis": "y"
             }
           ],
-          "wallThickness": 30,
-          "holdsForWallsUpTo": 30
+          "wallThickness": 12,
+          "holdsForWallsUpTo": 12
         },
         {
           "templateId": "lean-and-straighten",
           "name": "Lean into the doorway and straighten inside it",
           "nameHe": "להטות לתוך הפתח וליישר בתוכו",
           "requirement": {
-            "doorWidth": 82.72,
-            "doorHeight": 147.96,
+            "doorWidth": 82.74,
+            "doorHeight": 113.79,
             "hallwayClearance": 236,
             "roomDepth": 236,
-            "alongWall": 197.54
+            "alongWall": 198.52
           },
           "stages": [
             {
@@ -5091,7 +4927,7 @@ export const PRECOMPUTED: Precomputed = {
                 "doorHeight": 0,
                 "hallwayClearance": 236,
                 "roomDepth": 0,
-                "alongWall": 197.54
+                "alongWall": 198.52
               }
             },
             {
@@ -5099,61 +4935,61 @@ export const PRECOMPUTED: Precomputed = {
               "name": "Lean the leading end into the doorway and straighten as it clears",
               "nameHe": "להטות את הקצה המוביל לתוך הפתח וליישר כשהוא עובר",
               "startIndex": 16,
-              "endIndex": 111,
+              "endIndex": 70,
               "requirement": {
-                "doorWidth": 82.72,
-                "doorHeight": 147.96,
+                "doorWidth": 82.74,
+                "doorHeight": 113.79,
                 "hallwayClearance": 236,
-                "roomDepth": 56.14,
-                "alongWall": 147.37
+                "roomDepth": 33.64,
+                "alongWall": 148.35
               }
             },
             {
               "id": "carry",
               "name": "Carry the middle through level",
               "nameHe": "להעביר את האמצע ישר",
-              "startIndex": 111,
-              "endIndex": 204,
+              "startIndex": 70,
+              "endIndex": 227,
               "requirement": {
-                "doorWidth": 82.72,
-                "doorHeight": 105.23,
-                "hallwayClearance": 141,
-                "roomDepth": 143.57,
-                "alongWall": 110.37
+                "doorWidth": 82.74,
+                "doorHeight": 105.09,
+                "hallwayClearance": 182,
+                "roomDepth": 186,
+                "alongWall": 110.35
               }
             },
             {
               "id": "lean-out",
               "name": "Lean the trailing end through and straighten in the room",
               "nameHe": "להטות את הקצה האחורי דרך הפתח וליישר בחדר",
-              "startIndex": 204,
-              "endIndex": 298,
+              "startIndex": 227,
+              "endIndex": 280,
               "requirement": {
-                "doorWidth": 82.72,
-                "doorHeight": 147.96,
-                "hallwayClearance": 56.14,
+                "doorWidth": 82.74,
+                "doorHeight": 113.79,
+                "hallwayClearance": 33.64,
                 "roomDepth": 236,
-                "alongWall": 176.72
+                "alongWall": 176.74
               }
             },
             {
               "id": "set-down",
               "name": "Stand it back up in the room",
               "nameHe": "להחזיר אותה לעמידה בחדר",
-              "startIndex": 298,
-              "endIndex": 314,
+              "startIndex": 280,
+              "endIndex": 296,
               "requirement": {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 0,
                 "roomDepth": 236,
-                "alongWall": 191.52
+                "alongWall": 191.54
               }
             }
           ],
           "path": [
             {
-              "x": 51.269577745704666,
+              "x": 51.759758485532004,
               "y": -126,
               "z": 17,
               "yaw": 1.5707963267948966,
@@ -5161,7 +4997,7 @@ export const PRECOMPUTED: Precomputed = {
               "tiltAxis": "y"
             },
             {
-              "x": 51.269577745704666,
+              "x": 51.759758485532004,
               "y": -126,
               "z": 20.77777315227314,
               "yaw": 1.5707963267948966,
@@ -5170,7 +5006,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -0.08726646259971647
             },
             {
-              "x": 51.269577745704666,
+              "x": 51.759758485532004,
               "y": -126,
               "z": 24.412636112528055,
               "yaw": 1.5707963267948966,
@@ -5179,7 +5015,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -0.17453292519943295
             },
             {
-              "x": 51.269577745704666,
+              "x": 51.759758485532004,
               "y": -126,
               "z": 27.876925378846938,
               "yaw": 1.5707963267948966,
@@ -5188,7 +5024,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -0.2617993877991494
             },
             {
-              "x": 51.269577745704666,
+              "x": 51.759758485532004,
               "y": -126,
               "z": 31.14427561811805,
               "yaw": 1.5707963267948966,
@@ -5197,7 +5033,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -0.3490658503988659
             },
             {
-              "x": 51.269577745704666,
+              "x": 51.759758485532004,
               "y": -126,
               "z": 34.18982032214053,
               "yaw": 1.5707963267948966,
@@ -5206,7 +5042,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -0.4363323129985824
             },
             {
-              "x": 51.269577745704666,
+              "x": 51.759758485532004,
               "y": -126,
               "z": 36.99038105676658,
               "yaw": 1.5707963267948966,
@@ -5215,7 +5051,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -0.5235987755982988
             },
             {
-              "x": 51.269577745704666,
+              "x": 51.759758485532004,
               "y": -126,
               "z": 39.52464386378091,
               "yaw": 1.5707963267948966,
@@ -5224,7 +5060,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -0.6108652381980153
             },
             {
-              "x": 51.269577745704666,
+              "x": 51.759758485532004,
               "y": -126,
               "z": 41.77332147299239,
               "yaw": 1.5707963267948966,
@@ -5233,7 +5069,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -0.6981317007977318
             },
             {
-              "x": 51.269577745704666,
+              "x": 51.759758485532004,
               "y": -126,
               "z": 43.71930009000631,
               "yaw": 1.5707963267948966,
@@ -5242,7 +5078,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -0.7853981633974483
             },
             {
-              "x": 51.269577745704666,
+              "x": 51.759758485532004,
               "y": -126,
               "z": 45.34776964253312,
               "yaw": 1.5707963267948966,
@@ -5251,7 +5087,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -0.8726646259971648
             },
             {
-              "x": 51.269577745704666,
+              "x": 51.759758485532004,
               "y": -126,
               "z": 46.64633649398132,
               "yaw": 1.5707963267948966,
@@ -5260,7 +5096,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -0.9599310885968813
             },
             {
-              "x": 51.269577745704666,
+              "x": 51.759758485532004,
               "y": -126,
               "z": 47.6051177665153,
               "yaw": 1.5707963267948966,
@@ -5269,7 +5105,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.0471975511965976
             },
             {
-              "x": 51.269577745704666,
+              "x": 51.759758485532004,
               "y": -126,
               "z": 48.216816555723085,
               "yaw": 1.5707963267948966,
@@ -5278,7 +5114,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.1344640137963142
             },
             {
-              "x": 51.269577745704666,
+              "x": 51.759758485532004,
               "y": -126,
               "z": 48.476777464464995,
               "yaw": 1.5707963267948966,
@@ -5287,7 +5123,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.2217304763960306
             },
             {
-              "x": 51.269577745704666,
+              "x": 51.759758485532004,
               "y": -126,
               "z": 48.383022033256815,
               "yaw": 1.5707963267948966,
@@ -5296,7 +5132,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3089969389957472
             },
             {
-              "x": 51.269577745704666,
+              "x": 51.759758485532004,
               "y": -126,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -5305,7 +5141,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 49.269577745704666,
+              "x": 49.759758485532004,
               "y": -125,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -5314,7 +5150,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 47.269577745704666,
+              "x": 47.759758485532004,
               "y": -124,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -5323,7 +5159,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 45.269577745704666,
+              "x": 45.759758485532004,
               "y": -123,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -5332,7 +5168,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 43.269577745704666,
+              "x": 43.759758485532004,
               "y": -122,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -5341,7 +5177,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 41.269577745704666,
+              "x": 41.759758485532004,
               "y": -121,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -5350,7 +5186,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 39.269577745704666,
+              "x": 39.759758485532004,
               "y": -120,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -5359,7 +5195,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 37.269577745704666,
+              "x": 37.759758485532004,
               "y": -119,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -5368,7 +5204,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 35.269577745704666,
+              "x": 35.759758485532004,
               "y": -118,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -5377,7 +5213,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 33.269577745704666,
+              "x": 33.759758485532004,
               "y": -117,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -5386,7 +5222,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 31.26957774570467,
+              "x": 31.759758485532,
               "y": -116,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -5395,7 +5231,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 29.26957774570467,
+              "x": 29.759758485532,
               "y": -115,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -5404,7 +5240,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 27.26957774570467,
+              "x": 27.759758485532,
               "y": -114,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -5413,7 +5249,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 25.26957774570467,
+              "x": 25.759758485532,
               "y": -113,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -5422,7 +5258,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 23.26957774570467,
+              "x": 23.759758485532,
               "y": -112,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -5431,7 +5267,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 21.26957774570467,
+              "x": 21.759758485532,
               "y": -111,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -5440,7 +5276,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 19.26957774570467,
+              "x": 19.759758485532,
               "y": -110,
               "z": 52.58881678731528,
               "yaw": 1.5707963267948966,
@@ -5449,16 +5285,16 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 17.26957774570467,
+              "x": 17.759758485532,
               "y": -109,
-              "z": 60.02024243164778,
+              "z": 56.33763062590519,
               "yaw": 1.5707963267948966,
-              "pitch": 0.10471975511965977,
+              "pitch": 0.06981317007977318,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 17.26957774570467,
+              "x": 17.759758485532,
               "y": -108,
               "z": 63.632165509320615,
               "yaw": 1.5707963267948966,
@@ -5467,8 +5303,17 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 17.26957774570467,
+              "x": 17.759758485532,
               "y": -107,
+              "z": 67.16899928702766,
+              "yaw": 1.5707963267948966,
+              "pitch": 0.17453292519943295,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 17.759758485532,
+              "y": -106,
               "z": 70.62643467761825,
               "yaw": 1.5707963267948966,
               "pitch": 0.20943951023931953,
@@ -5476,8 +5321,17 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 17.26957774570467,
-              "y": -106,
+              "x": 17.759758485532,
+              "y": -105,
+              "z": 70.62643467761825,
+              "yaw": 1.5707963267948966,
+              "pitch": 0.20943951023931953,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 17.759758485532,
+              "y": -104,
               "z": 74.00025932864605,
               "yaw": 1.5707963267948966,
               "pitch": 0.24434609527920614,
@@ -5485,26 +5339,17 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 17.26957774570467,
-              "y": -105,
-              "z": 77.28636275447161,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.2792526803190927,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -104,
-              "z": 77.28636275447161,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.2792526803190927,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
+              "x": 17.759758485532,
               "y": -103,
+              "z": 77.28636275447161,
+              "yaw": 1.5707963267948966,
+              "pitch": 0.2792526803190927,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 17.759758485532,
+              "y": -102,
               "z": 80.48074134425602,
               "yaw": 1.5707963267948966,
               "pitch": 0.3141592653589793,
@@ -5512,17 +5357,17 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 17.26957774570467,
-              "y": -102,
-              "z": 83.57950323974393,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.3490658503988659,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
+              "x": 17.759758485532,
               "y": -101,
+              "z": 80.48074134425602,
+              "yaw": 1.5707963267948966,
+              "pitch": 0.3141592653589793,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 17.759758485532,
+              "y": -100,
               "z": 83.57950323974393,
               "yaw": 1.5707963267948966,
               "pitch": 0.3490658503988659,
@@ -5530,8 +5375,17 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 17.26957774570467,
-              "y": -100,
+              "x": 17.759758485532,
+              "y": -99,
+              "z": 83.57950323974393,
+              "yaw": 1.5707963267948966,
+              "pitch": 0.3490658503988659,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 17.759758485532,
+              "y": -98,
               "z": 86.57887307689333,
               "yaw": 1.5707963267948966,
               "pitch": 0.3839724354387525,
@@ -5539,35 +5393,26 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 17.26957774570467,
-              "y": -99,
-              "z": 89.47519658557516,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.41887902047863906,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -98,
-              "z": 89.47519658557516,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.41887902047863906,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
+              "x": 17.759758485532,
               "y": -97,
-              "z": 92.2649450417386,
+              "z": 89.47519658557516,
               "yaw": 1.5707963267948966,
-              "pitch": 0.4537856055185257,
+              "pitch": 0.41887902047863906,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 17.26957774570467,
+              "x": 17.759758485532,
               "y": -96,
+              "z": 89.47519658557516,
+              "yaw": 1.5707963267948966,
+              "pitch": 0.41887902047863906,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 17.759758485532,
+              "y": -95,
               "z": 92.2649450417386,
               "yaw": 1.5707963267948966,
               "pitch": 0.4537856055185257,
@@ -5575,17 +5420,17 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 17.26957774570467,
-              "y": -95,
-              "z": 94.94471956661754,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.4886921905584123,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
+              "x": 17.759758485532,
               "y": -94,
+              "z": 92.2649450417386,
+              "yaw": 1.5707963267948966,
+              "pitch": 0.4537856055185257,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 17.759758485532,
+              "y": -93,
               "z": 94.94471956661754,
               "yaw": 1.5707963267948966,
               "pitch": 0.4886921905584123,
@@ -5593,25 +5438,16 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 17.26957774570467,
-              "y": -93,
-              "z": 97.51125526774105,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.5235987755982988,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
+              "x": 17.759758485532,
               "y": -92,
-              "z": 97.51125526774105,
+              "z": 94.94471956661754,
               "yaw": 1.5707963267948966,
-              "pitch": 0.5235987755982988,
+              "pitch": 0.4886921905584123,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 17.26957774570467,
+              "x": 17.759758485532,
               "y": -91,
               "z": 99.96142521670185,
               "yaw": 1.5707963267948966,
@@ -5620,467 +5456,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 17.26957774570467,
+              "x": 17.259758485532,
               "y": -90,
-              "z": 99.96142521670185,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.5585053606381855,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -89,
-              "z": 102.29224425883689,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.5934119456780721,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -88,
-              "z": 102.29224425883689,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.5934119456780721,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -87,
-              "z": 104.50087265017845,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.6283185307179586,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -86,
-              "z": 104.50087265017845,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.6283185307179586,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -85,
-              "z": 104.50087265017845,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.6283185307179586,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -84,
-              "z": 106.58461951724479,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.6632251157578452,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -83,
-              "z": 106.58461951724479,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.6632251157578452,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -82,
-              "z": 108.54094613545504,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.6981317007977318,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -81,
-              "z": 108.54094613545504,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.6981317007977318,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -80,
-              "z": 108.54094613545504,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.6981317007977318,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -79,
-              "z": 110.3674690221739,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.7330382858376184,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -78,
-              "z": 110.3674690221739,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.7330382858376184,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -77,
-              "z": 110.3674690221739,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.7330382858376184,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -76,
-              "z": 112.06196284061816,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.767944870877505,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -75,
-              "z": 112.06196284061816,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.767944870877505,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -74,
-              "z": 113.62236311108686,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.8028514559173915,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -73,
-              "z": 113.62236311108686,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.8028514559173915,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -72,
-              "z": 113.62236311108686,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.8028514559173915,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -71,
-              "z": 115.04676872621164,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.8377580409572781,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -70,
-              "z": 115.04676872621164,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.8377580409572781,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -69,
-              "z": 115.04676872621164,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.8377580409572781,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -68,
-              "z": 116.33344426716332,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.8726646259971648,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -67,
-              "z": 116.33344426716332,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.8726646259971648,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -66,
-              "z": 116.33344426716332,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.8726646259971648,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -65,
-              "z": 117.48082211799243,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.9075712110370514,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -64,
-              "z": 117.48082211799243,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.9075712110370514,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -63,
-              "z": 117.48082211799243,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.9075712110370514,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -62,
-              "z": 118.48750437552778,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.9424777960769379,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -61,
-              "z": 118.48750437552778,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.9424777960769379,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -60,
-              "z": 118.48750437552778,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.9424777960769379,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -59,
-              "z": 119.35226455250603,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.9773843811168246,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": -58,
-              "z": 119.35226455250603,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.9773843811168246,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 16.76957774570467,
-              "y": -57,
-              "z": 119.35226455250603,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.9773843811168246,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.26957774570467,
-              "y": -56,
-              "z": 118.48750437552778,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.9424777960769379,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.76957774570467,
-              "y": -55,
-              "z": 118.48750437552778,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.9424777960769379,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.76957774570467,
-              "y": -54,
-              "z": 118.48750437552778,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.9424777960769379,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 19.76957774570467,
-              "y": -53,
-              "z": 118.48750437552778,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.9424777960769379,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 21.76957774570467,
-              "y": -52,
-              "z": 118.48750437552778,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.9424777960769379,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 23.76957774570467,
-              "y": -51,
-              "z": 118.48750437552778,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.9424777960769379,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 25.76957774570467,
-              "y": -50,
-              "z": 119.35226455250603,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.9773843811168246,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 27.76957774570467,
-              "y": -49,
-              "z": 119.35226455250603,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.9773843811168246,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 29.76957774570467,
-              "y": -48,
-              "z": 119.35226455250603,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.9773843811168246,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 31.76957774570467,
-              "y": -47,
-              "z": 120.07404907185766,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.0122909661567112,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 32.769577745704666,
-              "y": -46,
-              "z": 120.07404907185766,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.0122909661567112,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 32.769577745704666,
-              "y": -45,
-              "z": 118.48750437552778,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.9424777960769379,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 32.769577745704666,
-              "y": -44,
-              "z": 116.33344426716332,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.8726646259971648,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 32.769577745704666,
-              "y": -43,
-              "z": 113.62236311108686,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.8028514559173915,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 32.769577745704666,
-              "y": -42,
-              "z": 110.3674690221739,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.7330382858376184,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 32.769577745704666,
-              "y": -41,
-              "z": 106.58461951724479,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.6632251157578452,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 32.769577745704666,
-              "y": -40,
-              "z": 102.29224425883689,
-              "yaw": 1.5707963267948966,
-              "pitch": 0.5934119456780721,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 32.769577745704666,
-              "y": -39,
               "z": 97.51125526774105,
               "yaw": 1.5707963267948966,
               "pitch": 0.5235987755982988,
@@ -6088,70 +5465,529 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 18.759758485532,
+              "y": -89,
+              "z": 97.51125526774105,
+              "yaw": 1.5707963267948966,
+              "pitch": 0.5235987755982988,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 19.259758485532,
+              "y": -88,
+              "z": 97.51125526774105,
+              "yaw": 1.5707963267948966,
+              "pitch": 0.5235987755982988,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 21.259758485532,
+              "y": -87,
+              "z": 97.51125526774105,
+              "yaw": 1.5707963267948966,
+              "pitch": 0.5235987755982988,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 23.259758485532,
+              "y": -86,
+              "z": 99.96142521670185,
+              "yaw": 1.5707963267948966,
+              "pitch": 0.5585053606381855,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 25.259758485532,
+              "y": -85,
+              "z": 99.96142521670185,
+              "yaw": 1.5707963267948966,
+              "pitch": 0.5585053606381855,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 27.259758485532,
+              "y": -84,
+              "z": 102.29224425883689,
+              "yaw": 1.5707963267948966,
+              "pitch": 0.5934119456780721,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 29.259758485532,
+              "y": -83,
+              "z": 102.29224425883689,
+              "yaw": 1.5707963267948966,
+              "pitch": 0.5934119456780721,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 31.259758485532,
+              "y": -82,
+              "z": 102.29224425883689,
+              "yaw": 1.5707963267948966,
+              "pitch": 0.5934119456780721,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -81,
+              "z": 104.50087265017845,
+              "yaw": 1.5707963267948966,
+              "pitch": 0.6283185307179586,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -80,
+              "z": 99.96142521670185,
+              "yaw": 1.5707963267948966,
+              "pitch": 0.5585053606381855,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -79,
+              "z": 94.94471956661754,
+              "yaw": 1.5707963267948966,
+              "pitch": 0.4886921905584123,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -78,
+              "z": 89.47519658557516,
+              "yaw": 1.5707963267948966,
+              "pitch": 0.41887902047863906,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -77,
+              "z": 83.57950323974393,
+              "yaw": 1.5707963267948966,
+              "pitch": 0.3490658503988659,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -76,
+              "z": 77.28636275447161,
+              "yaw": 1.5707963267948966,
+              "pitch": 0.2792526803190927,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -75,
+              "z": 70.62643467761825,
+              "yaw": 1.5707963267948966,
+              "pitch": 0.20943951023931953,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -74,
+              "z": 63.632165509320615,
+              "yaw": 1.5707963267948966,
+              "pitch": 0.13962634015954636,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -73,
+              "z": 56.33763062590519,
+              "yaw": 1.5707963267948966,
+              "pitch": 0.06981317007977318,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -72,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -71,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -70,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -69,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -68,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -67,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -66,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -65,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -64,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -63,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -62,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -61,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -60,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -59,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -58,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -57,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -56,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -55,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -54,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -53,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -52,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -51,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -50,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -49,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -48,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -47,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -46,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -45,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -44,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -43,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -42,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -41,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -40,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": -39,
+              "z": 48.77836826807987,
+              "yaw": 1.5707963267948966,
+              "pitch": 0,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
               "y": -38,
-              "z": 92.2649450417386,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": 0.4537856055185257,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -37,
-              "z": 86.57887307689333,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": 0.3839724354387525,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -36,
-              "z": 80.48074134425602,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": 0.3141592653589793,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -35,
-              "z": 74.00025932864605,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": 0.24434609527920614,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -34,
-              "z": 67.16899928702766,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": 0.17453292519943295,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -33,
-              "z": 60.02024243164778,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": 0.10471975511965977,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -32,
-              "z": 52.58881678731528,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": 0.03490658503988659,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -31,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6160,7 +5996,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -30,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6169,7 +6005,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -29,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6178,7 +6014,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -28,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6187,7 +6023,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -27,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6196,7 +6032,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -26,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6205,7 +6041,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -25,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6214,7 +6050,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -24,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6223,7 +6059,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -23,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6232,7 +6068,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -22,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6241,7 +6077,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -21,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6250,7 +6086,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -20,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6259,7 +6095,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -19,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6268,7 +6104,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -18,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6277,7 +6113,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -17,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6286,7 +6122,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -16,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6295,7 +6131,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -15,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6304,7 +6140,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -14,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6313,7 +6149,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -13,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6322,7 +6158,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -12,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6331,7 +6167,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -11,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6340,7 +6176,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -10,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6349,7 +6185,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -9,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6358,7 +6194,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -8,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6367,7 +6203,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -7,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6376,7 +6212,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -6,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6385,7 +6221,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -5,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6394,7 +6230,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -4,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6403,7 +6239,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -3,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6412,7 +6248,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -2,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6421,7 +6257,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": -1,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6430,7 +6266,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 0,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6439,7 +6275,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 1,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6448,7 +6284,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 2,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6457,7 +6293,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 3,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6466,7 +6302,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 4,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6475,7 +6311,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 5,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6484,7 +6320,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 6,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6493,7 +6329,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 7,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6502,7 +6338,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 8,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6511,7 +6347,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 9,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6520,7 +6356,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 10,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6529,7 +6365,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 11,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6538,7 +6374,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 12,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6547,7 +6383,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 13,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6556,7 +6392,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 14,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6565,7 +6401,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 15,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6574,7 +6410,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 16,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6583,7 +6419,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 17,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6592,7 +6428,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 18,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6601,7 +6437,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 19,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6610,7 +6446,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 20,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6619,7 +6455,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 21,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6628,7 +6464,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 22,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6637,7 +6473,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 23,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6646,7 +6482,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 24,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6655,7 +6491,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 25,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6664,7 +6500,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 26,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6673,7 +6509,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 27,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6682,7 +6518,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 28,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6691,7 +6527,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 29,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6700,7 +6536,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 30,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6709,7 +6545,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 31,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6718,7 +6554,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 32,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6727,7 +6563,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 33,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6736,7 +6572,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 34,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6745,7 +6581,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 35,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6754,7 +6590,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 36,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6763,7 +6599,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 37,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6772,7 +6608,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 38,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6781,7 +6617,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 39,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6790,7 +6626,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 40,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6799,7 +6635,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 41,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6808,7 +6644,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 42,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6817,7 +6653,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 43,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6826,7 +6662,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 44,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6835,7 +6671,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 45,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6844,7 +6680,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 46,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6853,7 +6689,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 47,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6862,7 +6698,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 48,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6871,7 +6707,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 49,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6880,7 +6716,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 50,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6889,7 +6725,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 51,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6898,7 +6734,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 52,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6907,7 +6743,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 53,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6916,7 +6752,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 54,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6925,7 +6761,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 55,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6934,7 +6770,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 56,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6943,7 +6779,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 57,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6952,7 +6788,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 58,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6961,7 +6797,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 59,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6970,7 +6806,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 60,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6979,7 +6815,7 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 61,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
@@ -6988,701 +6824,215 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 62,
-              "z": 52.58881678731528,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": -0.03490658503988659,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 63,
-              "z": 60.02024243164778,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": -0.10471975511965977,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 64,
-              "z": 67.16899928702766,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": -0.17453292519943295,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 65,
-              "z": 74.00025932864605,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": -0.24434609527920614,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 66,
-              "z": 80.48074134425602,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": -0.3141592653589793,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 67,
-              "z": 86.57887307689333,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": -0.3839724354387525,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 68,
-              "z": 92.2649450417386,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": -0.4537856055185257,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 69,
-              "z": 97.51125526774105,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": -0.5235987755982988,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 70,
-              "z": 102.29224425883689,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": -0.5934119456780721,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 71,
-              "z": 106.58461951724479,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": -0.6632251157578452,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 72,
-              "z": 110.3674690221739,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": -0.7330382858376184,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 73,
-              "z": 113.62236311108686,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": -0.8028514559173915,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 74,
-              "z": 116.33344426716332,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": -0.8726646259971648,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 75,
-              "z": 118.48750437552778,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": -0.9424777960769379,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.769577745704666,
+              "x": 32.759758485532004,
               "y": 76,
-              "z": 120.07404907185766,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": -1.0122909661567112,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 32.269577745704666,
+              "x": 32.759758485532004,
               "y": 77,
-              "z": 120.07404907185766,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": -1.0122909661567112,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 30.26957774570467,
+              "x": 32.759758485532004,
               "y": 78,
-              "z": 119.35226455250603,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": -0.9773843811168246,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 28.26957774570467,
+              "x": 32.759758485532004,
               "y": 79,
-              "z": 119.35226455250603,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": -0.9773843811168246,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 26.26957774570467,
+              "x": 32.759758485532004,
               "y": 80,
-              "z": 119.35226455250603,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": -0.9773843811168246,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 24.26957774570467,
+              "x": 32.759758485532004,
               "y": 81,
-              "z": 118.48750437552778,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": -0.9424777960769379,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 22.26957774570467,
+              "x": 32.759758485532004,
               "y": 82,
-              "z": 118.48750437552778,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": -0.9424777960769379,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 20.26957774570467,
+              "x": 32.759758485532004,
               "y": 83,
-              "z": 118.48750437552778,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": -0.9424777960769379,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 19.76957774570467,
+              "x": 32.759758485532004,
               "y": 84,
-              "z": 118.48750437552778,
+              "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
-              "pitch": -0.9424777960769379,
+              "pitch": 0,
               "tiltAxis": "y",
               "roll": -1.3962634015954636
             },
             {
-              "x": 19.76957774570467,
+              "x": 32.759758485532004,
               "y": 85,
-              "z": 117.48082211799243,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.9075712110370514,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 19.76957774570467,
-              "y": 86,
-              "z": 117.48082211799243,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.9075712110370514,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 19.76957774570467,
-              "y": 87,
-              "z": 117.48082211799243,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.9075712110370514,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 19.76957774570467,
-              "y": 88,
-              "z": 116.33344426716332,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.8726646259971648,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 19.76957774570467,
-              "y": 89,
-              "z": 116.33344426716332,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.8726646259971648,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 19.26957774570467,
-              "y": 90,
-              "z": 116.33344426716332,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.8726646259971648,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 19.26957774570467,
-              "y": 91,
-              "z": 116.33344426716332,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.8726646259971648,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 19.26957774570467,
-              "y": 92,
-              "z": 115.04676872621164,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.8377580409572781,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 93,
-              "z": 115.04676872621164,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.8377580409572781,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 94,
-              "z": 115.04676872621164,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.8377580409572781,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 95,
-              "z": 113.62236311108686,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.8028514559173915,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 96,
-              "z": 113.62236311108686,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.8028514559173915,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 97,
-              "z": 113.62236311108686,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.8028514559173915,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 98,
-              "z": 112.06196284061816,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.767944870877505,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 99,
-              "z": 112.06196284061816,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.767944870877505,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 100,
-              "z": 112.06196284061816,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.767944870877505,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 101,
-              "z": 110.3674690221739,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.7330382858376184,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 102,
-              "z": 110.3674690221739,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.7330382858376184,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 103,
-              "z": 110.3674690221739,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.7330382858376184,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 104,
-              "z": 108.54094613545504,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.6981317007977318,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 105,
-              "z": 108.54094613545504,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.6981317007977318,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 106,
-              "z": 108.54094613545504,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.6981317007977318,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 107,
-              "z": 106.58461951724479,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.6632251157578452,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 108,
-              "z": 106.58461951724479,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.6632251157578452,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 109,
-              "z": 106.58461951724479,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.6632251157578452,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 110,
-              "z": 104.50087265017845,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.6283185307179586,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 111,
-              "z": 104.50087265017845,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.6283185307179586,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 112,
-              "z": 102.29224425883689,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.5934119456780721,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 113,
-              "z": 102.29224425883689,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.5934119456780721,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 114,
-              "z": 102.29224425883689,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.5934119456780721,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 115,
-              "z": 99.96142521670185,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.5585053606381855,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 116,
-              "z": 99.96142521670185,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.5585053606381855,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 117,
-              "z": 97.51125526774105,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.5235987755982988,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 118,
-              "z": 97.51125526774105,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.5235987755982988,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 119,
-              "z": 97.51125526774105,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.5235987755982988,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 120,
-              "z": 94.94471956661754,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.4886921905584123,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 121,
-              "z": 94.94471956661754,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.4886921905584123,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 122,
-              "z": 92.2649450417386,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.4537856055185257,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 123,
-              "z": 92.2649450417386,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.4537856055185257,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 124,
-              "z": 89.47519658557516,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.41887902047863906,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 125,
-              "z": 89.47519658557516,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.41887902047863906,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 126,
-              "z": 86.57887307689333,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.3839724354387525,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 127,
-              "z": 86.57887307689333,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.3839724354387525,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 128,
-              "z": 83.57950323974393,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.3490658503988659,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 129,
-              "z": 83.57950323974393,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.3490658503988659,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 130,
-              "z": 80.48074134425602,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.3141592653589793,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 131,
-              "z": 80.48074134425602,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.3141592653589793,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 132,
-              "z": 77.28636275447161,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.2792526803190927,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 133,
-              "z": 74.00025932864605,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.24434609527920614,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 134,
-              "z": 74.00025932864605,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.24434609527920614,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 135,
-              "z": 70.62643467761825,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.20943951023931953,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 18.76957774570467,
-              "y": 136,
-              "z": 67.16899928702766,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.17453292519943295,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 17.26957774570467,
-              "y": 137,
-              "z": 63.632165509320615,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.13962634015954636,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 19.26957774570467,
-              "y": 138,
-              "z": 60.02024243164778,
-              "yaw": 1.5707963267948966,
-              "pitch": -0.10471975511965977,
-              "tiltAxis": "y",
-              "roll": -1.3962634015954636
-            },
-            {
-              "x": 19.76957774570467,
-              "y": 139,
               "z": 56.33763062590519,
               "yaw": 1.5707963267948966,
               "pitch": -0.06981317007977318,
@@ -7690,8 +7040,332 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 17.76957774570467,
-              "y": 140,
+              "x": 32.759758485532004,
+              "y": 86,
+              "z": 63.632165509320615,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.13962634015954636,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": 87,
+              "z": 70.62643467761825,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.20943951023931953,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": 88,
+              "z": 77.28636275447161,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.2792526803190927,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": 89,
+              "z": 83.57950323974393,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.3490658503988659,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": 90,
+              "z": 89.47519658557516,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.41887902047863906,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": 91,
+              "z": 94.94471956661754,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.4886921905584123,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": 92,
+              "z": 99.96142521670185,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.5585053606381855,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 32.759758485532004,
+              "y": 93,
+              "z": 104.50087265017845,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.6283185307179586,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 31.259758485532,
+              "y": 94,
+              "z": 102.29224425883689,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.5934119456780721,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 29.259758485532,
+              "y": 95,
+              "z": 102.29224425883689,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.5934119456780721,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 27.259758485532,
+              "y": 96,
+              "z": 102.29224425883689,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.5934119456780721,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 25.259758485532,
+              "y": 97,
+              "z": 99.96142521670185,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.5585053606381855,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 23.259758485532,
+              "y": 98,
+              "z": 99.96142521670185,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.5585053606381855,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 21.259758485532,
+              "y": 99,
+              "z": 97.51125526774105,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.5235987755982988,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 19.759758485532,
+              "y": 100,
+              "z": 97.51125526774105,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.5235987755982988,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 19.259758485532,
+              "y": 101,
+              "z": 97.51125526774105,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.5235987755982988,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 19.259758485532,
+              "y": 102,
+              "z": 94.94471956661754,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.4886921905584123,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 18.759758485532,
+              "y": 103,
+              "z": 94.94471956661754,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.4886921905584123,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 18.759758485532,
+              "y": 104,
+              "z": 92.2649450417386,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.4537856055185257,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 18.759758485532,
+              "y": 105,
+              "z": 92.2649450417386,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.4537856055185257,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 18.759758485532,
+              "y": 106,
+              "z": 89.47519658557516,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.41887902047863906,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 18.759758485532,
+              "y": 107,
+              "z": 89.47519658557516,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.41887902047863906,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 18.759758485532,
+              "y": 108,
+              "z": 86.57887307689333,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.3839724354387525,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 18.759758485532,
+              "y": 109,
+              "z": 86.57887307689333,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.3839724354387525,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 18.759758485532,
+              "y": 110,
+              "z": 83.57950323974393,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.3490658503988659,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 18.759758485532,
+              "y": 111,
+              "z": 83.57950323974393,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.3490658503988659,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 18.759758485532,
+              "y": 112,
+              "z": 80.48074134425602,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.3141592653589793,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 18.759758485532,
+              "y": 113,
+              "z": 80.48074134425602,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.3141592653589793,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 18.759758485532,
+              "y": 114,
+              "z": 77.28636275447161,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.2792526803190927,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 18.759758485532,
+              "y": 115,
+              "z": 74.00025932864605,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.24434609527920614,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 18.759758485532,
+              "y": 116,
+              "z": 74.00025932864605,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.24434609527920614,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 18.759758485532,
+              "y": 117,
+              "z": 70.62643467761825,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.20943951023931953,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 18.759758485532,
+              "y": 118,
+              "z": 67.16899928702766,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.17453292519943295,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 17.259758485532,
+              "y": 119,
+              "z": 63.632165509320615,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.13962634015954636,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 19.259758485532,
+              "y": 120,
+              "z": 60.02024243164778,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.10471975511965977,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 19.759758485532,
+              "y": 121,
+              "z": 56.33763062590519,
+              "yaw": 1.5707963267948966,
+              "pitch": -0.06981317007977318,
+              "tiltAxis": "y",
+              "roll": -1.3962634015954636
+            },
+            {
+              "x": 17.759758485532,
+              "y": 122,
               "z": 52.58881678731528,
               "yaw": 1.5707963267948966,
               "pitch": -0.03490658503988659,
@@ -7699,8 +7373,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 15.76957774570467,
-              "y": 141,
+              "x": 15.759758485532,
+              "y": 123,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7708,8 +7382,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 13.76957774570467,
-              "y": 142,
+              "x": 13.759758485532,
+              "y": 124,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7717,8 +7391,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 11.76957774570467,
-              "y": 143,
+              "x": 11.759758485532,
+              "y": 125,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7726,8 +7400,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 9.76957774570467,
-              "y": 144,
+              "x": 9.759758485532,
+              "y": 126,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7735,8 +7409,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 7.7695777457046695,
-              "y": 145,
+              "x": 7.759758485532,
+              "y": 127,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7744,8 +7418,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 5.7695777457046695,
-              "y": 146,
+              "x": 5.759758485532,
+              "y": 128,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7753,8 +7427,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 3.7695777457046695,
-              "y": 147,
+              "x": 3.759758485532,
+              "y": 129,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7762,8 +7436,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": 1.7695777457046695,
-              "y": 148,
+              "x": 1.759758485532,
+              "y": 130,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7771,8 +7445,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": -0.23042225429533048,
-              "y": 149,
+              "x": -0.2402415144679999,
+              "y": 131,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7780,8 +7454,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": -2.2304222542953305,
-              "y": 150,
+              "x": -2.240241514468,
+              "y": 132,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7789,8 +7463,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": -4.2304222542953305,
-              "y": 151,
+              "x": -4.240241514468,
+              "y": 133,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7798,8 +7472,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": -6.2304222542953305,
-              "y": 152,
+              "x": -6.240241514468,
+              "y": 134,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7807,8 +7481,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": -8.23042225429533,
-              "y": 153,
+              "x": -8.240241514468,
+              "y": 135,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7816,8 +7490,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": -10.23042225429533,
-              "y": 154,
+              "x": -10.240241514468,
+              "y": 136,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7825,8 +7499,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": -12.23042225429533,
-              "y": 155,
+              "x": -12.240241514468,
+              "y": 137,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7834,8 +7508,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": -14.23042225429533,
-              "y": 156,
+              "x": -14.240241514468,
+              "y": 138,
               "z": 48.77836826807987,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7843,8 +7517,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3962634015954636
             },
             {
-              "x": -14.23042225429533,
-              "y": 156,
+              "x": -14.240241514468,
+              "y": 138,
               "z": 48.383022033256815,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7852,8 +7526,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.3089969389957472
             },
             {
-              "x": -14.23042225429533,
-              "y": 156,
+              "x": -14.240241514468,
+              "y": 138,
               "z": 48.476777464464995,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7861,8 +7535,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.2217304763960306
             },
             {
-              "x": -14.23042225429533,
-              "y": 156,
+              "x": -14.240241514468,
+              "y": 138,
               "z": 48.216816555723085,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7870,8 +7544,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.1344640137963142
             },
             {
-              "x": -14.23042225429533,
-              "y": 156,
+              "x": -14.240241514468,
+              "y": 138,
               "z": 47.6051177665153,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7879,8 +7553,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -1.0471975511965976
             },
             {
-              "x": -14.23042225429533,
-              "y": 156,
+              "x": -14.240241514468,
+              "y": 138,
               "z": 46.64633649398132,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7888,8 +7562,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -0.9599310885968813
             },
             {
-              "x": -14.23042225429533,
-              "y": 156,
+              "x": -14.240241514468,
+              "y": 138,
               "z": 45.34776964253312,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7897,8 +7571,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -0.8726646259971648
             },
             {
-              "x": -14.23042225429533,
-              "y": 156,
+              "x": -14.240241514468,
+              "y": 138,
               "z": 43.71930009000631,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7906,8 +7580,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -0.7853981633974483
             },
             {
-              "x": -14.23042225429533,
-              "y": 156,
+              "x": -14.240241514468,
+              "y": 138,
               "z": 41.77332147299239,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7915,8 +7589,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -0.6981317007977318
             },
             {
-              "x": -14.23042225429533,
-              "y": 156,
+              "x": -14.240241514468,
+              "y": 138,
               "z": 39.52464386378091,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7924,8 +7598,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -0.6108652381980153
             },
             {
-              "x": -14.23042225429533,
-              "y": 156,
+              "x": -14.240241514468,
+              "y": 138,
               "z": 36.99038105676658,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7933,8 +7607,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -0.5235987755982988
             },
             {
-              "x": -14.23042225429533,
-              "y": 156,
+              "x": -14.240241514468,
+              "y": 138,
               "z": 34.18982032214053,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7942,8 +7616,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -0.4363323129985824
             },
             {
-              "x": -14.23042225429533,
-              "y": 156,
+              "x": -14.240241514468,
+              "y": 138,
               "z": 31.14427561811805,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7951,8 +7625,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -0.3490658503988659
             },
             {
-              "x": -14.23042225429533,
-              "y": 156,
+              "x": -14.240241514468,
+              "y": 138,
               "z": 27.876925378846938,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7960,8 +7634,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -0.2617993877991494
             },
             {
-              "x": -14.23042225429533,
-              "y": 156,
+              "x": -14.240241514468,
+              "y": 138,
               "z": 24.412636112528055,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7969,8 +7643,8 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -0.17453292519943295
             },
             {
-              "x": -14.23042225429533,
-              "y": 156,
+              "x": -14.240241514468,
+              "y": 138,
               "z": 20.77777315227314,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -7978,16 +7652,16 @@ export const PRECOMPUTED: Precomputed = {
               "roll": -0.08726646259971647
             },
             {
-              "x": -14.23042225429533,
-              "y": 156,
+              "x": -14.240241514468,
+              "y": 138,
               "z": 17,
               "yaw": 1.5707963267948966,
               "pitch": 0,
               "tiltAxis": "y"
             }
           ],
-          "wallThickness": 30,
-          "holdsForWallsUpTo": 30
+          "wallThickness": 12,
+          "holdsForWallsUpTo": 12
         }
       ],
       "modules": []
@@ -8003,9 +7677,9 @@ export const PRECOMPUTED: Precomputed = {
           "depth": 90,
           "height": 80
         },
-        "wallThickness": 30,
-        "wallStatement": "Measured against a wall 30 cm thick. Every maneuver needs the same doorway behind any wall up to 100 cm thick.",
-        "wallStatementHe": "נמדד מול קיר בעובי 30 ס״מ. כל תמרון דורש את אותו פתח מאחורי כל קיר בעובי של עד 100 ס״מ.",
+        "wallThickness": 12,
+        "wallStatement": "Measured behind a wall 12 cm thick. Every maneuver needs the same doorway behind any wall.",
+        "wallStatementHe": "נמדד מאחורי קיר בעובי 12 ס״מ. כל תמרון דורש את אותו פתח מאחורי כל קיר.",
         "boxCount": 5,
         "parts": [
           {
@@ -8080,7 +7754,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             "stations": [
               {
-                "t": 0.0103,
+                "t": 0.0114,
                 "station": 80,
                 "parts": [
                   "the armrests"
@@ -8093,17 +7767,15 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.1753,
-                "station": 48,
+                "t": 0.1761,
+                "station": 51,
                 "parts": [
                   "the backrest",
-                  "the armrests",
                   "the seat",
                   "the plinth"
                 ],
                 "partsHe": [
                   "המשענת",
-                  "המשענות",
                   "המושב",
                   "הבסיס"
                 ],
@@ -8112,8 +7784,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.3351,
-                "station": 17,
+                "t": 0.3352,
+                "station": 23,
                 "parts": [
                   "the backrest",
                   "the seat",
@@ -8130,7 +7802,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.5,
-                "station": -15,
+                "station": -6,
                 "parts": [
                   "the backrest",
                   "the seat",
@@ -8146,8 +7818,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.6649,
-                "station": -47,
+                "t": 0.6648,
+                "station": -35,
                 "parts": [
                   "the backrest",
                   "the seat",
@@ -8163,17 +7835,15 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.8247,
-                "station": -78,
+                "t": 0.8239,
+                "station": -63,
                 "parts": [
                   "the backrest",
-                  "the armrests",
                   "the seat",
                   "the plinth"
                 ],
                 "partsHe": [
                   "המשענת",
-                  "המשענות",
                   "המושב",
                   "הבסיס"
                 ],
@@ -8182,7 +7852,7 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.9897,
+                "t": 0.9886,
                 "station": -80,
                 "parts": [
                   "the armrests"
@@ -8213,7 +7883,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             "stations": [
               {
-                "t": 0.4874,
+                "t": 0.4875,
                 "station": 80,
                 "parts": [
                   "the armrests"
@@ -8227,16 +7897,14 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.4917,
-                "station": 48,
+                "station": 51,
                 "parts": [
                   "the seat",
-                  "the armrests",
                   "the plinth",
                   "the backrest"
                 ],
                 "partsHe": [
                   "המושב",
-                  "המשענות",
                   "הבסיס",
                   "המשענת"
                 ],
@@ -8246,7 +7914,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.4958,
-                "station": 17,
+                "station": 23,
                 "parts": [
                   "the seat",
                   "the plinth",
@@ -8263,7 +7931,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.5,
-                "station": -15,
+                "station": -6,
                 "parts": [
                   "the seat",
                   "the plinth",
@@ -8280,7 +7948,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.5042,
-                "station": -47,
+                "station": -35,
                 "parts": [
                   "the seat",
                   "the plinth",
@@ -8297,16 +7965,14 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.5083,
-                "station": -78,
+                "station": -63,
                 "parts": [
                   "the seat",
-                  "the armrests",
                   "the plinth",
                   "the backrest"
                 ],
                 "partsHe": [
                   "המושב",
-                  "המשענות",
                   "הבסיס",
                   "המשענת"
                 ],
@@ -8315,7 +7981,7 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.5126,
+                "t": 0.5125,
                 "station": -80,
                 "parts": [
                   "the armrests"
@@ -8323,7 +7989,7 @@ export const PRECOMPUTED: Precomputed = {
                 "partsHe": [
                   "המשענות"
                 ],
-                "width": 44,
+                "width": 22,
                 "height": 90,
                 "rollDeg": -90
               }
@@ -8346,7 +8012,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             "stations": [
               {
-                "t": 0.0848,
+                "t": 0.0922,
                 "station": 80,
                 "parts": [
                   "the armrests"
@@ -8359,8 +8025,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 90
               },
               {
-                "t": 0.1384,
-                "station": 68,
+                "t": 0.1359,
+                "station": 71,
                 "parts": [
                   "the backrest",
                   "the armrests",
@@ -8378,25 +8044,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 75
               },
               {
-                "t": 0.2674,
-                "station": 39.1111,
-                "parts": [
-                  "the backrest",
-                  "the seat",
-                  "the plinth"
-                ],
-                "partsHe": [
-                  "המשענת",
-                  "המושב",
-                  "הבסיס"
-                ],
-                "width": 75.4487,
-                "height": 110.2918,
-                "rollDeg": 66.3333
-              },
-              {
-                "t": 0.4777,
-                "station": -8,
+                "t": 0.233,
+                "station": 51,
                 "parts": [
                   "the backrest",
                   "the seat",
@@ -8412,8 +8061,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 64
               },
               {
-                "t": 0.7098,
-                "station": -60,
+                "t": 0.4757,
+                "station": 1,
                 "parts": [
                   "the backrest",
                   "the seat",
@@ -8429,26 +8078,41 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 64
               },
               {
-                "t": 0.808,
-                "station": -80,
+                "t": 0.7136,
+                "station": -48,
                 "parts": [
                   "the backrest",
-                  "the armrests",
+                  "the seat",
+                  "the plinth"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המושב",
+                  "הבסיס"
+                ],
+                "width": 77.7293,
+                "height": 111.1389,
+                "rollDeg": 64
+              },
+              {
+                "t": 0.8277,
+                "station": -71.5,
+                "parts": [
+                  "the backrest",
                   "the plinth",
                   "the seat"
                 ],
                 "partsHe": [
                   "המשענת",
-                  "המשענות",
                   "הבסיס",
                   "המושב"
                 ],
-                "width": 77.7563,
-                "height": 105.6109,
-                "rollDeg": 75
+                "width": 77.2348,
+                "height": 106.5815,
+                "rollDeg": 73.5
               },
               {
-                "t": 0.933,
+                "t": 0.9272,
                 "station": -80,
                 "parts": [
                   "the armrests"
@@ -8456,7 +8120,7 @@ export const PRECOMPUTED: Precomputed = {
                 "partsHe": [
                   "המשענות"
                 ],
-                "width": 76.8023,
+                "width": 40.196,
                 "height": 102.1155,
                 "rollDeg": 66
               }
@@ -8479,7 +8143,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             "stations": [
               {
-                "t": 0.4973,
+                "t": 0.4978,
                 "station": 0,
                 "parts": [
                   "the plinth"
@@ -8492,8 +8156,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.4988,
-                "station": -18,
+                "t": 0.4992,
+                "station": -15,
                 "parts": [
                   "the armrests",
                   "the plinth",
@@ -8509,27 +8173,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.5004,
-                "station": -37,
-                "parts": [
-                  "the armrests",
-                  "the plinth",
-                  "the seat",
-                  "the backrest"
-                ],
-                "partsHe": [
-                  "המשענות",
-                  "הבסיס",
-                  "המושב",
-                  "המשענת"
-                ],
-                "width": 90,
-                "height": 162,
-                "rollDeg": -90
-              },
-              {
-                "t": 0.5019,
-                "station": -55,
+                "t": 0.5007,
+                "station": -31,
                 "parts": [
                   "the armrests",
                   "the seat",
@@ -8545,8 +8190,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.5034,
-                "station": -73,
+                "t": 0.5021,
+                "station": -46,
                 "parts": [
                   "the armrests",
                   "the seat",
@@ -8562,15 +8207,30 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.505,
-                "station": -80,
+                "t": 0.5035,
+                "station": -61,
+                "parts": [
+                  "the armrests",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "המשענת"
+                ],
+                "width": 90,
+                "height": 162,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5051,
+                "station": -77,
                 "parts": [
                   "the backrest"
                 ],
                 "partsHe": [
                   "המשענת"
                 ],
-                "width": 12.0372,
+                "width": 11.2548,
                 "height": 154,
                 "rollDeg": -90
               },
@@ -8606,7 +8266,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             "stations": [
               {
-                "t": 0.9563,
+                "t": 0.9573,
                 "station": 0,
                 "parts": [
                   "the plinth"
@@ -8619,8 +8279,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.9592,
-                "station": -18,
+                "t": 0.96,
+                "station": -15,
                 "parts": [
                   "the armrests",
                   "the plinth",
@@ -8636,27 +8296,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.9623,
-                "station": -37,
-                "parts": [
-                  "the armrests",
-                  "the plinth",
-                  "the seat",
-                  "the backrest"
-                ],
-                "partsHe": [
-                  "המשענות",
-                  "הבסיס",
-                  "המושב",
-                  "המשענת"
-                ],
-                "width": 90,
-                "height": 162,
-                "rollDeg": -90
-              },
-              {
-                "t": 0.9652,
-                "station": -55,
+                "t": 0.9629,
+                "station": -31,
                 "parts": [
                   "the armrests",
                   "the seat",
@@ -8672,8 +8313,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.9681,
-                "station": -73,
+                "t": 0.9656,
+                "station": -46,
                 "parts": [
                   "the armrests",
                   "the seat",
@@ -8689,15 +8330,30 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.9711,
-                "station": -80,
+                "t": 0.9684,
+                "station": -61,
+                "parts": [
+                  "the armrests",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המשענות",
+                  "המשענת"
+                ],
+                "width": 90,
+                "height": 162,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9713,
+                "station": -77,
                 "parts": [
                   "the backrest"
                 ],
                 "partsHe": [
                   "המשענת"
                 ],
-                "width": 12.0372,
+                "width": 11.2548,
                 "height": 154,
                 "rollDeg": -90
               },
@@ -8734,14 +8390,14 @@ export const PRECOMPUTED: Precomputed = {
           "runs": [
             [
               -80,
-              -42
+              -60
             ],
             [
-              42,
+              60,
               80
             ]
           ],
-          "coverage": 0.475,
+          "coverage": 0.25,
           "floor": 77.7563,
           "rollDeg": 75,
           "parts": [
@@ -8755,21 +8411,21 @@ export const PRECOMPUTED: Precomputed = {
             {
               "label": "the backrest",
               "labelHe": "המשענת",
-              "share": 0.4167,
+              "share": 0.1667,
               "span": 144,
               "floorWithout": 58
             },
             {
               "label": "the plinth",
               "labelHe": "הבסיס",
-              "share": 0.4167,
+              "share": 0.1667,
               "span": 144,
               "floorWithout": 66
             },
             {
               "label": "the seat",
               "labelHe": "המושב",
-              "share": 0.4167,
+              "share": 0.1667,
               "span": 144,
               "floorWithout": 77.7563
             }
@@ -8871,14 +8527,14 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 0,
               "yaw": 1.5707963267948966,
               "pitch": 0,
               "tiltAxis": "x"
             }
           ],
-          "wallThickness": 30,
+          "wallThickness": 12,
           "holdsForWallsUpTo": 100
         },
         {
@@ -9099,7 +8755,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 40,
-              "y": 112,
+              "y": 94,
               "z": 45,
               "yaw": 1.5707963267948966,
               "pitch": -1.5707963267948966,
@@ -9107,7 +8763,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 40,
-              "y": 112,
+              "y": 94,
               "z": 47,
               "yaw": 1.5707963267948966,
               "pitch": -1.5707963267948966,
@@ -9115,7 +8771,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 40,
-              "y": 112,
+              "y": 94,
               "z": 45.608581015661336,
               "yaw": 1.5707963267948966,
               "pitch": -1.4835298641951802,
@@ -9123,7 +8779,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 40,
-              "y": 112,
+              "y": 94,
               "z": 43.88527439821233,
               "yaw": 1.5707963267948966,
               "pitch": -1.3962634015954636,
@@ -9131,7 +8787,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 40,
-              "y": 112,
+              "y": 94,
               "z": 41.84319555157279,
               "yaw": 1.5707963267948966,
               "pitch": -1.3089969389957472,
@@ -9139,7 +8795,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 40,
-              "y": 112,
+              "y": 94,
               "z": 39.49788592880651,
               "yaw": 1.5707963267948966,
               "pitch": -1.2217304763960306,
@@ -9147,7 +8803,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 40,
-              "y": 112,
+              "y": 94,
               "z": 36.86719475227945,
               "yaw": 1.5707963267948966,
               "pitch": -1.1344640137963142,
@@ -9155,7 +8811,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 40,
-              "y": 112,
+              "y": 94,
               "z": 34.908965343808674,
               "yaw": 1.5707963267948966,
               "pitch": -1.0471975511965979,
@@ -9163,7 +8819,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 40,
-              "y": 112,
+              "y": 94,
               "z": 33.12777768298169,
               "yaw": 1.5707963267948966,
               "pitch": -0.9599310885968813,
@@ -9171,7 +8827,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 40,
-              "y": 112,
+              "y": 94,
               "z": 31.109688838521166,
               "yaw": 1.5707963267948966,
               "pitch": -0.8726646259971648,
@@ -9179,7 +8835,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 40,
-              "y": 112,
+              "y": 94,
               "z": 28.870057685088803,
               "yaw": 1.5707963267948966,
               "pitch": -0.7853981633974483,
@@ -9187,7 +8843,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 40,
-              "y": 112,
+              "y": 94,
               "z": 26.425929168088494,
               "yaw": 1.5707963267948966,
               "pitch": -0.6981317007977318,
@@ -9195,7 +8851,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 40,
-              "y": 112,
+              "y": 94,
               "z": 23.795904581339755,
               "yaw": 1.5707963267948966,
               "pitch": -0.6108652381980154,
@@ -9203,7 +8859,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 40,
-              "y": 112,
+              "y": 94,
               "z": 21,
               "yaw": 1.5707963267948966,
               "pitch": -0.5235987755982989,
@@ -9211,7 +8867,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 40,
-              "y": 112,
+              "y": 94,
               "z": 18.05949394614658,
               "yaw": 1.5707963267948966,
               "pitch": -0.43633231299858233,
@@ -9219,7 +8875,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 40,
-              "y": 112,
+              "y": 94,
               "z": 14.996765446375413,
               "yaw": 1.5707963267948966,
               "pitch": -0.34906585039886595,
@@ -9227,7 +8883,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 40,
-              "y": 112,
+              "y": 94,
               "z": 11.835123713895795,
               "yaw": 1.5707963267948966,
               "pitch": -0.2617993877991496,
@@ -9235,7 +8891,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 40,
-              "y": 112,
+              "y": 94,
               "z": 8.598630751343354,
               "yaw": 1.5707963267948966,
               "pitch": -0.17453292519943298,
@@ -9243,7 +8899,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 40,
-              "y": 112,
+              "y": 94,
               "z": 5.3119182244110075,
               "yaw": 1.5707963267948966,
               "pitch": -0.08726646259971638,
@@ -9251,14 +8907,14 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 40,
-              "y": 112,
+              "y": 94,
               "z": 2,
               "yaw": 1.5707963267948966,
               "pitch": 0,
               "tiltAxis": "x"
             }
           ],
-          "wallThickness": 30,
+          "wallThickness": 12,
           "holdsForWallsUpTo": 100
         },
         {
@@ -9292,7 +8948,7 @@ export const PRECOMPUTED: Precomputed = {
               "name": "Thread it through, turning as it goes",
               "nameHe": "להשחיל אותה דרך הפתח תוך סיבוב",
               "startIndex": 17,
-              "endIndex": 211,
+              "endIndex": 193,
               "requirement": {
                 "doorWidth": 77.79,
                 "doorHeight": 111.14,
@@ -9305,8 +8961,8 @@ export const PRECOMPUTED: Precomputed = {
               "id": "straighten",
               "name": "Straighten it up in the room",
               "nameHe": "ליישר אותה בחדר",
-              "startIndex": 211,
-              "endIndex": 223,
+              "startIndex": 193,
+              "endIndex": 205,
               "requirement": {
                 "doorWidth": 0,
                 "doorHeight": 0,
@@ -9319,8 +8975,8 @@ export const PRECOMPUTED: Precomputed = {
               "id": "set-down",
               "name": "Set it down",
               "nameHe": "להניח אותה",
-              "startIndex": 223,
-              "endIndex": 224,
+              "startIndex": 205,
+              "endIndex": 206,
               "requirement": {
                 "doorWidth": 0,
                 "doorHeight": 0,
@@ -9652,152 +9308,8 @@ export const PRECOMPUTED: Precomputed = {
               "tiltAxis": "x"
             },
             {
-              "x": -29.052664560775753,
-              "y": -59,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775753,
-              "y": -58,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775753,
-              "y": -57,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775753,
-              "y": -56,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775753,
-              "y": -55,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775753,
-              "y": -54,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775753,
-              "y": -53,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775753,
-              "y": -52,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775753,
-              "y": -51,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775753,
-              "y": -50,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775753,
-              "y": -49,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775753,
-              "y": -48,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775753,
-              "y": -47,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775753,
-              "y": -46,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775753,
-              "y": -45,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775753,
-              "y": -44,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775753,
-              "y": -43,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775753,
-              "y": -42,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
               "x": -27.14514248842353,
-              "y": -41,
+              "y": -59,
               "z": 40.47130531203264,
               "yaw": 1.5707963267948966,
               "pitch": 1.2566370614359172,
@@ -9805,7 +9317,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": -25.26980619195012,
-              "y": -40,
+              "y": -58,
               "z": 38.99396789873988,
               "yaw": 1.5707963267948966,
               "pitch": 1.2042771838760873,
@@ -9813,10 +9325,154 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": -23.431795837791128,
-              "y": -39,
+              "y": -57,
               "z": 37.41523259085584,
               "yaw": 1.5707963267948966,
               "pitch": 1.1519173063162575,
+              "tiltAxis": "x"
+            },
+            {
+              "x": -22.229684696686594,
+              "y": -56,
+              "z": 36.30853602841543,
+              "yaw": 1.5707963267948966,
+              "pitch": 1.117010721276371,
+              "tiltAxis": "x"
+            },
+            {
+              "x": -22.229684696686594,
+              "y": -55,
+              "z": 36.30853602841543,
+              "yaw": 1.5707963267948966,
+              "pitch": 1.117010721276371,
+              "tiltAxis": "x"
+            },
+            {
+              "x": -22.229684696686594,
+              "y": -54,
+              "z": 36.30853602841543,
+              "yaw": 1.5707963267948966,
+              "pitch": 1.117010721276371,
+              "tiltAxis": "x"
+            },
+            {
+              "x": -22.229684696686594,
+              "y": -53,
+              "z": 36.30853602841543,
+              "yaw": 1.5707963267948966,
+              "pitch": 1.117010721276371,
+              "tiltAxis": "x"
+            },
+            {
+              "x": -22.229684696686594,
+              "y": -52,
+              "z": 36.30853602841543,
+              "yaw": 1.5707963267948966,
+              "pitch": 1.117010721276371,
+              "tiltAxis": "x"
+            },
+            {
+              "x": -22.229684696686594,
+              "y": -51,
+              "z": 36.30853602841543,
+              "yaw": 1.5707963267948966,
+              "pitch": 1.117010721276371,
+              "tiltAxis": "x"
+            },
+            {
+              "x": -22.229684696686594,
+              "y": -50,
+              "z": 36.30853602841543,
+              "yaw": 1.5707963267948966,
+              "pitch": 1.117010721276371,
+              "tiltAxis": "x"
+            },
+            {
+              "x": -22.229684696686594,
+              "y": -49,
+              "z": 36.30853602841543,
+              "yaw": 1.5707963267948966,
+              "pitch": 1.117010721276371,
+              "tiltAxis": "x"
+            },
+            {
+              "x": -22.229684696686594,
+              "y": -48,
+              "z": 36.30853602841543,
+              "yaw": 1.5707963267948966,
+              "pitch": 1.117010721276371,
+              "tiltAxis": "x"
+            },
+            {
+              "x": -22.229684696686594,
+              "y": -47,
+              "z": 36.30853602841543,
+              "yaw": 1.5707963267948966,
+              "pitch": 1.117010721276371,
+              "tiltAxis": "x"
+            },
+            {
+              "x": -22.229684696686594,
+              "y": -46,
+              "z": 36.30853602841543,
+              "yaw": 1.5707963267948966,
+              "pitch": 1.117010721276371,
+              "tiltAxis": "x"
+            },
+            {
+              "x": -22.229684696686594,
+              "y": -45,
+              "z": 36.30853602841543,
+              "yaw": 1.5707963267948966,
+              "pitch": 1.117010721276371,
+              "tiltAxis": "x"
+            },
+            {
+              "x": -22.229684696686594,
+              "y": -44,
+              "z": 36.30853602841543,
+              "yaw": 1.5707963267948966,
+              "pitch": 1.117010721276371,
+              "tiltAxis": "x"
+            },
+            {
+              "x": -22.229684696686594,
+              "y": -43,
+              "z": 36.30853602841543,
+              "yaw": 1.5707963267948966,
+              "pitch": 1.117010721276371,
+              "tiltAxis": "x"
+            },
+            {
+              "x": -22.229684696686594,
+              "y": -42,
+              "z": 36.30853602841543,
+              "yaw": 1.5707963267948966,
+              "pitch": 1.117010721276371,
+              "tiltAxis": "x"
+            },
+            {
+              "x": -22.229684696686594,
+              "y": -41,
+              "z": 36.30853602841543,
+              "yaw": 1.5707963267948966,
+              "pitch": 1.117010721276371,
+              "tiltAxis": "x"
+            },
+            {
+              "x": -22.229684696686594,
+              "y": -40,
+              "z": 36.30853602841543,
+              "yaw": 1.5707963267948966,
+              "pitch": 1.117010721276371,
+              "tiltAxis": "x"
+            },
+            {
+              "x": -22.229684696686594,
+              "y": -39,
+              "z": 36.30853602841543,
+              "yaw": 1.5707963267948966,
+              "pitch": 1.117010721276371,
               "tiltAxis": "x"
             },
             {
@@ -10804,152 +10460,8 @@ export const PRECOMPUTED: Precomputed = {
               "tiltAxis": "x"
             },
             {
-              "x": -29.052664560775746,
-              "y": 85,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775746,
-              "y": 86,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775746,
-              "y": 87,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775746,
-              "y": 88,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775746,
-              "y": 89,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775746,
-              "y": 90,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775746,
-              "y": 91,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775746,
-              "y": 92,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775746,
-              "y": 93,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775746,
-              "y": 94,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775746,
-              "y": 95,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775746,
-              "y": 96,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775746,
-              "y": 97,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775746,
-              "y": 98,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775746,
-              "y": 99,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775746,
-              "y": 100,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775746,
-              "y": 101,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
-              "x": -29.052664560775746,
-              "y": 102,
-              "z": 41.84319555157279,
-              "yaw": 1.5707963267948966,
-              "pitch": 1.3089969389957472,
-              "tiltAxis": "x"
-            },
-            {
               "x": -30.19851515905765,
-              "y": 103,
+              "y": 85,
               "z": 40.47130531203264,
               "yaw": 1.5707963267948966,
               "pitch": 1.2566370614359172,
@@ -10957,7 +10469,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": -31.405694933442334,
-              "y": 104,
+              "y": 86,
               "z": 38.99396789873988,
               "yaw": 1.5707963267948966,
               "pitch": 1.2042771838760873,
@@ -10965,7 +10477,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": -32.420257948747974,
-              "y": 105,
+              "y": 87,
               "z": 37.41523259085584,
               "yaw": 1.5707963267948966,
               "pitch": 1.1519173063162575,
@@ -10973,7 +10485,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": -32.420257948747974,
-              "y": 106,
+              "y": 88,
               "z": 37.41523259085584,
               "yaw": 1.5707963267948966,
               "pitch": 1.1519173063162575,
@@ -10981,7 +10493,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": -32.420257948747974,
-              "y": 107,
+              "y": 89,
               "z": 37.41523259085584,
               "yaw": 1.5707963267948966,
               "pitch": 1.1519173063162575,
@@ -10989,7 +10501,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": -32.420257948747974,
-              "y": 108,
+              "y": 90,
               "z": 37.41523259085584,
               "yaw": 1.5707963267948966,
               "pitch": 1.1519173063162575,
@@ -10997,7 +10509,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": -32.420257948747974,
-              "y": 109,
+              "y": 91,
               "z": 37.41523259085584,
               "yaw": 1.5707963267948966,
               "pitch": 1.1519173063162575,
@@ -11005,7 +10517,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": -32.420257948747974,
-              "y": 110,
+              "y": 92,
               "z": 37.41523259085584,
               "yaw": 1.5707963267948966,
               "pitch": 1.1519173063162575,
@@ -11013,7 +10525,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": -32.420257948747974,
-              "y": 111,
+              "y": 93,
               "z": 35.858247919157975,
               "yaw": 1.5707963267948966,
               "pitch": 1.0995574287564276,
@@ -11021,7 +10533,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": -32.420257948747974,
-              "y": 112,
+              "y": 94,
               "z": 34.90896534380867,
               "yaw": 1.5707963267948966,
               "pitch": 1.0471975511965976,
@@ -11029,7 +10541,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": -32.420257948747974,
-              "y": 112,
+              "y": 94,
               "z": 33.12777768298169,
               "yaw": 1.5707963267948966,
               "pitch": 0.9599310885968811,
@@ -11037,7 +10549,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": -32.420257948747974,
-              "y": 112,
+              "y": 94,
               "z": 31.10968883852116,
               "yaw": 1.5707963267948966,
               "pitch": 0.8726646259971647,
@@ -11045,7 +10557,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": -32.420257948747974,
-              "y": 112,
+              "y": 94,
               "z": 28.870057685088803,
               "yaw": 1.5707963267948966,
               "pitch": 0.7853981633974483,
@@ -11053,7 +10565,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": -32.420257948747974,
-              "y": 112,
+              "y": 94,
               "z": 26.42592916808849,
               "yaw": 1.5707963267948966,
               "pitch": 0.6981317007977317,
@@ -11061,7 +10573,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": -32.420257948747974,
-              "y": 112,
+              "y": 94,
               "z": 23.795904581339748,
               "yaw": 1.5707963267948966,
               "pitch": 0.6108652381980153,
@@ -11069,7 +10581,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": -32.420257948747974,
-              "y": 112,
+              "y": 94,
               "z": 20.999999999999993,
               "yaw": 1.5707963267948966,
               "pitch": 0.5235987755982988,
@@ -11077,7 +10589,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": -32.420257948747974,
-              "y": 112,
+              "y": 94,
               "z": 18.05949394614658,
               "yaw": 1.5707963267948966,
               "pitch": 0.43633231299858233,
@@ -11085,7 +10597,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": -32.420257948747974,
-              "y": 112,
+              "y": 94,
               "z": 14.99676544637541,
               "yaw": 1.5707963267948966,
               "pitch": 0.34906585039886584,
@@ -11093,7 +10605,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": -32.420257948747974,
-              "y": 112,
+              "y": 94,
               "z": 11.835123713895788,
               "yaw": 1.5707963267948966,
               "pitch": 0.26179938779914935,
@@ -11101,7 +10613,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": -32.420257948747974,
-              "y": 112,
+              "y": 94,
               "z": 8.598630751343354,
               "yaw": 1.5707963267948966,
               "pitch": 0.17453292519943298,
@@ -11109,7 +10621,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": -32.420257948747974,
-              "y": 112,
+              "y": 94,
               "z": 5.311918224411011,
               "yaw": 1.5707963267948966,
               "pitch": 0.08726646259971649,
@@ -11117,7 +10629,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": -32.420257948747974,
-              "y": 112,
+              "y": 94,
               "z": 2,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -11125,14 +10637,14 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": -32.420257948747974,
-              "y": 112,
+              "y": 94,
               "z": 0,
               "yaw": 1.5707963267948966,
               "pitch": 0,
               "tiltAxis": "x"
             }
           ],
-          "wallThickness": 30,
+          "wallThickness": 12,
           "holdsForWallsUpTo": 100
         },
         {
@@ -11525,7 +11037,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 82,
               "yaw": 1.5707963267948966,
               "pitch": -1.5707963267948966,
@@ -11533,7 +11045,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 82,
               "yaw": 1.4835298641951802,
               "pitch": -1.5707963267948966,
@@ -11541,7 +11053,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 82,
               "yaw": 1.3962634015954636,
               "pitch": -1.5707963267948966,
@@ -11549,7 +11061,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 82,
               "yaw": 1.3089969389957472,
               "pitch": -1.5707963267948966,
@@ -11557,7 +11069,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 82,
               "yaw": 1.2217304763960306,
               "pitch": -1.5707963267948966,
@@ -11565,7 +11077,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 82,
               "yaw": 1.1344640137963142,
               "pitch": -1.5707963267948966,
@@ -11573,7 +11085,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 82,
               "yaw": 1.0471975511965976,
               "pitch": -1.5707963267948966,
@@ -11581,7 +11093,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 82,
               "yaw": 0.9599310885968813,
               "pitch": -1.5707963267948966,
@@ -11589,7 +11101,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 82,
               "yaw": 0.8726646259971648,
               "pitch": -1.5707963267948966,
@@ -11597,7 +11109,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 82,
               "yaw": 0.7853981633974483,
               "pitch": -1.5707963267948966,
@@ -11605,7 +11117,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 82,
               "yaw": 0.6981317007977318,
               "pitch": -1.5707963267948966,
@@ -11613,7 +11125,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 82,
               "yaw": 0.6108652381980153,
               "pitch": -1.5707963267948966,
@@ -11621,7 +11133,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 82,
               "yaw": 0.5235987755982988,
               "pitch": -1.5707963267948966,
@@ -11629,7 +11141,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 82,
               "yaw": 0.4363323129985824,
               "pitch": -1.5707963267948966,
@@ -11637,7 +11149,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 82,
               "yaw": 0.3490658503988659,
               "pitch": -1.5707963267948966,
@@ -11645,7 +11157,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 82,
               "yaw": 0.2617993877991494,
               "pitch": -1.5707963267948966,
@@ -11653,7 +11165,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 82,
               "yaw": 0.17453292519943295,
               "pitch": -1.5707963267948966,
@@ -11661,7 +11173,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 82,
               "yaw": 0.08726646259971647,
               "pitch": -1.5707963267948966,
@@ -11669,7 +11181,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 82,
               "yaw": 0,
               "pitch": -1.5707963267948966,
@@ -11677,7 +11189,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 80.47539544887243,
               "yaw": 0,
               "pitch": -1.4835298641951802,
@@ -11685,7 +11197,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 78.35354575363962,
               "yaw": 0,
               "pitch": -1.3962634015954636,
@@ -11693,7 +11205,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 75.65059947169017,
               "yaw": 0,
               "pitch": -1.3089969389957472,
@@ -11701,7 +11213,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 72.3871276563133,
               "yaw": 0,
               "pitch": -1.2217304763960306,
@@ -11709,7 +11221,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 68.5879672985622,
               "yaw": 0,
               "pitch": -1.1344640137963142,
@@ -11717,7 +11229,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 64.35382907247958,
               "yaw": 0,
               "pitch": -1.0471975511965976,
@@ -11725,7 +11237,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 60.97894718880741,
               "yaw": 0,
               "pitch": -0.9599310885968813,
@@ -11733,7 +11245,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 57.155199904566416,
               "yaw": 0,
               "pitch": -0.8726646259971648,
@@ -11741,7 +11253,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 52.91168824543142,
               "yaw": 0,
               "pitch": -0.7853981633974483,
@@ -11749,7 +11261,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 48.28070789743083,
               "yaw": 0,
               "pitch": -0.6981317007977318,
@@ -11757,7 +11269,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 43.297503417275315,
               "yaw": 0,
               "pitch": -0.6108652381980153,
@@ -11765,7 +11277,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 37.99999999999999,
               "yaw": 0,
               "pitch": -0.5235987755982988,
@@ -11773,7 +11285,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 32.42851484533036,
               "yaw": 0,
               "pitch": -0.4363323129985824,
@@ -11781,7 +11293,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 26.62545031944815,
               "yaw": 0,
               "pitch": -0.3490658503988659,
@@ -11789,7 +11301,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 20.634971247381493,
               "yaw": 0,
               "pitch": -0.2617993877991494,
@@ -11797,7 +11309,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 14.502668792018984,
               "yaw": 0,
               "pitch": -0.17453292519943295,
@@ -11805,7 +11317,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 8.275213477831388,
               "yaw": 0,
               "pitch": -0.08726646259971647,
@@ -11813,7 +11325,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 2,
               "yaw": 0,
               "pitch": 0,
@@ -11821,14 +11333,14 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 0,
               "yaw": 0,
               "pitch": 0,
               "tiltAxis": "y"
             }
           ],
-          "wallThickness": 30,
+          "wallThickness": 12,
           "holdsForWallsUpTo": 100
         },
         {
@@ -12207,7 +11719,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 82,
               "yaw": 1.5707963267948966,
               "pitch": -1.5707963267948966,
@@ -12215,14 +11727,14 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 112,
+              "y": 94,
               "z": 80,
               "yaw": 1.5707963267948966,
               "pitch": -1.5707963267948966,
               "tiltAxis": "y"
             }
           ],
-          "wallThickness": 30,
+          "wallThickness": 12,
           "holdsForWallsUpTo": 100
         }
       ],
@@ -12239,9 +11751,9 @@ export const PRECOMPUTED: Precomputed = {
           "depth": 200,
           "height": 85
         },
-        "wallThickness": 30,
-        "wallStatement": "Measured against a wall 30 cm thick. Every maneuver needs the same doorway behind any wall up to 100 cm thick.",
-        "wallStatementHe": "נמדד מול קיר בעובי 30 ס״מ. כל תמרון דורש את אותו פתח מאחורי כל קיר בעובי של עד 100 ס״מ.",
+        "wallThickness": 12,
+        "wallStatement": "Measured behind a wall 12 cm thick. Every maneuver needs the same doorway behind any wall.",
+        "wallStatementHe": "נמדד מאחורי קיר בעובי 12 ס״מ. כל תמרון דורש את אותו פתח מאחורי כל קיר.",
         "boxCount": 7,
         "parts": [
           {
@@ -12315,7 +11827,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             "stations": [
               {
-                "t": 0.0064,
+                "t": 0.0068,
                 "station": 140,
                 "parts": [
                   "the chaise return"
@@ -12328,8 +11840,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.172,
-                "station": 88,
+                "t": 0.1723,
+                "station": 91,
                 "parts": [
                   "the backrest",
                   "the main run",
@@ -12345,8 +11857,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.3344,
-                "station": 37,
+                "t": 0.3345,
+                "station": 43,
                 "parts": [
                   "the backrest",
                   "the main run",
@@ -12363,7 +11875,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.5,
-                "station": -15,
+                "station": -6,
                 "parts": [
                   "the backrest",
                   "the main run"
@@ -12377,8 +11889,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.6656,
-                "station": -67,
+                "t": 0.6655,
+                "station": -55,
                 "parts": [
                   "the backrest",
                   "the main run"
@@ -12392,8 +11904,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.828,
-                "station": -118,
+                "t": 0.8277,
+                "station": -103,
                 "parts": [
                   "the backrest",
                   "the main run"
@@ -12407,7 +11919,7 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.9936,
+                "t": 0.9932,
                 "station": -140,
                 "parts": [
                   "the armrests"
@@ -12438,7 +11950,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             "stations": [
               {
-                "t": 0.4873,
+                "t": 0.4874,
                 "station": 140,
                 "parts": [
                   "the chaise return"
@@ -12452,7 +11964,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.4916,
-                "station": 88,
+                "station": 91,
                 "parts": [
                   "the main run",
                   "the backrest",
@@ -12469,7 +11981,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.4958,
-                "station": 37,
+                "station": 43,
                 "parts": [
                   "the main run",
                   "the backrest",
@@ -12486,7 +11998,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.5,
-                "station": -15,
+                "station": -6,
                 "parts": [
                   "the main run",
                   "the backrest"
@@ -12501,7 +12013,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.5042,
-                "station": -67,
+                "station": -55,
                 "parts": [
                   "the main run",
                   "the backrest"
@@ -12516,7 +12028,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.5084,
-                "station": -118,
+                "station": -103,
                 "parts": [
                   "the main run",
                   "the backrest"
@@ -12530,7 +12042,7 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.5127,
+                "t": 0.5126,
                 "station": -140,
                 "parts": [
                   "the armrests"
@@ -12561,7 +12073,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             "stations": [
               {
-                "t": 0.0618,
+                "t": 0.0651,
                 "station": 140,
                 "parts": [
                   "the chaise return"
@@ -12574,8 +12086,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.2079,
-                "station": 88,
+                "t": 0.2101,
+                "station": 91,
                 "parts": [
                   "the main run",
                   "the backrest",
@@ -12591,8 +12103,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.3792,
-                "station": 27,
+                "t": 0.3817,
+                "station": 33,
                 "parts": [
                   "the main run",
                   "the backrest",
@@ -12608,8 +12120,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.5534,
-                "station": -35,
+                "t": 0.5562,
+                "station": -26,
                 "parts": [
                   "the main run",
                   "the backrest"
@@ -12623,8 +12135,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.7275,
-                "station": -97,
+                "t": 0.7308,
+                "station": -85,
                 "parts": [
                   "the main run",
                   "the backrest"
@@ -12638,7 +12150,7 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.8989,
+                "t": 0.9024,
                 "station": -140,
                 "parts": [
                   "the main run",
@@ -12655,7 +12167,7 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.9326,
+                "t": 0.929,
                 "station": -140,
                 "parts": [
                   "the armrests"
@@ -12751,11 +12263,11 @@ export const PRECOMPUTED: Precomputed = {
           "travelAxis": "x",
           "runs": [
             [
-              15,
+              33,
               140
             ]
           ],
-          "coverage": 0.4464,
+          "coverage": 0.3821,
           "floor": 200,
           "rollDeg": 0,
           "parts": [
@@ -12769,14 +12281,14 @@ export const PRECOMPUTED: Precomputed = {
             {
               "label": "the backrest",
               "labelHe": "המשענת",
-              "share": 0.4449,
+              "share": 0.3787,
               "span": 272,
               "floorWithout": 200
             },
             {
               "label": "the main run",
               "labelHe": "המקטע הראשי",
-              "share": 0.4449,
+              "share": 0.3787,
               "span": 544,
               "floorWithout": 200
             }
@@ -12829,14 +12341,14 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": -7.105427357601002e-15,
-              "y": 172,
+              "y": 154,
               "z": 0,
               "yaw": 1.5707963267948966,
               "pitch": 0,
               "tiltAxis": "x"
             }
           ],
-          "wallThickness": 30,
+          "wallThickness": 12,
           "holdsForWallsUpTo": 100
         },
         {
@@ -13057,7 +12569,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 100,
               "yaw": 1.5707963267948966,
               "pitch": -1.5707963267948966,
@@ -13065,7 +12577,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 102,
               "yaw": 1.5707963267948966,
               "pitch": -1.5707963267948966,
@@ -13073,7 +12585,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 101.61946980917455,
               "yaw": 1.5707963267948966,
               "pitch": -1.4835298641951802,
@@ -13081,7 +12593,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 100.4807753012208,
               "yaw": 1.5707963267948966,
               "pitch": -1.3962634015954636,
@@ -13089,7 +12601,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 98.59258262890684,
               "yaw": 1.5707963267948966,
               "pitch": -1.3089969389957472,
@@ -13097,7 +12609,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 95.96926207859083,
               "yaw": 1.5707963267948966,
               "pitch": -1.2217304763960306,
@@ -13105,7 +12617,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 92.63077870366499,
               "yaw": 1.5707963267948966,
               "pitch": -1.1344640137963142,
@@ -13113,7 +12625,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 88.60254037844388,
               "yaw": 1.5707963267948966,
               "pitch": -1.0471975511965979,
@@ -13121,7 +12633,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 83.91520442889919,
               "yaw": 1.5707963267948966,
               "pitch": -0.9599310885968813,
@@ -13129,7 +12641,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 78.60444431189781,
               "yaw": 1.5707963267948966,
               "pitch": -0.8726646259971648,
@@ -13137,7 +12649,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 72.71067811865474,
               "yaw": 1.5707963267948966,
               "pitch": -0.7853981633974483,
@@ -13145,7 +12657,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 66.27876096865393,
               "yaw": 1.5707963267948966,
               "pitch": -0.6981317007977318,
@@ -13153,7 +12665,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 59.35764363510462,
               "yaw": 1.5707963267948966,
               "pitch": -0.6108652381980154,
@@ -13161,7 +12673,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 52,
               "yaw": 1.5707963267948966,
               "pitch": -0.5235987755982989,
@@ -13169,7 +12681,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 44.26182617406994,
               "yaw": 1.5707963267948966,
               "pitch": -0.43633231299858233,
@@ -13177,7 +12689,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 36.20201433256688,
               "yaw": 1.5707963267948966,
               "pitch": -0.34906585039886595,
@@ -13185,7 +12697,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 27.881904510252088,
               "yaw": 1.5707963267948966,
               "pitch": -0.2617993877991496,
@@ -13193,7 +12705,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 19.364817766693037,
               "yaw": 1.5707963267948966,
               "pitch": -0.17453292519943298,
@@ -13201,7 +12713,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 10.715574274765807,
               "yaw": 1.5707963267948966,
               "pitch": -0.08726646259971638,
@@ -13209,14 +12721,14 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 2,
               "yaw": 1.5707963267948966,
               "pitch": 0,
               "tiltAxis": "x"
             }
           ],
-          "wallThickness": 30,
+          "wallThickness": 12,
           "holdsForWallsUpTo": 100
         },
         {
@@ -13250,7 +12762,7 @@ export const PRECOMPUTED: Precomputed = {
               "name": "Thread it through, turning as it goes",
               "nameHe": "להשחיל אותה דרך הפתח תוך סיבוב",
               "startIndex": 20,
-              "endIndex": 334,
+              "endIndex": 316,
               "requirement": {
                 "doorWidth": 85.01,
                 "doorHeight": 211.15,
@@ -13263,8 +12775,8 @@ export const PRECOMPUTED: Precomputed = {
               "id": "straighten",
               "name": "Straighten it up in the room",
               "nameHe": "ליישר אותה בחדר",
-              "startIndex": 334,
-              "endIndex": 355,
+              "startIndex": 316,
+              "endIndex": 337,
               "requirement": {
                 "doorWidth": 0,
                 "doorHeight": 0,
@@ -13277,8 +12789,8 @@ export const PRECOMPUTED: Precomputed = {
               "id": "set-down",
               "name": "Set it down",
               "nameHe": "להניח אותה",
-              "startIndex": 355,
-              "endIndex": 356,
+              "startIndex": 337,
+              "endIndex": 338,
               "requirement": {
                 "doorWidth": 0,
                 "doorHeight": 0,
@@ -15780,150 +15292,6 @@ export const PRECOMPUTED: Precomputed = {
             {
               "x": 42.49999999999999,
               "y": 149,
-              "z": 102,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 42.49999999999999,
-              "y": 150,
-              "z": 102,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 42.49999999999999,
-              "y": 151,
-              "z": 102,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 42.49999999999999,
-              "y": 152,
-              "z": 102,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 42.49999999999999,
-              "y": 153,
-              "z": 102,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 42.49999999999999,
-              "y": 154,
-              "z": 102,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 42.49999999999999,
-              "y": 155,
-              "z": 102,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 42.49999999999999,
-              "y": 156,
-              "z": 102,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 42.49999999999999,
-              "y": 157,
-              "z": 102,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 42.49999999999999,
-              "y": 158,
-              "z": 102,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 42.49999999999999,
-              "y": 159,
-              "z": 102,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 42.49999999999999,
-              "y": 160,
-              "z": 102,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 42.49999999999999,
-              "y": 161,
-              "z": 102,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 42.49999999999999,
-              "y": 162,
-              "z": 102,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 42.49999999999999,
-              "y": 163,
-              "z": 102,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 42.49999999999999,
-              "y": 164,
-              "z": 102,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 42.49999999999999,
-              "y": 165,
-              "z": 102,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 42.49999999999999,
-              "y": 166,
-              "z": 102,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 42.49999999999999,
-              "y": 167,
               "z": 105.26479063124873,
               "yaw": 1.5707963267948966,
               "pitch": -1.6231562043547263,
@@ -15931,7 +15299,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 168,
+              "y": 150,
               "z": 108.24653964922481,
               "yaw": 1.5707963267948966,
               "pitch": -1.6755160819145563,
@@ -15939,7 +15307,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 169,
+              "y": 151,
               "z": 110.93707428712878,
               "yaw": 1.5707963267948966,
               "pitch": -1.7278759594743864,
@@ -15947,7 +15315,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 170,
+              "y": 152,
               "z": 113.32901997653491,
               "yaw": 1.5707963267948966,
               "pitch": -1.780235837034216,
@@ -15955,7 +15323,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 171,
+              "y": 153,
               "z": 114.75449584157803,
               "yaw": 1.5707963267948966,
               "pitch": -1.8151424220741028,
@@ -15963,7 +15331,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 114.75449584157803,
               "yaw": 1.5707963267948966,
               "pitch": -1.8151424220741028,
@@ -15971,7 +15339,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 110.9773922412018,
               "yaw": 1.5707963267948966,
               "pitch": -1.7287070686420027,
@@ -15979,7 +15347,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 106.38661765183855,
               "yaw": 1.5707963267948966,
               "pitch": -1.6422717152099024,
@@ -15987,7 +15355,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 101.98881018102735,
               "yaw": 1.5707963267948966,
               "pitch": -1.5558363617778024,
@@ -15995,7 +15363,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 101.4863897321732,
               "yaw": 1.5707963267948966,
               "pitch": -1.4694010083457023,
@@ -16003,7 +15371,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 100.24116210598307,
               "yaw": 1.5707963267948966,
               "pitch": -1.382965654913602,
@@ -16011,7 +15379,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 98.2624246950012,
               "yaw": 1.5707963267948966,
               "pitch": -1.296530301481502,
@@ -16019,7 +15387,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 95.56495158395315,
               "yaw": 1.5707963267948966,
               "pitch": -1.2100949480494019,
@@ -16027,7 +15395,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 92.16888324022293,
               "yaw": 1.5707963267948966,
               "pitch": -1.1236595946173016,
@@ -16035,7 +15403,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 88.09957613666316,
               "yaw": 1.5707963267948966,
               "pitch": -1.0372242411852017,
@@ -16043,7 +15411,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 83.38741342951705,
               "yaw": 1.5707963267948966,
               "pitch": -0.9507888877531014,
@@ -16051,7 +15419,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 78.06757810501085,
               "yaw": 1.5707963267948966,
               "pitch": -0.8643535343210014,
@@ -16059,7 +15427,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 72.17979028839915,
               "yaw": 1.5707963267948966,
               "pitch": -0.7779181808889011,
@@ -16067,7 +15435,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 65.76801067682435,
               "yaw": 1.5707963267948966,
               "pitch": -0.691482827456801,
@@ -16075,7 +15443,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 58.880112310285185,
               "yaw": 1.5707963267948966,
               "pitch": -0.6050474740247009,
@@ -16083,7 +15451,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 51.56752313140977,
               "yaw": 1.5707963267948966,
               "pitch": -0.5186121205926009,
@@ -16091,7 +15459,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 43.884842002832485,
               "yaw": 1.5707963267948966,
               "pitch": -0.4321767671605006,
@@ -16099,7 +15467,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 35.88943104915003,
               "yaw": 1.5707963267948966,
               "pitch": -0.3457414137284005,
@@ -16107,7 +15475,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 27.64098736720284,
               "yaw": 1.5707963267948966,
               "pitch": -0.25930606029630043,
@@ -16115,7 +15483,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 19.20109730247289,
               "yaw": 1.5707963267948966,
               "pitch": -0.17287070686420036,
@@ -16123,7 +15491,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 10.632776619557571,
               "yaw": 1.5707963267948966,
               "pitch": -0.08643535343210007,
@@ -16131,7 +15499,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 2,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -16139,14 +15507,14 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 42.49999999999999,
-              "y": 172,
+              "y": 154,
               "z": 0,
               "yaw": 1.5707963267948966,
               "pitch": 0,
               "tiltAxis": "x"
             }
           ],
-          "wallThickness": 30,
+          "wallThickness": 12,
           "holdsForWallsUpTo": 100
         }
       ],
@@ -16162,9 +15530,9 @@ export const PRECOMPUTED: Precomputed = {
               "depth": 95,
               "height": 85
             },
-            "wallThickness": 30,
-            "wallStatement": "Measured against a wall 30 cm thick. Every maneuver needs the same doorway behind any wall up to 100 cm thick.",
-            "wallStatementHe": "נמדד מול קיר בעובי 30 ס״מ. כל תמרון דורש את אותו פתח מאחורי כל קיר בעובי של עד 100 ס״מ.",
+            "wallThickness": 12,
+            "wallStatement": "Measured behind a wall 12 cm thick. Every maneuver needs the same doorway behind any wall.",
+            "wallStatementHe": "נמדד מאחורי קיר בעובי 12 ס״מ. כל תמרון דורש את אותו פתח מאחורי כל קיר.",
             "boxCount": 4,
             "parts": [
               {
@@ -16224,7 +15592,7 @@ export const PRECOMPUTED: Precomputed = {
                 },
                 "stations": [
                   {
-                    "t": 0.0065,
+                    "t": 0.0068,
                     "station": 136,
                     "parts": [
                       "the backrest",
@@ -16239,8 +15607,8 @@ export const PRECOMPUTED: Precomputed = {
                     "rollDeg": 0
                   },
                   {
-                    "t": 0.171,
-                    "station": 85,
+                    "t": 0.1712,
+                    "station": 88,
                     "parts": [
                       "the backrest",
                       "the main run"
@@ -16254,8 +15622,8 @@ export const PRECOMPUTED: Precomputed = {
                     "rollDeg": 0
                   },
                   {
-                    "t": 0.3355,
-                    "station": 34,
+                    "t": 0.3356,
+                    "station": 40,
                     "parts": [
                       "the backrest",
                       "the main run"
@@ -16270,7 +15638,7 @@ export const PRECOMPUTED: Precomputed = {
                   },
                   {
                     "t": 0.5,
-                    "station": -17,
+                    "station": -8,
                     "parts": [
                       "the backrest",
                       "the main run"
@@ -16284,8 +15652,8 @@ export const PRECOMPUTED: Precomputed = {
                     "rollDeg": 0
                   },
                   {
-                    "t": 0.6645,
-                    "station": -68,
+                    "t": 0.6644,
+                    "station": -56,
                     "parts": [
                       "the backrest",
                       "the main run"
@@ -16299,8 +15667,8 @@ export const PRECOMPUTED: Precomputed = {
                     "rollDeg": 0
                   },
                   {
-                    "t": 0.829,
-                    "station": -119,
+                    "t": 0.8288,
+                    "station": -104,
                     "parts": [
                       "the backrest",
                       "the main run"
@@ -16314,7 +15682,7 @@ export const PRECOMPUTED: Precomputed = {
                     "rollDeg": 0
                   },
                   {
-                    "t": 0.9935,
+                    "t": 0.9932,
                     "station": -140,
                     "parts": [
                       "the armrests"
@@ -16345,7 +15713,7 @@ export const PRECOMPUTED: Precomputed = {
                 },
                 "stations": [
                   {
-                    "t": 0.4873,
+                    "t": 0.4874,
                     "station": 136,
                     "parts": [
                       "the main run",
@@ -16361,7 +15729,7 @@ export const PRECOMPUTED: Precomputed = {
                   },
                   {
                     "t": 0.4916,
-                    "station": 85,
+                    "station": 88,
                     "parts": [
                       "the main run",
                       "the backrest"
@@ -16376,7 +15744,7 @@ export const PRECOMPUTED: Precomputed = {
                   },
                   {
                     "t": 0.4958,
-                    "station": 34,
+                    "station": 40,
                     "parts": [
                       "the main run",
                       "the backrest"
@@ -16391,7 +15759,7 @@ export const PRECOMPUTED: Precomputed = {
                   },
                   {
                     "t": 0.5,
-                    "station": -17,
+                    "station": -8,
                     "parts": [
                       "the main run",
                       "the backrest"
@@ -16406,7 +15774,7 @@ export const PRECOMPUTED: Precomputed = {
                   },
                   {
                     "t": 0.5042,
-                    "station": -68,
+                    "station": -56,
                     "parts": [
                       "the main run",
                       "the backrest"
@@ -16421,7 +15789,7 @@ export const PRECOMPUTED: Precomputed = {
                   },
                   {
                     "t": 0.5084,
-                    "station": -119,
+                    "station": -104,
                     "parts": [
                       "the main run",
                       "the backrest"
@@ -16435,7 +15803,7 @@ export const PRECOMPUTED: Precomputed = {
                     "rollDeg": -90
                   },
                   {
-                    "t": 0.5127,
+                    "t": 0.5126,
                     "station": -140,
                     "parts": [
                       "the armrests"
@@ -16466,7 +15834,7 @@ export const PRECOMPUTED: Precomputed = {
                 },
                 "stations": [
                   {
-                    "t": 0.0623,
+                    "t": 0.0657,
                     "station": 136,
                     "parts": [
                       "the main run",
@@ -16481,8 +15849,8 @@ export const PRECOMPUTED: Precomputed = {
                     "rollDeg": -90
                   },
                   {
-                    "t": 0.2295,
-                    "station": 77,
+                    "t": 0.2328,
+                    "station": 80,
                     "parts": [
                       "the main run",
                       "the backrest"
@@ -16496,8 +15864,8 @@ export const PRECOMPUTED: Precomputed = {
                     "rollDeg": -90
                   },
                   {
-                    "t": 0.3966,
-                    "station": 18,
+                    "t": 0.4,
+                    "station": 24,
                     "parts": [
                       "the main run",
                       "the backrest"
@@ -16511,8 +15879,8 @@ export const PRECOMPUTED: Precomputed = {
                     "rollDeg": -90
                   },
                   {
-                    "t": 0.5666,
-                    "station": -42,
+                    "t": 0.5701,
+                    "station": -33,
                     "parts": [
                       "the main run",
                       "the backrest"
@@ -16526,8 +15894,8 @@ export const PRECOMPUTED: Precomputed = {
                     "rollDeg": -90
                   },
                   {
-                    "t": 0.7337,
-                    "station": -101,
+                    "t": 0.7373,
+                    "station": -89,
                     "parts": [
                       "the main run",
                       "the backrest"
@@ -16541,7 +15909,7 @@ export const PRECOMPUTED: Precomputed = {
                     "rollDeg": -90
                   },
                   {
-                    "t": 0.9008,
+                    "t": 0.9045,
                     "station": -140,
                     "parts": [
                       "the main run",
@@ -16558,7 +15926,7 @@ export const PRECOMPUTED: Precomputed = {
                     "rollDeg": -90
                   },
                   {
-                    "t": 0.9292,
+                    "t": 0.9254,
                     "station": -140,
                     "parts": [
                       "the armrests"
@@ -16606,10 +15974,10 @@ export const PRECOMPUTED: Precomputed = {
               "runs": [
                 [
                   -140,
-                  -106
+                  -124
                 ]
               ],
-              "coverage": 0.1232,
+              "coverage": 0.058,
               "floor": 85,
               "rollDeg": -90,
               "parts": [
@@ -16623,14 +15991,14 @@ export const PRECOMPUTED: Precomputed = {
                 {
                   "label": "the backrest",
                   "labelHe": "המשענת",
-                  "share": 0.1103,
+                  "share": 0.0441,
                   "span": 272,
                   "floorWithout": 65
                 },
                 {
                   "label": "the main run",
                   "labelHe": "המקטע הראשי",
-                  "share": 0.1103,
+                  "share": 0.0441,
                   "span": 544,
                   "floorWithout": 85
                 }
@@ -16691,9 +16059,9 @@ export const PRECOMPUTED: Precomputed = {
               "depth": 105,
               "height": 65
             },
-            "wallThickness": 30,
-            "wallStatement": "Measured against a wall 30 cm thick. Every maneuver needs the same doorway behind any wall up to 100 cm thick.",
-            "wallStatementHe": "נמדד מול קיר בעובי 30 ס״מ. כל תמרון דורש את אותו פתח מאחורי כל קיר בעובי של עד 100 ס״מ.",
+            "wallThickness": 12,
+            "wallStatement": "Measured behind a wall 12 cm thick. Every maneuver needs the same doorway behind any wall.",
+            "wallStatementHe": "נמדד מאחורי קיר בעובי 12 ס״מ. כל תמרון דורש את אותו פתח מאחורי כל קיר.",
             "boxCount": 3,
             "parts": [
               {
@@ -16741,7 +16109,7 @@ export const PRECOMPUTED: Precomputed = {
                 },
                 "stations": [
                   {
-                    "t": 0.0144,
+                    "t": 0.0165,
                     "station": 52.5,
                     "parts": [
                       "the armrests",
@@ -16756,8 +16124,8 @@ export const PRECOMPUTED: Precomputed = {
                     "rollDeg": 0
                   },
                   {
-                    "t": 0.1799,
-                    "station": 29.5,
+                    "t": 0.1818,
+                    "station": 32.5,
                     "parts": [
                       "the armrests",
                       "the chaise return"
@@ -16771,8 +16139,8 @@ export const PRECOMPUTED: Precomputed = {
                     "rollDeg": 0
                   },
                   {
-                    "t": 0.3381,
-                    "station": 7.5,
+                    "t": 0.3388,
+                    "station": 13.5,
                     "parts": [
                       "the armrests",
                       "the chaise return"
@@ -16786,8 +16154,8 @@ export const PRECOMPUTED: Precomputed = {
                     "rollDeg": 0
                   },
                   {
-                    "t": 0.5036,
-                    "station": -15.5,
+                    "t": 0.5041,
+                    "station": -6.5,
                     "parts": [
                       "the armrests",
                       "the chaise return"
@@ -16801,8 +16169,8 @@ export const PRECOMPUTED: Precomputed = {
                     "rollDeg": 0
                   },
                   {
-                    "t": 0.6619,
-                    "station": -37.5,
+                    "t": 0.6612,
+                    "station": -25.5,
                     "parts": [
                       "the armrests",
                       "the chaise return"
@@ -16816,8 +16184,8 @@ export const PRECOMPUTED: Precomputed = {
                     "rollDeg": 0
                   },
                   {
-                    "t": 0.8273,
-                    "station": -52.5,
+                    "t": 0.8264,
+                    "station": -45.5,
                     "parts": [
                       "the armrests",
                       "the chaise return"
@@ -16831,7 +16199,7 @@ export const PRECOMPUTED: Precomputed = {
                     "rollDeg": 0
                   },
                   {
-                    "t": 0.9856,
+                    "t": 0.9835,
                     "station": -52.5,
                     "parts": [
                       "the armrests",
@@ -16878,22 +16246,20 @@ export const PRECOMPUTED: Precomputed = {
                   },
                   {
                     "t": 0.4918,
-                    "station": 26.5,
+                    "station": 29.5,
                     "parts": [
-                      "the chaise return",
-                      "the armrests"
+                      "the chaise return"
                     ],
                     "partsHe": [
-                      "מקטע השזלונג",
-                      "המשענות"
+                      "מקטע השזלונג"
                     ],
-                    "width": 65,
+                    "width": 46,
                     "height": 105,
                     "rollDeg": -90
                   },
                   {
-                    "t": 0.4959,
-                    "station": 5.5,
+                    "t": 0.496,
+                    "station": 11.5,
                     "parts": [
                       "the chaise return"
                     ],
@@ -16906,7 +16272,7 @@ export const PRECOMPUTED: Precomputed = {
                   },
                   {
                     "t": 0.5001,
-                    "station": -15.5,
+                    "station": -6.5,
                     "parts": [
                       "the chaise return"
                     ],
@@ -16918,8 +16284,8 @@ export const PRECOMPUTED: Precomputed = {
                     "rollDeg": -90
                   },
                   {
-                    "t": 0.5041,
-                    "station": -35.5,
+                    "t": 0.504,
+                    "station": -23.5,
                     "parts": [
                       "the chaise return"
                     ],
@@ -16932,7 +16298,7 @@ export const PRECOMPUTED: Precomputed = {
                   },
                   {
                     "t": 0.5082,
-                    "station": -52.5,
+                    "station": -41.5,
                     "parts": [
                       "the chaise return"
                     ],
@@ -16952,7 +16318,7 @@ export const PRECOMPUTED: Precomputed = {
                     "partsHe": [
                       "מקטע השזלונג"
                     ],
-                    "width": 46,
+                    "width": 30,
                     "height": 105,
                     "rollDeg": -90
                   }
@@ -16975,7 +16341,7 @@ export const PRECOMPUTED: Precomputed = {
                 },
                 "stations": [
                   {
-                    "t": 0.1092,
+                    "t": 0.1218,
                     "station": 52.5,
                     "parts": [
                       "the armrests",
@@ -16990,8 +16356,8 @@ export const PRECOMPUTED: Precomputed = {
                     "rollDeg": -79
                   },
                   {
-                    "t": 0.2414,
-                    "station": 29.5,
+                    "t": 0.25,
+                    "station": 32.5,
                     "parts": [
                       "the armrests",
                       "the chaise return"
@@ -17005,8 +16371,8 @@ export const PRECOMPUTED: Precomputed = {
                     "rollDeg": -79
                   },
                   {
-                    "t": 0.3678,
-                    "station": 7.5,
+                    "t": 0.3718,
+                    "station": 13.5,
                     "parts": [
                       "the armrests",
                       "the chaise return"
@@ -17021,7 +16387,7 @@ export const PRECOMPUTED: Precomputed = {
                   },
                   {
                     "t": 0.5,
-                    "station": -15.5,
+                    "station": -6.5,
                     "parts": [
                       "the armrests",
                       "the chaise return"
@@ -17035,8 +16401,8 @@ export const PRECOMPUTED: Precomputed = {
                     "rollDeg": -79
                   },
                   {
-                    "t": 0.6264,
-                    "station": -37.5,
+                    "t": 0.6218,
+                    "station": -25.5,
                     "parts": [
                       "the armrests",
                       "the chaise return"
@@ -17050,8 +16416,8 @@ export const PRECOMPUTED: Precomputed = {
                     "rollDeg": -79
                   },
                   {
-                    "t": 0.7586,
-                    "station": -52.5,
+                    "t": 0.75,
+                    "station": -45.5,
                     "parts": [
                       "the armrests",
                       "the chaise return"
@@ -17065,7 +16431,7 @@ export const PRECOMPUTED: Precomputed = {
                     "rollDeg": -79
                   },
                   {
-                    "t": 0.8851,
+                    "t": 0.8718,
                     "station": -52.5,
                     "parts": [
                       "the armrests",
@@ -17098,8 +16464,8 @@ export const PRECOMPUTED: Precomputed = {
                 },
                 "stations": [
                   {
-                    "t": 0.4975,
-                    "station": 8.8199,
+                    "t": 0.4981,
+                    "station": 8.8659,
                     "parts": [
                       "the armrests"
                     ],
@@ -17107,12 +16473,12 @@ export const PRECOMPUTED: Precomputed = {
                       "המשענות"
                     ],
                     "width": 105,
-                    "height": 95.3019,
+                    "height": 95.293,
                     "rollDeg": -79
                   },
                   {
-                    "t": 0.5014,
-                    "station": -30.902,
+                    "t": 0.5023,
+                    "station": -27.8397,
                     "parts": [
                       "the armrests",
                       "the chaise return"
@@ -17122,11 +16488,11 @@ export const PRECOMPUTED: Precomputed = {
                       "מקטע השזלונג"
                     ],
                     "width": 105,
-                    "height": 103.0231,
+                    "height": 102.4278,
                     "rollDeg": -79
                   },
                   {
-                    "t": 0.5055,
+                    "t": 0.5066,
                     "station": -52.5,
                     "parts": [
                       "the armrests",
@@ -17141,7 +16507,7 @@ export const PRECOMPUTED: Precomputed = {
                     "rollDeg": -79
                   },
                   {
-                    "t": 0.5556,
+                    "t": 0.5696,
                     "station": -52.5,
                     "parts": [
                       "the armrests",
@@ -17151,12 +16517,12 @@ export const PRECOMPUTED: Precomputed = {
                       "המשענות",
                       "מקטע השזלונג"
                     ],
-                    "width": 39.0924,
+                    "width": 39.2243,
                     "height": 107.6572,
                     "rollDeg": -79
                   },
                   {
-                    "t": 0.6182,
+                    "t": 0.6275,
                     "station": -52.5,
                     "parts": [
                       "the armrests",
@@ -17166,12 +16532,12 @@ export const PRECOMPUTED: Precomputed = {
                       "המשענות",
                       "מקטע השזלונג"
                     ],
-                    "width": 38.1408,
+                    "width": 37.8957,
                     "height": 107.6572,
                     "rollDeg": -79
                   },
                   {
-                    "t": 0.6823,
+                    "t": 0.687,
                     "station": -52.5,
                     "parts": [
                       "the armrests",
@@ -17181,7 +16547,7 @@ export const PRECOMPUTED: Precomputed = {
                       "המשענות",
                       "מקטע השזלונג"
                     ],
-                    "width": 35.9231,
+                    "width": 35.5902,
                     "height": 107.6572,
                     "rollDeg": -79
                   },
@@ -17217,8 +16583,8 @@ export const PRECOMPUTED: Precomputed = {
                 },
                 "stations": [
                   {
-                    "t": 0.9546,
-                    "station": 8.8199,
+                    "t": 0.9559,
+                    "station": 8.8659,
                     "parts": [
                       "the armrests"
                     ],
@@ -17226,12 +16592,12 @@ export const PRECOMPUTED: Precomputed = {
                       "המשענות"
                     ],
                     "width": 105,
-                    "height": 95.3019,
+                    "height": 95.293,
                     "rollDeg": -79
                   },
                   {
-                    "t": 0.9577,
-                    "station": -7.0689,
+                    "t": 0.9587,
+                    "station": -4.0306,
                     "parts": [
                       "the armrests",
                       "the chaise return"
@@ -17241,12 +16607,12 @@ export const PRECOMPUTED: Precomputed = {
                       "מקטע השזלונג"
                     ],
                     "width": 105,
-                    "height": 98.3904,
+                    "height": 97.7998,
                     "rollDeg": -79
                   },
                   {
-                    "t": 0.9605,
-                    "station": -21.9645,
+                    "t": 0.9613,
+                    "station": -15.9352,
                     "parts": [
                       "the armrests",
                       "the chaise return"
@@ -17256,12 +16622,12 @@ export const PRECOMPUTED: Precomputed = {
                       "מקטע השזלונג"
                     ],
                     "width": 105,
-                    "height": 101.2858,
+                    "height": 100.1138,
                     "rollDeg": -79
                   },
                   {
-                    "t": 0.9635,
-                    "station": -37.8533,
+                    "t": 0.9641,
+                    "station": -28.8317,
                     "parts": [
                       "the armrests",
                       "the chaise return"
@@ -17271,11 +16637,26 @@ export const PRECOMPUTED: Precomputed = {
                       "מקטע השזלונג"
                     ],
                     "width": 105,
-                    "height": 104.3743,
+                    "height": 102.6207,
                     "rollDeg": -79
                   },
                   {
-                    "t": 0.9665,
+                    "t": 0.9669,
+                    "station": -41.7283,
+                    "parts": [
+                      "the armrests",
+                      "the chaise return"
+                    ],
+                    "partsHe": [
+                      "המשענות",
+                      "מקטע השזלונג"
+                    ],
+                    "width": 105,
+                    "height": 105.1275,
+                    "rollDeg": -79
+                  },
+                  {
+                    "t": 0.9695,
                     "station": -52.5,
                     "parts": [
                       "the armrests",
@@ -17286,26 +16667,11 @@ export const PRECOMPUTED: Precomputed = {
                       "מקטע השזלונג"
                     ],
                     "width": 105,
-                    "height": 107.4627,
+                    "height": 107.4415,
                     "rollDeg": -79
                   },
                   {
-                    "t": 0.9694,
-                    "station": -52.5,
-                    "parts": [
-                      "the armrests",
-                      "the chaise return"
-                    ],
-                    "partsHe": [
-                      "המשענות",
-                      "מקטע השזלונג"
-                    ],
-                    "width": 105,
-                    "height": 107.6572,
-                    "rollDeg": -79
-                  },
-                  {
-                    "t": 0.9724,
+                    "t": 0.9723,
                     "station": -52.5,
                     "parts": [
                       "the armrests"
@@ -17417,9 +16783,9 @@ export const PRECOMPUTED: Precomputed = {
           "depth": 110,
           "height": 75
         },
-        "wallThickness": 30,
-        "wallStatement": "Measured against a wall 30 cm thick. “Straight in”, “On its side”, “Seat first, turning as it goes”, “Stood on end, turned, and walked through” need the same doorway behind any wall up to 100 cm thick; “Stood on end and left standing inside” holds only for a wall no thicker than 30 cm — a thicker wall is strictly harder and has not been measured.",
-        "wallStatementHe": "נמדד מול קיר בעובי 30 ס״מ. “ישר פנימה”, “על הצד”, “המושב ראשון, תוך סיבוב תוך כדי”, “בעמידה על הקצה, מסובבת ומועברת” — אותו פתח מאחורי כל קיר בעובי של עד 100 ס״מ; “בעמידה על הקצה, נשארת עומדת בפנים” — רק לקיר שעוביו אינו עולה על 30 ס״מ; קיר עבה יותר קשה יותר ולא נמדד.",
+        "wallThickness": 12,
+        "wallStatement": "Measured behind a wall 12 cm thick. “Straight in”, “On its side”, “Seat first, turning as it goes”, “Stood on end, turned, and walked through” need the same doorway behind any wall; “Stood on end and left standing inside” holds for a wall no thicker than 12 cm — a thicker wall is strictly harder and has not been measured.",
+        "wallStatementHe": "נמדד מאחורי קיר בעובי 12 ס״מ. “ישר פנימה”, “על הצד”, “המושב ראשון, תוך סיבוב תוך כדי”, “בעמידה על הקצה, מסובבת ומועברת” — אותו פתח מאחורי כל קיר; “בעמידה על הקצה, נשארת עומדת בפנים” — לקיר שעוביו אינו עולה על 12 ס״מ; קיר עבה יותר קשה יותר ולא נמדד.",
         "boxCount": 5,
         "parts": [
           {
@@ -17493,7 +16859,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             "stations": [
               {
-                "t": 0.0082,
+                "t": 0.0088,
                 "station": 105,
                 "parts": [
                   "the backrest",
@@ -17508,17 +16874,15 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.1721,
-                "station": 65,
+                "t": 0.1726,
+                "station": 68,
                 "parts": [
                   "the backrest",
-                  "the armrests",
                   "the seat",
                   "the plinth"
                 ],
                 "partsHe": [
                   "המשענת",
-                  "המשענות",
                   "המושב",
                   "הבסיס"
                 ],
@@ -17527,8 +16891,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.3361,
-                "station": 25,
+                "t": 0.3363,
+                "station": 31,
                 "parts": [
                   "the backrest",
                   "the seat",
@@ -17545,7 +16909,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.5,
-                "station": -15,
+                "station": -6,
                 "parts": [
                   "the backrest",
                   "the seat",
@@ -17561,8 +16925,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.6639,
-                "station": -55,
+                "t": 0.6637,
+                "station": -43,
                 "parts": [
                   "the backrest",
                   "the seat",
@@ -17578,17 +16942,15 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.8279,
-                "station": -95,
+                "t": 0.8274,
+                "station": -80,
                 "parts": [
                   "the backrest",
-                  "the armrests",
                   "the seat",
                   "the plinth"
                 ],
                 "partsHe": [
                   "המשענת",
-                  "המשענות",
                   "המושב",
                   "הבסיס"
                 ],
@@ -17597,7 +16959,7 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.9918,
+                "t": 0.9912,
                 "station": -105,
                 "parts": [
                   "the backrest",
@@ -17607,7 +16969,7 @@ export const PRECOMPUTED: Precomputed = {
                   "המשענת",
                   "המשענות"
                 ],
-                "width": 110,
+                "width": 95,
                 "height": 75,
                 "rollDeg": 0
               }
@@ -17630,7 +16992,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             "stations": [
               {
-                "t": 0.4875,
+                "t": 0.4876,
                 "station": 55,
                 "parts": [
                   "the backrest",
@@ -17645,8 +17007,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.4916,
-                "station": 32,
+                "t": 0.4917,
+                "station": 35,
                 "parts": [
                   "the backrest",
                   "the armrests",
@@ -17663,7 +17025,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.4959,
-                "station": 8,
+                "station": 14,
                 "parts": [
                   "the backrest",
                   "the armrests",
@@ -17682,7 +17044,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.5,
-                "station": -15,
+                "station": -6,
                 "parts": [
                   "the armrests",
                   "the plinth",
@@ -17699,7 +17061,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.5041,
-                "station": -38,
+                "station": -26,
                 "parts": [
                   "the armrests",
                   "the plinth",
@@ -17715,8 +17077,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.5084,
-                "station": -62,
+                "t": 0.5083,
+                "station": -47,
                 "parts": [
                   "the armrests",
                   "the plinth",
@@ -17732,8 +17094,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.5125,
-                "station": -85,
+                "t": 0.5124,
+                "station": -67,
                 "parts": [
                   "the armrests",
                   "the seat"
@@ -17765,7 +17127,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             "stations": [
               {
-                "t": 0.0764,
+                "t": 0.0815,
                 "station": 105,
                 "parts": [
                   "the armrests",
@@ -17780,27 +17142,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.2326,
-                "station": 60,
-                "parts": [
-                  "the seat",
-                  "the armrests",
-                  "the plinth",
-                  "the backrest"
-                ],
-                "partsHe": [
-                  "המושב",
-                  "המשענות",
-                  "הבסיס",
-                  "המשענת"
-                ],
-                "width": 75,
-                "height": 112,
-                "rollDeg": -90
-              },
-              {
-                "t": 0.4063,
-                "station": 10,
+                "t": 0.237,
+                "station": 63,
                 "parts": [
                   "the seat",
                   "the plinth",
@@ -17816,8 +17159,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.5799,
-                "station": -40,
+                "t": 0.4111,
+                "station": 16,
                 "parts": [
                   "the seat",
                   "the plinth",
@@ -17833,17 +17176,15 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.7535,
-                "station": -90,
+                "t": 0.5852,
+                "station": -31,
                 "parts": [
                   "the seat",
-                  "the armrests",
                   "the plinth",
                   "the backrest"
                 ],
                 "partsHe": [
                   "המושב",
-                  "המשענות",
                   "הבסיס",
                   "המשענת"
                 ],
@@ -17852,7 +17193,24 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.8953,
+                "t": 0.7593,
+                "station": -78,
+                "parts": [
+                  "the seat",
+                  "the plinth",
+                  "the backrest"
+                ],
+                "partsHe": [
+                  "המושב",
+                  "הבסיס",
+                  "המשענת"
+                ],
+                "width": 75,
+                "height": 112,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.8892,
                 "station": -105,
                 "parts": [
                   "the armrests",
@@ -17862,12 +17220,12 @@ export const PRECOMPUTED: Precomputed = {
                   "המשענות",
                   "המשענת"
                 ],
-                "width": 66.2467,
-                "height": 114.7196,
-                "rollDeg": -92.5
+                "width": 66.5962,
+                "height": 115.5018,
+                "rollDeg": -93.25
               },
               {
-                "t": 0.9097,
+                "t": 0.9037,
                 "station": -105,
                 "parts": [
                   "the armrests",
@@ -17877,7 +17235,7 @@ export const PRECOMPUTED: Precomputed = {
                   "המשענות",
                   "המשענת"
                 ],
-                "width": 71.9368,
+                "width": 50.2034,
                 "height": 125.0751,
                 "rollDeg": -105
               }
@@ -17900,7 +17258,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             "stations": [
               {
-                "t": 0.498,
+                "t": 0.4985,
                 "station": 0,
                 "parts": [
                   "the plinth"
@@ -17908,32 +17266,13 @@ export const PRECOMPUTED: Precomputed = {
                 "partsHe": [
                   "הבסיס"
                 ],
-                "width": 33.3333,
+                "width": 100,
                 "height": 207,
                 "rollDeg": -90
               },
               {
-                "t": 0.5,
-                "station": -25,
-                "parts": [
-                  "the backrest",
-                  "the armrests",
-                  "the plinth",
-                  "the seat"
-                ],
-                "partsHe": [
-                  "המשענת",
-                  "המשענות",
-                  "הבסיס",
-                  "המושב"
-                ],
-                "width": 110,
-                "height": 212,
-                "rollDeg": -90
-              },
-              {
-                "t": 0.502,
-                "station": -49,
+                "t": 0.5005,
+                "station": -22,
                 "parts": [
                   "the backrest",
                   "the armrests",
@@ -17949,8 +17288,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.504,
-                "station": -74,
+                "t": 0.5025,
+                "station": -43,
                 "parts": [
                   "the backrest",
                   "the armrests",
@@ -17966,8 +17305,23 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.506,
-                "station": -99,
+                "t": 0.5045,
+                "station": -65,
+                "parts": [
+                  "the backrest",
+                  "the armrests"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המשענות"
+                ],
+                "width": 110,
+                "height": 212,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.5065,
+                "station": -87,
                 "parts": [
                   "the backrest"
                 ],
@@ -17975,25 +17329,25 @@ export const PRECOMPUTED: Precomputed = {
                   "המשענת"
                 ],
                 "width": 30,
-                "height": 212,
+                "height": 107,
                 "rollDeg": -90
               },
               {
-                "t": 0.6226,
-                "station": -105,
+                "t": 0.6256,
+                "station": -89,
                 "parts": [
                   "the armrests"
                 ],
                 "partsHe": [
                   "המשענות"
                 ],
-                "width": 1.5096,
+                "width": 1.5601,
                 "height": 212,
                 "rollDeg": -90
               },
               {
                 "t": 0.6482,
-                "station": -105,
+                "station": -89,
                 "parts": [
                   "the armrests"
                 ],
@@ -18023,7 +17377,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             "stations": [
               {
-                "t": 0.9576,
+                "t": 0.9587,
                 "station": 0,
                 "parts": [
                   "the plinth"
@@ -18031,13 +17385,13 @@ export const PRECOMPUTED: Precomputed = {
                 "partsHe": [
                   "הבסיס"
                 ],
-                "width": 33.3333,
+                "width": 100,
                 "height": 207,
                 "rollDeg": -90
               },
               {
-                "t": 0.9604,
-                "station": -18,
+                "t": 0.9614,
+                "station": -15,
                 "parts": [
                   "the backrest",
                   "the armrests",
@@ -18055,27 +17409,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.9631,
-                "station": -35,
-                "parts": [
-                  "the backrest",
-                  "the armrests",
-                  "the plinth",
-                  "the seat"
-                ],
-                "partsHe": [
-                  "המשענת",
-                  "המשענות",
-                  "הבסיס",
-                  "המושב"
-                ],
-                "width": 110,
-                "height": 212,
-                "rollDeg": -90
-              },
-              {
-                "t": 0.9659,
-                "station": -53,
+                "t": 0.9638,
+                "station": -29,
                 "parts": [
                   "the backrest",
                   "the armrests",
@@ -18091,8 +17426,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.9686,
-                "station": -70,
+                "t": 0.9665,
+                "station": -44,
                 "parts": [
                   "the backrest",
                   "the armrests",
@@ -18108,8 +17443,25 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.9714,
-                "station": -88,
+                "t": 0.9689,
+                "station": -58,
+                "parts": [
+                  "the backrest",
+                  "the armrests",
+                  "the seat"
+                ],
+                "partsHe": [
+                  "המשענת",
+                  "המשענות",
+                  "המושב"
+                ],
+                "width": 110,
+                "height": 212,
+                "rollDeg": -90
+              },
+              {
+                "t": 0.9715,
+                "station": -73,
                 "parts": [
                   "the backrest"
                 ],
@@ -18122,7 +17474,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.974,
-                "station": -105,
+                "station": -87,
                 "parts": [
                   "the backrest"
                 ],
@@ -18135,7 +17487,7 @@ export const PRECOMPUTED: Precomputed = {
               }
             ],
             "turns": false,
-            "holdsForWallsUpTo": 30
+            "holdsForWallsUpTo": 12
           },
           {
             "templateId": "lean-and-straighten",
@@ -18286,14 +17638,14 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 0,
               "yaw": 1.5707963267948966,
               "pitch": 0,
               "tiltAxis": "x"
             }
           ],
-          "wallThickness": 30,
+          "wallThickness": 12,
           "holdsForWallsUpTo": 100
         },
         {
@@ -18514,7 +17866,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 37.5,
-              "y": 87,
+              "y": 69,
               "z": 105,
               "yaw": 0,
               "pitch": -1.5707963267948966,
@@ -18522,7 +17874,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 37.5,
-              "y": 87,
+              "y": 69,
               "z": 107,
               "yaw": 0,
               "pitch": -1.5707963267948966,
@@ -18530,7 +17882,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 37.5,
-              "y": 87,
+              "y": 69,
               "z": 105.72888587215671,
               "yaw": 0,
               "pitch": -1.4835298641951802,
@@ -18538,7 +17890,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 37.5,
-              "y": 87,
+              "y": 69,
               "z": 103.66833228961255,
               "yaw": 0,
               "pitch": -1.3962634015954636,
@@ -18546,7 +17898,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 37.5,
-              "y": 87,
+              "y": 69,
               "z": 100.83402130932697,
               "yaw": 0,
               "pitch": -1.3089969389957472,
@@ -18554,7 +17906,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 37.5,
-              "y": 87,
+              "y": 69,
               "z": 97.24752374926368,
               "yaw": 0,
               "pitch": -1.2217304763960306,
@@ -18562,7 +17914,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 37.5,
-              "y": 87,
+              "y": 69,
               "z": 92.93613502144126,
               "yaw": 0,
               "pitch": -1.1344640137963142,
@@ -18570,7 +17922,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 37.5,
-              "y": 87,
+              "y": 69,
               "z": 88.60254037844388,
               "yaw": 0,
               "pitch": -1.0471975511965979,
@@ -18578,7 +17930,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 37.5,
-              "y": 87,
+              "y": 69,
               "z": 83.91520442889917,
               "yaw": 0,
               "pitch": -0.9599310885968813,
@@ -18586,7 +17938,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 37.5,
-              "y": 87,
+              "y": 69,
               "z": 78.60444431189781,
               "yaw": 0,
               "pitch": -0.8726646259971648,
@@ -18594,7 +17946,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 37.5,
-              "y": 87,
+              "y": 69,
               "z": 72.71067811865474,
               "yaw": 0,
               "pitch": -0.7853981633974483,
@@ -18602,7 +17954,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 37.5,
-              "y": 87,
+              "y": 69,
               "z": 66.27876096865393,
               "yaw": 0,
               "pitch": -0.6981317007977318,
@@ -18610,7 +17962,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 37.5,
-              "y": 87,
+              "y": 69,
               "z": 59.35764363510461,
               "yaw": 0,
               "pitch": -0.6108652381980154,
@@ -18618,7 +17970,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 37.5,
-              "y": 87,
+              "y": 69,
               "z": 52,
               "yaw": 0,
               "pitch": -0.5235987755982989,
@@ -18626,7 +17978,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 37.5,
-              "y": 87,
+              "y": 69,
               "z": 44.26182617406994,
               "yaw": 0,
               "pitch": -0.43633231299858233,
@@ -18634,7 +17986,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 37.5,
-              "y": 87,
+              "y": 69,
               "z": 36.202014332566876,
               "yaw": 0,
               "pitch": -0.34906585039886595,
@@ -18642,7 +17994,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 37.5,
-              "y": 87,
+              "y": 69,
               "z": 27.88190451025209,
               "yaw": 0,
               "pitch": -0.2617993877991496,
@@ -18650,7 +18002,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 37.5,
-              "y": 87,
+              "y": 69,
               "z": 19.364817766693037,
               "yaw": 0,
               "pitch": -0.17453292519943298,
@@ -18658,7 +18010,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 37.5,
-              "y": 87,
+              "y": 69,
               "z": 10.715574274765807,
               "yaw": 0,
               "pitch": -0.08726646259971638,
@@ -18666,14 +18018,14 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 37.5,
-              "y": 87,
+              "y": 69,
               "z": 2,
               "yaw": 0,
               "pitch": 0,
               "tiltAxis": "y"
             }
           ],
-          "wallThickness": 30,
+          "wallThickness": 12,
           "holdsForWallsUpTo": 100
         },
         {
@@ -18707,7 +18059,7 @@ export const PRECOMPUTED: Precomputed = {
               "name": "Thread it through, turning as it goes",
               "nameHe": "להשחיל אותה דרך הפתח תוך סיבוב",
               "startIndex": 20,
-              "endIndex": 264,
+              "endIndex": 246,
               "requirement": {
                 "doorWidth": 75.01,
                 "doorHeight": 125.08,
@@ -18720,8 +18072,8 @@ export const PRECOMPUTED: Precomputed = {
               "id": "straighten",
               "name": "Straighten it up in the room",
               "nameHe": "ליישר אותה בחדר",
-              "startIndex": 264,
-              "endIndex": 287,
+              "startIndex": 246,
+              "endIndex": 269,
               "requirement": {
                 "doorWidth": 0,
                 "doorHeight": 0,
@@ -18734,8 +18086,8 @@ export const PRECOMPUTED: Precomputed = {
               "id": "set-down",
               "name": "Set it down",
               "nameHe": "להניח אותה",
-              "startIndex": 287,
-              "endIndex": 288,
+              "startIndex": 269,
+              "endIndex": 270,
               "requirement": {
                 "doorWidth": 0,
                 "doorHeight": 0,
@@ -20669,150 +20021,6 @@ export const PRECOMPUTED: Precomputed = {
             {
               "x": 37.499462948424956,
               "y": 113,
-              "z": 57,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 37.499462948424956,
-              "y": 114,
-              "z": 57,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 37.499462948424956,
-              "y": 115,
-              "z": 57,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 37.499462948424956,
-              "y": 116,
-              "z": 57,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 37.499462948424956,
-              "y": 117,
-              "z": 57,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 37.499462948424956,
-              "y": 118,
-              "z": 57,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 37.499462948424956,
-              "y": 119,
-              "z": 57,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 37.499462948424956,
-              "y": 120,
-              "z": 57,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 37.499462948424956,
-              "y": 121,
-              "z": 57,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 37.499462948424956,
-              "y": 122,
-              "z": 57,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 37.499462948424956,
-              "y": 123,
-              "z": 57,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 37.499462948424956,
-              "y": 124,
-              "z": 57,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 37.499462948424956,
-              "y": 125,
-              "z": 57,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 37.499462948424956,
-              "y": 126,
-              "z": 57,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 37.499462948424956,
-              "y": 127,
-              "z": 57,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 37.499462948424956,
-              "y": 128,
-              "z": 57,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 37.499462948424956,
-              "y": 129,
-              "z": 57,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 37.499462948424956,
-              "y": 130,
-              "z": 57,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 37.499462948424956,
-              "y": 131,
               "z": 60.84982112972233,
               "yaw": 1.5707963267948966,
               "pitch": -1.6231562043547263,
@@ -20820,7 +20028,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 37.499462948424956,
-              "y": 132,
+              "y": 114,
               "z": 64.53833899032904,
               "yaw": 1.5707963267948966,
               "pitch": -1.6755160819145563,
@@ -20828,7 +20036,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 37.499462948424956,
-              "y": 133,
+              "y": 115,
               "z": 68.0554436107499,
               "yaw": 1.5707963267948966,
               "pitch": -1.7278759594743864,
@@ -20836,7 +20044,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 35.84579596078626,
-              "y": 134,
+              "y": 116,
               "z": 71.39149485169125,
               "yaw": 1.5707963267948966,
               "pitch": -1.780235837034216,
@@ -20844,7 +20052,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 32.92367373067699,
-              "y": 135,
+              "y": 117,
               "z": 74.53734882858782,
               "yaw": 1.5707963267948966,
               "pitch": -1.8325957145940461,
@@ -20852,7 +20060,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 32.92367373067699,
-              "y": 136,
+              "y": 118,
               "z": 77.4843829743545,
               "yaw": 1.5707963267948966,
               "pitch": -1.8849555921538759,
@@ -20860,7 +20068,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 32.92367373067699,
-              "y": 137,
+              "y": 119,
               "z": 80.22451967324362,
               "yaw": 1.5707963267948966,
               "pitch": -1.9373154697137058,
@@ -20868,7 +20076,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 32.92367373067699,
-              "y": 137,
+              "y": 119,
               "z": 75.71467256389525,
               "yaw": 1.5707963267948966,
               "pitch": -1.853084362334849,
@@ -20876,7 +20084,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 32.92367373067699,
-              "y": 137,
+              "y": 119,
               "z": 70.68213788242501,
               "yaw": 1.5707963267948966,
               "pitch": -1.7688532549559923,
@@ -20884,7 +20092,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 32.92367373067699,
-              "y": 137,
+              "y": 119,
               "z": 65.16259975036232,
               "yaw": 1.5707963267948966,
               "pitch": -1.6846221475771355,
@@ -20892,7 +20100,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 32.92367373067699,
-              "y": 137,
+              "y": 119,
               "z": 59.19519547762313,
               "yaw": 1.5707963267948966,
               "pitch": -1.6003910401982786,
@@ -20900,7 +20108,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 32.92367373067699,
-              "y": 137,
+              "y": 119,
               "z": 56.37183703963444,
               "yaw": 1.5707963267948966,
               "pitch": -1.516159932819422,
@@ -20908,7 +20116,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 32.92367373067699,
-              "y": 137,
+              "y": 119,
               "z": 55.08632057483534,
               "yaw": 1.5707963267948966,
               "pitch": -1.4319288254405653,
@@ -20916,7 +20124,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 32.92367373067699,
-              "y": 137,
+              "y": 119,
               "z": 53.42438569767613,
               "yaw": 1.5707963267948966,
               "pitch": -1.3476977180617085,
@@ -20924,7 +20132,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 32.92367373067699,
-              "y": 137,
+              "y": 119,
               "z": 51.39781666596809,
               "yaw": 1.5707963267948966,
               "pitch": -1.2634666106828516,
@@ -20932,7 +20140,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 32.92367373067699,
-              "y": 137,
+              "y": 119,
               "z": 49.020983243695504,
               "yaw": 1.5707963267948966,
               "pitch": -1.179235503303995,
@@ -20940,7 +20148,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 32.92367373067699,
-              "y": 137,
+              "y": 119,
               "z": 46.446513118241214,
               "yaw": 1.5707963267948966,
               "pitch": -1.095004395925138,
@@ -20948,7 +20156,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 32.92367373067699,
-              "y": 137,
+              "y": 119,
               "z": 44.362143659444186,
               "yaw": 1.5707963267948966,
               "pitch": -1.0107732885462815,
@@ -20956,7 +20164,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 32.92367373067699,
-              "y": 137,
+              "y": 119,
               "z": 41.97739755582054,
               "yaw": 1.5707963267948966,
               "pitch": -0.9265421811674246,
@@ -20964,7 +20172,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 32.92367373067699,
-              "y": 137,
+              "y": 119,
               "z": 39.30918429238427,
               "yaw": 1.5707963267948966,
               "pitch": -0.8423110737885677,
@@ -20972,7 +20180,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 32.92367373067699,
-              "y": 137,
+              "y": 119,
               "z": 36.37642333067625,
               "yaw": 1.5707963267948966,
               "pitch": -0.7580799664097111,
@@ -20980,7 +20188,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 32.92367373067699,
-              "y": 137,
+              "y": 119,
               "z": 33.19990995680942,
               "yaw": 1.5707963267948966,
               "pitch": -0.6738488590308542,
@@ -20988,7 +20196,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 32.92367373067699,
-              "y": 137,
+              "y": 119,
               "z": 29.802167828631674,
               "yaw": 1.5707963267948966,
               "pitch": -0.5896177516519974,
@@ -20996,7 +20204,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 32.92367373067699,
-              "y": 137,
+              "y": 119,
               "z": 26.207289267548035,
               "yaw": 1.5707963267948966,
               "pitch": -0.5053866442731407,
@@ -21004,7 +20212,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 32.92367373067699,
-              "y": 137,
+              "y": 119,
               "z": 22.440764427442517,
               "yaw": 1.5707963267948966,
               "pitch": -0.4211555368942841,
@@ -21012,7 +20220,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 32.92367373067699,
-              "y": 137,
+              "y": 119,
               "z": 18.52930055200946,
               "yaw": 1.5707963267948966,
               "pitch": -0.336924429515427,
@@ -21020,7 +20228,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 32.92367373067699,
-              "y": 137,
+              "y": 119,
               "z": 14.500632602083456,
               "yaw": 1.5707963267948966,
               "pitch": -0.25269332213657036,
@@ -21028,7 +20236,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 32.92367373067699,
-              "y": 137,
+              "y": 119,
               "z": 10.383326595750054,
               "yaw": 1.5707963267948966,
               "pitch": -0.1684622147577135,
@@ -21036,7 +20244,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 32.92367373067699,
-              "y": 137,
+              "y": 119,
               "z": 6.2065770556908655,
               "yaw": 1.5707963267948966,
               "pitch": -0.08423110737885686,
@@ -21044,7 +20252,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 32.92367373067699,
-              "y": 137,
+              "y": 119,
               "z": 2,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -21052,14 +20260,14 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 32.92367373067699,
-              "y": 137,
+              "y": 119,
               "z": 0,
               "yaw": 1.5707963267948966,
               "pitch": 0,
               "tiltAxis": "x"
             }
           ],
-          "wallThickness": 30,
+          "wallThickness": 12,
           "holdsForWallsUpTo": 100
         },
         {
@@ -21452,7 +20660,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 107,
               "yaw": 1.5707963267948966,
               "pitch": -1.5707963267948966,
@@ -21460,7 +20668,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 107,
               "yaw": 1.4835298641951802,
               "pitch": -1.5707963267948966,
@@ -21468,7 +20676,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 107,
               "yaw": 1.3962634015954636,
               "pitch": -1.5707963267948966,
@@ -21476,7 +20684,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 107,
               "yaw": 1.3089969389957472,
               "pitch": -1.5707963267948966,
@@ -21484,7 +20692,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 107,
               "yaw": 1.2217304763960306,
               "pitch": -1.5707963267948966,
@@ -21492,7 +20700,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 107,
               "yaw": 1.1344640137963142,
               "pitch": -1.5707963267948966,
@@ -21500,7 +20708,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 107,
               "yaw": 1.0471975511965976,
               "pitch": -1.5707963267948966,
@@ -21508,7 +20716,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 107,
               "yaw": 0.9599310885968813,
               "pitch": -1.5707963267948966,
@@ -21516,7 +20724,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 107,
               "yaw": 0.8726646259971648,
               "pitch": -1.5707963267948966,
@@ -21524,7 +20732,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 107,
               "yaw": 0.7853981633974483,
               "pitch": -1.5707963267948966,
@@ -21532,7 +20740,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 107,
               "yaw": 0.6981317007977318,
               "pitch": -1.5707963267948966,
@@ -21540,7 +20748,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 107,
               "yaw": 0.6108652381980153,
               "pitch": -1.5707963267948966,
@@ -21548,7 +20756,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 107,
               "yaw": 0.5235987755982988,
               "pitch": -1.5707963267948966,
@@ -21556,7 +20764,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 107,
               "yaw": 0.4363323129985824,
               "pitch": -1.5707963267948966,
@@ -21564,7 +20772,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 107,
               "yaw": 0.3490658503988659,
               "pitch": -1.5707963267948966,
@@ -21572,7 +20780,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 107,
               "yaw": 0.2617993877991494,
               "pitch": -1.5707963267948966,
@@ -21580,7 +20788,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 107,
               "yaw": 0.17453292519943295,
               "pitch": -1.5707963267948966,
@@ -21588,7 +20796,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 107,
               "yaw": 0.08726646259971647,
               "pitch": -1.5707963267948966,
@@ -21596,7 +20804,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 107,
               "yaw": 0,
               "pitch": -1.5707963267948966,
@@ -21604,7 +20812,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 105.72888587215671,
               "yaw": 0,
               "pitch": -1.4835298641951802,
@@ -21612,7 +20820,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 103.66833228961255,
               "yaw": 0,
               "pitch": -1.3962634015954636,
@@ -21620,7 +20828,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 100.83402130932697,
               "yaw": 0,
               "pitch": -1.3089969389957472,
@@ -21628,7 +20836,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 97.24752374926368,
               "yaw": 0,
               "pitch": -1.2217304763960306,
@@ -21636,7 +20844,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 92.93613502144126,
               "yaw": 0,
               "pitch": -1.1344640137963142,
@@ -21644,7 +20852,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 88.60254037844386,
               "yaw": 0,
               "pitch": -1.0471975511965976,
@@ -21652,7 +20860,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 83.91520442889917,
               "yaw": 0,
               "pitch": -0.9599310885968813,
@@ -21660,7 +20868,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 78.60444431189781,
               "yaw": 0,
               "pitch": -0.8726646259971648,
@@ -21668,7 +20876,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 72.71067811865474,
               "yaw": 0,
               "pitch": -0.7853981633974483,
@@ -21676,7 +20884,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 66.27876096865393,
               "yaw": 0,
               "pitch": -0.6981317007977318,
@@ -21684,7 +20892,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 59.35764363510461,
               "yaw": 0,
               "pitch": -0.6108652381980153,
@@ -21692,7 +20900,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 51.99999999999999,
               "yaw": 0,
               "pitch": -0.5235987755982988,
@@ -21700,7 +20908,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 44.261826174069945,
               "yaw": 0,
               "pitch": -0.4363323129985824,
@@ -21708,7 +20916,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 36.20201433256687,
               "yaw": 0,
               "pitch": -0.3490658503988659,
@@ -21716,7 +20924,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 27.881904510252074,
               "yaw": 0,
               "pitch": -0.2617993877991494,
@@ -21724,7 +20932,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 19.36481776669303,
               "yaw": 0,
               "pitch": -0.17453292519943295,
@@ -21732,7 +20940,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 10.715574274765817,
               "yaw": 0,
               "pitch": -0.08726646259971647,
@@ -21740,7 +20948,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 2,
               "yaw": 0,
               "pitch": 0,
@@ -21748,14 +20956,14 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 0,
               "yaw": 0,
               "pitch": 0,
               "tiltAxis": "y"
             }
           ],
-          "wallThickness": 30,
+          "wallThickness": 12,
           "holdsForWallsUpTo": 100
         },
         {
@@ -22134,7 +21342,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 107,
               "yaw": 1.5707963267948966,
               "pitch": -1.5707963267948966,
@@ -22142,15 +21350,15 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 107,
+              "y": 89,
               "z": 105,
               "yaw": 1.5707963267948966,
               "pitch": -1.5707963267948966,
               "tiltAxis": "y"
             }
           ],
-          "wallThickness": 30,
-          "holdsForWallsUpTo": 30
+          "wallThickness": 12,
+          "holdsForWallsUpTo": 12
         }
       ],
       "modules": []
@@ -22166,9 +21374,9 @@ export const PRECOMPUTED: Precomputed = {
           "depth": 100,
           "height": 105
         },
-        "wallThickness": 30,
-        "wallStatement": "Measured against a wall 30 cm thick. Every maneuver needs the same doorway behind any wall up to 100 cm thick.",
-        "wallStatementHe": "נמדד מול קיר בעובי 30 ס״מ. כל תמרון דורש את אותו פתח מאחורי כל קיר בעובי של עד 100 ס״מ.",
+        "wallThickness": 12,
+        "wallStatement": "Measured behind a wall 12 cm thick. “Straight in”, “On its side”, “Stood on end, turned, and walked through” need the same doorway behind any wall; “Stood on end and left standing inside” holds for a wall no thicker than 12 cm — a thicker wall is strictly harder and has not been measured.",
+        "wallStatementHe": "נמדד מאחורי קיר בעובי 12 ס״מ. “ישר פנימה”, “על הצד”, “בעמידה על הקצה, מסובבת ומועברת” — אותו פתח מאחורי כל קיר; “בעמידה על הקצה, נשארת עומדת בפנים” — לקיר שעוביו אינו עולה על 12 ס״מ; קיר עבה יותר קשה יותר ולא נמדד.",
         "boxCount": 6,
         "parts": [
           {
@@ -22195,8 +21403,7 @@ export const PRECOMPUTED: Precomputed = {
             "top": 70,
             "from": -90,
             "to": 90,
-            "binding": true,
-            "bindsBy": 4.9456
+            "binding": false
           },
           {
             "label": "the recliner housing",
@@ -22209,7 +21416,8 @@ export const PRECOMPUTED: Precomputed = {
             "top": 70,
             "from": -70,
             "to": 70,
-            "binding": false
+            "binding": true,
+            "bindsBy": 10
           },
           {
             "label": "the seat",
@@ -22255,7 +21463,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             "stations": [
               {
-                "t": 0.0093,
+                "t": 0.0102,
                 "station": 90,
                 "parts": [
                   "the armrests"
@@ -22268,8 +21476,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.1729,
-                "station": 55,
+                "t": 0.1735,
+                "station": 58,
                 "parts": [
                   "the backrest",
                   "the recliner housing",
@@ -22287,8 +21495,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.3364,
-                "station": 20,
+                "t": 0.3367,
+                "station": 26,
                 "parts": [
                   "the backrest",
                   "the recliner housing",
@@ -22307,7 +21515,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.5,
-                "station": -15,
+                "station": -6,
                 "parts": [
                   "the backrest",
                   "the recliner housing",
@@ -22325,8 +21533,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.6636,
-                "station": -50,
+                "t": 0.6633,
+                "station": -38,
                 "parts": [
                   "the backrest",
                   "the recliner housing",
@@ -22344,8 +21552,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.8271,
-                "station": -85,
+                "t": 0.8265,
+                "station": -70,
                 "parts": [
                   "the backrest",
                   "the recliner housing",
@@ -22363,7 +21571,7 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.9907,
+                "t": 0.9898,
                 "station": -90,
                 "parts": [
                   "the armrests"
@@ -22408,7 +21616,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.4918,
-                "station": 28,
+                "station": 31,
                 "parts": [
                   "the armrests",
                   "the base",
@@ -22427,7 +21635,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.4958,
-                "station": 7,
+                "station": 13,
                 "parts": [
                   "the armrests",
                   "the base",
@@ -22446,7 +21654,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.5,
-                "station": -15,
+                "station": -6,
                 "parts": [
                   "the armrests",
                   "the base",
@@ -22463,7 +21671,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.5042,
-                "station": -37,
+                "station": -25,
                 "parts": [
                   "the armrests",
                   "the base",
@@ -22480,7 +21688,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.5082,
-                "station": -58,
+                "station": -43,
                 "parts": [
                   "the armrests",
                   "the base",
@@ -22497,7 +21705,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.5124,
-                "station": -80,
+                "station": -62,
                 "parts": [
                   "the armrests",
                   "the base",
@@ -22539,7 +21747,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             "stations": [
               {
-                "t": 0.497,
+                "t": 0.4974,
                 "station": 0,
                 "parts": [
                   "the armrests",
@@ -22554,8 +21762,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.4986,
-                "station": -23,
+                "t": 0.4989,
+                "station": -20,
                 "parts": [
                   "the armrests",
                   "the base",
@@ -22573,8 +21781,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.5002,
-                "station": -45,
+                "t": 0.5004,
+                "station": -39,
                 "parts": [
                   "the armrests",
                   "the seat",
@@ -22592,8 +21800,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.5018,
-                "station": -68,
+                "t": 0.502,
+                "station": -59,
                 "parts": [
                   "the armrests",
                   "the seat",
@@ -22611,8 +21819,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.5034,
-                "station": -90,
+                "t": 0.5035,
+                "station": -78,
                 "parts": [
                   "the armrests",
                   "the backrest",
@@ -22650,7 +21858,7 @@ export const PRECOMPUTED: Precomputed = {
                   "המשענת"
                 ],
                 "width": 20,
-                "height": 178,
+                "height": 92,
                 "rollDeg": -90
               }
             ],
@@ -22667,12 +21875,12 @@ export const PRECOMPUTED: Precomputed = {
               "doorWidth": 100,
               "doorHeight": 182,
               "hallwayClearance": 157,
-              "roomDepth": 107,
+              "roomDepth": 107.01,
               "alongWall": 271.45
             },
             "stations": [
               {
-                "t": 0.9558,
+                "t": 0.9565,
                 "station": 0,
                 "parts": [
                   "the armrests",
@@ -22687,8 +21895,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.9589,
-                "station": -23,
+                "t": 0.9595,
+                "station": -20,
                 "parts": [
                   "the armrests",
                   "the base",
@@ -22706,8 +21914,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.9619,
-                "station": -45,
+                "t": 0.9624,
+                "station": -39,
                 "parts": [
                   "the armrests",
                   "the seat",
@@ -22725,8 +21933,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.965,
-                "station": -68,
+                "t": 0.9654,
+                "station": -59,
                 "parts": [
                   "the armrests",
                   "the seat",
@@ -22744,8 +21952,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.968,
-                "station": -90,
+                "t": 0.9682,
+                "station": -78,
                 "parts": [
                   "the armrests",
                   "the backrest",
@@ -22761,7 +21969,7 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.9711,
+                "t": 0.9712,
                 "station": -90,
                 "parts": [
                   "the backrest"
@@ -22783,12 +21991,12 @@ export const PRECOMPUTED: Precomputed = {
                   "המשענת"
                 ],
                 "width": 20,
-                "height": 178,
+                "height": 92,
                 "rollDeg": -90
               }
             ],
             "turns": false,
-            "holdsForWallsUpTo": 100
+            "holdsForWallsUpTo": 12
           },
           {
             "templateId": "lean-and-straighten",
@@ -22805,81 +22013,63 @@ export const PRECOMPUTED: Precomputed = {
           "travelAxis": "x",
           "runs": [
             [
-              -90,
-              -56
-            ],
-            [
-              56,
-              90
+              -82,
+              82
             ]
           ],
-          "coverage": 0.3778,
+          "coverage": 0.9111,
           "floor": 100,
-          "rollDeg": -180,
+          "rollDeg": -128,
           "parts": [
             {
-              "label": "the armrests",
-              "labelHe": "המשענות",
+              "label": "the recliner housing",
+              "labelHe": "בית המנגנון",
               "share": 1,
-              "span": 8,
-              "floorWithout": 95.0544
+              "span": 140,
+              "floorWithout": 90
             },
             {
               "label": "the backrest",
               "labelHe": "המשענת",
-              "share": 0.3488,
+              "share": 0.9535,
               "span": 172,
               "floorWithout": 70
             },
             {
-              "label": "the base",
-              "labelHe": "הבסיס",
-              "share": 0.3488,
-              "span": 172,
-              "floorWithout": 100
-            },
-            {
               "label": "the seat",
               "labelHe": "המושב",
-              "share": 0.3488,
+              "share": 0.9535,
               "span": 172,
-              "floorWithout": 100
+              "floorWithout": 93.5402
             },
             {
-              "label": "the recliner housing",
-              "labelHe": "בית המנגנון",
-              "share": 0.2,
-              "span": 140,
-              "floorWithout": 90
+              "label": "the base",
+              "labelHe": "הבסיס",
+              "share": 0.9535,
+              "span": 172,
+              "floorWithout": 100
             }
           ],
           "part": {
-            "label": "the armrests",
-            "labelHe": "המשענות",
+            "label": "the recliner housing",
+            "labelHe": "בית המנגנון",
             "share": 1,
-            "span": 8,
-            "floorWithout": 95.0544
+            "span": 140,
+            "floorWithout": 90
           }
         },
         "upright": {
           "travelAxis": "x",
           "runs": [
             [
-              -90,
-              90
+              -82,
+              82
             ]
           ],
-          "coverage": 1,
+          "coverage": 0.9111,
           "floor": 100,
           "rollDeg": 0,
           "parts": [
-            {
-              "label": "the armrests",
-              "labelHe": "המשענות",
-              "share": 1,
-              "span": 8,
-              "floorWithout": 100
-            },
             {
               "label": "the recliner housing",
               "labelHe": "בית המנגנון",
@@ -22890,30 +22080,30 @@ export const PRECOMPUTED: Precomputed = {
             {
               "label": "the base",
               "labelHe": "הבסיס",
-              "share": 1,
+              "share": 0.9535,
               "span": 172,
               "floorWithout": 100
             },
             {
               "label": "the seat",
               "labelHe": "המושב",
-              "share": 1,
+              "share": 0.9535,
               "span": 172,
               "floorWithout": 100
             },
             {
               "label": "the backrest",
               "labelHe": "המשענת",
-              "share": 1,
+              "share": 0.9535,
               "span": 172,
               "floorWithout": 100
             }
           ],
           "part": {
-            "label": "the armrests",
-            "labelHe": "המשענות",
+            "label": "the recliner housing",
+            "labelHe": "בית המנגנון",
             "share": 1,
-            "span": 8,
+            "span": 140,
             "floorWithout": 100
           }
         }
@@ -22957,14 +22147,14 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 122,
+              "y": 104,
               "z": 0,
               "yaw": 1.5707963267948966,
               "pitch": 0,
               "tiltAxis": "x"
             }
           ],
-          "wallThickness": 30,
+          "wallThickness": 12,
           "holdsForWallsUpTo": 100
         },
         {
@@ -23185,7 +22375,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 52.5,
-              "y": 82,
+              "y": 64,
               "z": 90,
               "yaw": 0,
               "pitch": -1.5707963267948966,
@@ -23193,7 +22383,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 52.5,
-              "y": 82,
+              "y": 64,
               "z": 92,
               "yaw": 0,
               "pitch": -1.5707963267948966,
@@ -23201,7 +22391,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 52.5,
-              "y": 82,
+              "y": 64,
               "z": 91.65752282825709,
               "yaw": 0,
               "pitch": -1.4835298641951802,
@@ -23209,7 +22399,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 52.5,
-              "y": 82,
+              "y": 64,
               "z": 90.63269777109872,
               "yaw": 0,
               "pitch": -1.3962634015954636,
@@ -23217,7 +22407,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 52.5,
-              "y": 82,
+              "y": 64,
               "z": 88.93332436601614,
               "yaw": 0,
               "pitch": -1.3089969389957472,
@@ -23225,7 +22415,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 52.5,
-              "y": 82,
+              "y": 64,
               "z": 86.57233587073175,
               "yaw": 0,
               "pitch": -1.2217304763960306,
@@ -23233,7 +22423,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 52.5,
-              "y": 82,
+              "y": 64,
               "z": 83.5677008332985,
               "yaw": 0,
               "pitch": -1.1344640137963142,
@@ -23241,7 +22431,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 52.5,
-              "y": 82,
+              "y": 64,
               "z": 79.94228634059948,
               "yaw": 0,
               "pitch": -1.0471975511965979,
@@ -23249,7 +22439,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 52.5,
-              "y": 82,
+              "y": 64,
               "z": 75.72368398600926,
               "yaw": 0,
               "pitch": -0.9599310885968813,
@@ -23257,7 +22447,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 52.5,
-              "y": 82,
+              "y": 64,
               "z": 70.94399988070802,
               "yaw": 0,
               "pitch": -0.8726646259971648,
@@ -23265,7 +22455,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 52.5,
-              "y": 82,
+              "y": 64,
               "z": 65.63961030678927,
               "yaw": 0,
               "pitch": -0.7853981633974483,
@@ -23273,7 +22463,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 52.5,
-              "y": 82,
+              "y": 64,
               "z": 59.85088487178853,
               "yaw": 0,
               "pitch": -0.6981317007977318,
@@ -23281,7 +22471,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 52.5,
-              "y": 82,
+              "y": 64,
               "z": 53.62187927159415,
               "yaw": 0,
               "pitch": -0.6108652381980154,
@@ -23289,7 +22479,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 52.5,
-              "y": 82,
+              "y": 64,
               "z": 47,
               "yaw": 0,
               "pitch": -0.5235987755982989,
@@ -23297,7 +22487,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 52.5,
-              "y": 82,
+              "y": 64,
               "z": 40.03564355666295,
               "yaw": 0,
               "pitch": -0.43633231299858233,
@@ -23305,7 +22495,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 52.5,
-              "y": 82,
+              "y": 64,
               "z": 32.78181289931019,
               "yaw": 0,
               "pitch": -0.34906585039886595,
@@ -23313,7 +22503,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 52.5,
-              "y": 82,
+              "y": 64,
               "z": 25.29371405922688,
               "yaw": 0,
               "pitch": -0.2617993877991496,
@@ -23321,7 +22511,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 52.5,
-              "y": 82,
+              "y": 64,
               "z": 17.628335990023732,
               "yaw": 0,
               "pitch": -0.17453292519943298,
@@ -23329,7 +22519,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 52.5,
-              "y": 82,
+              "y": 64,
               "z": 9.844016847289225,
               "yaw": 0,
               "pitch": -0.08726646259971638,
@@ -23337,14 +22527,14 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 52.5,
-              "y": 82,
+              "y": 64,
               "z": 2,
               "yaw": 0,
               "pitch": 0,
               "tiltAxis": "y"
             }
           ],
-          "wallThickness": 30,
+          "wallThickness": 12,
           "holdsForWallsUpTo": 100
         },
         {
@@ -23397,7 +22587,7 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 100,
                 "doorHeight": 182,
                 "hallwayClearance": 157,
-                "roomDepth": 107,
+                "roomDepth": 107.01,
                 "alongWall": 100
               }
             },
@@ -23737,7 +22927,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 92,
               "yaw": 1.5707963267948966,
               "pitch": -1.5707963267948966,
@@ -23745,7 +22935,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 92,
               "yaw": 1.4835298641951802,
               "pitch": -1.5707963267948966,
@@ -23753,7 +22943,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 92,
               "yaw": 1.3962634015954636,
               "pitch": -1.5707963267948966,
@@ -23761,7 +22951,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 92,
               "yaw": 1.3089969389957472,
               "pitch": -1.5707963267948966,
@@ -23769,7 +22959,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 92,
               "yaw": 1.2217304763960306,
               "pitch": -1.5707963267948966,
@@ -23777,7 +22967,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 92,
               "yaw": 1.1344640137963142,
               "pitch": -1.5707963267948966,
@@ -23785,7 +22975,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 92,
               "yaw": 1.0471975511965976,
               "pitch": -1.5707963267948966,
@@ -23793,7 +22983,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 92,
               "yaw": 0.9599310885968813,
               "pitch": -1.5707963267948966,
@@ -23801,7 +22991,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 92,
               "yaw": 0.8726646259971648,
               "pitch": -1.5707963267948966,
@@ -23809,7 +22999,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 92,
               "yaw": 0.7853981633974483,
               "pitch": -1.5707963267948966,
@@ -23817,7 +23007,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 92,
               "yaw": 0.6981317007977318,
               "pitch": -1.5707963267948966,
@@ -23825,7 +23015,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 92,
               "yaw": 0.6108652381980153,
               "pitch": -1.5707963267948966,
@@ -23833,7 +23023,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 92,
               "yaw": 0.5235987755982988,
               "pitch": -1.5707963267948966,
@@ -23841,7 +23031,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 92,
               "yaw": 0.4363323129985824,
               "pitch": -1.5707963267948966,
@@ -23849,7 +23039,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 92,
               "yaw": 0.3490658503988659,
               "pitch": -1.5707963267948966,
@@ -23857,7 +23047,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 92,
               "yaw": 0.2617993877991494,
               "pitch": -1.5707963267948966,
@@ -23865,7 +23055,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 92,
               "yaw": 0.17453292519943295,
               "pitch": -1.5707963267948966,
@@ -23873,7 +23063,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 92,
               "yaw": 0.08726646259971647,
               "pitch": -1.5707963267948966,
@@ -23881,7 +23071,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 92,
               "yaw": 0,
               "pitch": -1.5707963267948966,
@@ -23889,7 +23079,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 91.65752282825709,
               "yaw": 0,
               "pitch": -1.4835298641951802,
@@ -23897,7 +23087,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 90.63269777109872,
               "yaw": 0,
               "pitch": -1.3962634015954636,
@@ -23905,7 +23095,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 88.93332436601614,
               "yaw": 0,
               "pitch": -1.3089969389957472,
@@ -23913,7 +23103,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 86.57233587073175,
               "yaw": 0,
               "pitch": -1.2217304763960306,
@@ -23921,7 +23111,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 83.5677008332985,
               "yaw": 0,
               "pitch": -1.1344640137963142,
@@ -23929,7 +23119,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 79.94228634059948,
               "yaw": 0,
               "pitch": -1.0471975511965976,
@@ -23937,7 +23127,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 75.72368398600926,
               "yaw": 0,
               "pitch": -0.9599310885968813,
@@ -23945,7 +23135,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 70.94399988070802,
               "yaw": 0,
               "pitch": -0.8726646259971648,
@@ -23953,7 +23143,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 65.63961030678927,
               "yaw": 0,
               "pitch": -0.7853981633974483,
@@ -23961,7 +23151,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 59.85088487178853,
               "yaw": 0,
               "pitch": -0.6981317007977318,
@@ -23969,7 +23159,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 53.621879271594146,
               "yaw": 0,
               "pitch": -0.6108652381980153,
@@ -23977,7 +23167,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 46.99999999999999,
               "yaw": 0,
               "pitch": -0.5235987755982988,
@@ -23985,7 +23175,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 40.03564355666295,
               "yaw": 0,
               "pitch": -0.4363323129985824,
@@ -23993,7 +23183,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 32.78181289931018,
               "yaw": 0,
               "pitch": -0.3490658503988659,
@@ -24001,7 +23191,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 25.293714059226865,
               "yaw": 0,
               "pitch": -0.2617993877991494,
@@ -24009,7 +23199,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 17.62833599002373,
               "yaw": 0,
               "pitch": -0.17453292519943295,
@@ -24017,7 +23207,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 9.844016847289236,
               "yaw": 0,
               "pitch": -0.08726646259971647,
@@ -24025,7 +23215,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 2,
               "yaw": 0,
               "pitch": 0,
@@ -24033,14 +23223,14 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 0,
               "yaw": 0,
               "pitch": 0,
               "tiltAxis": "y"
             }
           ],
-          "wallThickness": 30,
+          "wallThickness": 12,
           "holdsForWallsUpTo": 100
         },
         {
@@ -24051,7 +23241,7 @@ export const PRECOMPUTED: Precomputed = {
             "doorWidth": 100,
             "doorHeight": 182,
             "hallwayClearance": 157,
-            "roomDepth": 107,
+            "roomDepth": 107.01,
             "alongWall": 271.45
           },
           "stages": [
@@ -24093,7 +23283,7 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 100,
                 "doorHeight": 182,
                 "hallwayClearance": 157,
-                "roomDepth": 107,
+                "roomDepth": 107.01,
                 "alongWall": 100
               }
             },
@@ -24107,7 +23297,7 @@ export const PRECOMPUTED: Precomputed = {
                 "doorWidth": 0,
                 "doorHeight": 0,
                 "hallwayClearance": 0,
-                "roomDepth": 107,
+                "roomDepth": 107.01,
                 "alongWall": 100
               }
             }
@@ -24419,7 +23609,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 92,
               "yaw": 1.5707963267948966,
               "pitch": -1.5707963267948966,
@@ -24427,15 +23617,15 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 137,
+              "y": 119,
               "z": 90,
               "yaw": 1.5707963267948966,
               "pitch": -1.5707963267948966,
               "tiltAxis": "y"
             }
           ],
-          "wallThickness": 30,
-          "holdsForWallsUpTo": 100
+          "wallThickness": 12,
+          "holdsForWallsUpTo": 12
         }
       ],
       "modules": []
@@ -24451,9 +23641,9 @@ export const PRECOMPUTED: Precomputed = {
           "depth": 100,
           "height": 90
         },
-        "wallThickness": 30,
-        "wallStatement": "Measured against a wall 30 cm thick. “Straight in”, “On its side”, “Seat first, turning as it goes”, “Stood on end, turned, and walked through” need the same doorway behind any wall up to 100 cm thick; “Stood on end and left standing inside” holds only for a wall no thicker than 30 cm — a thicker wall is strictly harder and has not been measured.",
-        "wallStatementHe": "נמדד מול קיר בעובי 30 ס״מ. “ישר פנימה”, “על הצד”, “המושב ראשון, תוך סיבוב תוך כדי”, “בעמידה על הקצה, מסובבת ומועברת” — אותו פתח מאחורי כל קיר בעובי של עד 100 ס״מ; “בעמידה על הקצה, נשארת עומדת בפנים” — רק לקיר שעוביו אינו עולה על 30 ס״מ; קיר עבה יותר קשה יותר ולא נמדד.",
+        "wallThickness": 12,
+        "wallStatement": "Measured behind a wall 12 cm thick. “Straight in”, “On its side”, “Seat first, turning as it goes”, “Stood on end, turned, and walked through” need the same doorway behind any wall; “Stood on end and left standing inside” holds for a wall no thicker than 12 cm — a thicker wall is strictly harder and has not been measured.",
+        "wallStatementHe": "נמדד מאחורי קיר בעובי 12 ס״מ. “ישר פנימה”, “על הצד”, “המושב ראשון, תוך סיבוב תוך כדי”, “בעמידה על הקצה, מסובבת ומועברת” — אותו פתח מאחורי כל קיר; “בעמידה על הקצה, נשארת עומדת בפנים” — לקיר שעוביו אינו עולה על 12 ס״מ; קיר עבה יותר קשה יותר ולא נמדד.",
         "boxCount": 5,
         "parts": [
           {
@@ -24527,7 +23717,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             "stations": [
               {
-                "t": 0.0085,
+                "t": 0.0093,
                 "station": 100,
                 "parts": [
                   "the armrests"
@@ -24540,8 +23730,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.1709,
-                "station": 62,
+                "t": 0.1713,
+                "station": 65,
                 "parts": [
                   "the backrest",
                   "the seat",
@@ -24557,8 +23747,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.3376,
-                "station": 23,
+                "t": 0.338,
+                "station": 29,
                 "parts": [
                   "the backrest",
                   "the seat",
@@ -24575,7 +23765,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.5,
-                "station": -15,
+                "station": -6,
                 "parts": [
                   "the backrest",
                   "the seat",
@@ -24591,8 +23781,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.6624,
-                "station": -53,
+                "t": 0.662,
+                "station": -41,
                 "parts": [
                   "the backrest",
                   "the seat",
@@ -24608,8 +23798,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.8291,
-                "station": -92,
+                "t": 0.8287,
+                "station": -77,
                 "parts": [
                   "the backrest",
                   "the seat",
@@ -24625,7 +23815,7 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": 0
               },
               {
-                "t": 0.9915,
+                "t": 0.9907,
                 "station": -100,
                 "parts": [
                   "the armrests"
@@ -24674,17 +23864,15 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.4918,
-                "station": 28,
+                "station": 31,
                 "parts": [
                   "the armrests",
                   "the folded bed frame",
-                  "the seat",
                   "the backrest"
                 ],
                 "partsHe": [
                   "המשענות",
                   "מנגנון המיטה",
-                  "המושב",
                   "המשענת"
                 ],
                 "width": 90,
@@ -24693,7 +23881,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.4958,
-                "station": 7,
+                "station": 13,
                 "parts": [
                   "the armrests",
                   "the folded bed frame",
@@ -24712,7 +23900,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.5,
-                "station": -15,
+                "station": -6,
                 "parts": [
                   "the armrests",
                   "the folded bed frame",
@@ -24729,7 +23917,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.5042,
-                "station": -37,
+                "station": -25,
                 "parts": [
                   "the armrests",
                   "the folded bed frame",
@@ -24746,7 +23934,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.5082,
-                "station": -58,
+                "station": -43,
                 "parts": [
                   "the armrests",
                   "the folded bed frame",
@@ -24763,7 +23951,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.5124,
-                "station": -80,
+                "station": -62,
                 "parts": [
                   "the armrests",
                   "the folded bed frame",
@@ -24797,7 +23985,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             "stations": [
               {
-                "t": 0.0794,
+                "t": 0.0849,
                 "station": 100,
                 "parts": [
                   "the armrests"
@@ -24810,8 +23998,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.213,
-                "station": 63,
+                "t": 0.2162,
+                "station": 66,
                 "parts": [
                   "the folded bed frame",
                   "the seat",
@@ -24827,8 +24015,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.3863,
-                "station": 15,
+                "t": 0.39,
+                "station": 21,
                 "parts": [
                   "the folded bed frame",
                   "the seat",
@@ -24844,8 +24032,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.5632,
-                "station": -34,
+                "t": 0.5676,
+                "station": -25,
                 "parts": [
                   "the folded bed frame",
                   "the seat",
@@ -24861,8 +24049,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.7365,
-                "station": -82,
+                "t": 0.7413,
+                "station": -70,
                 "parts": [
                   "the folded bed frame",
                   "the seat",
@@ -24878,7 +24066,7 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.8964,
+                "t": 0.8901,
                 "station": -100,
                 "parts": [
                   "the armrests"
@@ -24886,12 +24074,12 @@ export const PRECOMPUTED: Precomputed = {
                 "partsHe": [
                   "המשענות"
                 ],
-                "width": 69.6022,
-                "height": 103.4217,
-                "rollDeg": -90.9231
+                "width": 70.792,
+                "height": 104.4795,
+                "rollDeg": -91.6154
               },
               {
-                "t": 0.9097,
+                "t": 0.9035,
                 "station": -100,
                 "parts": [
                   "the armrests"
@@ -24922,7 +24110,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             "stations": [
               {
-                "t": 0.4973,
+                "t": 0.4978,
                 "station": 0,
                 "parts": [
                   "the armrests",
@@ -24937,8 +24125,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.4989,
-                "station": -20,
+                "t": 0.4992,
+                "station": -17,
                 "parts": [
                   "the armrests",
                   "the folded bed frame"
@@ -24952,8 +24140,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.5004,
-                "station": -40,
+                "t": 0.5007,
+                "station": -34,
                 "parts": [
                   "the armrests",
                   "the folded bed frame"
@@ -24967,8 +24155,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.5019,
-                "station": -60,
+                "t": 0.5021,
+                "station": -51,
                 "parts": [
                   "the armrests",
                   "the folded bed frame",
@@ -24986,8 +24174,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.5034,
-                "station": -80,
+                "t": 0.5036,
+                "station": -68,
                 "parts": [
                   "the armrests",
                   "the seat",
@@ -25004,7 +24192,7 @@ export const PRECOMPUTED: Precomputed = {
               },
               {
                 "t": 0.505,
-                "station": -100,
+                "station": -85,
                 "parts": [
                   "the backrest"
                 ],
@@ -25047,7 +24235,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             "stations": [
               {
-                "t": 0.9564,
+                "t": 0.9573,
                 "station": 0,
                 "parts": [
                   "the armrests",
@@ -25062,8 +24250,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.9593,
-                "station": -20,
+                "t": 0.9601,
+                "station": -17,
                 "parts": [
                   "the armrests",
                   "the folded bed frame"
@@ -25077,8 +24265,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.9623,
-                "station": -40,
+                "t": 0.9629,
+                "station": -34,
                 "parts": [
                   "the armrests",
                   "the folded bed frame"
@@ -25092,8 +24280,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.9652,
-                "station": -60,
+                "t": 0.9656,
+                "station": -51,
                 "parts": [
                   "the armrests",
                   "the folded bed frame",
@@ -25111,8 +24299,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.9682,
-                "station": -80,
+                "t": 0.9684,
+                "station": -68,
                 "parts": [
                   "the armrests",
                   "the seat",
@@ -25128,8 +24316,8 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.9711,
-                "station": -100,
+                "t": 0.9712,
+                "station": -85,
                 "parts": [
                   "the backrest"
                 ],
@@ -25141,7 +24329,7 @@ export const PRECOMPUTED: Precomputed = {
                 "rollDeg": -90
               },
               {
-                "t": 0.9741,
+                "t": 0.974,
                 "station": -100,
                 "parts": [
                   "the backrest"
@@ -25155,7 +24343,7 @@ export const PRECOMPUTED: Precomputed = {
               }
             ],
             "turns": false,
-            "holdsForWallsUpTo": 30
+            "holdsForWallsUpTo": 12
           },
           {
             "templateId": "lean-and-straighten",
@@ -25306,14 +24494,14 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 0,
-              "y": 132,
+              "y": 114,
               "z": 0,
               "yaw": 1.5707963267948966,
               "pitch": 0,
               "tiltAxis": "x"
             }
           ],
-          "wallThickness": 30,
+          "wallThickness": 12,
           "holdsForWallsUpTo": 100
         },
         {
@@ -25534,7 +24722,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 45,
-              "y": 82,
+              "y": 64,
               "z": 100,
               "yaw": 0,
               "pitch": -1.5707963267948966,
@@ -25542,7 +24730,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 45,
-              "y": 82,
+              "y": 64,
               "z": 102,
               "yaw": 0,
               "pitch": -1.5707963267948966,
@@ -25550,7 +24738,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 45,
-              "y": 82,
+              "y": 64,
               "z": 101.61946980917456,
               "yaw": 0,
               "pitch": -1.4835298641951802,
@@ -25558,7 +24746,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 45,
-              "y": 82,
+              "y": 64,
               "z": 100.48077530122082,
               "yaw": 0,
               "pitch": -1.3962634015954636,
@@ -25566,7 +24754,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 45,
-              "y": 82,
+              "y": 64,
               "z": 98.59258262890683,
               "yaw": 0,
               "pitch": -1.3089969389957472,
@@ -25574,7 +24762,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 45,
-              "y": 82,
+              "y": 64,
               "z": 95.96926207859083,
               "yaw": 0,
               "pitch": -1.2217304763960306,
@@ -25582,7 +24770,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 45,
-              "y": 82,
+              "y": 64,
               "z": 92.63077870366499,
               "yaw": 0,
               "pitch": -1.1344640137963142,
@@ -25590,7 +24778,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 45,
-              "y": 82,
+              "y": 64,
               "z": 88.60254037844388,
               "yaw": 0,
               "pitch": -1.0471975511965979,
@@ -25598,7 +24786,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 45,
-              "y": 82,
+              "y": 64,
               "z": 83.91520442889917,
               "yaw": 0,
               "pitch": -0.9599310885968813,
@@ -25606,7 +24794,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 45,
-              "y": 82,
+              "y": 64,
               "z": 78.60444431189781,
               "yaw": 0,
               "pitch": -0.8726646259971648,
@@ -25614,7 +24802,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 45,
-              "y": 82,
+              "y": 64,
               "z": 72.71067811865474,
               "yaw": 0,
               "pitch": -0.7853981633974483,
@@ -25622,7 +24810,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 45,
-              "y": 82,
+              "y": 64,
               "z": 66.27876096865393,
               "yaw": 0,
               "pitch": -0.6981317007977318,
@@ -25630,7 +24818,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 45,
-              "y": 82,
+              "y": 64,
               "z": 59.357643635104615,
               "yaw": 0,
               "pitch": -0.6108652381980154,
@@ -25638,7 +24826,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 45,
-              "y": 82,
+              "y": 64,
               "z": 52,
               "yaw": 0,
               "pitch": -0.5235987755982989,
@@ -25646,7 +24834,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 45,
-              "y": 82,
+              "y": 64,
               "z": 44.26182617406994,
               "yaw": 0,
               "pitch": -0.43633231299858233,
@@ -25654,7 +24842,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 45,
-              "y": 82,
+              "y": 64,
               "z": 36.202014332566876,
               "yaw": 0,
               "pitch": -0.34906585039886595,
@@ -25662,7 +24850,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 45,
-              "y": 82,
+              "y": 64,
               "z": 27.881904510252088,
               "yaw": 0,
               "pitch": -0.2617993877991496,
@@ -25670,7 +24858,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 45,
-              "y": 82,
+              "y": 64,
               "z": 19.364817766693037,
               "yaw": 0,
               "pitch": -0.17453292519943298,
@@ -25678,7 +24866,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 45,
-              "y": 82,
+              "y": 64,
               "z": 10.715574274765807,
               "yaw": 0,
               "pitch": -0.08726646259971638,
@@ -25686,14 +24874,14 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 45,
-              "y": 82,
+              "y": 64,
               "z": 2,
               "yaw": 0,
               "pitch": 0,
               "tiltAxis": "y"
             }
           ],
-          "wallThickness": 30,
+          "wallThickness": 12,
           "holdsForWallsUpTo": 100
         },
         {
@@ -25727,7 +24915,7 @@ export const PRECOMPUTED: Precomputed = {
               "name": "Thread it through, turning as it goes",
               "nameHe": "להשחיל אותה דרך הפתח תוך סיבוב",
               "startIndex": 20,
-              "endIndex": 254,
+              "endIndex": 236,
               "requirement": {
                 "doorWidth": 90.01,
                 "doorHeight": 118.53,
@@ -25740,8 +24928,8 @@ export const PRECOMPUTED: Precomputed = {
               "id": "straighten",
               "name": "Straighten it up in the room",
               "nameHe": "ליישר אותה בחדר",
-              "startIndex": 254,
-              "endIndex": 276,
+              "startIndex": 236,
+              "endIndex": 258,
               "requirement": {
                 "doorWidth": 0,
                 "doorHeight": 0,
@@ -25754,8 +24942,8 @@ export const PRECOMPUTED: Precomputed = {
               "id": "set-down",
               "name": "Set it down",
               "nameHe": "להניח אותה",
-              "startIndex": 276,
-              "endIndex": 277,
+              "startIndex": 258,
+              "endIndex": 259,
               "requirement": {
                 "doorWidth": 0,
                 "doorHeight": 0,
@@ -27615,152 +26803,8 @@ export const PRECOMPUTED: Precomputed = {
               "tiltAxis": "x"
             },
             {
-              "x": 44.99843837327465,
-              "y": 109,
-              "z": 52,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 44.99843837327465,
-              "y": 110,
-              "z": 52,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 44.99843837327465,
-              "y": 111,
-              "z": 52,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 44.99843837327465,
-              "y": 112,
-              "z": 52,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 44.99843837327465,
-              "y": 113,
-              "z": 52,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 44.99843837327465,
-              "y": 114,
-              "z": 52,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 44.99843837327465,
-              "y": 115,
-              "z": 52,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 44.99843837327465,
-              "y": 116,
-              "z": 52,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 44.99843837327465,
-              "y": 117,
-              "z": 52,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 44.99843837327465,
-              "y": 118,
-              "z": 52,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 44.99843837327465,
-              "y": 119,
-              "z": 52,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 44.99843837327465,
-              "y": 120,
-              "z": 52,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 44.99843837327465,
-              "y": 121,
-              "z": 52,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 44.99843837327465,
-              "y": 122,
-              "z": 52,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 44.99843837327465,
-              "y": 123,
-              "z": 52,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 44.99843837327465,
-              "y": 124,
-              "z": 52,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 44.99843837327465,
-              "y": 125,
-              "z": 52,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
-              "x": 44.99843837327465,
-              "y": 126,
-              "z": 52,
-              "yaw": 1.5707963267948966,
-              "pitch": -1.5707963267948966,
-              "tiltAxis": "x"
-            },
-            {
               "x": 42.38164056112747,
-              "y": 127,
+              "y": 109,
               "z": 56.64171279959362,
               "yaw": 1.5707963267948966,
               "pitch": -1.6231562043547263,
@@ -27768,7 +26812,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 39.772015209891975,
-              "y": 128,
+              "y": 110,
               "z": 61.13365646250247,
               "yaw": 1.5707963267948966,
               "pitch": -1.6755160819145563,
@@ -27776,7 +26820,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 37.1767151212631,
-              "y": 129,
+              "y": 111,
               "z": 65.46351888337767,
               "yaw": 1.5707963267948966,
               "pitch": -1.7278759594743864,
@@ -27784,7 +26828,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 34.6028538323867,
-              "y": 130,
+              "y": 112,
               "z": 69.61943221028861,
               "yaw": 1.5707963267948966,
               "pitch": -1.780235837034216,
@@ -27792,7 +26836,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 34.6028538323867,
-              "y": 131,
+              "y": 113,
               "z": 73.59000537368028,
               "yaw": 1.5707963267948966,
               "pitch": -1.8325957145940461,
@@ -27800,7 +26844,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 34.6028538323867,
-              "y": 132,
+              "y": 114,
               "z": 77.36435530850294,
               "yaw": 1.5707963267948966,
               "pitch": -1.8849555921538759,
@@ -27808,7 +26852,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 34.6028538323867,
-              "y": 132,
+              "y": 114,
               "z": 71.08530491543546,
               "yaw": 1.5707963267948966,
               "pitch": -1.7992757925105178,
@@ -27816,7 +26860,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 34.6028538323867,
-              "y": 132,
+              "y": 114,
               "z": 64.29940753864228,
               "yaw": 1.5707963267948966,
               "pitch": -1.7135959928671598,
@@ -27824,7 +26868,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 34.6028538323867,
-              "y": 132,
+              "y": 114,
               "z": 57.056448173955886,
               "yaw": 1.5707963267948966,
               "pitch": -1.6279161932238018,
@@ -27832,7 +26876,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 34.6028538323867,
-              "y": 132,
+              "y": 114,
               "z": 51.97960964140946,
               "yaw": 1.5707963267948966,
               "pitch": -1.542236393580444,
@@ -27840,7 +26884,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 34.6028538323867,
-              "y": 132,
+              "y": 114,
               "z": 51.67408676742751,
               "yaw": 1.5707963267948966,
               "pitch": -1.456556593937086,
@@ -27848,7 +26892,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 34.6028538323867,
-              "y": 132,
+              "y": 114,
               "z": 51.00412805461967,
               "yaw": 1.5707963267948966,
               "pitch": -1.3708767942937279,
@@ -27856,7 +26900,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 34.6028538323867,
-              "y": 132,
+              "y": 114,
               "z": 49.97464868072488,
               "yaw": 1.5707963267948966,
               "pitch": -1.28519699465037,
@@ -27864,7 +26908,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 34.6028538323867,
-              "y": 132,
+              "y": 114,
               "z": 48.59320146057262,
               "yaw": 1.5707963267948966,
               "pitch": -1.199517195007012,
@@ -27872,7 +26916,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 34.6028538323867,
-              "y": 132,
+              "y": 114,
               "z": 46.86992143456792,
               "yaw": 1.5707963267948966,
               "pitch": -1.113837395363654,
@@ -27880,7 +26924,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 34.6028538323867,
-              "y": 132,
+              "y": 114,
               "z": 44.817451512579446,
               "yaw": 1.5707963267948966,
               "pitch": -1.028157595720296,
@@ -27888,7 +26932,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 34.6028538323867,
-              "y": 132,
+              "y": 114,
               "z": 42.45084971874737,
               "yaw": 1.5707963267948966,
               "pitch": -0.9424777960769379,
@@ -27896,7 +26940,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 34.6028538323867,
-              "y": 132,
+              "y": 114,
               "z": 39.787478717712915,
               "yaw": 1.5707963267948966,
               "pitch": -0.8567979964335799,
@@ -27904,7 +26948,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 34.6028538323867,
-              "y": 132,
+              "y": 114,
               "z": 36.84687843276467,
               "yaw": 1.5707963267948966,
               "pitch": -0.7711181967902219,
@@ -27912,7 +26956,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 34.6028538323867,
-              "y": 132,
+              "y": 114,
               "z": 33.65062269044353,
               "yaw": 1.5707963267948966,
               "pitch": -0.685438397146864,
@@ -27920,7 +26964,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 34.6028538323867,
-              "y": 132,
+              "y": 114,
               "z": 30.22216094333846,
               "yaw": 1.5707963267948966,
               "pitch": -0.599758597503506,
@@ -27928,7 +26972,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 34.6028538323867,
-              "y": 132,
+              "y": 114,
               "z": 26.58664623228019,
               "yaw": 1.5707963267948966,
               "pitch": -0.514078797860148,
@@ -27936,7 +26980,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 34.6028538323867,
-              "y": 132,
+              "y": 114,
               "z": 22.770750650094328,
               "yaw": 1.5707963267948966,
               "pitch": -0.42839899821679017,
@@ -27944,7 +26988,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 34.6028538323867,
-              "y": 132,
+              "y": 114,
               "z": 18.8024696607715,
               "yaw": 1.5707963267948966,
               "pitch": -0.3427191985734319,
@@ -27952,7 +26996,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 34.6028538323867,
-              "y": 132,
+              "y": 114,
               "z": 14.710916709674343,
               "yaw": 1.5707963267948966,
               "pitch": -0.2570393989300739,
@@ -27960,7 +27004,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 34.6028538323867,
-              "y": 132,
+              "y": 114,
               "z": 10.526109631631194,
               "yaw": 1.5707963267948966,
               "pitch": -0.17135959928671607,
@@ -27968,7 +27012,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 34.6028538323867,
-              "y": 132,
+              "y": 114,
               "z": 6.278750423942,
               "yaw": 1.5707963267948966,
               "pitch": -0.08567979964335826,
@@ -27976,7 +27020,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 34.6028538323867,
-              "y": 132,
+              "y": 114,
               "z": 2,
               "yaw": 1.5707963267948966,
               "pitch": 0,
@@ -27984,14 +27028,14 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 34.6028538323867,
-              "y": 132,
+              "y": 114,
               "z": 0,
               "yaw": 1.5707963267948966,
               "pitch": 0,
               "tiltAxis": "x"
             }
           ],
-          "wallThickness": 30,
+          "wallThickness": 12,
           "holdsForWallsUpTo": 100
         },
         {
@@ -28384,7 +27428,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 102,
               "yaw": 1.5707963267948966,
               "pitch": -1.5707963267948966,
@@ -28392,7 +27436,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 102,
               "yaw": 1.4835298641951802,
               "pitch": -1.5707963267948966,
@@ -28400,7 +27444,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 102,
               "yaw": 1.3962634015954636,
               "pitch": -1.5707963267948966,
@@ -28408,7 +27452,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 102,
               "yaw": 1.3089969389957472,
               "pitch": -1.5707963267948966,
@@ -28416,7 +27460,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 102,
               "yaw": 1.2217304763960306,
               "pitch": -1.5707963267948966,
@@ -28424,7 +27468,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 102,
               "yaw": 1.1344640137963142,
               "pitch": -1.5707963267948966,
@@ -28432,7 +27476,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 102,
               "yaw": 1.0471975511965976,
               "pitch": -1.5707963267948966,
@@ -28440,7 +27484,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 102,
               "yaw": 0.9599310885968813,
               "pitch": -1.5707963267948966,
@@ -28448,7 +27492,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 102,
               "yaw": 0.8726646259971648,
               "pitch": -1.5707963267948966,
@@ -28456,7 +27500,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 102,
               "yaw": 0.7853981633974483,
               "pitch": -1.5707963267948966,
@@ -28464,7 +27508,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 102,
               "yaw": 0.6981317007977318,
               "pitch": -1.5707963267948966,
@@ -28472,7 +27516,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 102,
               "yaw": 0.6108652381980153,
               "pitch": -1.5707963267948966,
@@ -28480,7 +27524,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 102,
               "yaw": 0.5235987755982988,
               "pitch": -1.5707963267948966,
@@ -28488,7 +27532,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 102,
               "yaw": 0.4363323129985824,
               "pitch": -1.5707963267948966,
@@ -28496,7 +27540,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 102,
               "yaw": 0.3490658503988659,
               "pitch": -1.5707963267948966,
@@ -28504,7 +27548,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 102,
               "yaw": 0.2617993877991494,
               "pitch": -1.5707963267948966,
@@ -28512,7 +27556,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 102,
               "yaw": 0.17453292519943295,
               "pitch": -1.5707963267948966,
@@ -28520,7 +27564,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 102,
               "yaw": 0.08726646259971647,
               "pitch": -1.5707963267948966,
@@ -28528,7 +27572,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 102,
               "yaw": 0,
               "pitch": -1.5707963267948966,
@@ -28536,7 +27580,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 101.61946980917456,
               "yaw": 0,
               "pitch": -1.4835298641951802,
@@ -28544,7 +27588,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 100.48077530122082,
               "yaw": 0,
               "pitch": -1.3962634015954636,
@@ -28552,7 +27596,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 98.59258262890683,
               "yaw": 0,
               "pitch": -1.3089969389957472,
@@ -28560,7 +27604,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 95.96926207859083,
               "yaw": 0,
               "pitch": -1.2217304763960306,
@@ -28568,7 +27612,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 92.63077870366499,
               "yaw": 0,
               "pitch": -1.1344640137963142,
@@ -28576,7 +27620,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 88.60254037844386,
               "yaw": 0,
               "pitch": -1.0471975511965976,
@@ -28584,7 +27628,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 83.91520442889917,
               "yaw": 0,
               "pitch": -0.9599310885968813,
@@ -28592,7 +27636,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 78.60444431189781,
               "yaw": 0,
               "pitch": -0.8726646259971648,
@@ -28600,7 +27644,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 72.71067811865474,
               "yaw": 0,
               "pitch": -0.7853981633974483,
@@ -28608,7 +27652,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 66.27876096865393,
               "yaw": 0,
               "pitch": -0.6981317007977318,
@@ -28616,7 +27660,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 59.35764363510461,
               "yaw": 0,
               "pitch": -0.6108652381980153,
@@ -28624,7 +27668,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 51.99999999999999,
               "yaw": 0,
               "pitch": -0.5235987755982988,
@@ -28632,7 +27676,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 44.26182617406995,
               "yaw": 0,
               "pitch": -0.4363323129985824,
@@ -28640,7 +27684,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 36.202014332566876,
               "yaw": 0,
               "pitch": -0.3490658503988659,
@@ -28648,7 +27692,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 27.88190451025207,
               "yaw": 0,
               "pitch": -0.2617993877991494,
@@ -28656,7 +27700,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 19.364817766693033,
               "yaw": 0,
               "pitch": -0.17453292519943295,
@@ -28664,7 +27708,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 10.715574274765817,
               "yaw": 0,
               "pitch": -0.08726646259971647,
@@ -28672,7 +27716,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 2,
               "yaw": 0,
               "pitch": 0,
@@ -28680,14 +27724,14 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 0,
               "yaw": 0,
               "pitch": 0,
               "tiltAxis": "y"
             }
           ],
-          "wallThickness": 30,
+          "wallThickness": 12,
           "holdsForWallsUpTo": 100
         },
         {
@@ -29066,7 +28110,7 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 102,
               "yaw": 1.5707963267948966,
               "pitch": -1.5707963267948966,
@@ -29074,15 +28118,15 @@ export const PRECOMPUTED: Precomputed = {
             },
             {
               "x": 3.552713678800501e-15,
-              "y": 122,
+              "y": 104,
               "z": 100,
               "yaw": 1.5707963267948966,
               "pitch": -1.5707963267948966,
               "tiltAxis": "y"
             }
           ],
-          "wallThickness": 30,
-          "holdsForWallsUpTo": 30
+          "wallThickness": 12,
+          "holdsForWallsUpTo": 12
         }
       ],
       "modules": []
@@ -29092,7 +28136,7 @@ export const PRECOMPUTED: Precomputed = {
     "params": {
       "openingWidth": 90,
       "openingHeight": 210,
-      "wallThickness": 30,
+      "wallThickness": 12,
       "hallwayWidth": 300,
       "hallwayDepth": 320,
       "roomDepth": 400,
@@ -29318,7 +28362,7 @@ export const PRECOMPUTED: Precomputed = {
         },
         {
           "x": 27.500000000000004,
-          "y": 142,
+          "y": 124,
           "z": 47.5,
           "yaw": 1.5707963267948966,
           "pitch": -1.5707963267948966,
@@ -29326,7 +28370,7 @@ export const PRECOMPUTED: Precomputed = {
         },
         {
           "x": 27.500000000000004,
-          "y": 142,
+          "y": 124,
           "z": 49.5,
           "yaw": 1.5707963267948966,
           "pitch": -1.5707963267948966,
@@ -29334,7 +28378,7 @@ export const PRECOMPUTED: Precomputed = {
         },
         {
           "x": 27.500000000000004,
-          "y": 142,
+          "y": 124,
           "z": 49.31924815935791,
           "yaw": 1.5707963267948966,
           "pitch": -1.4835298641951802,
@@ -29342,7 +28386,7 @@ export const PRECOMPUTED: Precomputed = {
         },
         {
           "x": 27.500000000000004,
-          "y": 142,
+          "y": 124,
           "z": 48.77836826807987,
           "yaw": 1.5707963267948966,
           "pitch": -1.3962634015954636,
@@ -29350,7 +28394,7 @@ export const PRECOMPUTED: Precomputed = {
         },
         {
           "x": 27.500000000000004,
-          "y": 142,
+          "y": 124,
           "z": 48.383022033256815,
           "yaw": 1.5707963267948966,
           "pitch": -1.3089969389957472,
@@ -29358,7 +28402,7 @@ export const PRECOMPUTED: Precomputed = {
         },
         {
           "x": 27.500000000000004,
-          "y": 142,
+          "y": 124,
           "z": 48.476777464464995,
           "yaw": 1.5707963267948966,
           "pitch": -1.2217304763960306,
@@ -29366,7 +28410,7 @@ export const PRECOMPUTED: Precomputed = {
         },
         {
           "x": 27.500000000000004,
-          "y": 142,
+          "y": 124,
           "z": 48.216816555723085,
           "yaw": 1.5707963267948966,
           "pitch": -1.1344640137963142,
@@ -29374,7 +28418,7 @@ export const PRECOMPUTED: Precomputed = {
         },
         {
           "x": 27.500000000000004,
-          "y": 142,
+          "y": 124,
           "z": 47.605117766515306,
           "yaw": 1.5707963267948966,
           "pitch": -1.0471975511965979,
@@ -29382,7 +28426,7 @@ export const PRECOMPUTED: Precomputed = {
         },
         {
           "x": 27.500000000000004,
-          "y": 142,
+          "y": 124,
           "z": 46.64633649398132,
           "yaw": 1.5707963267948966,
           "pitch": -0.9599310885968813,
@@ -29390,7 +28434,7 @@ export const PRECOMPUTED: Precomputed = {
         },
         {
           "x": 27.500000000000004,
-          "y": 142,
+          "y": 124,
           "z": 45.34776964253312,
           "yaw": 1.5707963267948966,
           "pitch": -0.8726646259971648,
@@ -29398,7 +28442,7 @@ export const PRECOMPUTED: Precomputed = {
         },
         {
           "x": 27.500000000000004,
-          "y": 142,
+          "y": 124,
           "z": 43.71930009000631,
           "yaw": 1.5707963267948966,
           "pitch": -0.7853981633974483,
@@ -29406,7 +28450,7 @@ export const PRECOMPUTED: Precomputed = {
         },
         {
           "x": 27.500000000000004,
-          "y": 142,
+          "y": 124,
           "z": 41.77332147299239,
           "yaw": 1.5707963267948966,
           "pitch": -0.6981317007977318,
@@ -29414,7 +28458,7 @@ export const PRECOMPUTED: Precomputed = {
         },
         {
           "x": 27.500000000000004,
-          "y": 142,
+          "y": 124,
           "z": 39.52464386378091,
           "yaw": 1.5707963267948966,
           "pitch": -0.6108652381980154,
@@ -29422,7 +28466,7 @@ export const PRECOMPUTED: Precomputed = {
         },
         {
           "x": 27.500000000000004,
-          "y": 142,
+          "y": 124,
           "z": 36.99038105676658,
           "yaw": 1.5707963267948966,
           "pitch": -0.5235987755982989,
@@ -29430,7 +28474,7 @@ export const PRECOMPUTED: Precomputed = {
         },
         {
           "x": 27.500000000000004,
-          "y": 142,
+          "y": 124,
           "z": 34.18982032214052,
           "yaw": 1.5707963267948966,
           "pitch": -0.43633231299858233,
@@ -29438,7 +28482,7 @@ export const PRECOMPUTED: Precomputed = {
         },
         {
           "x": 27.500000000000004,
-          "y": 142,
+          "y": 124,
           "z": 31.14427561811805,
           "yaw": 1.5707963267948966,
           "pitch": -0.34906585039886595,
@@ -29446,7 +28490,7 @@ export const PRECOMPUTED: Precomputed = {
         },
         {
           "x": 27.500000000000004,
-          "y": 142,
+          "y": 124,
           "z": 27.876925378846945,
           "yaw": 1.5707963267948966,
           "pitch": -0.2617993877991496,
@@ -29454,7 +28498,7 @@ export const PRECOMPUTED: Precomputed = {
         },
         {
           "x": 27.500000000000004,
-          "y": 142,
+          "y": 124,
           "z": 24.412636112528055,
           "yaw": 1.5707963267948966,
           "pitch": -0.17453292519943298,
@@ -29462,7 +28506,7 @@ export const PRECOMPUTED: Precomputed = {
         },
         {
           "x": 27.500000000000004,
-          "y": 142,
+          "y": 124,
           "z": 20.777773152273138,
           "yaw": 1.5707963267948966,
           "pitch": -0.08726646259971638,
@@ -29470,20 +28514,20 @@ export const PRECOMPUTED: Precomputed = {
         },
         {
           "x": 27.500000000000004,
-          "y": 142,
+          "y": 124,
           "z": 17,
           "yaw": 1.5707963267948966,
           "pitch": 0,
           "tiltAxis": "x"
         }
       ],
-      "micros": 47
+      "micros": 75
     },
     "planner": {
       "feasible": false,
       "reason": "search-budget-exhausted",
       "nodes": 1200000,
-      "ms": 3260,
+      "ms": 13775,
       "budget": 1200000
     },
     "proof": {

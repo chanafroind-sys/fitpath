@@ -34,9 +34,10 @@ import { prepareItem } from '../../../packages/engine/src/geometry/collide.ts';
 import type { EnvironmentParams } from '../../../packages/engine/src/index.ts';
 
 /**
- * The wall every maneuver is validated behind: the engine's default, 30 cm.
- * It used to be 15 here, silently, and every published figure was for a stud
- * partition. Each maneuver now records how thick a wall its numbers hold for.
+ * The wall every maneuver is validated behind: the engine's default, an
+ * ordinary 12 cm interior partition. It used to be 15 here, silently, and
+ * then 30 on the argument that thicker is safer; now each maneuver records
+ * how thick a wall its numbers hold for, and the report says so.
  */
 const WALL = DEFAULT_WALL_THICKNESS;
 const HERO_WIDTH = 90;

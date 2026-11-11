@@ -10,6 +10,7 @@
 import {
   CORNER_SOFA,
   DEEP_SEAT_LOUNGE,
+  DEFAULT_WALL_THICKNESS,
   LEGS_MUST_COME_OFF,
   NARROW_HALLWAY,
   RECLINER_2_SEAT,
@@ -100,7 +101,7 @@ const scene = (id: string): EnvironmentParams =>
   PRECOMPUTED.scenes[id] ?? {
     openingWidth: 110,
     openingHeight: 210,
-    wallThickness: 30,
+    wallThickness: DEFAULT_WALL_THICKNESS,
     hallwayWidth: 240,
     hallwayDepth: 360,
     roomDepth: 400,
@@ -114,7 +115,7 @@ const SLIM_DEFAULTS = scene('slim-arm-2-seat');
 const CORNER_DEFAULTS: EnvironmentParams = {
   openingWidth: 170,      // רוחב הפתח (Opening width)
   openingHeight: 190,    // גובה הפתח (Opening height)
-  wallThickness: 30,     // עובי הקיר
+  wallThickness: DEFAULT_WALL_THICKNESS,     // עובי הקיר
   hallwayWidth: 300,     // רוחב המסדרון לאורך הקיר
   hallwayDepth: 360,     // עומק לפני הדלת
   roomDepth: 400,        // עומק החדר מאחורי הדלת
@@ -252,7 +253,7 @@ export function retailDimensions(product: Product): RetailDimensions {
 const COMPARE_SHARED: Omit<EnvironmentParams, 'hallwayWidth'> = {
   openingWidth: 110,
   openingHeight: 210,
-  wallThickness: 30,
+  wallThickness: DEFAULT_WALL_THICKNESS,
   hallwayDepth: 320,
   roomDepth: 400,
   roomWidth: 400,
