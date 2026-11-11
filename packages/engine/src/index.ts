@@ -121,10 +121,13 @@ export {
 export {
   DEFAULT_WALL_THICKNESS,
   THICK_WALL_BOUND,
+  WALL_THICKNESSES_IN_HOMES,
   buildLibrary,
+  buildLibraryForWalls,
   buildManeuver,
   wallThicknessBound,
   type Library,
+  type LibraryBehindWall,
   type ManeuverOutcome,
 } from './maneuvers/build.ts';
 export {

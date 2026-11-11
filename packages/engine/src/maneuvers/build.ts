@@ -26,21 +26,40 @@ const MEASURE_STEP = 0.25;
 const PRECISION = 0.01;
 
 /**
- * The wall thickness assumed when a caller does not say.
+ * The wall thickness assumed when a caller does not say: an ordinary interior
+ * partition, which is the wall the narrowest doorway on the way in is almost
+ * always in.
  *
- * 30 cm rather than the 15 cm of a stud partition, because a library answer
- * is only as safe as its thickest assumption: a shopper with a masonry wall
- * measured against a 15 cm library would be handed a doorway number that is
- * too small. Callers with a thinner wall lose nothing but a little margin;
- * callers with a thicker one are told so — see `Maneuver.holdsForWallsUpTo`.
+ * 12 cm is what such a wall measures, in the places this was checked: a
+ * timber stud partition is 89 mm of stud and two 12.5 mm boards, 114 mm; a
+ * 100 mm block partition plastered both sides is 125 mm; an Israeli 10 cm
+ * block partition finished is 12–13 cm, and the door frames sold for it come
+ * in 10, 12, 15 and 20 cm widths. Load-bearing interior walls run 17–25 cm
+ * and exterior walls 25–40, which is what `WALL_THICKNESSES_IN_HOMES` is for.
+ *
+ * It used to be 30, on the argument that a library is only as safe as its
+ * thickest assumption. That argument is now carried by the measurements
+ * instead of the default: every maneuver says how thick a wall its numbers
+ * hold for, `buildLibraryForWalls` measures the ones that depend on it behind
+ * each wall a home can have, and a consumer states the condition only where
+ * a thicker wall would change its answer.
  */
-export const DEFAULT_WALL_THICKNESS = 30;
+export const DEFAULT_WALL_THICKNESS = 12;
+
+/**
+ * The walls a home can have around a doorway, thinnest first: a partition,
+ * a load-bearing interior wall, and two thicknesses of exterior wall. A
+ * consumer answering for a wall it has not been told builds behind each of
+ * these and finds out whether the thickness changes its answer at all.
+ */
+export const WALL_THICKNESSES_IN_HOMES: readonly number[] = [12, 20, 30, 40];
 
 /**
  * The wall every maneuver is also built behind, to find out whether its
- * requirement depends on the thickness at all. Thicker than any wall in a
+ * requirement depends on the thickness at all. Far thicker than any wall in a
  * house; a maneuver that needs the same doorway behind this holds for every
- * wall a shopper will measure.
+ * wall a shopper will measure. It is a device of the proof, not a figure for
+ * a person: nothing should ever print "holds up to 100 cm".
  */
 export const THICK_WALL_BOUND = 100;
 
@@ -389,4 +408,64 @@ export function buildLibrary(
     }
   }
   return { maneuvers, rejected };
+}
+
+export interface LibraryBehindWall {
+  wallThickness: number;
+  library: Library;
+}
+
+/**
+ * The library behind each of several walls, thinnest first, for a consumer
+ * that has to answer for a wall nobody has measured.
+ *
+ * Thicker is strictly harder, so a maneuver whose numbers are known to hold
+ * behind a thicker wall than the one in hand is simply kept: `Straight in`
+ * built behind 12 cm holds to 100 and is the same object at every thickness.
+ * Only the maneuvers whose requirement depends on the wall — the ones whose
+ * `holdsForWallsUpTo` is the thickness they were built at — are built again
+ * behind the next one, and each of those says again how far it holds. A
+ * template that does not apply behind a thicker wall is missing from that
+ * wall's library, which is the honest shape: the lean gets a three-seater
+ * through 82.72 cm behind 12, 20 and 30 cm of wall and does nothing behind 40.
+ */
+export function buildLibraryForWalls(
+  item: PreparedItem,
+  thicknesses: readonly number[] = WALL_THICKNESSES_IN_HOMES,
+  templates: readonly ManeuverTemplate[] = TEMPLATES,
+): LibraryBehindWall[] {
+  const sorted = [...new Set(thicknesses)].sort((a, b) => a - b);
+  const out: LibraryBehindWall[] = [];
+  let previous: Library | undefined;
+  for (const wallThickness of sorted) {
+    if (previous === undefined) {
+      previous = buildLibrary(item, wallThickness, templates);
+      out.push({ wallThickness, library: previous });
+      continue;
+    }
+    const maneuvers: Maneuver[] = [];
+    const rejected: Library['rejected'] = [];
+    for (const template of templates) {
+      const known = previous.maneuvers.find(
+        (m) => m.templateId === template.id && m.holdsForWallsUpTo >= wallThickness,
+      );
+      if (known !== undefined) {
+        maneuvers.push(known);
+        continue;
+      }
+      const outcome = buildManeuver(item, template, wallThickness);
+      if (outcome.ok) {
+        const maneuver = outcome.maneuver;
+        maneuver.holdsForWallsUpTo = template.wallSensitive
+          ? wallThickness
+          : wallThicknessBound(item, template, maneuver);
+        maneuvers.push(maneuver);
+      } else {
+        rejected.push({ templateId: outcome.templateId, name: outcome.name, reason: outcome.reason });
+      }
+    }
+    previous = { maneuvers, rejected };
+    out.push({ wallThickness, library: previous });
+  }
+  return out;
 }

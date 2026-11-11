@@ -97,7 +97,7 @@ export interface OnboardedItem {
 export interface OnboardOptions {
   /**
    * Wall thickness the maneuvers are validated against, in centimetres.
-   * Default `DEFAULT_WALL_THICKNESS`, 30. Every report produced says which
+   * Default `DEFAULT_WALL_THICKNESS`, 12. Every report produced says which
    * figures hold for thicker walls and which do not.
    */
   wallThicknessCm?: number;

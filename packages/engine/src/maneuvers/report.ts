@@ -394,6 +394,11 @@ export function reportOn(item: Item, wallThickness = DEFAULT_WALL_THICKNESS): It
  * Which maneuvers need the same doorway behind any wall, and which were
  * measured behind this one and are not known to hold behind a thicker one.
  * A page that publishes the figures should publish this beside them.
+ *
+ * "Any wall" means the maneuver was built again behind `THICK_WALL_BOUND`
+ * and needed the same doorway. That number is a device of the proof and
+ * stays out of the sentence: no house has a metre of wall, and a figure
+ * that mentions one reads as though it does not know what a house is.
  */
 function wallStatements(
   maneuvers: readonly ManeuverLine[],
@@ -402,28 +407,27 @@ function wallStatements(
   const valid = maneuvers.filter((m) => m.valid);
   const anyWall = valid.filter((m) => (m.holdsForWallsUpTo ?? 0) > wallThickness);
   const thisWall = valid.filter((m) => (m.holdsForWallsUpTo ?? 0) <= wallThickness);
-  const bound = anyWall.reduce((least, m) => Math.min(least, m.holdsForWallsUpTo ?? Infinity), Infinity);
   const list = (lines: ManeuverLine[], he: boolean): string =>
     lines.map((m) => `“${he ? m.nameHe : m.name}”`).join(', ');
 
-  let en = `Measured against a wall ${wallThickness} cm thick. `;
-  let he = `נמדד מול קיר בעובי ${wallThickness} ס״מ. `;
+  let en = `Measured behind a wall ${wallThickness} cm thick. `;
+  let he = `נמדד מאחורי קיר בעובי ${wallThickness} ס״מ. `;
   if (valid.length === 0) {
     en += 'No maneuver validated.';
     he += 'אף תמרון לא אומת.';
   } else if (thisWall.length === 0) {
-    en += `Every maneuver needs the same doorway behind any wall up to ${bound} cm thick.`;
-    he += `כל תמרון דורש את אותו פתח מאחורי כל קיר בעובי של עד ${bound} ס״מ.`;
+    en += 'Every maneuver needs the same doorway behind any wall.';
+    he += 'כל תמרון דורש את אותו פתח מאחורי כל קיר.';
   } else if (anyWall.length === 0) {
-    en += `Every figure holds only for a wall no thicker than ${wallThickness} cm; a thicker wall is strictly harder and has not been measured.`;
-    he += `כל הנתונים תקפים רק לקיר שעוביו אינו עולה על ${wallThickness} ס״מ; קיר עבה יותר קשה יותר ולא נמדד.`;
+    en += `Every figure holds for a wall no thicker than ${wallThickness} cm; a thicker wall is strictly harder and has not been measured.`;
+    he += `כל הנתונים תקפים לקיר שעוביו אינו עולה על ${wallThickness} ס״מ; קיר עבה יותר קשה יותר ולא נמדד.`;
   } else {
     en +=
-      `${list(anyWall, false)} ${anyWall.length === 1 ? 'needs' : 'need'} the same doorway behind any wall up to ${bound} cm thick; ` +
-      `${list(thisWall, false)} ${thisWall.length === 1 ? 'holds' : 'hold'} only for a wall no thicker than ${wallThickness} cm — a thicker wall is strictly harder and has not been measured.`;
+      `${list(anyWall, false)} ${anyWall.length === 1 ? 'needs' : 'need'} the same doorway behind any wall; ` +
+      `${list(thisWall, false)} ${thisWall.length === 1 ? 'holds' : 'hold'} for a wall no thicker than ${wallThickness} cm — a thicker wall is strictly harder and has not been measured.`;
     he +=
-      `${list(anyWall, true)} — אותו פתח מאחורי כל קיר בעובי של עד ${bound} ס״מ; ` +
-      `${list(thisWall, true)} — רק לקיר שעוביו אינו עולה על ${wallThickness} ס״מ; קיר עבה יותר קשה יותר ולא נמדד.`;
+      `${list(anyWall, true)} — אותו פתח מאחורי כל קיר; ` +
+      `${list(thisWall, true)} — לקיר שעוביו אינו עולה על ${wallThickness} ס״מ; קיר עבה יותר קשה יותר ולא נמדד.`;
   }
   return { wallStatement: en, wallStatementHe: he };
 }

@@ -1098,25 +1098,44 @@ small, with nothing on the page to say so.
 
 Now:
 
-- `DEFAULT_WALL_THICKNESS` is **30 cm**, and `reportOn`, `buildLibrary` and
-  `onboardItem` all take an override.
+- `DEFAULT_WALL_THICKNESS` is **12 cm** — an ordinary interior partition,
+  which is the wall the narrowest doorway on the way in is almost always in.
+  Checked, not guessed: a timber stud partition is 89 mm of stud and two
+  12.5 mm boards, 114 mm; a 100 mm block partition plastered both sides is
+  125 mm; an Israeli 10 cm block partition finished is 12–13 cm, and the
+  door frames sold for it come in 10, 12, 15 and 20 cm. (It was 30 for a
+  round, on the argument that a library is only as safe as its thickest
+  assumption. That argument is now carried by the measurements below rather
+  than by the default.) `reportOn`, `buildLibrary` and `onboardItem` all
+  take an override.
 - Every `Maneuver` carries `wallThickness` (what it was measured behind) and
   `holdsForWallsUpTo`. The requirement is monotone in the thickness, so two
   measurements settle it: `buildLibrary` rebuilds each maneuver behind a
   `THICK_WALL_BOUND` wall of 100 cm, and one whose five numbers come out
   identical and still validate holds for every thickness between. Otherwise
   the bound equals the thickness it was built at, and the result says so.
+  The 100 is a device of the proof and never a figure for a person: no house
+  has a metre of wall, and `wallStatement` says "any wall" instead.
+- `WALL_THICKNESSES_IN_HOMES` is `[12, 20, 30, 40]` — a partition, a
+  load-bearing interior wall, two thicknesses of exterior wall — and
+  `buildLibraryForWalls(item)` builds the library behind each, keeping a
+  maneuver that is known to hold behind the thicker wall as the same object
+  and building again only the ones whose numbers depend on it. A consumer
+  that has not been told the wall answers for the thinnest and finds out
+  whether any thicker one would change its answer, so it can mention the wall
+  only where it matters.
 - `ItemReport.wallStatement` puts it in a sentence, so a page that publishes
   the figures publishes the assumption with them.
 
-Measured on the catalogue behind 30 cm: *Straight in*, *On its side* and
-*Seat first* need the same doorway behind a metre of wall on every sofa. The
-two *Stood on end* approaches, which turn near the wall, hold only to the
-30 cm they were measured at on three of the six, and the report says which.
-The doorway widths themselves did not move between 15 and 30 cm — 85.01,
-77.79, 85.01, 75.01, 100.00, 90.01 — because every one of them is a
-constant-orientation crossing, and a constant orientation presents the same
-section to any slab.
+Measured on the catalogue: *Straight in*, *On its side* and *Seat first*
+need the same doorway behind a metre of wall on every sofa. The two *Stood on
+end* approaches, which turn near the wall, hold only to the thickness they
+were measured at on three of the six, and the report says which. The doorway
+widths themselves do not move between 12 and 40 cm — 85.01, 77.79, 85.01,
+75.01, 100.00, 90.01 — because every one of them is a constant-orientation
+crossing, and a constant orientation presents the same section to any slab.
+The lean is the exception, and it is measured behind each wall in turn: see
+below.
 
 ### What the floor bounds, and what it does not
 
@@ -1274,14 +1293,20 @@ carry the middle level, lean the trailing end through, stand it up.
 
 | item | wall | door it needs | in front | along | behind | ceiling |
 | --- | ---: | --- | ---: | ---: | ---: | ---: |
-| 3-seat sofa | 30 cm | **82.72** x 147.96 | 236 | 197.5 | 236 | 244 |
+| 3-seat sofa | 12 cm | **82.74** x 113.79 | 236 | 198.5 | 236 | 215 |
 | 3-seat sofa | 15 cm | **82.72** x 116.83 | 236 | 198.5 | 236 | 244 |
+| 3-seat sofa | 20 cm | **82.72** x 122.96 | 236 | 197.5 | 236 | 229 |
+| 3-seat sofa | 30 cm | **82.72** x 147.96 | 236 | 197.5 | 236 | 244 |
+| 3-seat sofa | 40 cm | does not apply | | | | |
 
-The width is the same behind either wall; the height it needs is the one
-number that depends on the tunnel's depth. It is flagged `wallSensitive`, so
-`buildLibrary` does not rebuild it behind a thicker wall and it claims its
-requirement only for the thickness it was built at — the report's wall
-statement lists it with the two stood-on-end approaches. And `selectManeuver`
+The width is the same behind every wall it applies to (82.74 behind 12 cm is
+the schedule search's grid, not the wall — a witness found on a grid, not an
+optimum); the height and the ceiling it needs are the numbers that depend on
+the tunnel's depth, and behind 40 cm no lean beats the flat crossing at all.
+It is flagged `wallSensitive`, so `buildLibrary` does not rebuild it behind
+a thicker wall and it claims its requirement only for the thickness it was
+built at; `buildLibraryForWalls` measures it behind each wall a home has —
+the report's wall statement lists it with the two stood-on-end approaches. And `selectManeuver`
 offers it last: five separate motions and a doorway half again as tall are
 the price of a width nobody needs above 85, so at 110 cm it is an alternative
 and at 84 cm it is the answer.
@@ -1449,6 +1474,7 @@ convexHullMinimumWidth(boxes, resolution?) -> number                // a measure
 passageOutlook(item, openingWidth, openingHeight) -> PassageOutlook // never a verdict
 
 buildLibrary(item, wallThickness = DEFAULT_WALL_THICKNESS) -> Library   // every Maneuver says holdsForWallsUpTo
+buildLibraryForWalls(item, thicknesses = WALL_THICKNESSES_IN_HOMES) -> LibraryBehindWall[]  // thinnest first
 reportOn(item, wallThickness = DEFAULT_WALL_THICKNESS) -> ItemReport   // carries wallStatement
 wallThicknessBound(item, template, maneuver) -> number
 ```
