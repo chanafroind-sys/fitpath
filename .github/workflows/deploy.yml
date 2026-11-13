@@ -31,7 +31,10 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          # The sources run under native TypeScript type stripping, which is
+          # what lets every script here be a .ts file with no build step. The
+          # README asks for Node 24 or newer; CI should ask for the same.
+          node-version: '24'
           cache: npm
 
       - run: npm ci
